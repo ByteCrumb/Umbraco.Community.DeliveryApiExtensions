@@ -15,15 +15,11 @@ internal class DeliveryApiExtensionsManifestFilter : IManifestFilter
             Version = assembly.GetName()?.Version?.ToString(3) ?? "0.1.0",
             AllowPackageTelemetry = true,
             Scripts = new string[] {
-                // List any Script files
-                // Urls should start '/App_Plugins/DeliveryApiExtensions/' not '/wwwroot/DeliveryApiExtensions/', e.g.
-                // "/App_Plugins/DeliveryApiExtensions/Scripts/scripts.js"
+                "/App_Plugins/DeliveryApiExtensions/delivery-api-extensions.iife.js",
+                "/App_Plugins/DeliveryApiExtensions/preview.controller.js"
             },
             Stylesheets = new string[]
             {
-                // List any Stylesheet files
-                // Urls should start '/App_Plugins/DeliveryApiExtensions/' not '/wwwroot/DeliveryApiExtensions/', e.g.
-                // "/App_Plugins/DeliveryApiExtensions/Styles/styles.css"
             }
         });
     }
