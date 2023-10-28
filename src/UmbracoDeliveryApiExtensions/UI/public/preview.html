@@ -1,0 +1,39 @@
+﻿<div ng-controller="Umbraco.Community.DeliveryApiExtensions.Preview as vm">
+  <h1>Current node id: <b>{{vm.CurrentNodeId}}</b></h1>
+  <uui-icon-registry-essential>
+    <uui-box headline="API Preview">
+      <uui-radio-group name="publishedStatusGroup">
+        <uui-radio value="1">Saved</uui-radio>
+        <uui-radio value="2">Published</uui-radio>
+      </uui-radio-group>
+      <uui-scroll-container>
+        <code>
+          <pre>
+            Current node id: <b>{{vm.CurrentNodeId}}</b>
+            <p>123 234 12 Some content of this box, appended in the default slot.</p>
+            <p>The headline is currently rendered as a h5.</p>
+          </pre>
+        </code>
+      </uui-scroll-container>
+
+      <my-element>
+        <h1>Vite + Lit</h1>
+      </my-element>
+    </uui-box>
+  </uui-icon-registry-essential>
+  <umb-box>
+    <umb-box-header title="Amount of words for each property"></umb-box-header>
+    <umb-box-content>
+        <div ng-repeat="(key, value) in vm.propertyWordCount">
+            <p>Property: <span style="font-style:italic">{{key}}</span>, amount of words: <span style="font-style:italic">{{value}}</span> </p>
+        </div>
+        <hr />
+
+        <ul>
+            <li>Current node id: <b>{{vm.CurrentNodeId}}</b></li>
+            <li>Current node alias: <b>{{vm.CurrentNodeAlias}}</b></li>
+            <li>Current user: <b>{{vm.UserName}}</b></li>
+        </ul>
+    </umb-box-content>
+  </umb-box>
+</div>

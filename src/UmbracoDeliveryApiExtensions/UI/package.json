@@ -1,0 +1,22 @@
+{
+  "name": "delivery-api-extensions",
+  "private": true,
+  "version": "0.0.1",
+  "type": "module",
+  "scripts": {
+    "dev": "vite --base /",
+    "build": "tsc && vite build",
+    "watch": "chokidar src public -c \"tsc && vite build\" --initial"
+  },
+  "dependencies": {
+    "lit": "^2.7.6"
+  },
+  "devDependencies": {
+    "chokidar-cli": "^3.0.0",
+    "typescript": "^5.0.2",
+    "vite": "^4.4.5"
+  },
+  "volta": {
+    "node": "20.9.0"
+  }
+}
