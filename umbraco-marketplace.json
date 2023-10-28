@@ -1,0 +1,14 @@
+{
+    "$schema": "https://marketplace.umbraco.com/umbraco-marketplace-schema.json", 
+    "AuthorDetails": {
+      "Name": "ByteCrumb",
+      "ImageUrl": "https://github.com/ByteCrumb.png"
+    },
+    "Category": "",
+    "Description": "",
+    "LicenseTypes": [ "Free" ],
+    "IssueTrackerUrl": "https://github.com/ByteCrumb/Umbraco.Community.DeliveryApiExtensions/issues",
+    "PackageType": "Package",
+    "Tags": [],
+    "Title": "UmbracoDeliveryApiExtensions"
+  }
