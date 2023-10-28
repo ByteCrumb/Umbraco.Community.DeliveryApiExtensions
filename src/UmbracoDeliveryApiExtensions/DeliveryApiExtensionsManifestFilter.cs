@@ -1,3 +1,4 @@
+using System.Reflection;
 using Umbraco.Cms.Core.Manifest;
 
 namespace Umbraco.Community.DeliveryApiExtensions;
@@ -6,7 +7,7 @@ internal class DeliveryApiExtensionsManifestFilter : IManifestFilter
 {
     public void Filter(List<PackageManifest> manifests)
     {
-        var assembly = typeof(DeliveryApiExtensionsManifestFilter).Assembly;
+        Assembly assembly = typeof(DeliveryApiExtensionsManifestFilter).Assembly;
 
         manifests.Add(new PackageManifest
         {
