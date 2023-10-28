@@ -468,9 +468,9 @@ appsettings-schema.*.json
 /umbraco/Data/TEMP/
 
 # SQLite database files - enable if you don't want to commit your test DB to the repo
-#/umbraco/Data/*.sqlite.db
-#/umbraco/Data/*.sqlite.db-shm
-#/umbraco/Data/*.sqlite.db-wal
+/umbraco/Data/*.sqlite.db
+/umbraco/Data/*.sqlite.db-shm
+/umbraco/Data/*.sqlite.db-wal
 
 # Log files
 /umbraco/Logs/
@@ -478,5 +478,5 @@ appsettings-schema.*.json
 # Media files
 /wwwroot/media/
 
-# Test Site App_Plugins packages folder (exclude here as in UmbracoDeliveryApiExtensions project)
-/App_Plugins/UmbracoDeliveryApiExtensions/
+# Test Site App_Plugins packages folder (exclude here as in DeliveryApiExtensions project)
+/App_Plugins/DeliveryApiExtensions/

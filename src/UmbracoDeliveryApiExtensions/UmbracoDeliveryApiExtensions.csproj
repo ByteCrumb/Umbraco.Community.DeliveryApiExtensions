@@ -5,12 +5,12 @@
     <Nullable>enable</Nullable>
     <StaticWebAssetBasePath>App_Plugins</StaticWebAssetBasePath>
     <ContentTargetFolders>.</ContentTargetFolders>
-    <Product>Umbraco.Community.UmbracoDeliveryApiExtensions</Product>
-    <PackageId>Umbraco.Community.UmbracoDeliveryApiExtensions</PackageId>
-    <Title>UmbracoDeliveryApiExtensions</Title>
+    <Product>Umbraco.Community.DeliveryApiExtensions</Product>
+    <PackageId>Umbraco.Community.DeliveryApiExtensions</PackageId>
+    <Title>DeliveryApiExtensions</Title>
     <Description>...</Description>
     <PackageTags>umbraco;umbraco-marketplace</PackageTags>
-    <RootNamespace>Umbraco.Community.UmbracoDeliveryApiExtensions</RootNamespace>
+    <RootNamespace>Umbraco.Community.DeliveryApiExtensions</RootNamespace>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <Version>0.1.0</Version>
     <Authors>ByteCrumb</Authors>

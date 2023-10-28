@@ -5,6 +5,7 @@ VisualStudioVersion = 17.4.33020.496
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{2433F116-E6DA-45C8-8481-CB253C8C5B77}"
 	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
 		..\LICENSE = ..\LICENSE
 		..\.github\README.md = ..\.github\README.md
 		..\umbraco-marketplace.json = ..\umbraco-marketplace.json
