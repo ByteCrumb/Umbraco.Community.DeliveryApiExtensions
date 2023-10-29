@@ -1,0 +1,8 @@
+<Project Sdk="Microsoft.VisualStudio.JavaScript.Sdk/0.5.124-alpha">
+  <PropertyGroup>
+    <StartupCommand>npm run dev</StartupCommand>
+  </PropertyGroup>
+  <ItemGroup>
+    <Folder Include="src\data\" />
+  </ItemGroup>
+</Project>

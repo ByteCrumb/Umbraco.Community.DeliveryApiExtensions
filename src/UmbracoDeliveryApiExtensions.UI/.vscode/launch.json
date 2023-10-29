@@ -1,0 +1,13 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "edge",
+      "request": "launch",
+      "url": "http://localhost:5174",
+      "webRoot": "${workspaceFolder}",
+      "name": "Launch Edge",
+      "server": { "command": "npm run dev" }
+    }
+  ]
+}

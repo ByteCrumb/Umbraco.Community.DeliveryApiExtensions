@@ -7,7 +7,7 @@ export default defineConfig({
       name: "DeliveryApiExtensions",
       formats: ["es", "iife"],
     },
-    outDir: "../wwwroot/DeliveryApiExtensions",
+    outDir: "../UmbracoDeliveryApiExtensions/wwwroot/DeliveryApiExtensions",
     emptyOutDir: true,
     sourcemap: true,
     rollupOptions: {

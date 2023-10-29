@@ -28,7 +28,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\UmbracoDeliveryApiExtensions\UmbracoDeliveryApiExtensions.csproj" />
+    <ProjectReference Include="..\..\src\UmbracoDeliveryApiExtensions\UmbracoDeliveryApiExtensions.csproj" />
   </ItemGroup>
 
   <ItemGroup>

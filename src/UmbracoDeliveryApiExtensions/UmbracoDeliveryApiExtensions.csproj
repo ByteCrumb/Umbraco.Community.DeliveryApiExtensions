@@ -23,6 +23,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Umbraco.Cms.Api.Delivery" Version="12.2.0" />
     <PackageReference Include="Umbraco.Cms.Web.Website" Version="12.2.0" />
     <PackageReference Include="Umbraco.Cms.Web.BackOffice" Version="12.2.0" />
   </ItemGroup>
@@ -32,6 +33,12 @@
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
     </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\UmbracoDeliveryApiExtensions.UI\UmbracoDeliveryApiExtensions.UI.esproj">
+      <ReferenceOutputAssembly>False</ReferenceOutputAssembly>
+    </ProjectReference>
   </ItemGroup>
 
 </Project>

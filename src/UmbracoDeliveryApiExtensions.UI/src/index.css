@@ -1,0 +1,132 @@
+body, html {
+  //font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+  margin: 0;
+  padding: 0;
+}
+
+#app {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  width: 100vw;
+  color: var(--uui-color-text);
+  font-size: 14px;
+  box-sizing: border-box;
+}
+
+#nav-top-bar {
+  display: flex;
+  color: var(--uui-color-header-contrast);
+  gap: 24px;
+  padding: 0 var(--uui-size-4);
+  align-items: center;
+  background-color: var(--uui-color-header-surface);
+  height: 48px;
+  width: 100%;
+  font-size: 1rem;
+  box-sizing: border-box;
+  --uui-tab-text: white;
+  --uui-tab-text-active: var(--uui-color-current);
+  --uui-tab-text-hover: var(--uui-color-current-emphasis);
+}
+
+#main {
+  width: 100%;
+  height: calc(100% - 48px);
+  display: flex;
+  box-sizing: border-box;
+}
+
+#nav-side-bar {
+  width: 400px;
+  background-color: var(--uui-color-surface);
+  height: 100%;
+  border-right: 1px solid var(--uui-color-border);
+  font-weight: 500;
+  display: flex;
+  flex-direction: column;
+}
+
+  #nav-side-bar b {
+    padding: var(--uui-size-6) var(--uui-size-8);
+  }
+
+#editor {
+  background-color: var(--uui-color-background);
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+#editor-top {
+  background-color: var(--uui-color-surface);
+  width: 100%;
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  border-bottom: 1px solid var(--uui-color-border);
+}
+
+  #editor-top uui-input {
+    width: 100%;
+    margin-left: 16px;
+  }
+
+  #editor-top uui-tab-group {
+    --uui-tab-divider: var(--uui-color-border);
+    border-left: 1px solid var(--uui-color-border);
+    flex-wrap: nowrap;
+    height: 60px;
+  }
+
+#editor-content {
+  padding: var(--uui-size-6);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.editor-property {
+  display: grid;
+  grid-template-columns: 200px 600px;
+  gap: 32px;
+}
+
+  .editor-property > .label > p {
+    color: var(--uui-color-text-alt);
+  }
+
+  .editor-property uui-input,
+  .editor-property uui-textarea {
+    width: 100%;
+  }
+
+uui-box hr {
+  margin-bottom: var(--uui-size-6);
+}
+
+hr {
+  border: 0;
+  border-top: 1px solid var(--uui-color-border-alt);
+}
+
+uui-tab {
+  font-size: 0.8rem;
+}
+
+#editor-bottom {
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  height: 70px;
+  width: 100%;
+  gap: 16px;
+  padding-right: 24px;
+  border-top: 1px solid var(--uui-color-border);
+  background-color: var(--uui-color-surface);
+  box-sizing: border-box;
+}

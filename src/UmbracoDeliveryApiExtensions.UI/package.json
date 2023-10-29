@@ -9,6 +9,7 @@
     "watch": "chokidar src public -c \"tsc && vite build\" --initial"
   },
   "dependencies": {
+    "@umbraco-ui/uui": "^1.4.0",
     "lit": "^2.7.6"
   },
   "devDependencies": {

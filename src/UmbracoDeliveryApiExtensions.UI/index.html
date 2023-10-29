@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Test UI</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@umbraco-ui/uui-css@latest/dist/uui-css.css" />
+  <link rel="stylesheet" href="./src/index.css" />
+  <script type="module" src="/node_modules/@umbraco-ui/uui/dist/uui.min.js"></script>
+  <script type="module" src="/src/api-preview.ts"></script>
+</head>
+<body class="uui-font uui-text">
+  <uui-icon-registry-essential>
+    <div id="app">
+      <div id="nav-top-bar">
+        <uui-tab-group>
+          <uui-tab active>Content </uui-tab>
+          <uui-tab>Media</uui-tab>
+          <uui-tab>Settings</uui-tab>
+          <uui-tab>Packages</uui-tab>
+        </uui-tab-group>
+      </div>
+      <div id="main">
+        <div id="nav-side-bar">
+          <b>Content</b>
+          <div class="nav-list">
+            <uui-menu-item label="Home" active>
+              <uui-icon slot="icon" name="document"></uui-icon>
+            </uui-menu-item>
+            <uui-menu-item label="Recycle Bin">
+              <uui-icon slot="icon" name="delete"></uui-icon>
+            </uui-menu-item>
+          </div>
+        </div>
+        <div id="editor">
+          <div id="editor-top">
+            <uui-input value="Home"></uui-input>
+            <uui-tab-group>
+              <uui-tab active>Content</uui-tab>
+              <uui-tab>Info</uui-tab>
+              <uui-tab disabled>Actions</uui-tab>
+            </uui-tab-group>
+          </div>
+          <uui-scroll-container id="editor-content">
+            <api-preview apiPath="/src/data/content.json"></api-preview>
+          </uui-scroll-container>
+          <div id="editor-bottom">
+            <uui-button>Save and preview</uui-button>
+            <uui-button look="secondary">Save</uui-button>
+            <uui-button look="primary" color="positive">Save and publish</uui-button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </uui-icon-registry-essential>
+</body>
+</html>
