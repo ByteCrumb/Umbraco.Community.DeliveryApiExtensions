@@ -14,7 +14,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UmbracoDeliveryApiExtensions", "UmbracoDeliveryApiExtensions\UmbracoDeliveryApiExtensions.csproj", "{F810645D-3FFA-4BC4-A887-F944343B6701}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UmbracoDeliveryApiExtensions.TestSite", "UmbracoDeliveryApiExtensions.TestSite\UmbracoDeliveryApiExtensions.TestSite.csproj", "{E50F1CD5-6AB1-4B99-8AB4-D8443BFE9314}"
+Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "UmbracoDeliveryApiExtensions.UI", "UmbracoDeliveryApiExtensions.UI\UmbracoDeliveryApiExtensions.UI.esproj", "{44FE2F90-E31B-48BE-AD3A-BA41F8F4BD8F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{64029CDB-B81B-4ABF-A96C-778BA28B6952}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UmbracoDeliveryApiExtensions.TestSite", "..\tests\UmbracoDeliveryApiExtensions.TestSite\UmbracoDeliveryApiExtensions.TestSite.csproj", "{106D85D1-DDD8-446D-BCAA-05CB790F665A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -26,13 +30,22 @@ Global
 		{F810645D-3FFA-4BC4-A887-F944343B6701}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F810645D-3FFA-4BC4-A887-F944343B6701}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F810645D-3FFA-4BC4-A887-F944343B6701}.Release|Any CPU.Build.0 = Release|Any CPU
-		{E50F1CD5-6AB1-4B99-8AB4-D8443BFE9314}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E50F1CD5-6AB1-4B99-8AB4-D8443BFE9314}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E50F1CD5-6AB1-4B99-8AB4-D8443BFE9314}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E50F1CD5-6AB1-4B99-8AB4-D8443BFE9314}.Release|Any CPU.Build.0 = Release|Any CPU
+		{44FE2F90-E31B-48BE-AD3A-BA41F8F4BD8F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{44FE2F90-E31B-48BE-AD3A-BA41F8F4BD8F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{44FE2F90-E31B-48BE-AD3A-BA41F8F4BD8F}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{44FE2F90-E31B-48BE-AD3A-BA41F8F4BD8F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{44FE2F90-E31B-48BE-AD3A-BA41F8F4BD8F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{44FE2F90-E31B-48BE-AD3A-BA41F8F4BD8F}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{106D85D1-DDD8-446D-BCAA-05CB790F665A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{106D85D1-DDD8-446D-BCAA-05CB790F665A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{106D85D1-DDD8-446D-BCAA-05CB790F665A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{106D85D1-DDD8-446D-BCAA-05CB790F665A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{106D85D1-DDD8-446D-BCAA-05CB790F665A} = {64029CDB-B81B-4ABF-A96C-778BA28B6952}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {6F07004F-9903-4AEB-9ED0-BE57A0326D20}
