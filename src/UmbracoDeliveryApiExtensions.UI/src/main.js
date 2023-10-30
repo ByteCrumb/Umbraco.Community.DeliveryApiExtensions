@@ -1,1 +1,1 @@
-import './api-preview'
+import './api-preview.element'
