@@ -1,6 +1,7 @@
 import { defineConfig } from "vite";
 
 export default defineConfig({
+  base: "/App_Plugins/DeliveryApiExtensions",
   build: {
     lib: {
       entry: "src/main.js",
@@ -14,5 +15,8 @@ export default defineConfig({
       external: [/^@umbraco/]
     },
   },
-  base: "/App_Plugins/DeliveryApiExtensions"
+  server: {
+    port: 5173,
+    strictPort: true
+  }
 });
