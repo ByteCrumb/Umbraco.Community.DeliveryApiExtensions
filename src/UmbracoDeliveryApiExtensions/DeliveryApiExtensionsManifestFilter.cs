@@ -14,13 +14,11 @@ internal class DeliveryApiExtensionsManifestFilter : IManifestFilter
             PackageName = "DeliveryApiExtensions",
             Version = assembly.GetName()?.Version?.ToString(3) ?? "0.1.0",
             AllowPackageTelemetry = true,
-            Scripts = new string[] {
+            Scripts = new[] {
                 "/App_Plugins/DeliveryApiExtensions/delivery-api-extensions.iife.js",
                 "/App_Plugins/DeliveryApiExtensions/preview.controller.js"
             },
-            Stylesheets = new string[]
-            {
-            }
+            Stylesheets = Array.Empty<string>()
         });
     }
 }

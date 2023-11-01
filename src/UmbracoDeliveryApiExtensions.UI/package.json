@@ -10,9 +10,11 @@
   },
   "dependencies": {
     "@umbraco-ui/uui": "^1.4.0",
+    "js-cookie": "^3.0.5",
     "lit": "^2.7.6"
   },
   "devDependencies": {
+    "@types/js-cookie": "^3.0.5",
     "chokidar-cli": "^3.0.0",
     "typescript": "^5.0.2",
     "vite": "^4.4.5"
