@@ -1,15 +1,28 @@
 angular.module("umbraco")
-    .controller("Umbraco.Community.DeliveryApiExtensions.Preview", function ($scope, $http, editorState, userService, contentResource) {
+  .controller("Umbraco.Community.DeliveryApiExtensions.Preview", function ($scope, $routeParams, contentAppHelper) {
         var vm = this;
 
-        const serverVariables = Umbraco.Sys.ServerVariables.deliveryApiPreview;
-        const currentKey = editorState.current.key;
+        registerAsKnownContentApp();
 
-        if(editorState.current.udi.includes("media")){
-          vm.ApiPath = serverVariables.mediaApiEndpoint;
-        }else{
-          vm.ApiPath = serverVariables.contentApiEndpoint;
+        vm.apiPath = $scope.model.viewModel.apiPath;
+        vm.culture = $routeParams.cculture || $routeParams.mculture;
+
+        updateIsPublished();
+        const unwatch = $scope.$watch("variantContent.state", updateIsPublished);
+
+        vm.$onDestroy = function () {
+            unwatch();
+        };
+
+        function updateIsPublished() {
+          vm.isPublished = $scope.variantContent?.state !== "Draft";
         }
 
-        vm.ApiPath = vm.ApiPath.replace("00000000-0000-0000-0000-000000000000", currentKey)
+        // Ensures the content save/publish are displayed
+        function registerAsKnownContentApp(){
+          const contentAppAlias = "deliveryApiPreview";
+          if(contentAppHelper.CONTENT_BASED_APPS.indexOf(contentAppAlias) === -1){
+            contentAppHelper.CONTENT_BASED_APPS.push(contentAppAlias);
+          }
+        }
     });

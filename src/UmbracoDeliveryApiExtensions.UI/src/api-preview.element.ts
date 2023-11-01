@@ -1,17 +1,21 @@
 import { LitElement, PropertyValueMap, css, html } from 'lit'
 import { customElement, property, state } from 'lit/decorators.js'
 import { AngularElement } from './angular.element'
+import Cookies from 'js-cookie'
 
 /**
  * The Delivery Api Extensions Preview element.
  */
 @customElement('api-preview')
 export class ApiPreviewElement extends AngularElement(LitElement) {
-  @property({ type: String })
+  @property({ type: String, attribute: 'api-path' })
   apiPath = ""
 
   @property({ type: String })
   culture = ""
+
+  @property({ type: Boolean, attribute: 'is-published' })
+  isPublished = false
 
   @state()
   private _data = ""
@@ -21,10 +25,10 @@ export class ApiPreviewElement extends AngularElement(LitElement) {
 
   render() {
     return html`
-      <uui-box>
-        <uui-tab-group slot="headline">
-          <uui-tab active="true" @click=${() => this._onStatusChanged(false)}>Saved</uui-tab>
-          <uui-tab @click=${() => this._onStatusChanged(true)}>Published</uui-tab>
+      <uui-box headline="Preview">
+        <uui-tab-group>
+          <uui-tab active="true" @click=${(e: Event) => this._onStatusChanged(e, false)}>Saved</uui-tab>
+          <uui-tab ?disabled=${!this.isPublished} @click=${(e: Event) => this._onStatusChanged(e, true)}>Published</uui-tab>
         </uui-tab-group>
         <uui-scroll-container>
           <pre>${this._data}</pre>
@@ -33,7 +37,12 @@ export class ApiPreviewElement extends AngularElement(LitElement) {
       `
   }
 
-  _onStatusChanged(published: boolean) {
+  _onStatusChanged(e: Event, published: boolean) {
+    if(this._published == published){
+      e.preventDefault();
+      e.stopImmediatePropagation();
+      return;
+    }
     this._published = published;
     this.updateResponse();
   }
@@ -47,7 +56,10 @@ export class ApiPreviewElement extends AngularElement(LitElement) {
   private async updateResponse() {
     let params: RequestInit = {
       method: 'GET',
-      headers: {}
+      headers: {
+        'x-umb-xsrf-token': this._getXsrfToken()
+      },
+      credentials: 'include'
     };
     if (this.culture) {
       params.headers = {
@@ -63,9 +75,21 @@ export class ApiPreviewElement extends AngularElement(LitElement) {
     }
 
     const response = await fetch(this.apiPath, params);
-    let responseData = await response.json();
-    this._data = JSON.stringify(responseData, null, 4);
+    let responseData = await this._parseAngularResponse(response);
+    this._data = responseData;
     this.requestUpdate();
+  }
+
+  _getXsrfToken(): string{
+    return Cookies.get("UMB-XSRF-TOKEN") || "";
+  }
+
+  async _parseAngularResponse(response : Response) {
+    let responseBodyText = await response.text();
+    if(responseBodyText.startsWith(")]}',\n")){
+      responseBodyText = responseBodyText.substring(6)
+    }
+    return responseBodyText;
   }
 
   static styles = css`
