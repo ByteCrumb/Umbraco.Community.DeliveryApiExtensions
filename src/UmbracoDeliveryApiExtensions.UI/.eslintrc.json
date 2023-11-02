@@ -1,0 +1,46 @@
+{
+    "env": {
+        "browser": true,
+        "es2021": true
+    },
+    "extends": "xo-space",
+    "overrides": [
+        {
+            "extends": [
+                "xo-typescript/space",
+                "plugin:wc/recommended",
+                "plugin:lit/recommended",
+                "plugin:lit-a11y/recommended"
+            ],
+            "files": ["*.ts", "*.tsx"],
+            "rules": {
+              "@typescript-eslint/consistent-type-definitions": [
+                "warn", "interface"
+              ],
+              "@typescript-eslint/naming-convention": [
+                "error",
+                {
+                  "selector": ["class", "interface", "typeAlias", "enum", "typeParameter"],
+                  "format": ["StrictPascalCase"],
+                  "filter": {
+                    "regex": "^(HTMLElementTagNameMap|HTMLElementEventMap|HTML[A-Za-z]{0,}Element|UIEvent|UIEventInit|DOMError|WebUIListenerBehavior)$",
+                    "match": false
+                  }
+                }
+              ],
+              "new-cap": [
+                "error",
+                {
+                  "capIsNewExceptionPattern": "Mixin$"
+                }
+              ]
+            }
+        }
+    ],
+    "parserOptions": {
+        "ecmaVersion": "latest",
+        "sourceType": "module"
+    },
+    "rules": {
+    }
+}

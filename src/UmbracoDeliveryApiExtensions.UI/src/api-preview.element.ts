@@ -1,103 +1,111 @@
-import { LitElement, PropertyValueMap, css, html } from 'lit'
-import { customElement, property, state } from 'lit/decorators.js'
-import { AngularElement } from './angular.element'
-import Cookies from 'js-cookie'
+import {LitElement, type PropertyValueMap, html} from 'lit';
+import {customElement, property, state} from 'lit/decorators.js';
+import {AngularElementMixin} from './angular.element';
+import Cookies from 'js-cookie';
 
 /**
  * The Delivery Api Extensions Preview element.
  */
 @customElement('api-preview')
-export class ApiPreviewElement extends AngularElement(LitElement) {
-  @property({ type: String, attribute: 'api-path' })
-  apiPath = ""
+export class ApiPreviewElement extends AngularElementMixin(LitElement) {
+  @property({type: String, attribute: 'api-path'})
+    apiPath = '';
 
-  @property({ type: String })
-  culture = ""
+  @property({type: String})
+    culture = '';
 
-  @property({ type: Boolean, attribute: 'is-published' })
-  isPublished = false
-
-  @state()
-  private _data = ""
+  @property({type: Boolean, attribute: 'is-published'})
+    isPublished = false;
 
   @state()
-  private _published = false
+  private _data = '';
+
+  @state()
+  private _published = false;
 
   render() {
     return html`
       <uui-box headline="Preview">
         <uui-tab-group>
-          <uui-tab active="true" @click=${(e: Event) => this._onStatusChanged(e, false)}>Saved</uui-tab>
-          <uui-tab ?disabled=${!this.isPublished} @click=${(e: Event) => this._onStatusChanged(e, true)}>Published</uui-tab>
+          <uui-tab type="saved" active="true" @click=${this._onSavedSelected}>Saved</uui-tab>
+          <uui-tab type="published" ?disabled=${!this.isPublished} @click=${this._onPublishedSelected}>Published</uui-tab>
         </uui-tab-group>
         <uui-scroll-container>
           <pre>${this._data}</pre>
         </uui-scroll-container>
       </uui-box>
-      `
+      `;
   }
 
-  _onStatusChanged(e: Event, published: boolean) {
-    if(this._published == published){
+  protected updated(_changedProperties: PropertyValueMap<any> | Map<PropertyKey, unknown>): void {
+    if (_changedProperties.has('apiPath')) {
+      void this.updateResponse();
+    }
+  }
+
+  private _onSavedSelected(e: Event) {
+    void this._onTabChanged(e, false);
+  }
+
+  private _onPublishedSelected(e: Event) {
+    void this._onTabChanged(e, true);
+  }
+
+  private async _onTabChanged(e: Event, published: boolean) {
+    if (this._published === published) {
       e.preventDefault();
       e.stopImmediatePropagation();
       return;
     }
-    this._published = published;
-    this.updateResponse();
-  }
 
-  protected updated(_changedProperties: PropertyValueMap<any> | Map<PropertyKey, unknown>): void {
-    if(_changedProperties.has('apiPath')){
-      this.updateResponse();
-    }
+    this._published = published;
+    await this.updateResponse();
   }
 
   private async updateResponse() {
-    let params: RequestInit = {
+    const params: RequestInit = {
       method: 'GET',
       headers: {
-        'x-umb-xsrf-token': this._getXsrfToken()
+        'x-umb-xsrf-token': this._getXsrfToken(),
       },
-      credentials: 'include'
+      credentials: 'include',
     };
     if (this.culture) {
       params.headers = {
         ...params.headers,
-        'Accept-Language': this.culture
+        'Accept-Language': this.culture,
       };
     }
+
     if (!this._published) {
       params.headers = {
         ...params.headers,
-        'Preview': 'true'
+        preview: 'true',
       };
     }
 
     const response = await fetch(this.apiPath, params);
-    let responseData = await this._parseAngularResponse(response);
+    const responseData = await this._parseAngularResponse(response);
     this._data = responseData;
     this.requestUpdate();
   }
 
-  _getXsrfToken(): string{
-    return Cookies.get("UMB-XSRF-TOKEN") || "";
+  private _getXsrfToken(): string {
+    return Cookies.get('UMB-XSRF-TOKEN') ?? '';
   }
 
-  async _parseAngularResponse(response : Response) {
+  private async _parseAngularResponse(response: Response) {
     let responseBodyText = await response.text();
-    if(responseBodyText.startsWith(")]}',\n")){
-      responseBodyText = responseBodyText.substring(6)
+    if (responseBodyText.startsWith(')]}\',\n')) {
+      responseBodyText = responseBodyText.substring(6);
     }
+
     return responseBodyText;
   }
-
-  static styles = css`
-  `
 }
 
 declare global {
   interface HTMLElementTagNameMap {
-    'api-preview': ApiPreviewElement
+    'api-preview': ApiPreviewElement;
   }
 }
