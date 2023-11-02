@@ -1,4 +1,4 @@
-import {LitElement, type PropertyValueMap, html} from 'lit';
+import {LitElement, type PropertyValueMap, css, html} from 'lit';
 import {customElement, property, state} from 'lit/decorators.js';
 import {AngularElementMixin} from './angular.element';
 import Cookies from 'js-cookie';
@@ -8,6 +8,25 @@ import Cookies from 'js-cookie';
  */
 @customElement('api-preview')
 export class ApiPreviewElement extends AngularElementMixin(LitElement) {
+  static styles = css`
+    :host {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+    }
+    :host > * {
+      flex: 1;
+      min-width: 0;
+      min-height: 0;
+      overflow: auto;
+    }
+    @media (min-width: 1024px) {
+      :host {
+        flex-direction: row;
+      }
+     }
+  `;
+
   @property({type: String, attribute: 'api-path'})
     apiPath = '';
 
@@ -18,22 +37,26 @@ export class ApiPreviewElement extends AngularElementMixin(LitElement) {
     isPublished = false;
 
   @state()
-  private _data = '';
+  private _previewData = '';
 
   @state()
-  private _published = false;
+  private _publishedData = '';
 
   render() {
     return html`
       <uui-box headline="Preview">
-        <uui-tab-group>
-          <uui-tab type="saved" active="true" @click=${this._onSavedSelected}>Saved</uui-tab>
-          <uui-tab type="published" ?disabled=${!this.isPublished} @click=${this._onPublishedSelected}>Published</uui-tab>
-        </uui-tab-group>
         <uui-scroll-container>
-          <pre>${this._data}</pre>
+          <pre>${this._previewData}</pre>
         </uui-scroll-container>
       </uui-box>
+
+      ${this.isPublished ? html`
+        <uui-box headline="Published">
+          <uui-scroll-container>
+            <pre>${this._publishedData}</pre>
+          </uui-scroll-container>
+        </uui-box>
+      ` : undefined}
       `;
   }
 
@@ -41,25 +64,6 @@ export class ApiPreviewElement extends AngularElementMixin(LitElement) {
     if (_changedProperties.has('apiPath')) {
       void this.updateResponse();
     }
-  }
-
-  private _onSavedSelected(e: Event) {
-    void this._onTabChanged(e, false);
-  }
-
-  private _onPublishedSelected(e: Event) {
-    void this._onTabChanged(e, true);
-  }
-
-  private async _onTabChanged(e: Event, published: boolean) {
-    if (this._published === published) {
-      e.preventDefault();
-      e.stopImmediatePropagation();
-      return;
-    }
-
-    this._published = published;
-    await this.updateResponse();
   }
 
   private async updateResponse() {
@@ -77,16 +81,19 @@ export class ApiPreviewElement extends AngularElementMixin(LitElement) {
       };
     }
 
-    if (!this._published) {
-      params.headers = {
-        ...params.headers,
-        preview: 'true',
-      };
+    if (this.isPublished) {
+      const publishedResponse = await fetch(this.apiPath, params);
+      this._publishedData = await this._parseAngularResponse(publishedResponse);
     }
 
-    const response = await fetch(this.apiPath, params);
-    const responseData = await this._parseAngularResponse(response);
-    this._data = responseData;
+    params.headers = {
+      ...params.headers,
+      preview: 'true',
+    };
+
+    const previewResponse = await fetch(this.apiPath, params);
+    this._previewData = await this._parseAngularResponse(previewResponse);
+
     this.requestUpdate();
   }
 
