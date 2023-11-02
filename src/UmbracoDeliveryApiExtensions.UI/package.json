@@ -12,11 +12,13 @@
     "@umbraco-ui/uui": "^1.4.0",
     "eslint-config-xo-typescript": "^1.0.1",
     "js-cookie": "^3.0.5",
-    "lit": "^2.7.6"
+    "lit": "^2.7.6",
+    "prismjs": "^1.29.0"
   },
   "devDependencies": {
     "@types/angular": "^1.8.7",
     "@types/js-cookie": "^3.0.5",
+    "@types/prismjs": "^1.26.2",
     "@typescript-eslint/eslint-plugin": "^6.9.1",
     "@typescript-eslint/parser": "^6.9.1",
     "chokidar-cli": "^3.0.0",

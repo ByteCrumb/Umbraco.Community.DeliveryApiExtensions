@@ -46,14 +46,14 @@ export class ApiPreviewElement extends AngularElementMixin(LitElement) {
     return html`
       <uui-box headline="Preview">
         <uui-scroll-container>
-          <pre>${this._previewData}</pre>
+        <dae-code code=${this._previewData} language='json'></dae-code>
         </uui-scroll-container>
       </uui-box>
 
       ${this.isPublished ? html`
         <uui-box headline="Published">
           <uui-scroll-container>
-            <pre>${this._publishedData}</pre>
+            <dae-code code=${this._publishedData} language='json'></dae-code>
           </uui-scroll-container>
         </uui-box>
       ` : undefined}
@@ -83,7 +83,7 @@ export class ApiPreviewElement extends AngularElementMixin(LitElement) {
 
     if (this.isPublished) {
       const publishedResponse = await fetch(this.apiPath, params);
-      this._publishedData = await this._parseAngularResponse(publishedResponse);
+      this._publishedData = JSON.stringify(await this._parseAngularResponse(publishedResponse), null, 2);
     }
 
     params.headers = {
@@ -92,22 +92,20 @@ export class ApiPreviewElement extends AngularElementMixin(LitElement) {
     };
 
     const previewResponse = await fetch(this.apiPath, params);
-    this._previewData = await this._parseAngularResponse(previewResponse);
-
-    this.requestUpdate();
+    this._previewData = JSON.stringify(await this._parseAngularResponse(previewResponse), null, 2);
   }
 
   private _getXsrfToken(): string {
     return Cookies.get('UMB-XSRF-TOKEN') ?? '';
   }
 
-  private async _parseAngularResponse(response: Response) {
+  private async _parseAngularResponse(response: Response): Promise<unknown> {
     let responseBodyText = await response.text();
     if (responseBodyText.startsWith(')]}\',\n')) {
       responseBodyText = responseBodyText.substring(6);
     }
 
-    return responseBodyText;
+    return JSON.parse(responseBodyText) as unknown;
   }
 }
 
