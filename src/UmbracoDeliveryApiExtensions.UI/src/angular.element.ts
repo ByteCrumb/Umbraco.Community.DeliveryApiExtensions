@@ -1,20 +1,19 @@
-import { LitElement, PropertyValueMap} from 'lit';
+import {type LitElement, type PropertyValueMap} from 'lit';
 
-type Constructor<T = {}> = new (...args: any[]) => T;
+type Constructor<T = Record<string, unknown>> = new (...args: any[]) => T;
 
-export const AngularElement = <T extends Constructor<LitElement>>(superClass: T) => {
-  class AngularElement extends superClass {
+export const AngularElementMixin = <T extends Constructor<LitElement>>(superClass: T) => {
+  class AngularElementMixin extends superClass {
     private _angularReady = false;
 
     protected shouldUpdate(_changedProperties: PropertyValueMap<any> | Map<PropertyKey, unknown>): boolean {
       if (!this._angularReady) {
-        const angular = (window as any)?.angular;
-        this._angularReady = !(angular) || !!(angular.element(this)?.scope());
+        this._angularReady = !(window.angular) || Boolean(window.angular.element(this)?.scope());
       }
 
       return this._angularReady && super.shouldUpdate(_changedProperties);
     }
-  };
+  }
 
-  return AngularElement as T;
-}
+  return AngularElementMixin as T;
+};
