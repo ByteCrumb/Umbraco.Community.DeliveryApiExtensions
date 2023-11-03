@@ -3,6 +3,7 @@ import JsonView from '@uiw/react-json-view';
 import {defineElement} from '@umbraco-ui/uui';
 
 const WebReactJson = r2wc(JsonView, {
+  // @ts-expect-error All props are incorrectly marked required
   props: {
     value: 'json',
     displayObjectSize: 'boolean',
