@@ -2,13 +2,11 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <link rel="icon" type="image/svg+xml" href="/vite.svg" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>Test UI</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@umbraco-ui/uui-css@latest/dist/uui-css.css" />
   <link rel="stylesheet" href="./src/index.css" />
-  <script type="module" src="/node_modules/@umbraco-ui/uui/dist/uui.min.js"></script>
-  <script type="module" src="/src/api-preview.element.ts"></script>
+  <script type="module" src="/src/main.js"></script>
 </head>
 <body class="uui-font uui-text">
   <uui-icon-registry-essential>
@@ -43,7 +41,7 @@
             </uui-tab-group>
           </div>
           <uui-scroll-container id="editor-content">
-            <api-preview api-path="/src/data/content.json" is-published="true"></api-preview>
+            <bc-api-preview api-path="/src/data/content.json" is-published="true"></bc-api-preview>
           </uui-scroll-container>
           <div id="editor-bottom">
             <uui-button>Save and preview</uui-button>
