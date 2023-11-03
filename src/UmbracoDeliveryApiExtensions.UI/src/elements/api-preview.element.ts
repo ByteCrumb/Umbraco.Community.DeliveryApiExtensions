@@ -1,14 +1,15 @@
-import {LitElement, type PropertyValueMap, css, html} from 'lit';
-import {property, state} from 'lit/decorators.js';
-import {AngularElementMixin} from '../mixins/angular.element';
-import Cookies from 'js-cookie';
 import {defineElement} from '@umbraco-ui/uui';
+import {css, html, LitElement, type PropertyValueMap} from 'lit';
+import {property, state} from 'lit/decorators.js';
+
+import {AngularElementMixin} from '../mixins/angular-element.mixin';
+import {KebabCaseAttributesMixin} from '../mixins/kebab-case-attributes.mixin';
 
 /**
  * The Delivery Api Extensions Preview element.
  */
 @defineElement('bc-api-preview')
-export class ApiPreviewElement extends AngularElementMixin(LitElement) {
+export class ApiPreviewElement extends AngularElementMixin(KebabCaseAttributesMixin(LitElement)) {
   static styles = css`
     :host {
         display: flex;
@@ -28,13 +29,13 @@ export class ApiPreviewElement extends AngularElementMixin(LitElement) {
      }
   `;
 
-  @property({type: String, attribute: 'api-path'})
+  @property({type: String})
     apiPath = '';
 
   @property({type: String})
     culture = '';
 
-  @property({type: Boolean, attribute: 'is-published'})
+  @property({type: Boolean})
     isPublished = false;
 
   @state()
@@ -71,7 +72,7 @@ export class ApiPreviewElement extends AngularElementMixin(LitElement) {
     const params: RequestInit = {
       method: 'GET',
       headers: {
-        'x-umb-xsrf-token': this._getXsrfToken(),
+        'x-umb-xsrf-token': this.getCsrfToken(),
       },
       credentials: 'include',
     };
@@ -84,7 +85,7 @@ export class ApiPreviewElement extends AngularElementMixin(LitElement) {
 
     if (this.isPublished) {
       const publishedResponse = await fetch(this.apiPath, params);
-      this._publishedData = await this._parseAngularResponse(publishedResponse);
+      this._publishedData = await this.parseJsonResponse(publishedResponse);
     }
 
     params.headers = {
@@ -93,20 +94,7 @@ export class ApiPreviewElement extends AngularElementMixin(LitElement) {
     };
 
     const previewResponse = await fetch(this.apiPath, params);
-    this._previewData = await this._parseAngularResponse(previewResponse);
-  }
-
-  private _getXsrfToken(): string {
-    return Cookies.get('UMB-XSRF-TOKEN') ?? '';
-  }
-
-  private async _parseAngularResponse(response: Response): Promise<unknown> {
-    let responseBodyText = await response.text();
-    if (responseBodyText.startsWith(')]}\',\n')) {
-      responseBodyText = responseBodyText.substring(6);
-    }
-
-    return JSON.parse(responseBodyText) as unknown;
+    this._previewData = await this.parseJsonResponse(previewResponse);
   }
 }
 
