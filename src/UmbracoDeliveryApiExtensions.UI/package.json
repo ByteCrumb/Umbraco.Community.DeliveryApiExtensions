@@ -12,10 +12,8 @@
     "@r2wc/react-to-web-component": "^2.0.3",
     "@uiw/react-json-view": "^2.0.0-alpha.9",
     "@umbraco-ui/uui": "^1.4.0",
-    "eslint-config-xo-typescript": "^1.0.1",
     "js-cookie": "^3.0.5",
-    "lit": "^2.7.6",
-    "prismjs": "^1.29.0"
+    "lit": "^2.7.6"
   },
   "devDependencies": {
     "@types/angular": "^1.8.7",
@@ -26,11 +24,12 @@
     "chokidar-cli": "^3.0.0",
     "eslint": "^8.52.0",
     "eslint-config-xo-space": "^0.34.0",
-    "eslint-plugin-import": "^2.29.0",
+    "eslint-config-xo-typescript": "^1.0.1",
     "eslint-plugin-lit": "^1.10.1",
     "eslint-plugin-lit-a11y": "^1.1.0-next.1",
     "eslint-plugin-n": "^16.2.0",
     "eslint-plugin-promise": "^6.1.1",
+    "eslint-plugin-simple-import-sort": "^10.0.0",
     "eslint-plugin-wc": "^2.0.4",
     "typescript": "^5.2.2",
     "vite": "^4.4.5"
