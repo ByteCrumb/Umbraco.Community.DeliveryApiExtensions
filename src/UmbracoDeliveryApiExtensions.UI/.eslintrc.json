@@ -13,6 +13,7 @@
                 "plugin:lit-a11y/recommended"
             ],
             "files": ["*.ts", "*.tsx"],
+            "plugins": ["simple-import-sort"],
             "rules": {
               "@typescript-eslint/consistent-type-definitions": [
                 "warn", "interface"
@@ -33,14 +34,14 @@
                 {
                   "capIsNewExceptionPattern": "Mixin$"
                 }
-              ]
-            }
+              ],
+              "simple-import-sort/imports": "error",
+              "simple-import-sort/exports": "error"
+          }
         }
     ],
     "parserOptions": {
         "ecmaVersion": "latest",
         "sourceType": "module"
-    },
-    "rules": {
     }
 }
