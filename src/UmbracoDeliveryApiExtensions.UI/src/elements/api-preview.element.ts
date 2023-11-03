@@ -1,12 +1,13 @@
 import {LitElement, type PropertyValueMap, css, html} from 'lit';
-import {customElement, property, state} from 'lit/decorators.js';
-import {AngularElementMixin} from './angular.element';
+import {property, state} from 'lit/decorators.js';
+import {AngularElementMixin} from '../mixins/angular.element';
 import Cookies from 'js-cookie';
+import {defineElement} from '@umbraco-ui/uui';
 
 /**
  * The Delivery Api Extensions Preview element.
  */
-@customElement('api-preview')
+@defineElement('bc-api-preview')
 export class ApiPreviewElement extends AngularElementMixin(LitElement) {
   static styles = css`
     :host {
@@ -37,23 +38,23 @@ export class ApiPreviewElement extends AngularElementMixin(LitElement) {
     isPublished = false;
 
   @state()
-  private _previewData = '';
+  private _previewData: unknown = {};
 
   @state()
-  private _publishedData = '';
+  private _publishedData: unknown = {};
 
   render() {
     return html`
       <uui-box headline="Preview">
         <uui-scroll-container>
-        <dae-code code=${this._previewData} language='json'></dae-code>
+        <bc-json-preview display-object-size="false" display-data-types="false" shorten-text-after-length="50" .value=${this._previewData}></bc-json-preview>
         </uui-scroll-container>
       </uui-box>
 
       ${this.isPublished ? html`
         <uui-box headline="Published">
           <uui-scroll-container>
-            <dae-code code=${this._publishedData} language='json'></dae-code>
+            <bc-json-preview display-object-size="false" display-data-types="false" shorten-text-after-length="50" .value=${this._publishedData}></bc-json-preview>
           </uui-scroll-container>
         </uui-box>
       ` : undefined}
@@ -83,7 +84,7 @@ export class ApiPreviewElement extends AngularElementMixin(LitElement) {
 
     if (this.isPublished) {
       const publishedResponse = await fetch(this.apiPath, params);
-      this._publishedData = JSON.stringify(await this._parseAngularResponse(publishedResponse), null, 2);
+      this._publishedData = await this._parseAngularResponse(publishedResponse);
     }
 
     params.headers = {
@@ -92,7 +93,7 @@ export class ApiPreviewElement extends AngularElementMixin(LitElement) {
     };
 
     const previewResponse = await fetch(this.apiPath, params);
-    this._previewData = JSON.stringify(await this._parseAngularResponse(previewResponse), null, 2);
+    this._previewData = await this._parseAngularResponse(previewResponse);
   }
 
   private _getXsrfToken(): string {

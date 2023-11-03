@@ -9,6 +9,8 @@
     "watch": "chokidar src public -c \"tsc && vite build\" --initial"
   },
   "dependencies": {
+    "@r2wc/react-to-web-component": "^2.0.3",
+    "@uiw/react-json-view": "^2.0.0-alpha.9",
     "@umbraco-ui/uui": "^1.4.0",
     "eslint-config-xo-typescript": "^1.0.1",
     "js-cookie": "^3.0.5",
