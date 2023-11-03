@@ -38,21 +38,25 @@ export class ApiPreviewElement extends AngularElementMixin(KebabCaseAttributesMi
   @property({type: Boolean})
     isPublished = false;
 
-  @state()
-  private _previewData: unknown = {};
+  @property({type: String})
+    entityType: 'document' | 'media' = 'document';
 
   @state()
-  private _publishedData: unknown = {};
+  private _previewData: unknown = null;
+
+  @state()
+  private _publishedData: unknown = null;
 
   render() {
     return html`
+      ${this._previewData ? html`
       <uui-box headline="Preview">
         <uui-scroll-container>
         <bc-json-preview display-object-size="false" display-data-types="false" shorten-text-after-length="50" .value=${this._previewData}></bc-json-preview>
         </uui-scroll-container>
       </uui-box>
-
-      ${this.isPublished ? html`
+      ` : undefined}
+      ${this._publishedData ? html`
         <uui-box headline="Published">
           <uui-scroll-container>
             <bc-json-preview display-object-size="false" display-data-types="false" shorten-text-after-length="50" .value=${this._publishedData}></bc-json-preview>
@@ -88,13 +92,16 @@ export class ApiPreviewElement extends AngularElementMixin(KebabCaseAttributesMi
       this._publishedData = await this.parseJsonResponse(publishedResponse);
     }
 
-    params.headers = {
-      ...params.headers,
-      preview: 'true',
-    };
+    // Only render the preview if it's Content. Media only has one state.
+    if (this.entityType === 'document') {
+      params.headers = {
+        ...params.headers,
+        preview: 'true',
+      };
 
-    const previewResponse = await fetch(this.apiPath, params);
+      const previewResponse = await fetch(this.apiPath, params);
     this._previewData = await this.parseJsonResponse(previewResponse);
+    }
   }
 }
 
