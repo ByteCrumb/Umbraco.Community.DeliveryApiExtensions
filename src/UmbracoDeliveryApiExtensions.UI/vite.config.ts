@@ -12,9 +12,10 @@ export default defineConfig(({mode}) => ({
     emptyOutDir: true,
     sourcemap: true,
     rollupOptions: {
-      external: [/^@umbraco/],
+      external: [/^angular/, /^@umbraco/],
       output: {
         globals: {
+          angular: 'angular',
           '@umbraco-ui/uui': 'uui',
         },
       },
