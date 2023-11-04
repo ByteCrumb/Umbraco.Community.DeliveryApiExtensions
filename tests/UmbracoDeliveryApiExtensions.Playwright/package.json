@@ -1,0 +1,24 @@
+{
+  "name": "umbracodeliveryapiextensions.playwright",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {},
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@playwright/test": "^1.39.0",
+    "@types/node": "^20.8.10",
+    "tslib": "^2.6.2"
+  },
+  "volta": {
+    "node": "20.9.0"
+  },
+  "dependencies": {
+    "@umbraco/json-models-builders": "^1.0.6",
+    "@umbraco/playwright-models": "^5.0.0",
+    "@umbraco/playwright-testhelpers": "^1.0.25",
+    "dotenv": "^16.3.1"
+  }
+}
