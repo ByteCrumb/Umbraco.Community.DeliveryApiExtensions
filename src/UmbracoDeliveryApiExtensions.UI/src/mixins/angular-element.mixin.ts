@@ -4,7 +4,7 @@ import {type LitElement, type PropertyValueMap} from 'lit';
 type Constructor<T = unknown> = new (...args: any[]) => T;
 
 export declare class AngularElementMixinInterface {
-  protected getCsrfToken(): string;
+  protected getXsrfToken(): string;
   protected parseJsonResponse(response: Response): Promise<unknown>;
 }
 
@@ -20,7 +20,7 @@ export const AngularElementMixin = <T extends Constructor<LitElement>>(superClas
       return this._angularReady && super.shouldUpdate(_changedProperties);
     }
 
-    protected getCsrfToken(): string {
+    protected getXsrfToken(): string {
       return Cookies.get('UMB-XSRF-TOKEN') ?? '';
     }
 
