@@ -76,7 +76,7 @@ export class ApiPreviewElement extends AngularElementMixin(KebabCaseAttributesMi
     const params: RequestInit & {headers: Record<string, string>} = {
       method: 'GET',
       headers: {
-        'x-umb-xsrf-token': this.getCsrfToken(),
+        'x-umb-xsrf-token': this.getXsrfToken(),
       },
       credentials: 'include',
     };

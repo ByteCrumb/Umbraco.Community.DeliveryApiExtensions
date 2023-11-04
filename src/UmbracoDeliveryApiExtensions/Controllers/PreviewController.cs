@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
 using Umbraco.Cms.Core.Cache;
 using Umbraco.Cms.Core.DeliveryApi;
 using Umbraco.Cms.Core.Models;
@@ -23,17 +24,21 @@ public class PreviewController : UmbracoAuthorizedJsonController
     private readonly IEntityService _entityService;
     private readonly IRequestCultureService _requestCultureService;
     private readonly AppCaches _appCaches;
+    private readonly JsonOptions _deliveryApiJsonOptions;
 
     public PreviewController(
         IBackOfficeSecurityAccessor backOfficeSecurityAccessor,
         IEntityService entityService,
         IRequestCultureService requestCultureService,
-        AppCaches appCaches)
+        AppCaches appCaches,
+        IOptionsSnapshot<JsonOptions> jsonOptions)
     {
         _backOfficeSecurityAccessor = backOfficeSecurityAccessor;
         _entityService = entityService;
         _requestCultureService = requestCultureService;
         _appCaches = appCaches;
+
+        _deliveryApiJsonOptions = jsonOptions.Get(Cms.Core.Constants.JsonOptionsNames.DeliveryApi);
     }
 
     [HttpGet]
@@ -57,7 +62,7 @@ public class PreviewController : UmbracoAuthorizedJsonController
             return Problem(statusCode: StatusCodes.Status404NotFound);
         }
 
-        return Ok(apiContentResponse);
+        return new JsonResult(apiContentResponse, _deliveryApiJsonOptions.JsonSerializerOptions);
     }
 
     [HttpGet]
@@ -75,7 +80,7 @@ public class PreviewController : UmbracoAuthorizedJsonController
             return Problem(statusCode: StatusCodes.Status404NotFound);
         }
 
-        return Ok(responseBuilder.Build(media));
+        return new JsonResult(responseBuilder.Build(media), _deliveryApiJsonOptions.JsonSerializerOptions);
     }
 
     private bool UserHasAccessToContentNode(IPublishedContent content)
