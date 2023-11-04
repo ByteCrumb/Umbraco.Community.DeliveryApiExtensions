@@ -67,7 +67,7 @@ export class ApiPreviewElement extends AngularElementMixin(KebabCaseAttributesMi
   }
 
   protected updated(_changedProperties: PropertyValueMap<any> | Map<PropertyKey, unknown>): void {
-    if (_changedProperties.has('apiPath')) {
+    if (_changedProperties.has('apiPath') || _changedProperties.has('isPublished')) {
       void this.updateResponse();
     }
   }
@@ -88,6 +88,8 @@ export class ApiPreviewElement extends AngularElementMixin(KebabCaseAttributesMi
     if (this.isPublished) {
       const publishedResponse = await fetch(this.apiPath, params);
       this._publishedData = await this.parseJsonResponse(publishedResponse);
+    } else {
+      this._publishedData = null;
     }
 
     // Only render the preview if it's Content. Media only has one state.
