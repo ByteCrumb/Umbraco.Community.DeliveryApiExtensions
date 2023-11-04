@@ -1,6 +1,5 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Umbraco.Cms.Core;
 using Umbraco.Cms.Core.Cache;
 using Umbraco.Cms.Core.DeliveryApi;
 using Umbraco.Cms.Core.Models;
@@ -17,7 +16,7 @@ using Umbraco.Extensions;
 
 namespace Umbraco.Community.DeliveryApiExtensions.Controllers;
 
-[PluginController(DeliveryApiExtensionsConstants.ApiAreaName)]
+[PluginController(Constants.ApiAreaName)]
 public class PreviewController : UmbracoAuthorizedJsonController
 {
     private readonly IBackOfficeSecurityAccessor _backOfficeSecurityAccessor;
@@ -90,7 +89,7 @@ public class PreviewController : UmbracoAuthorizedJsonController
         return ContentPermissions.HasPathAccess(
             content.Path,
             user.CalculateContentStartNodeIds(_entityService, _appCaches),
-            Constants.System.RecycleBinContent);
+            Cms.Core.Constants.System.RecycleBinContent);
     }
 
     private bool UserHasAccessToMediaNode(IPublishedContent media)
@@ -104,7 +103,7 @@ public class PreviewController : UmbracoAuthorizedJsonController
         return ContentPermissions.HasPathAccess(
             media.Path,
             user.CalculateMediaStartNodeIds(_entityService, _appCaches),
-            Constants.System.RecycleBinContent);
+            Cms.Core.Constants.System.RecycleBinContent);
     }
 
     private void SetCulture(string? culture)

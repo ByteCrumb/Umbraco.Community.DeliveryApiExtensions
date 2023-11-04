@@ -1,7 +1,5 @@
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Options;
-using Umbraco.Cms.Core;
-using Umbraco.Cms.Core.Configuration.Models;
 using Umbraco.Cms.Core.Models;
 using Umbraco.Cms.Core.Models.ContentEditing;
 using Umbraco.Cms.Core.Models.Entities;
@@ -13,22 +11,21 @@ namespace Umbraco.Community.DeliveryApiExtensions.ContentApps;
 
 public class DeliveryApiPreviewApp : IContentAppFactory
 {
-    public const string DeliveryApiPreviewAppAlias = "deliveryApiPreview";
     private readonly LinkGenerator _linkGenerator;
-    private readonly IOptionsMonitor<DeliveryApiSettings> _deliveryApiSettings;
+    private readonly IOptionsMonitor<Configuration.Options.DeliveryApiExtensionsOptions> _options;
 
     public DeliveryApiPreviewApp(
         LinkGenerator linkGenerator,
-        IOptionsMonitor<DeliveryApiSettings> deliveryApiSettings)
+        IOptionsMonitor<Configuration.Options.DeliveryApiExtensionsOptions> options)
     {
         _linkGenerator = linkGenerator;
-        _deliveryApiSettings = deliveryApiSettings;
+        _options = options;
     }
 
     public ContentApp? GetContentAppFor(object source, IEnumerable<IReadOnlyUserGroup> userGroups)
     {
-        // Only show the content app if the Delivery API is enabled
-        if (!_deliveryApiSettings.CurrentValue.Enabled)
+        // Only show the content app if preview is enabled and the user belongs to one of the allowed user groups
+        if (!PreviewIsEnabled() || !UserBelongsToAllowedGroup(userGroups))
         {
             return null;
         }
@@ -36,35 +33,38 @@ public class DeliveryApiPreviewApp : IContentAppFactory
         return source switch
         {
             IEntity { Id: 0 } => null, // Do not show the content app when creating new content/media
-            IContent content => new ContentApp
+            IContent content => CreateBaseContentApp(new
             {
-                Alias = DeliveryApiPreviewAppAlias,
-                Name = "API",
-                Icon = "icon-code",
-                View = "/App_Plugins/DeliveryApiExtensions/preview.html",
-                Weight = -100,
-                ViewModel = new
-                {
-                    apiPath = $"{GetApiPath(nameof(PreviewController.GetContent))}/{content.Key}",
-                    entityType = Constants.UdiEntityType.Document
-                }
-            },
-            IMedia media when _deliveryApiSettings.CurrentValue.Media.Enabled => new ContentApp
+                apiPath = $"{GetApiPath(nameof(PreviewController.GetContent))}/{content.Key}",
+                entityType = Cms.Core.Constants.UdiEntityType.Document
+            }),
+            IMedia media when _options.CurrentValue.Preview.Media.Enabled => CreateBaseContentApp(new
             {
-                Alias = DeliveryApiPreviewAppAlias,
-                Name = "API",
-                Icon = "icon-code",
-                View = "/App_Plugins/DeliveryApiExtensions/preview.html",
-                Weight = -100,
-                ViewModel = new
-                {
-                    apiPath = $"{GetApiPath(nameof(PreviewController.GetMedia))}/{media.Key}",
-                    entityType = Constants.UdiEntityType.Media
-                }
-            },
+                apiPath = $"{GetApiPath(nameof(PreviewController.GetMedia))}/{media.Key}",
+                entityType = Cms.Core.Constants.UdiEntityType.Media
+            }),
             _ => null
         };
     }
 
+    private ContentApp CreateBaseContentApp(object? viewModel) => new()
+    {
+        Alias = Constants.PreviewAppAlias,
+        Name = Constants.PreviewAppName,
+        Icon = Constants.PreviewAppIcon,
+        View = Constants.PreviewAppView,
+        Weight = _options.CurrentValue.Preview.ContentAppWeight,
+        ViewModel = viewModel
+    };
+
     private string? GetApiPath(string action) => _linkGenerator.GetUmbracoApiService<PreviewController>(action)?.TrimEnd('/');
+
+    private bool UserBelongsToAllowedGroup(IEnumerable<IReadOnlyUserGroup> userGroups)
+    {
+        List<string> allowedUserGroupAliases = _options.CurrentValue.Preview.AllowedUserGroupAliases;
+
+        return allowedUserGroupAliases is { Count: 0 } || userGroups.Select(g => g.Alias).ContainsAny(allowedUserGroupAliases);
+    }
+
+    private bool PreviewIsEnabled() => _options.CurrentValue.Preview.Enabled;
 }
