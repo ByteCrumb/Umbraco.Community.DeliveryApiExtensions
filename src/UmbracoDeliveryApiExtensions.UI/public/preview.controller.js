@@ -1,6 +1,6 @@
 // eslint-disable-next-line no-undef
 angular.module('umbraco')
-  .controller('Umbraco.Community.DeliveryApiExtensions.Preview', function ($scope, $routeParams, contentAppHelper, eventsService) {
+  .controller('Umbraco.Community.DeliveryApiExtensions.Preview', function ($scope, $element, $routeParams, contentAppHelper, eventsService) {
     const vm = this;
 
     registerAsKnownContentApp();
@@ -32,6 +32,6 @@ angular.module('umbraco')
 
     function updatePreview() {
       updateIsPublished();
-      document.getElementById('bc-api-preview').updateResponse();
+      $element.getElementByTag('bc-api-preview').updateResponse();
     }
   });
