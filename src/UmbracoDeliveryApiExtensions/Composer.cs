@@ -11,15 +11,16 @@ public sealed class Composer : IComposer
 {
     public void Compose(IUmbracoBuilder builder)
     {
-        _ = builder.ManifestFilters().Append<ManifestFilter>();
-
         IConfigurationSection configSection = builder.Config.GetSection<DeliveryApiExtensionsOptions>();
-        _ = builder.Services.AddOptions<DeliveryApiExtensionsOptions>(builder.Config);
+        _ = builder.Services.AddOptions<DeliveryApiExtensionsOptions>(configSection);
 
-        IConfigurationSection previewConfig = configSection.GetSection<PreviewOptions>();
-        _ = builder.Services.AddOptions<PreviewOptions>(configSection);
-        _ = builder.Services.AddOptions<MediaOptions>(previewConfig);
+        IConfigurationSection previewConfigSection = configSection.GetSection<PreviewOptions>();
+        _ = builder.Services.AddOptions<PreviewOptions>(previewConfigSection);
 
+        IConfigurationSection mediaConfigSection = previewConfigSection.GetSection<MediaOptions>();
+        _ = builder.Services.AddOptions<MediaOptions>(mediaConfigSection);
+
+        _ = builder.ManifestFilters().Append<ManifestFilter>();
         _ = builder.ContentApps().Append<DeliveryApiPreviewApp>();
     }
 }

@@ -59,8 +59,12 @@ public class DeliveryApiPreviewApp : IContentAppFactory
 
     private string? GetApiPath(string action) => _linkGenerator.GetUmbracoApiService<PreviewController>(action)?.TrimEnd('/');
 
-    private bool UserBelongsToAllowedGroup(IEnumerable<IReadOnlyUserGroup> userGroups) =>
-        _options.CurrentValue.Preview.AllowedUserGroupAliases.Any(g => userGroups.Any(ug => ug.Alias == g));
+    private bool UserBelongsToAllowedGroup(IEnumerable<IReadOnlyUserGroup> userGroups)
+    {
+        List<string> allowedUserGroupAliases = _options.CurrentValue.Preview.AllowedUserGroupAliases;
+
+        return allowedUserGroupAliases is { Count: 0 } || userGroups.Select(g => g.Alias).ContainsAny(allowedUserGroupAliases);
+    }
 
     private bool PreviewIsEnabled() => _options.CurrentValue.Preview.Enabled;
 }

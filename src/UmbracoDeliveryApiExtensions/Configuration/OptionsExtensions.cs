@@ -8,11 +8,11 @@ namespace Umbraco.Community.DeliveryApiExtensions.Configuration;
 internal static class OptionsExtensions
 {
     /// <summary>
-    /// Adds, binds and validates the provided <see cref="TOptions"/> class using the default section name.
+    /// Adds and binds the provided <see cref="TOptions"/> class to the provided section.
     /// </summary>
-    public static OptionsBuilder<TOptions> AddOptions<TOptions>(this IServiceCollection services, IConfiguration configuration)
+    public static OptionsBuilder<TOptions> AddOptions<TOptions>(this IServiceCollection services, IConfigurationSection configurationSection)
         where TOptions : class =>
-        services.AddOptions<TOptions>().Bind(configuration.GetSection<TOptions>()).ValidateDataAnnotations().ValidateOnStart();
+        services.AddOptions<TOptions>().Bind(configurationSection);
 
     /// <summary>
     /// Gets the default configuration section for the provided <see cref="TOptions"/>.
