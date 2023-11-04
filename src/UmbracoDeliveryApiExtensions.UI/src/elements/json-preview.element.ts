@@ -1,14 +1,5 @@
-import r2wc from '@r2wc/react-to-web-component';
 import JsonView from '@uiw/react-json-view';
-import {defineElement} from '@umbraco-ui/uui';
+import {type FunctionComponent} from 'preact';
+import register from 'preact-custom-element';
 
-const WebReactJson = r2wc(JsonView, {
-  props: {
-    value: 'json',
-    displayObjectSize: 'boolean',
-    displayDataTypes: 'boolean',
-    shortenTextAfterLength: 'number',
-  },
-});
-
-defineElement('bc-json-preview')(WebReactJson);
+register(JsonView as FunctionComponent, 'bc-json-preview', ['value', 'display-object-size', 'display-data-types', 'shorten-text-after-length'], {shadow: true});

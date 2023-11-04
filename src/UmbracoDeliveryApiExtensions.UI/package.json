@@ -9,16 +9,18 @@
     "watch": "chokidar src public -c \"tsc && vite build\" --initial"
   },
   "dependencies": {
-    "@r2wc/react-to-web-component": "^2.0.3",
     "@uiw/react-json-view": "^2.0.0-alpha.9",
     "@umbraco-ui/uui": "^1.4.0",
     "js-cookie": "^3.0.5",
-    "lit": "^2.7.6"
+    "lit": "^2.7.6",
+    "preact": "^10.18.2",
+    "preact-custom-element": "^4.3.0"
   },
   "devDependencies": {
     "@types/angular": "^1.8.7",
     "@types/js-cookie": "^3.0.5",
-    "@types/prismjs": "^1.26.2",
+    "@types/preact-custom-element": "^4.0.3",
+    "@types/react": "^18.2.34",
     "@typescript-eslint/eslint-plugin": "^6.9.1",
     "@typescript-eslint/parser": "^6.9.1",
     "chokidar-cli": "^3.0.0",
