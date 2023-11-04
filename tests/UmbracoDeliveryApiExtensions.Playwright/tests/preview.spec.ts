@@ -2,7 +2,7 @@
 import {expect} from "@playwright/test";
 import { ContentBuilder, DocumentTypeBuilder } from '@umbraco/playwright-models';
 
-test.describe('Tests for API preview', () => {
+test.describe('API preview', () => {
   const docTypeName = 'PlaywrightTestDocType';
   const nodeName = 'PlaywrightTestNode';
 
