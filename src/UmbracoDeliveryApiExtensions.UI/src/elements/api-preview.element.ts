@@ -73,18 +73,16 @@ export class ApiPreviewElement extends AngularElementMixin(KebabCaseAttributesMi
   }
 
   private async updateResponse() {
-    const params: RequestInit = {
+    const params: RequestInit & {headers: Record<string, string>} = {
       method: 'GET',
       headers: {
         'x-umb-xsrf-token': this.getCsrfToken(),
       },
       credentials: 'include',
     };
+
     if (this.culture) {
-      params.headers = {
-        ...params.headers,
-        'Accept-Language': this.culture,
-      };
+      params.headers['Accept-Language'] = this.culture;
     }
 
     if (this.isPublished) {
@@ -94,19 +92,16 @@ export class ApiPreviewElement extends AngularElementMixin(KebabCaseAttributesMi
 
     // Only render the preview if it's Content. Media only has one state.
     if (this.entityType === 'document') {
-      params.headers = {
-        ...params.headers,
-        preview: 'true',
-      };
+      params.headers.preview = 'true';
 
       const previewResponse = await fetch(this.apiPath, params);
-    this._previewData = await this.parseJsonResponse(previewResponse);
+      this._previewData = await this.parseJsonResponse(previewResponse);
     }
   }
 }
 
 declare global {
   interface HTMLElementTagNameMap {
-    'api-preview': ApiPreviewElement;
+    'bc-api-preview': ApiPreviewElement;
   }
 }
