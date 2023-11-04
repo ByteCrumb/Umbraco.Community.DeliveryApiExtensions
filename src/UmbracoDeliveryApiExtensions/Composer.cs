@@ -1,5 +1,4 @@
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
 using Umbraco.Cms.Core.Composing;
 using Umbraco.Cms.Core.DependencyInjection;
 using Umbraco.Community.DeliveryApiExtensions.Configuration;
@@ -8,8 +7,7 @@ using Umbraco.Community.DeliveryApiExtensions.ContentApps;
 
 namespace Umbraco.Community.DeliveryApiExtensions;
 
-// ReSharper disable once UnusedMember.Global
-internal class Composer : IComposer
+public sealed class Composer : IComposer
 {
     public void Compose(IUmbracoBuilder builder)
     {
@@ -17,12 +15,11 @@ internal class Composer : IComposer
 
         IConfigurationSection configSection = builder.Config.GetSection<DeliveryApiExtensionsOptions>();
         _ = builder.Services.AddOptions<DeliveryApiExtensionsOptions>(builder.Config);
-        _ = builder.Services.AddOptions<PreviewOptions>(configSection);
 
-        DeliveryApiExtensionsOptions? options = configSection.Get<DeliveryApiExtensionsOptions>();
-        if (options?.Preview.Enabled == true)
-        {
-            _ = builder.ContentApps().Append<DeliveryApiPreviewApp>();
-        }
+        IConfigurationSection previewConfig = configSection.GetSection<PreviewOptions>();
+        _ = builder.Services.AddOptions<PreviewOptions>(configSection);
+        _ = builder.Services.AddOptions<MediaOptions>(previewConfig);
+
+        _ = builder.ContentApps().Append<DeliveryApiPreviewApp>();
     }
 }

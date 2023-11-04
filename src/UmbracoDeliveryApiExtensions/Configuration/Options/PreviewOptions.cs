@@ -11,6 +11,11 @@ public class PreviewOptions
     public bool Enabled { get; set; } = true;
 
     /// <summary>
+    /// Preview options for media.
+    /// </summary>
+    public MediaOptions Media { get; set; } = new();
+
+    /// <summary>
     /// The aliases of the allowed user groups.
     /// </summary>
     public List<string> AllowedUserGroupAliases { get; set; } = new() { Cms.Core.Constants.Security.AdminGroupAlias };

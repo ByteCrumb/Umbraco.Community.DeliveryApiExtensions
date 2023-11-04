@@ -1,6 +1,5 @@
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Options;
-using Umbraco.Cms.Core.Configuration.Models;
 using Umbraco.Cms.Core.Models;
 using Umbraco.Cms.Core.Models.ContentEditing;
 using Umbraco.Cms.Core.Models.Entities;
@@ -13,23 +12,20 @@ namespace Umbraco.Community.DeliveryApiExtensions.ContentApps;
 public class DeliveryApiPreviewApp : IContentAppFactory
 {
     private readonly LinkGenerator _linkGenerator;
-    private readonly IOptions<Configuration.Options.DeliveryApiExtensionsOptions> _options;
-    private readonly IOptionsMonitor<DeliveryApiSettings> _deliveryApiSettings;
+    private readonly IOptionsMonitor<Configuration.Options.DeliveryApiExtensionsOptions> _options;
 
     public DeliveryApiPreviewApp(
         LinkGenerator linkGenerator,
-        IOptions<Configuration.Options.DeliveryApiExtensionsOptions> options,
-        IOptionsMonitor<DeliveryApiSettings> deliveryApiSettings)
+        IOptionsMonitor<Configuration.Options.DeliveryApiExtensionsOptions> options)
     {
         _linkGenerator = linkGenerator;
         _options = options;
-        _deliveryApiSettings = deliveryApiSettings;
     }
 
     public ContentApp? GetContentAppFor(object source, IEnumerable<IReadOnlyUserGroup> userGroups)
     {
-        // Only show the content app if the Delivery API is enabled AND the user belongs to one of the allowed user groups
-        if (!DeliveryApiIsEnabled() || !UserBelongsToAllowedGroup(userGroups))
+        // Only show the content app if preview is enabled and the user belongs to one of the allowed user groups
+        if (!PreviewIsEnabled() || !UserBelongsToAllowedGroup(userGroups))
         {
             return null;
         }
@@ -42,7 +38,7 @@ public class DeliveryApiPreviewApp : IContentAppFactory
                 apiPath = $"{GetApiPath(nameof(PreviewController.GetContent))}/{content.Key}",
                 entityType = Cms.Core.Constants.UdiEntityType.Document
             }),
-            IMedia media when _deliveryApiSettings.CurrentValue.Media.Enabled => CreateBaseContentApp(new
+            IMedia media when _options.CurrentValue.Preview.Media.Enabled => CreateBaseContentApp(new
             {
                 apiPath = $"{GetApiPath(nameof(PreviewController.GetMedia))}/{media.Key}",
                 entityType = Cms.Core.Constants.UdiEntityType.Media
@@ -57,14 +53,14 @@ public class DeliveryApiPreviewApp : IContentAppFactory
         Name = Constants.PreviewAppName,
         Icon = Constants.PreviewAppIcon,
         View = Constants.PreviewAppView,
-        Weight = _options.Value.Preview.ContentAppWeight,
+        Weight = _options.CurrentValue.Preview.ContentAppWeight,
         ViewModel = viewModel
     };
 
     private string? GetApiPath(string action) => _linkGenerator.GetUmbracoApiService<PreviewController>(action)?.TrimEnd('/');
 
-    private bool DeliveryApiIsEnabled() => _deliveryApiSettings.CurrentValue.Enabled;
-
     private bool UserBelongsToAllowedGroup(IEnumerable<IReadOnlyUserGroup> userGroups) =>
-        _options.Value.Preview.AllowedUserGroupAliases.Any(g => userGroups.Any(ug => ug.Alias == g));
+        _options.CurrentValue.Preview.AllowedUserGroupAliases.Any(g => userGroups.Any(ug => ug.Alias == g));
+
+    private bool PreviewIsEnabled() => _options.CurrentValue.Preview.Enabled;
 }
