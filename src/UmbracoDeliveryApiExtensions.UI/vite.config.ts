@@ -24,6 +24,13 @@ export default defineConfig(({mode}) => ({
   define: {
     'process.env.NODE_ENV': JSON.stringify(mode),
   },
+  resolve: {
+    alias: {
+      'react-dom/test-utils': 'preact/test-utils',
+      'react-dom': 'preact/compat',
+      react: 'preact/compat',
+    },
+  },
   server: {
     port: 5173,
     strictPort: true,

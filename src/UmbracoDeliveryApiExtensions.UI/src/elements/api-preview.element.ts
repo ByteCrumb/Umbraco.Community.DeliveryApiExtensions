@@ -52,14 +52,14 @@ export class ApiPreviewElement extends AngularElementMixin(KebabCaseAttributesMi
       ${this._previewData ? html`
       <uui-box headline="Preview">
         <uui-scroll-container>
-        <bc-json-preview display-object-size="false" display-data-types="false" shorten-text-after-length="50" .value=${this._previewData}></bc-json-preview>
+        <bc-json-preview .value=${this._previewData} display-object-size="${undefined}" display-data-types="${undefined}" shorten-text-after-length="50" ></bc-json-preview>
         </uui-scroll-container>
       </uui-box>
       ` : undefined}
       ${this._publishedData ? html`
         <uui-box headline="Published">
           <uui-scroll-container>
-            <bc-json-preview display-object-size="false" display-data-types="false" shorten-text-after-length="50" .value=${this._publishedData}></bc-json-preview>
+            <bc-json-preview .value=${this._publishedData} display-object-size="${undefined}" display-data-types="${undefined}" shorten-text-after-length="50"></bc-json-preview>
           </uui-scroll-container>
         </uui-box>
       ` : undefined}
