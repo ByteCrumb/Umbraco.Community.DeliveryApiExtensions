@@ -6,6 +6,7 @@ angular.module('umbraco')
     registerAsKnownContentApp();
 
     vm.apiPath = $scope.model.viewModel.apiPath;
+    vm.entityType = $scope.model.viewModel.entityType;
     vm.culture = $routeParams.cculture || $routeParams.mculture;
 
     updateIsPublished();
