@@ -15,8 +15,7 @@ internal class DeliveryApiExtensionsManifestFilter : IManifestFilter
             Version = assembly.GetName()?.Version?.ToString(3) ?? "0.1.0",
             AllowPackageTelemetry = true,
             Scripts = new[] {
-                "/App_Plugins/DeliveryApiExtensions/delivery-api-extensions.iife.js",
-                "/App_Plugins/DeliveryApiExtensions/preview.controller.js"
+                "/App_Plugins/DeliveryApiExtensions/delivery-api-extensions.iife.js"
             },
             Stylesheets = Array.Empty<string>()
         });
