@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using Umbraco.Cms.Core.Cache;
 using Umbraco.Cms.Core.DeliveryApi;
 using Umbraco.Cms.Core.Models;
@@ -20,24 +21,28 @@ namespace Umbraco.Community.DeliveryApiExtensions.Controllers;
 [PluginController(Constants.ApiAreaName)]
 public class PreviewController : UmbracoAuthorizedJsonController
 {
+    private readonly ILogger<PreviewController> _logger;
     private readonly IBackOfficeSecurityAccessor _backOfficeSecurityAccessor;
     private readonly IEntityService _entityService;
     private readonly IRequestCultureService _requestCultureService;
     private readonly AppCaches _appCaches;
-    private readonly ILogger<PreviewController> _logger;
+    private readonly JsonOptions _deliveryApiJsonOptions;
 
     public PreviewController(
+        ILogger<PreviewController> logger,
         IBackOfficeSecurityAccessor backOfficeSecurityAccessor,
         IEntityService entityService,
         IRequestCultureService requestCultureService,
         AppCaches appCaches,
-        ILogger<PreviewController> logger)
+        IOptionsSnapshot<JsonOptions> jsonOptions)
     {
+        _logger = logger;
         _backOfficeSecurityAccessor = backOfficeSecurityAccessor;
         _entityService = entityService;
         _requestCultureService = requestCultureService;
         _appCaches = appCaches;
-        _logger = logger;
+
+        _deliveryApiJsonOptions = jsonOptions.Get(Cms.Core.Constants.JsonOptionsNames.DeliveryApi);
     }
 
     [HttpGet]
@@ -63,7 +68,7 @@ public class PreviewController : UmbracoAuthorizedJsonController
                 return Problem(statusCode: StatusCodes.Status404NotFound);
             }
 
-            return Ok(apiContentResponse);
+            return new JsonResult(apiContentResponse, _deliveryApiJsonOptions.JsonSerializerOptions);
         }
         catch (Exception ex)
         {
@@ -89,7 +94,7 @@ public class PreviewController : UmbracoAuthorizedJsonController
                 return Problem(statusCode: StatusCodes.Status404NotFound);
             }
 
-            return Ok(responseBuilder.Build(media));
+            return new JsonResult(responseBuilder.Build(media), _deliveryApiJsonOptions.JsonSerializerOptions);
         }
         catch (Exception ex)
         {
