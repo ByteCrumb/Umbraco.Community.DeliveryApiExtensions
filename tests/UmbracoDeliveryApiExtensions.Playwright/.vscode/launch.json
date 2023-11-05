@@ -1,0 +1,21 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "node",
+      "runtimeExecutable": "npx",
+      "runtimeArgs": [ "playwright", "test" ],
+      "cwd": "${workspaceFolder}",
+      "console": "externalTerminal",
+      "name": "Test"
+    },
+    {
+      "type": "node",
+      "runtimeExecutable": "npx",
+      "runtimeArgs": [ "playwright", "test", "--ui" ],
+      "cwd": "${workspaceFolder}",
+      "console": "externalTerminal",
+      "name": "Test - UI"
+    },
+  ]
+}

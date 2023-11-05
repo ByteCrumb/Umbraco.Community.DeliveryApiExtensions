@@ -20,6 +20,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{64029CDB
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UmbracoDeliveryApiExtensions.TestSite", "..\tests\UmbracoDeliveryApiExtensions.TestSite\UmbracoDeliveryApiExtensions.TestSite.csproj", "{106D85D1-DDD8-446D-BCAA-05CB790F665A}"
 EndProject
+Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "UmbracoDeliveryApiExtensions.Playwright", "..\tests\UmbracoDeliveryApiExtensions.Playwright\UmbracoDeliveryApiExtensions.Playwright.esproj", "{49A0A6AE-9FF4-4C8E-AC19-275F241D8990}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,12 +41,19 @@ Global
 		{106D85D1-DDD8-446D-BCAA-05CB790F665A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{106D85D1-DDD8-446D-BCAA-05CB790F665A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{106D85D1-DDD8-446D-BCAA-05CB790F665A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{49A0A6AE-9FF4-4C8E-AC19-275F241D8990}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{49A0A6AE-9FF4-4C8E-AC19-275F241D8990}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{49A0A6AE-9FF4-4C8E-AC19-275F241D8990}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{49A0A6AE-9FF4-4C8E-AC19-275F241D8990}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{49A0A6AE-9FF4-4C8E-AC19-275F241D8990}.Release|Any CPU.Build.0 = Release|Any CPU
+		{49A0A6AE-9FF4-4C8E-AC19-275F241D8990}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{106D85D1-DDD8-446D-BCAA-05CB790F665A} = {64029CDB-B81B-4ABF-A96C-778BA28B6952}
+		{49A0A6AE-9FF4-4C8E-AC19-275F241D8990} = {64029CDB-B81B-4ABF-A96C-778BA28B6952}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {6F07004F-9903-4AEB-9ED0-BE57A0326D20}

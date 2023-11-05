@@ -1,0 +1,6 @@
+<Project Sdk="Microsoft.VisualStudio.JavaScript.Sdk/0.5.126-alpha">
+	<PropertyGroup>
+		<StartupCommand>npx playwright test</StartupCommand>
+		<ShouldRunNpmBuildScript>false</ShouldRunNpmBuildScript>
+	</PropertyGroup>
+</Project>
