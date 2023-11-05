@@ -28,11 +28,16 @@ export class ApiPreviewElement extends AngularElementMixin(KebabCaseAttributesMi
       }
      }
 
+    uui-box {
+      display: grid;
+      grid-template-rows: max-content minmax(150px, auto);
+    }
+
     .centered {
       display:flex;
       justify-content:center;
       align-items: center;
-      min-height: 150px;
+      height: 100%;
     }
   `;
 
