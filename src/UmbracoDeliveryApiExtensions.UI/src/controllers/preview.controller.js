@@ -5,14 +5,18 @@ angular
   .controller(
     'Umbraco.Community.DeliveryApiExtensions.Preview',
     [
-      '$scope', '$element', '$routeParams', 'contentAppHelper', 'eventsService',
+      '$scope',
+      '$element',
+      '$routeParams',
+      'contentAppHelper',
+      'eventsService',
       function ($scope, $element, $routeParams, contentAppHelper, eventsService) {
         const vm = this;
 
         registerAsKnownContentApp();
 
         vm.apiPath = $scope.model.viewModel.apiPath;
-        vm.entityType = $scope.model.viewModel.entityType;
+        vm.hasPreview = $scope.model.viewModel.entityType === 'document';
         vm.culture = $routeParams.cculture || $routeParams.mculture;
 
         updateIsPublished();
@@ -40,6 +44,6 @@ angular
           updateIsPublished();
           $element.find('bc-api-preview')[0].updateResponse();
         }
-      }
-    ]
+      },
+    ],
   );
