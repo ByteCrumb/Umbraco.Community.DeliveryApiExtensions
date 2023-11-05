@@ -1,1 +1,1 @@
-import './preview.controller';
+export * from './preview.controller';

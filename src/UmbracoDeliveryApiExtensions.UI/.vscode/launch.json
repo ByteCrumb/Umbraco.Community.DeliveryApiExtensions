@@ -16,14 +16,6 @@
       "webRoot": "${workspaceFolder}",
       "cwd": "${workspaceFolder}",
       "name": "Launch Chrome"
-    },
-    {
-      "type": "edge",
-      "request": "launch",
-      "url": "http://localhost:5173",
-      "webRoot": "${workspaceFolder}",
-      "cwd": "${workspaceFolder}",
-      "name": "Launch Edge"
     }
   ]
 }
