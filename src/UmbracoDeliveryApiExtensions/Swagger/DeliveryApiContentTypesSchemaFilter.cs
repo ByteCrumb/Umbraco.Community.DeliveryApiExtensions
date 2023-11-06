@@ -87,7 +87,7 @@ public class DeliveryApiContentTypesSchemaFilter : ISchemaFilter
         {
             IPublishedContentType publishedContentType = _publishedContentTypeFactory.CreateContentType(contentType);
 
-            var contentTypeSchema = context.SchemaRepository.AddDefinition(
+            OpenApiSchema? contentTypeSchema = context.SchemaRepository.AddDefinition(
                 $"{GetContentTypeSchemaId(contentType)}ElementModel",
                 new OpenApiSchema
                 {
@@ -151,7 +151,7 @@ public class DeliveryApiContentTypesSchemaFilter : ISchemaFilter
 
         foreach (IContentType contentType in _contentTypeService.GetAll().Where(c => !c.IsElement))
         {
-            var contentTypeSchema = context.SchemaRepository.AddDefinition(
+            OpenApiSchema? contentTypeSchema = context.SchemaRepository.AddDefinition(
                 $"{GetContentTypeSchemaId(contentType)}ContentModel",
                 new OpenApiSchema
                 {
@@ -206,7 +206,7 @@ public class DeliveryApiContentTypesSchemaFilter : ISchemaFilter
 
         foreach (IContentType contentType in _contentTypeService.GetAll().Where(c => !c.IsElement))
         {
-            var contentTypeSchema = context.SchemaRepository.AddDefinition(
+            OpenApiSchema? contentTypeSchema = context.SchemaRepository.AddDefinition(
                 $"{GetContentTypeSchemaId(contentType)}ContentResponseModel",
                 new OpenApiSchema
                 {
@@ -246,7 +246,7 @@ public class DeliveryApiContentTypesSchemaFilter : ISchemaFilter
         return _schemaIdSelector.SchemaId(typeof(T)) + (baseSuffix ? "Base" : null);
     }
 
-    private void ClearSchema(OpenApiSchema schema)
+    private static void ClearSchema(OpenApiSchema schema)
     {
         schema.AllOf.Clear();
         schema.OneOf.Clear();
@@ -263,17 +263,16 @@ public class DeliveryApiContentTypesSchemaFilter : ISchemaFilter
     {
         Type modelClrType = publishedPropertyType.ModelClrType;
 
-        switch (ConverterField?.GetValue(publishedPropertyType))
+        return ConverterField?.GetValue(publishedPropertyType) switch
         {
-            case BlockListPropertyValueConverter:
+            BlockListPropertyValueConverter =>
                 // HACK: Needed due to umbraco returning the wrong type
                 // https://github.com/umbraco/Umbraco-CMS/pull/14728
-                return typeof(ApiBlockListModel);
-            case IDeliveryApiPropertyValueConverter propertyValueConverter:
-                return propertyValueConverter.GetDeliveryApiPropertyValueType(publishedPropertyType);
-            default:
-                return modelClrType;
-        }
+                typeof(ApiBlockListModel),
+            IDeliveryApiPropertyValueConverter propertyValueConverter => propertyValueConverter
+                .GetDeliveryApiPropertyValueType(publishedPropertyType),
+            _ => modelClrType,
+        };
     }
 
     // HACK: Needed because Umbraco generates invalid enum schemas
@@ -281,7 +280,9 @@ public class DeliveryApiContentTypesSchemaFilter : ISchemaFilter
     private static void FixEnums(OpenApiSchema schema, SchemaFilterContext context)
     {
         if (!context.Type.IsEnum)
+        {
             return;
+        }
 
         schema.Type = "string";
         schema.Format = null;

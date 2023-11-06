@@ -47,17 +47,23 @@ public class DeliveryApiPreviewApp : IContentAppFactory
         };
     }
 
-    private ContentApp CreateBaseContentApp(object? viewModel) => new()
+    private ContentApp CreateBaseContentApp(object? viewModel)
     {
-        Alias = Constants.PreviewAppAlias,
-        Name = Constants.PreviewAppName,
-        Icon = Constants.PreviewAppIcon,
-        View = Constants.PreviewAppView,
-        Weight = _options.CurrentValue.Preview.ContentAppWeight,
-        ViewModel = viewModel
-    };
+        return new ContentApp
+        {
+            Alias = Constants.PreviewAppAlias,
+            Name = Constants.PreviewAppName,
+            Icon = Constants.PreviewAppIcon,
+            View = Constants.PreviewAppView,
+            Weight = _options.CurrentValue.Preview.ContentAppWeight,
+            ViewModel = viewModel,
+        };
+    }
 
-    private string? GetApiPath(string action) => _linkGenerator.GetUmbracoApiService<PreviewController>(action)?.TrimEnd('/');
+    private string? GetApiPath(string action)
+    {
+        return _linkGenerator.GetUmbracoApiService<PreviewController>(action)?.TrimEnd('/');
+    }
 
     private bool UserBelongsToAllowedGroup(IEnumerable<IReadOnlyUserGroup> userGroups)
     {
@@ -66,5 +72,8 @@ public class DeliveryApiPreviewApp : IContentAppFactory
         return allowedUserGroupAliases is { Count: 0 } || userGroups.Select(g => g.Alias).ContainsAny(allowedUserGroupAliases);
     }
 
-    private bool PreviewIsEnabled() => _options.CurrentValue.Preview.Enabled;
+    private bool PreviewIsEnabled()
+    {
+        return _options.CurrentValue.Preview.Enabled;
+    }
 }
