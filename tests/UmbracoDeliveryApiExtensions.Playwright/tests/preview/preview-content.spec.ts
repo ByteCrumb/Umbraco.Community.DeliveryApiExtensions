@@ -1,13 +1,14 @@
-﻿import {ApiHelpers, ConstantHelper, test} from '@umbraco/playwright-testhelpers';
+﻿import {ApiHelpers, test} from '@umbraco/playwright-testhelpers';
 import {expect} from "@playwright/test";
 import { ContentBuilder, DocumentTypeBuilder } from '@umbraco/playwright-models';
 
-test.describe('API preview', () => {
+test.describe('API preview - Content', () => {
   const docTypeName = 'PlaywrightTestDocType';
   const nodeName = 'PlaywrightTestNode';
 
   test.beforeEach(async ({umbracoApi}) => {
     await umbracoApi.login();
+
     await cleanTestContent(umbracoApi);
     await createTestContent(umbracoApi);
   });
@@ -15,22 +16,24 @@ test.describe('API preview', () => {
   test.afterEach(async ({umbracoApi}) => {
     await cleanTestContent(umbracoApi);
   });
-  
-  test('Content app is visible in saved document', async ({page, umbracoUi}) => {
+
+  test('Preview content app is visible in saved document', async ({page, umbracoUi}) => {
     // Go to test node
     await umbracoUi.navigateToContent(nodeName);
 
     // Check that the content app is visible
-    await expect(page.locator('button[data-element="sub-view-deliveryApiPreview"]')).toBeVisible();
+    const contentAppLocator = page.locator('button[data-element="sub-view-deliveryApiPreview"]');
+    await expect(contentAppLocator).toBeVisible();
 
     // Click on the content app
-    await page.locator('button[data-element="sub-view-deliveryApiPreview"]').click();
+    contentAppLocator.click();
 
     // Verify that the preview component is visible
-    await expect(page.locator('bc-api-preview')).toBeVisible();
+    const apiPreviewElement = page.locator('bc-api-preview');
+    await expect(apiPreviewElement).toBeVisible();
   });
 
-  test('Content app is not visible in new document', async ({page, umbracoUi}) => {
+  test('Preview content app is not visible in new document', async ({page, umbracoUi}) => {
     // Create new document
     await page.locator('button[data-element="tree-item-options"]').first().click();
     await page.locator(`li[data-element*="${docTypeName}"]`).click();
@@ -39,13 +42,17 @@ test.describe('API preview', () => {
     await expect(page.locator('button[data-element="sub-view-deliveryApiPreview"]')).toBeHidden();
   });
 
-  async function cleanTestContent(umbracoApi: ApiHelpers){
-    const contentId = await umbracoApi.content.getContentId(nodeName);
-    if(contentId){
-      await umbracoApi.content.deleteById(contentId);
-    }
-    await umbracoApi.documentTypes.ensureNameNotExists(docTypeName);
-  }
+  test('Preview content app shows only Preview section in saved document', async ({page, umbracoUi}) => {
+    // Navigate to content app
+    await umbracoUi.navigateToContent(nodeName);
+    await page.locator('button[data-element="sub-view-deliveryApiPreview"]').click();
+
+    // Check that only the preview section is being displayed
+    const sectionsLocator = page.locator('bc-api-preview > uui-box');
+    await expect(sectionsLocator).toHaveCount(1);
+
+    await expect(sectionsLocator.first()).toHaveAttribute('headline', 'Preview');
+  });
 
   async function createTestContent(umbracoApi: ApiHelpers){
     const saveNode = "saveNew";
@@ -74,5 +81,13 @@ test.describe('API preview', () => {
       .build();
 
       await umbracoApi.content.save(rootContentNode);
+  }
+
+  async function cleanTestContent(umbracoApi: ApiHelpers){
+    const contentId = await umbracoApi.content.getContentId(nodeName);
+    if(contentId){
+      await umbracoApi.content.deleteById(contentId);
+    }
+    await umbracoApi.documentTypes.ensureNameNotExists(docTypeName);
   }
 });
