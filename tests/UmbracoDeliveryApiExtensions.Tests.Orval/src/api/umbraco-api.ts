@@ -219,10 +219,6 @@ export const TestPageInvariantContentResponseModelContentType = {
   testPageInvariant: 'testPageInvariant',
 } as const;
 
-export type TestPageInvariantContentResponseModel = IApiContentResponseModelBase & TestPageInvariantContentModel & {
-  contentType: TestPageInvariantContentResponseModelContentType;
-};
-
 export type TestPageInvariantContentModelContentType = typeof TestPageInvariantContentModelContentType[keyof typeof TestPageInvariantContentModelContentType];
 
 
@@ -233,6 +229,10 @@ export const TestPageInvariantContentModelContentType = {
 
 export type TestPageInvariantContentModel = IApiContentModelBase & TestPageInvariantElementModel & {
   contentType: TestPageInvariantContentModelContentType;
+};
+
+export type TestPageInvariantContentResponseModel = IApiContentResponseModelBase & TestPageInvariantContentModel & {
+  contentType: TestPageInvariantContentResponseModelContentType;
 };
 
 export type TestPageElementModelContentType = typeof TestPageElementModelContentType[keyof typeof TestPageElementModelContentType];
@@ -256,10 +256,6 @@ export const TestPageContentResponseModelContentType = {
   testPage: 'testPage',
 } as const;
 
-export type TestPageContentResponseModel = IApiContentResponseModelBase & TestPageContentModel & {
-  contentType: TestPageContentResponseModelContentType;
-};
-
 export type TestPageContentModelContentType = typeof TestPageContentModelContentType[keyof typeof TestPageContentModelContentType];
 
 
@@ -270,6 +266,10 @@ export const TestPageContentModelContentType = {
 
 export type TestPageContentModel = IApiContentModelBase & TestPageElementModel & {
   contentType: TestPageContentModelContentType;
+};
+
+export type TestPageContentResponseModel = IApiContentResponseModelBase & TestPageContentModel & {
+  contentType: TestPageContentResponseModelContentType;
 };
 
 export interface TestCompositionPropertiesModel {
@@ -325,6 +325,23 @@ export const TestBlockElementModelContentType = {
 export type TestBlockElementModel = IApiElementModelBase & {
   contentType: TestBlockElementModelContentType;
   properties?: TestBlockPropertiesModel;
+};
+
+export type TestBlock2PropertiesModel = TestCompositionPropertiesModel & {
+  thisIsTestBlock2?: string | null;
+};
+
+export type TestBlock2ElementModelContentType = typeof TestBlock2ElementModelContentType[keyof typeof TestBlock2ElementModelContentType];
+
+
+// eslint-disable-next-line @typescript-eslint/no-redeclare
+export const TestBlock2ElementModelContentType = {
+  testBlock2: 'testBlock2',
+} as const;
+
+export type TestBlock2ElementModel = IApiElementModelBase & {
+  contentType: TestBlock2ElementModelContentType;
+  properties?: TestBlock2PropertiesModel;
 };
 
 export interface RichTextModel {
@@ -392,7 +409,7 @@ export interface IApiElementModelBase {
   readonly properties?: IApiElementModelBaseProperties;
 }
 
-export type IApiElementModel = TestPageElementModel | TestCompositionElementModel | TestBlockElementModel | TestComposition2ElementModel | TestPageInvariantElementModel;
+export type IApiElementModel = TestPageElementModel | TestCompositionElementModel | TestBlockElementModel | TestComposition2ElementModel | TestPageInvariantElementModel | TestBlock2ElementModel | BlockSettingsElementModel;
 
 export interface IApiContentStartItemModel {
   readonly id?: string;
@@ -408,6 +425,17 @@ export type IApiContentResponseModelBaseProperties = {[key: string]: unknown};
 
 export type IApiContentResponseModelBaseCultures = {[key: string]: IApiContentRouteModel};
 
+export type IApiContentResponseModelBase = IApiContentModelBase & {
+  readonly contentType?: string;
+  readonly createDate?: string;
+  readonly cultures?: IApiContentResponseModelBaseCultures;
+  readonly id?: string;
+  readonly name?: string | null;
+  readonly properties?: IApiContentResponseModelBaseProperties;
+  route?: IApiContentRouteModel;
+  readonly updateDate?: string;
+};
+
 export type IApiContentResponseModel = TestPageContentResponseModel | TestPageInvariantContentResponseModel;
 
 export type IApiContentModelBaseProperties = {[key: string]: unknown};
@@ -422,17 +450,6 @@ export type IApiContentModelBase = IApiElementModelBase & {
   readonly updateDate?: string;
 };
 
-export type IApiContentResponseModelBase = IApiContentModelBase & {
-  readonly contentType?: string;
-  readonly createDate?: string;
-  readonly cultures?: IApiContentResponseModelBaseCultures;
-  readonly id?: string;
-  readonly name?: string | null;
-  readonly properties?: IApiContentResponseModelBaseProperties;
-  route?: IApiContentRouteModel;
-  readonly updateDate?: string;
-};
-
 export type IApiContentModel = TestPageContentModel | TestPageInvariantContentModel;
 
 export type HttpValidationProblemDetailsErrors = {[key: string]: string[]};
@@ -440,6 +457,23 @@ export type HttpValidationProblemDetailsErrors = {[key: string]: string[]};
 export type HttpValidationProblemDetails = ProblemDetails & {
   readonly errors?: HttpValidationProblemDetailsErrors;
   [key: string]: unknown;
+};
+
+export interface BlockSettingsPropertiesModel {
+  anchorId?: string | null;
+}
+
+export type BlockSettingsElementModelContentType = typeof BlockSettingsElementModelContentType[keyof typeof BlockSettingsElementModelContentType];
+
+
+// eslint-disable-next-line @typescript-eslint/no-redeclare
+export const BlockSettingsElementModelContentType = {
+  blockSettings: 'blockSettings',
+} as const;
+
+export type BlockSettingsElementModel = IApiElementModelBase & {
+  contentType: BlockSettingsElementModelContentType;
+  properties?: BlockSettingsPropertiesModel;
 };
 
 export type ApiMediaWithCropsModelProperties = {[key: string]: unknown};

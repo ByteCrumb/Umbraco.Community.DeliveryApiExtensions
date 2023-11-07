@@ -95,7 +95,23 @@ function renderBlock(block: ApiBlockListModelItemsItem){
             console.log('      String: ' + block.content.properties?.string);
             console.log('      Multinode Treepicker: ' + block.content.properties?.multinodeTreepicker?.[0].id);
             console.log('      Shared string: ' + block.content.properties?.sharedString);
+            const nestedBlock = block.content.properties?.blocks?.items?.[0];
+            if(nestedBlock){
+                console.log('      **Nested block**');
+                renderBlock(nestedBlock);
+            }
             break;
+        case 'testComposition': // Doesn't work as C#. Sad, but nothing we can do about it. (as far as I know 👀)
+            console.log('      Shared string (testComposition): ' + block.content.properties?.sharedString);
+            if(block.settings?.contentType === 'blockSettings'){
+                console.log('      Block id (settings): ' + block.settings?.id);
+            }
+            break;
+        case 'testBlock2':
+            console.log('      Shared string (testBlock2): ' + block.content.properties?.sharedString);
+            if(block.settings?.contentType === 'blockSettings'){
+                console.log('      Block id (settings): ' + block.settings?.properties?.anchorId);
+            }
     }
 }
 
