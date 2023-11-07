@@ -5,18 +5,19 @@
       "type": "node",
       "request": "launch",
       "runtimeExecutable": "npm",
-      "runtimeArgs": [ "run", "watch" ],
+      "runtimeArgs": [ "run", "test" ],
       "cwd": "${workspaceFolder}",
       "console": "externalTerminal",
-      "name": "Watch"
+      "name": "Test"
     },
     {
-      "type": "chrome",
+      "type": "node",
       "request": "launch",
-      "url": "http://localhost:5173",
-      "webRoot": "${workspaceFolder}",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": [ "run", "test:ui" ],
       "cwd": "${workspaceFolder}",
-      "name": "Launch Chrome"
-    }
+      "console": "externalTerminal",
+      "name": "Test - UI"
+    },
   ]
 }
