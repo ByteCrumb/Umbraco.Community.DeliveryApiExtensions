@@ -39,6 +39,11 @@ export class ApiPreviewElement extends AngularElementMixin(KebabCaseAttributesMi
       align-items: center;
       height: 100%;
     }
+
+    .headline{
+      display: flex;
+      gap: 1rem;
+    }
   `;
 
   @property({type: String})
@@ -60,10 +65,16 @@ export class ApiPreviewElement extends AngularElementMixin(KebabCaseAttributesMi
   private _previewError = false;
 
   @state()
+  private _previewExpand = false;
+
+  @state()
   private _publishedData: unknown = null;
 
   @state()
   private _publishedError = false;
+
+  @state()
+  private _publishedExpand = false;
 
   render() {
     const renderLoader = () => html`
@@ -78,8 +89,17 @@ export class ApiPreviewElement extends AngularElementMixin(KebabCaseAttributesMi
       </div>
     `;
 
-    const renderPreview = (title: string, data: unknown, error: boolean) => html`
-      <uui-box headline="${title}">
+    const togglePreviewExpand = () => {
+      this._previewExpand = !this._previewExpand;
+    };
+
+    const togglePublishedExpand = () => {
+      this._publishedExpand = !this._publishedExpand;
+    };
+
+    const renderPreview = (title: string, data: unknown, error: boolean, toggleExpand: () => void) => html`
+      <uui-box>
+          <div class="headline" slot="headline"><span>${title}</span><uui-toggle label="expand" @change=${toggleExpand}></uui-toggle></div>
           ${data ? html`
             <uui-scroll-container>
               <bc-json-preview .value=${data} display-object-size display-data-types shorten-text-after-length="50" ></bc-json-preview>
@@ -89,18 +109,63 @@ export class ApiPreviewElement extends AngularElementMixin(KebabCaseAttributesMi
     `;
 
     return html`
-      ${this.hasPreview ? renderPreview('Preview', this._previewData, this._previewError) : nothing}
-      ${this.isPublished ? renderPreview('Published', this._publishedData, this._publishedError) : nothing}
+      ${this.hasPreview ? renderPreview('Preview', this._previewData, this._previewError, togglePreviewExpand) : nothing}
+      ${this.isPublished ? renderPreview('Published', this._publishedData, this._publishedError, togglePublishedExpand) : nothing}
     `;
   }
 
   protected updated(_changedProperties: PropertyValueMap<any> | Map<PropertyKey, unknown>): void {
-    if (_changedProperties.has('apiPath') || _changedProperties.has('isPublished')) {
-      void this.updateResponse();
+    const sharedUpdateProperties = ['apiPath'];
+
+    const updatePreview = [...sharedUpdateProperties, '_previewExpand'].some(p => _changedProperties.has(p));
+    if (updatePreview) {
+      void this.updatePreviewResponse();
+    }
+
+    const updatePublished = [...sharedUpdateProperties, 'isPublished', '_publishedExpand'].some(p => _changedProperties.has(p));
+    if (updatePublished) {
+      void this.updatePublishedResponse();
     }
   }
 
-  private async updateResponse() {
+  private async updatePreviewResponse() {
+    const params = this.getSharedApiParams();
+
+    if (this.hasPreview) {
+      params.headers.preview = 'true';
+
+      ({response: this._previewData, error: this._previewError} = await this.fetchData(params, this._previewExpand));
+    }
+  }
+
+  private async updatePublishedResponse() {
+    const params = this.getSharedApiParams();
+
+    ({response: this._publishedData, error: this._publishedError} = this.isPublished
+      ? await this.fetchData(params, this._publishedExpand)
+      : {response: null, error: false});
+  }
+
+  private async fetchData(params: RequestInit, expand: boolean) {
+    try {
+      const response = await fetch(this.apiPath + (expand ? '?expand=all' : ''), params);
+      if (response.status === 200) {
+        return {
+          response: await this.parseJsonResponse(response),
+          error: false,
+        };
+      }
+    } catch (e) {
+      console.log(e);
+    }
+
+    return {
+      response: null,
+      error: true,
+    };
+  }
+
+  private getSharedApiParams() {
     const params: RequestInit & {headers: Record<string, string>} = {
       method: 'GET',
       headers: {
@@ -113,32 +178,7 @@ export class ApiPreviewElement extends AngularElementMixin(KebabCaseAttributesMi
       params.headers['Accept-Language'] = this.culture;
     }
 
-    ({response: this._publishedData, error: this._publishedError} = this.isPublished
-      ? await this.fetchData(params)
-      : {response: null, error: false});
-
-    if (this.hasPreview) {
-      params.headers.preview = 'true';
-
-      ({response: this._previewData, error: this._previewError} = await this.fetchData(params));
-    }
-  }
-
-  private async fetchData(params: RequestInit) {
-    try {
-      const response = await fetch(this.apiPath, params);
-      if (response.status === 200) {
-        return {
-          response: await this.parseJsonResponse(response),
-          error: false,
-        };
-      }
-    } catch (e) { }
-
-    return {
-      response: null,
-      error: true,
-    };
+    return params;
   }
 }
 
