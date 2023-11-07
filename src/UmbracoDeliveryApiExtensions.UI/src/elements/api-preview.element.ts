@@ -162,7 +162,7 @@ export class ApiPreviewElement extends AngularElementMixin(KebabCaseAttributesMi
         };
       }
     } catch (e) {
-      console.log(e);
+      console.error(e);
     }
 
     return {
