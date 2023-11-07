@@ -16,12 +16,14 @@ export class ApiPreviewElement extends AngularElementMixin(KebabCaseAttributesMi
         flex-direction: column;
         gap: 1rem;
     }
+
     :host > * {
       flex: 1;
       min-width: 0;
       min-height: 0;
       overflow: auto;
     }
+
     @media (min-width: 1024px) {
       :host {
         flex-direction: row;
@@ -42,6 +44,7 @@ export class ApiPreviewElement extends AngularElementMixin(KebabCaseAttributesMi
 
     .headline{
       display: flex;
+      justify-content: space-between;
       gap: 1rem;
     }
   `;
@@ -99,7 +102,10 @@ export class ApiPreviewElement extends AngularElementMixin(KebabCaseAttributesMi
 
     const renderPreview = (title: string, data: unknown, error: boolean, toggleExpand: () => void) => html`
       <uui-box>
-          <div class="headline" slot="headline"><span>${title}</span><uui-toggle label="expand" @change=${toggleExpand}></uui-toggle></div>
+          <div class="headline" slot="headline">
+            <span>${title}</span>
+            <uui-toggle label="Expand" label-position="left" @change=${toggleExpand}></uui-toggle>
+          </div>
           ${data ? html`
             <uui-scroll-container>
               <bc-json-preview .value=${data} display-object-size display-data-types shorten-text-after-length="50" ></bc-json-preview>
