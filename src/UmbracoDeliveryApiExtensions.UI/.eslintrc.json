@@ -29,6 +29,7 @@
                   }
                 }
               ],
+              "capitalized-comments": "off",
               "new-cap": [
                 "error",
                 {

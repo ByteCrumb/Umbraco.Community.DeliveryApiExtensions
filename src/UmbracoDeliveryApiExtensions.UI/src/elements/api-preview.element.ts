@@ -107,8 +107,8 @@ export class ApiPreviewElement extends AngularElementMixin(KebabCaseAttributesMi
             <uui-toggle label="Expand" label-position="left" @change=${toggleExpand}></uui-toggle>
           </div>
           ${data ? html`
-            <uui-scroll-container>
-              <bc-json-preview .value=${data} display-object-size display-data-types shorten-text-after-length="50" ></bc-json-preview>
+            <uui-scroll-container>      
+              <bc-json-preview .value=${data}></bc-json-preview>
             </uui-scroll-container>
           ` : error ? renderError() : renderLoader()}
       </uui-box>
