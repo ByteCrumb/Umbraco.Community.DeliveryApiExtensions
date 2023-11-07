@@ -1,6 +1,6 @@
-﻿import {ApiHelpers, test} from '@umbraco/playwright-testhelpers';
-import {expect} from "@playwright/test";
-import { ContentBuilder, DocumentTypeBuilder } from '@umbraco/playwright-models';
+﻿import {expect} from '@playwright/test';
+import {ContentBuilder, DocumentTypeBuilder} from '@umbraco/playwright-models';
+import {type ApiHelpers, test} from '@umbraco/playwright-testhelpers';
 
 test.describe('API preview - Content', () => {
   const docTypeName = 'PlaywrightTestDocType';
@@ -26,14 +26,14 @@ test.describe('API preview - Content', () => {
     await expect(contentAppLocator).toBeVisible();
 
     // Click on the content app
-    contentAppLocator.click();
+    await contentAppLocator.click();
 
     // Verify that the preview component is visible
     const apiPreviewElement = page.locator('bc-api-preview');
     await expect(apiPreviewElement).toBeVisible();
   });
 
-  test('Preview content app is not visible in new document', async ({page, umbracoUi}) => {
+  test('Preview content app is not visible in new document', async ({page}) => {
     // Create new document
     await page.locator('button[data-element="tree-item-options"]').first().click();
     await page.locator(`li[data-element*="${docTypeName}"]`).click();
@@ -51,43 +51,45 @@ test.describe('API preview - Content', () => {
     const sectionsLocator = page.locator('bc-api-preview > uui-box');
     await expect(sectionsLocator).toHaveCount(1);
 
-    await expect(sectionsLocator.first()).toHaveAttribute('headline', 'Preview');
+    await expect(sectionsLocator.first().locator('*[slot=headline]')).toHaveText('Preview');
   });
 
-  async function createTestContent(umbracoApi: ApiHelpers){
-    const saveNode = "saveNew";
+  async function createTestContent(umbracoApi: ApiHelpers) {
+    const saveNode = 'saveNew';
     const docType = new DocumentTypeBuilder()
       .withName(docTypeName)
+      .withAlias(docTypeName)
       .withAllowAsRoot(true)
       .addGroup()
-        .withName("Content")
-        .withAlias('content')
-        .addTextBoxProperty()
-          .withLabel("Title")
-          .withAlias("title")
-        .done()
+      .withName('Content')
+      .withAlias('content')
+      .addTextBoxProperty()
+      .withLabel('Title')
+      .withAlias('title')
+      .done()
       .done()
       .build();
 
-      const createdDocType = await umbracoApi.documentTypes.save(docType);
+    const createdDocType = await umbracoApi.documentTypes.save(docType);
 
-      const rootContentNode = new ContentBuilder()
+    const rootContentNode = new ContentBuilder()
       .withContentTypeAlias(createdDocType.alias)
       .withAction(saveNode)
       .addVariant()
-        .withName(nodeName)
-        .withSave(true)
+      .withName(nodeName)
+      .withSave(true)
       .done()
       .build();
 
-      await umbracoApi.content.save(rootContentNode);
+    await umbracoApi.content.save(rootContentNode);
   }
 
-  async function cleanTestContent(umbracoApi: ApiHelpers){
+  async function cleanTestContent(umbracoApi: ApiHelpers) {
     const contentId = await umbracoApi.content.getContentId(nodeName);
-    if(contentId){
+    if (contentId) {
       await umbracoApi.content.deleteById(contentId);
     }
+
     await umbracoApi.documentTypes.ensureNameNotExists(docTypeName);
   }
 });

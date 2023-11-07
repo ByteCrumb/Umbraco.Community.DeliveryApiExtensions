@@ -3,16 +3,18 @@
   "configurations": [
     {
       "type": "node",
-      "runtimeExecutable": "npx",
-      "runtimeArgs": [ "playwright", "test" ],
+      "request": "launch",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": [ "run", "test" ],
       "cwd": "${workspaceFolder}",
       "console": "externalTerminal",
       "name": "Test"
     },
     {
       "type": "node",
-      "runtimeExecutable": "npx",
-      "runtimeArgs": [ "playwright", "test", "--ui" ],
+      "request": "launch",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": [ "run", "test:ui" ],
       "cwd": "${workspaceFolder}",
       "console": "externalTerminal",
       "name": "Test - UI"

@@ -1,11 +1,12 @@
-import { defineConfig, devices } from '@playwright/test';
+import {defineConfig, devices} from '@playwright/test';
+import dotenv from 'dotenv';
 
-require('dotenv').config();
+dotenv.config();
 
 export default defineConfig({
   testDir: './tests/',
   fullyParallel: true,
-  forbidOnly: !!process.env.CI,
+  forbidOnly: Boolean(process.env.CI),
   retries: process.env.CI ? 2 : 0,
   workers: 1,
   reporter: 'html',
@@ -18,7 +19,7 @@ export default defineConfig({
   projects: [
     {
       name: 'chromium',
-      use: { ...devices['Desktop Chrome'] },
+      use: {...devices['Desktop Chrome']},
     },
   ],
 
@@ -28,7 +29,7 @@ export default defineConfig({
     url: process.env.URL + '/umbraco',
     reuseExistingServer: !process.env.CI,
     ignoreHTTPSErrors: true,
-    stdout: process.env.CI ? "ignore": "pipe",
-    cwd: '..\\UmbracoDeliveryApiExtensions.TestSite'
+    stdout: process.env.CI ? 'ignore' : 'pipe',
+    cwd: '..\\UmbracoDeliveryApiExtensions.TestSite',
   },
 });

@@ -3,6 +3,7 @@
   "configurations": [
     {
       "type": "node",
+      "request": "launch",
       "runtimeExecutable": "npm",
       "runtimeArgs": [ "run", "watch" ],
       "cwd": "${workspaceFolder}",

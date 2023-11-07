@@ -1,6 +1,5 @@
-﻿import {ApiHelpers, ConstantHelper, test} from '@umbraco/playwright-testhelpers';
-import {expect} from "@playwright/test";
-import { ContentBuilder, DocumentTypeBuilder, MediaBuilder } from '@umbraco/playwright-models';
+﻿import {expect} from '@playwright/test';
+import {type ApiHelpers, ConstantHelper, test} from '@umbraco/playwright-testhelpers';
 
 test.describe('API preview - Media', () => {
   const mediaName = 'PlaywrightTestMedia';
@@ -34,12 +33,11 @@ test.describe('API preview - Media', () => {
     await expect(apiPreviewElement).toBeVisible();
   });
 
-  async function createTestMedia(umbracoApi: ApiHelpers){
+  async function createTestMedia(umbracoApi: ApiHelpers) {
     await umbracoApi.media.createDefaultFile(mediaName);
   }
 
-  async function cleanTestMedia(umbracoApi: ApiHelpers){
+  async function cleanTestMedia(umbracoApi: ApiHelpers) {
     await umbracoApi.media.ensureNameNotExists(mediaName);
   }
-
 });
