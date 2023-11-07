@@ -8,8 +8,7 @@
     "skipLibCheck": true,
 
     /* JSX */
-    "jsx": "react-jsx",
-    "jsxImportSource": "preact",
+    "jsx": "preserve",
 
     /* Bundler mode */
     "moduleResolution": "bundler",

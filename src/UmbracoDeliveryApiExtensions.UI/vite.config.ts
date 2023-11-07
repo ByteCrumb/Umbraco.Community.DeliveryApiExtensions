@@ -24,6 +24,11 @@ export default defineConfig(({mode}) => ({
   define: {
     'process.env.NODE_ENV': JSON.stringify(mode),
   },
+  esbuild: {
+    jsxFactory: 'h',
+    jsxFragment: 'Fragment',
+    jsxInject: 'import { h, Fragment } from \'preact\'',
+  },
   resolve: {
     alias: {
       'react-dom/test-utils': 'preact/test-utils',

@@ -81,8 +81,8 @@ export class ApiPreviewElement extends AngularElementMixin(KebabCaseAttributesMi
     const renderPreview = (title: string, data: unknown, error: boolean) => html`
       <uui-box headline="${title}">
           ${data ? html`
-            <uui-scroll-container>
-              <bc-json-preview .value=${data} display-object-size display-data-types shorten-text-after-length="50" ></bc-json-preview>
+            <uui-scroll-container>      
+              <bc-json-preview .value=${data}></bc-json-preview>
             </uui-scroll-container>
           ` : error ? renderError() : renderLoader()}
       </uui-box>
