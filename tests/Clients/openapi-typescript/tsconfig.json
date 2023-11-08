@@ -4,22 +4,23 @@
     "experimentalDecorators": true,
     "useDefineForClassFields": false,
     "module": "NodeNext",
-    "lib": [ "ES2022", "DOM", "DOM.Iterable" ],
+    "lib": ["ES2022"],
     "skipLibCheck": true,
 
     "moduleResolution": "NodeNext",
-    "allowImportingTsExtensions": true,
     "esModuleInterop": true,
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "noEmit": true,
+    "noEmit": false,
 
     /* Linting */
     "strict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noUncheckedIndexedAccess": true,
-    "noFallthroughCasesInSwitch": true
+    "noFallthroughCasesInSwitch": true,
+
+    "outDir": "./dist",
   },
-  "include": ["tests", "playwright.config.ts"]
+  "include": ["**/*.ts"]
 }
