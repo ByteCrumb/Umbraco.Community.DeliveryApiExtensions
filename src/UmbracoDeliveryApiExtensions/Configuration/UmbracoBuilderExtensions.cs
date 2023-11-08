@@ -33,7 +33,7 @@ internal static class UmbracoBuilderExtensions
 
         _ = builder.Services.Configure<SwaggerGenOptions>(options =>
         {
-            if (typedSwaggerOptions.PolymorphismMode == PolymorphismMode.Auto)
+            if (typedSwaggerOptions.Mode == SwaggerGenerationMode.Auto)
             {
                 options.UseOneOfForPolymorphism();
                 options.UseAllOfForInheritance();
