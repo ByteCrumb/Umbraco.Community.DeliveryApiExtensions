@@ -22,11 +22,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UmbracoDeliveryApiExtension
 EndProject
 Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "UmbracoDeliveryApiExtensions.UI", "src\UmbracoDeliveryApiExtensions.UI\UmbracoDeliveryApiExtensions.UI.esproj", "{44FE2F90-E31B-48BE-AD3A-BA41F8F4BD8F}"
 EndProject
-Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "UmbracoDeliveryApiExtensions.Tests.Orval", "tests\UmbracoDeliveryApiExtensions.Tests.Orval\UmbracoDeliveryApiExtensions.Tests.Orval.esproj", "{CA1CA349-05F0-4DD0-B241-42CAD5FCCE93}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "clients", "clients", "{CFCBEB6E-940C-45A9-88F8-7C2E630451E9}"
 EndProject
 Project("{9092AA53-FB77-4645-B42D-1CCCA6BD08BD}") = "openapi-typescript", "tests\clients\openapi-typescript\openapi-typescript.njsproj", "{D8505745-1899-469F-AF4C-1798FDF01A16}"
+EndProject
+Project("{9092AA53-FB77-4645-B42D-1CCCA6BD08BD}") = "orval", "tests\clients\orval\orval.njsproj", "{47214299-95CA-49AC-9213-7F22838ACD64}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -53,16 +53,14 @@ Global
 		{44FE2F90-E31B-48BE-AD3A-BA41F8F4BD8F}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
 		{44FE2F90-E31B-48BE-AD3A-BA41F8F4BD8F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{44FE2F90-E31B-48BE-AD3A-BA41F8F4BD8F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{CA1CA349-05F0-4DD0-B241-42CAD5FCCE93}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{CA1CA349-05F0-4DD0-B241-42CAD5FCCE93}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{CA1CA349-05F0-4DD0-B241-42CAD5FCCE93}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
-		{CA1CA349-05F0-4DD0-B241-42CAD5FCCE93}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{CA1CA349-05F0-4DD0-B241-42CAD5FCCE93}.Release|Any CPU.Build.0 = Release|Any CPU
-		{CA1CA349-05F0-4DD0-B241-42CAD5FCCE93}.Release|Any CPU.Deploy.0 = Release|Any CPU
 		{D8505745-1899-469F-AF4C-1798FDF01A16}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{D8505745-1899-469F-AF4C-1798FDF01A16}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D8505745-1899-469F-AF4C-1798FDF01A16}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D8505745-1899-469F-AF4C-1798FDF01A16}.Release|Any CPU.Build.0 = Release|Any CPU
+		{47214299-95CA-49AC-9213-7F22838ACD64}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{47214299-95CA-49AC-9213-7F22838ACD64}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{47214299-95CA-49AC-9213-7F22838ACD64}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{47214299-95CA-49AC-9213-7F22838ACD64}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -70,9 +68,9 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{106D85D1-DDD8-446D-BCAA-05CB790F665A} = {64029CDB-B81B-4ABF-A96C-778BA28B6952}
 		{49A0A6AE-9FF4-4C8E-AC19-275F241D8990} = {64029CDB-B81B-4ABF-A96C-778BA28B6952}
-		{CA1CA349-05F0-4DD0-B241-42CAD5FCCE93} = {CFCBEB6E-940C-45A9-88F8-7C2E630451E9}
 		{CFCBEB6E-940C-45A9-88F8-7C2E630451E9} = {64029CDB-B81B-4ABF-A96C-778BA28B6952}
 		{D8505745-1899-469F-AF4C-1798FDF01A16} = {CFCBEB6E-940C-45A9-88F8-7C2E630451E9}
+		{47214299-95CA-49AC-9213-7F22838ACD64} = {CFCBEB6E-940C-45A9-88F8-7C2E630451E9}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {6F07004F-9903-4AEB-9ED0-BE57A0326D20}
