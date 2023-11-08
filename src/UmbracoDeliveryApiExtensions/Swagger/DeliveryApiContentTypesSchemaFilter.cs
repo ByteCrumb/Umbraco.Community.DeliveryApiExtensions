@@ -90,7 +90,7 @@ public class DeliveryApiContentTypesSchemaFilter : ISchemaFilter
             PropertyName = "contentType",
         };
 
-        foreach (IContentType contentType in _contentTypeService.GetAll())
+        foreach (IContentType contentType in _contentTypeService.GetAll().Where(c => c.IsElement))
         {
             IPublishedContentType publishedContentType = _publishedContentTypeFactory.CreateContentType(contentType);
 
@@ -149,7 +149,7 @@ public class DeliveryApiContentTypesSchemaFilter : ISchemaFilter
 
         schema.AllOf.Add(new OpenApiSchema
         {
-            Reference = new OpenApiReference { Type = ReferenceType.Schema, Id = GetTypeSchemaId<IApiElement>(useOneOfForPolymorphism) }
+            Reference = new OpenApiReference { Type = ReferenceType.Schema, Id = GetTypeSchemaId<IApiElement>(useOneOfForPolymorphism) },
         });
         schema.Discriminator = new OpenApiDiscriminator
         {
@@ -158,6 +158,8 @@ public class DeliveryApiContentTypesSchemaFilter : ISchemaFilter
 
         foreach (IContentType contentType in _contentTypeService.GetAll().Where(c => !c.IsElement))
         {
+            IPublishedContentType publishedContentType = _publishedContentTypeFactory.CreateContentType(contentType);
+
             OpenApiSchema? contentTypeSchema = context.SchemaRepository.AddDefinition(
                 $"{GetContentTypeSchemaId(contentType)}ContentModel",
                 new OpenApiSchema
@@ -174,10 +176,29 @@ public class DeliveryApiContentTypesSchemaFilter : ISchemaFilter
                                 Id = GetTypeSchemaId<IApiContent>(useOneOfForPolymorphism),
                             },
                         },
-                        new OpenApiSchema
-                        {
-                            Reference = new OpenApiReference { Type = ReferenceType.Schema, Id = $"{GetContentTypeSchemaId(contentType)}ElementModel" },
-                        },
+                    },
+                    Properties =
+                    {
+                        ["properties"] = context.SchemaRepository.AddDefinition(
+                            $"{GetContentTypeSchemaId(contentType)}PropertiesModel",
+                            new OpenApiSchema
+                            {
+                                Type = "object",
+                                AdditionalPropertiesAllowed = true,
+                                AllOf = contentType.ContentTypeComposition.Select(c => new OpenApiSchema { Reference = new OpenApiReference { Type = ReferenceType.Schema, Id = $"{GetContentTypeSchemaId(c)}PropertiesModel" } }).ToList(),
+                                Properties = publishedContentType.PropertyTypes
+                                    .Where(p => contentType.PropertyTypes.Any(x => x.Alias == p.Alias)) // Filter out composition properties
+                                    .ToDictionary(
+                                        p => p.Alias,
+                                        p =>
+                                        {
+                                            OpenApiSchema propertySchema = context.SchemaGenerator.GenerateSchema(GetPropertyType(p), context.SchemaRepository);
+                                            propertySchema.Nullable = true;
+                                            return propertySchema;
+                                        }
+                                    ),
+                            }
+                        ),
                     },
                 }
             );
@@ -204,7 +225,7 @@ public class DeliveryApiContentTypesSchemaFilter : ISchemaFilter
 
         schema.AllOf.Add(new OpenApiSchema
         {
-            Reference = new OpenApiReference { Type = ReferenceType.Schema, Id = GetTypeSchemaId<IApiContent>(useOneOfForPolymorphism) }
+            Reference = new OpenApiReference { Type = ReferenceType.Schema, Id = GetTypeSchemaId<IApiContent>(useOneOfForPolymorphism) },
         });
         schema.Discriminator = new OpenApiDiscriminator
         {

@@ -162,7 +162,7 @@ export interface components {
       id?: string;
       path?: string;
     };
-    IApiElementModel: components["schemas"]["TestPageElementModel"] | components["schemas"]["TestCompositionElementModel"] | components["schemas"]["TestBlockElementModel"] | components["schemas"]["TestComposition2ElementModel"] | components["schemas"]["TestPageInvariantElementModel"] | components["schemas"]["TestBlock2ElementModel"] | components["schemas"]["BlockSettingsElementModel"];
+    IApiElementModel: components["schemas"]["TestCompositionElementModel"] | components["schemas"]["TestBlockElementModel"] | components["schemas"]["TestComposition2ElementModel"] | components["schemas"]["TestBlock2ElementModel"] | components["schemas"]["BlockSettingsElementModel"];
     IApiElementModelBase: {
       /** Format: uuid */
       id?: string;
@@ -257,24 +257,18 @@ export interface components {
     };
     TestPageContentModel: {
       contentType: "testPage";
-    } & Omit<components["schemas"]["IApiContentModelBase"], "contentType"> & components["schemas"]["TestPageElementModel"];
+      properties?: components["schemas"]["TestPagePropertiesModel"];
+    } & Omit<components["schemas"]["IApiContentModelBase"], "contentType">;
     TestPageContentResponseModel: {
       contentType: "testPage";
     } & Omit<components["schemas"]["IApiContentResponseModelBase"], "contentType"> & components["schemas"]["TestPageContentModel"];
-    TestPageElementModel: {
-      contentType: "testPage";
-      properties?: components["schemas"]["TestPagePropertiesModel"];
-    } & Omit<components["schemas"]["IApiElementModelBase"], "contentType">;
     TestPageInvariantContentModel: {
       contentType: "testPageInvariant";
-    } & Omit<components["schemas"]["IApiContentModelBase"], "contentType"> & components["schemas"]["TestPageInvariantElementModel"];
+      properties?: components["schemas"]["TestPageInvariantPropertiesModel"];
+    } & Omit<components["schemas"]["IApiContentModelBase"], "contentType">;
     TestPageInvariantContentResponseModel: {
       contentType: "testPageInvariant";
     } & Omit<components["schemas"]["IApiContentResponseModelBase"], "contentType"> & components["schemas"]["TestPageInvariantContentModel"];
-    TestPageInvariantElementModel: {
-      contentType: "testPageInvariant";
-      properties?: components["schemas"]["TestPageInvariantPropertiesModel"];
-    } & Omit<components["schemas"]["IApiElementModelBase"], "contentType">;
     TestPageInvariantPropertiesModel: ({
       textString?: string | null;
       textArea?: string | null;
