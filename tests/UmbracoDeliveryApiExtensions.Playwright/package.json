@@ -14,7 +14,7 @@
   "license": "ISC",
   "devDependencies": {
     "@playwright/test": "^1.39.0",
-    "@types/node": "^20.8.10",
+    "@types/node": "^20.9.0",
     "eslint": "^8.53.0",
     "eslint-config-xo-space": "^0.34.0",
     "eslint-config-xo-typescript": "^1.0.1",
@@ -30,7 +30,7 @@
   "dependencies": {
     "@umbraco/json-models-builders": "^1.0.6",
     "@umbraco/playwright-models": "^5.0.0",
-    "@umbraco/playwright-testhelpers": "^1.0.25",
+    "@umbraco/playwright-testhelpers": "^1.0.26",
     "dotenv": "^16.3.1"
   }
 }

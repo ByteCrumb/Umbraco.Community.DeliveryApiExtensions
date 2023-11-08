@@ -1,5 +1,5 @@
-﻿import {expect} from '@playwright/test';
-import {type ApiHelpers, ConstantHelper, test} from '@umbraco/playwright-testhelpers';
+import {expect} from '@playwright/test';
+import {type ApiHelpers, test} from '@umbraco/playwright-testhelpers';
 
 test.describe('API preview - Media', () => {
   const mediaName = 'PlaywrightTestMedia';
@@ -16,10 +16,7 @@ test.describe('API preview - Media', () => {
   });
 
   test('Preview content app is visible in saved media', async ({page, umbracoUi}) => {
-    // Go to test media (PR to add helper method: https://github.com/umbraco/Umbraco.Playwright.Testhelpers/pull/34)
-    await umbracoUi.goToSection(ConstantHelper.sections.media);
-    await umbracoUi.refreshMediaTree();
-    await umbracoUi.clickDataElementByElementName('tree-item-' + mediaName);
+    await umbracoUi.navigateToMedia(mediaName);
 
     // Check that the content app is visible
     const contentAppLocator = page.locator('button[data-element="sub-view-deliveryApiPreview"]');
