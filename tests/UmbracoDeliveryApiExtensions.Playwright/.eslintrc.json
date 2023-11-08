@@ -1,16 +1,14 @@
 {
     "env": {
-        "browser": true,
+        "browser": false,
+        "node": true,
         "es2021": true
     },
     "extends": "xo-space",
     "overrides": [
         {
             "extends": [
-                "xo-typescript/space",
-                "plugin:wc/recommended",
-                "plugin:lit/recommended",
-                "plugin:lit-a11y/recommended"
+                "xo-typescript/space"
             ],
             "files": ["*.ts", "*.tsx"],
             "plugins": ["simple-import-sort"],
@@ -22,20 +20,11 @@
                 "error",
                 {
                   "selector": ["class", "interface", "typeAlias", "enum", "typeParameter"],
-                  "format": ["StrictPascalCase"],
-                  "filter": {
-                    "regex": "^(HTMLElementTagNameMap|HTMLElementEventMap|HTML[A-Za-z]{0,}Element|UIEvent|UIEventInit|DOMError|WebUIListenerBehavior)$",
-                    "match": false
-                  }
+                  "format": ["StrictPascalCase"]
                 }
               ],
-              "capitalized-comments": "off",
-              "new-cap": [
-                "error",
-                {
-                  "capIsNewExceptionPattern": "Mixin$"
-                }
-              ],
+              "@typescript-eslint/no-unsafe-assignment": "off",
+              "@typescript-eslint/no-unsafe-call": "off",
               "simple-import-sort/imports": "error",
               "simple-import-sort/exports": "error"
           }

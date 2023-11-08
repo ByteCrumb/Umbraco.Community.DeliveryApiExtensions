@@ -477,3 +477,6 @@ appsettings-schema.*.json
 
 # Test Site App_Plugins packages folder (exclude here as in DeliveryApiExtensions project)
 /App_Plugins/DeliveryApiExtensions/
+
+# Ignore playwright generated usync files
+/uSync/**/*playwright*
