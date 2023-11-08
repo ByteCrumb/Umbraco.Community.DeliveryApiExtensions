@@ -3,7 +3,6 @@ using Umbraco.Cms.Core.Composing;
 using Umbraco.Cms.Core.DependencyInjection;
 using Umbraco.Community.DeliveryApiExtensions.Configuration;
 using Umbraco.Community.DeliveryApiExtensions.Configuration.Options;
-using Umbraco.Community.DeliveryApiExtensions.ContentApps;
 
 namespace Umbraco.Community.DeliveryApiExtensions;
 
@@ -11,16 +10,15 @@ public sealed class Composer : IComposer
 {
     public void Compose(IUmbracoBuilder builder)
     {
+        _ = builder.ManifestFilters().Append<ManifestFilter>();
+
         IConfigurationSection configSection = builder.Config.GetSection<DeliveryApiExtensionsOptions>();
         _ = builder.Services.AddOptions<DeliveryApiExtensionsOptions>(configSection);
 
-        IConfigurationSection previewConfigSection = configSection.GetSection<PreviewOptions>();
-        _ = builder.Services.AddOptions<PreviewOptions>(previewConfigSection);
+        // Preview
+        builder.ConfigurePreview(configSection);
 
-        IConfigurationSection mediaConfigSection = previewConfigSection.GetSection<MediaOptions>();
-        _ = builder.Services.AddOptions<MediaOptions>(mediaConfigSection);
-
-        _ = builder.ManifestFilters().Append<ManifestFilter>();
-        _ = builder.ContentApps().Append<DeliveryApiPreviewApp>();
+        // TypedSwagger
+        builder.ConfigureSwagger(configSection);
     }
 }

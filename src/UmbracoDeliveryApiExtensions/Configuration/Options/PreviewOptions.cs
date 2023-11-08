@@ -24,5 +24,5 @@ public class PreviewOptions
     /// <summary>
     /// The weight of the preview content app.
     /// </summary>
-    public int ContentAppWeight { get; set; } = 0;
+    public int ContentAppWeight { get; set; }
 }

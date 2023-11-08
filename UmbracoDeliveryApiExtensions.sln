@@ -12,7 +12,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		umbraco-marketplace.json = umbraco-marketplace.json
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{64029CDB-B81B-4ABF-A96C-778BA28B6952}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{64029CDB-B81B-4ABF-A96C-778BA28B6952}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UmbracoDeliveryApiExtensions.TestSite", "tests\UmbracoDeliveryApiExtensions.TestSite\UmbracoDeliveryApiExtensions.TestSite.csproj", "{106D85D1-DDD8-446D-BCAA-05CB790F665A}"
 EndProject
@@ -21,6 +21,12 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UmbracoDeliveryApiExtensions", "src\UmbracoDeliveryApiExtensions\UmbracoDeliveryApiExtensions.csproj", "{F810645D-3FFA-4BC4-A887-F944343B6701}"
 EndProject
 Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "UmbracoDeliveryApiExtensions.UI", "src\UmbracoDeliveryApiExtensions.UI\UmbracoDeliveryApiExtensions.UI.esproj", "{44FE2F90-E31B-48BE-AD3A-BA41F8F4BD8F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "clients", "clients", "{CFCBEB6E-940C-45A9-88F8-7C2E630451E9}"
+EndProject
+Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "openapi-typescript", "tests\clients\openapi-typescript\openapi-typescript.esproj", "{0F623E8F-618D-4753-8FD5-810E33BF9C31}"
+EndProject
+Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "orval", "tests\clients\orval\orval.esproj", "{D56E25FF-083E-4360-95F0-3E8B647BDAC7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -47,6 +53,18 @@ Global
 		{44FE2F90-E31B-48BE-AD3A-BA41F8F4BD8F}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
 		{44FE2F90-E31B-48BE-AD3A-BA41F8F4BD8F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{44FE2F90-E31B-48BE-AD3A-BA41F8F4BD8F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0F623E8F-618D-4753-8FD5-810E33BF9C31}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0F623E8F-618D-4753-8FD5-810E33BF9C31}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0F623E8F-618D-4753-8FD5-810E33BF9C31}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{0F623E8F-618D-4753-8FD5-810E33BF9C31}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0F623E8F-618D-4753-8FD5-810E33BF9C31}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0F623E8F-618D-4753-8FD5-810E33BF9C31}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{D56E25FF-083E-4360-95F0-3E8B647BDAC7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D56E25FF-083E-4360-95F0-3E8B647BDAC7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D56E25FF-083E-4360-95F0-3E8B647BDAC7}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{D56E25FF-083E-4360-95F0-3E8B647BDAC7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D56E25FF-083E-4360-95F0-3E8B647BDAC7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D56E25FF-083E-4360-95F0-3E8B647BDAC7}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -54,6 +72,9 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{106D85D1-DDD8-446D-BCAA-05CB790F665A} = {64029CDB-B81B-4ABF-A96C-778BA28B6952}
 		{49A0A6AE-9FF4-4C8E-AC19-275F241D8990} = {64029CDB-B81B-4ABF-A96C-778BA28B6952}
+		{CFCBEB6E-940C-45A9-88F8-7C2E630451E9} = {64029CDB-B81B-4ABF-A96C-778BA28B6952}
+		{0F623E8F-618D-4753-8FD5-810E33BF9C31} = {CFCBEB6E-940C-45A9-88F8-7C2E630451E9}
+		{D56E25FF-083E-4360-95F0-3E8B647BDAC7} = {CFCBEB6E-940C-45A9-88F8-7C2E630451E9}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {6F07004F-9903-4AEB-9ED0-BE57A0326D20}

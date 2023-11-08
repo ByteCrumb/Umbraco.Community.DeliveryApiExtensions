@@ -3,7 +3,7 @@ using Umbraco.Cms.Core.Manifest;
 
 namespace Umbraco.Community.DeliveryApiExtensions;
 
-internal class ManifestFilter : IManifestFilter
+internal sealed class ManifestFilter : IManifestFilter
 {
     public void Filter(List<PackageManifest> manifests)
     {
@@ -15,7 +15,7 @@ internal class ManifestFilter : IManifestFilter
             Version = assembly.GetName().Version?.ToString(3) ?? "0.1.0",
             AllowPackageTelemetry = true,
             Scripts = new[] {
-                "/App_Plugins/DeliveryApiExtensions/delivery-api-extensions.iife.js"
+                "/App_Plugins/DeliveryApiExtensions/delivery-api-extensions.iife.js",
             },
             Stylesheets = Array.Empty<string>()
         });

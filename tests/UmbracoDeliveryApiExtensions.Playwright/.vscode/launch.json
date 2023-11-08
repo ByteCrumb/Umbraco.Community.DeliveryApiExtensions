@@ -7,7 +7,7 @@
       "runtimeExecutable": "npm",
       "runtimeArgs": [ "run", "test" ],
       "cwd": "${workspaceFolder}",
-      "console": "externalTerminal",
+      "console": "internalConsole",
       "name": "Test"
     },
     {
@@ -16,7 +16,7 @@
       "runtimeExecutable": "npm",
       "runtimeArgs": [ "run", "test:ui" ],
       "cwd": "${workspaceFolder}",
-      "console": "externalTerminal",
+      "console": "internalConsole",
       "name": "Test - UI"
     },
   ]

@@ -475,9 +475,6 @@ appsettings-schema.*.json
 # Log files
 /umbraco/Logs/
 
-# Media files
-/wwwroot/media/
-
 # Test Site App_Plugins packages folder (exclude here as in DeliveryApiExtensions project)
 /App_Plugins/DeliveryApiExtensions/
 

@@ -1,0 +1,41 @@
+{
+    "env": {
+        "browser": false,
+        "node": true,
+        "es2021": true
+    },
+    "extends": "xo-space",
+    "overrides": [
+        {
+            "extends": [
+                "xo-typescript/space"
+            ],
+            "files": ["*.ts", "*.tsx"],
+            "plugins": ["simple-import-sort"],
+            "rules": {
+              "@typescript-eslint/consistent-type-definitions": [
+                "warn", "interface"
+              ],
+              "@typescript-eslint/naming-convention": [
+                "error",
+                {
+                  "selector": ["class", "interface", "typeAlias", "enum", "typeParameter"],
+                  "format": ["StrictPascalCase"]
+                }
+              ],
+              "new-cap": [
+                "error",
+                {
+                  "capIsNewExceptionPattern": "^GET|PUT|POST|DELETE|OPTIONS|HEAD|PATCH|TRACE$"
+                }
+              ],
+              "simple-import-sort/imports": "error",
+              "simple-import-sort/exports": "error"
+          }
+        }
+    ],
+    "parserOptions": {
+        "ecmaVersion": "latest",
+        "sourceType": "module"
+    }
+}

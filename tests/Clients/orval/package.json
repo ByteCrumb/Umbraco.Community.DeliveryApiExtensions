@@ -1,0 +1,32 @@
+{
+  "name": "orval",
+  "version": "1.0.0",
+  "private": true,
+  "description": "orval",
+  "main": "dist/app.js",
+  "scripts": {
+    "start": "npm run generate-api-client && npm run build && node dist/app.js",
+    "build": "tsc --build",
+    "clean": "tsc --build --clean",
+    "generate-api-client": "orval  --config orval.config.ts"
+  },
+  "devDependencies": {
+    "@types/node": "^20.9.0",
+    "@typescript-eslint/eslint-plugin": "^6.10.0",
+    "@typescript-eslint/parser": "^6.10.0",
+    "eslint": "^8.53.0",
+    "eslint-config-xo-space": "^0.34.0",
+    "eslint-config-xo-typescript": "^1.0.1",
+    "eslint-plugin-n": "^16.3.0",
+    "eslint-plugin-promise": "^6.1.1",
+    "eslint-plugin-simple-import-sort": "^10.0.0",
+    "orval": "^6.19.1",
+    "typescript": "^5.2.2"
+  },
+  "dependencies": {
+    "axios": "^1.6.1"
+  },
+  "volta": {
+    "node": "20.9.0"
+  }
+}
