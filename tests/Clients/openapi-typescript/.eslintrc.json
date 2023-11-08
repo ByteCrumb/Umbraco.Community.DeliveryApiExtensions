@@ -23,6 +23,12 @@
                   "format": ["StrictPascalCase"]
                 }
               ],
+              "new-cap": [
+                "error",
+                {
+                  "capIsNewExceptionPattern": "^GET|PUT|POST|DELETE|OPTIONS|HEAD|PATCH|TRACE$"
+                }
+              ],
               "simple-import-sort/imports": "error",
               "simple-import-sort/exports": "error"
           }

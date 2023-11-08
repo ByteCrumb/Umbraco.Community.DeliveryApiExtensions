@@ -2,13 +2,13 @@
   "version": "0.2.0",
   "configurations": [
     {
+      "name": "Start",
       "type": "node",
       "request": "launch",
       "runtimeExecutable": "npm",
-      "runtimeArgs": ["run", "start"],
-      "name": "Start",
-      "skipFiles": ["<node_internals>/**"],
-      "program": "${workspaceFolder}\\dist\\app.js"
+      "runtimeArgs": [ "run", "start" ],
+      "cwd": "${workspaceFolder}",
+      "console": "internalConsole"
     }
   ]
 }

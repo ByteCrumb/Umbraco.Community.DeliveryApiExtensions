@@ -12,6 +12,7 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": false,
+    "sourceMap": true,
 
     /* Linting */
     "strict": true,

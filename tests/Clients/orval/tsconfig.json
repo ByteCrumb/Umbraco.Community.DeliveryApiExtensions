@@ -4,7 +4,7 @@
     "experimentalDecorators": true,
     "useDefineForClassFields": false,
     "module": "NodeNext",
-    "lib": ["ES2022"],
+    "lib": [ "ES2022" ],
     "skipLibCheck": true,
 
     "moduleResolution": "NodeNext",
@@ -12,6 +12,7 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": false,
+    "sourceMap": true,
 
     /* Linting */
     "strict": true,
@@ -20,7 +21,7 @@
     "noUncheckedIndexedAccess": true,
     "noFallthroughCasesInSwitch": true,
 
-    "outDir": "./dist",
+    "outDir": "./dist"
   },
   "include": ["**/*.ts"]
 }
