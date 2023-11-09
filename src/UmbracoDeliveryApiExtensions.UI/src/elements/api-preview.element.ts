@@ -100,14 +100,14 @@ export class ApiPreviewElement extends AngularElementMixin(KebabCaseAttributesMi
       this._publishedExpand = !this._publishedExpand;
     };
 
-    const renderPreview = (title: string, data: unknown, error: boolean, toggleExpand: () => void) => html`
+    const renderPreview = (title: string, data: unknown, error: boolean, expanded: boolean, toggleExpand: () => void) => html`
       <uui-box>
           <div class="headline" slot="headline">
             <span>${title}</span>
-            <uui-toggle label="Expand" label-position="left" @change=${toggleExpand}></uui-toggle>
+            <uui-toggle label="Expand" title=${expanded ? 'all' : 'none'} label-position="left" @change=${toggleExpand}></uui-toggle>
           </div>
           ${data ? html`
-            <uui-scroll-container>      
+            <uui-scroll-container>
               <bc-json-preview .value=${data}></bc-json-preview>
             </uui-scroll-container>
           ` : error ? renderError() : renderLoader()}
@@ -115,8 +115,8 @@ export class ApiPreviewElement extends AngularElementMixin(KebabCaseAttributesMi
     `;
 
     return html`
-      ${this.hasPreview ? renderPreview('Preview', this._previewData, this._previewError, togglePreviewExpand) : nothing}
-      ${this.isPublished ? renderPreview('Published', this._publishedData, this._publishedError, togglePublishedExpand) : nothing}
+      ${this.hasPreview ? renderPreview('Preview', this._previewData, this._previewError, this._previewExpand, togglePreviewExpand) : nothing}
+      ${this.isPublished ? renderPreview('Published', this._publishedData, this._publishedError, this._publishedExpand, togglePublishedExpand) : nothing}
     `;
   }
 
