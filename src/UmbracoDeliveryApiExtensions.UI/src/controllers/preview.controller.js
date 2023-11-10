@@ -42,7 +42,9 @@ angular
 
         function updatePreview() {
           updateIsPublished();
-          $element.find('bc-api-preview')[0].updateResponse();
+          const apiPreviewElement = $element.find('bc-api-preview')[0];
+          apiPreviewElement.updatePreviewResponse();
+          apiPreviewElement.updatePublishedResponse();
         }
       },
     ],
