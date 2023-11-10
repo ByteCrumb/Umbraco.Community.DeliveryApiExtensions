@@ -1,0 +1,160 @@
+)]}',
+{
+    "contentType": "testPage",
+    "name": "Test1 - Expand ALL",
+    "createDate": "2023-10-28T11:35:35",
+    "updateDate": "2023-11-06T23:26:29.0224386",
+    "route": {
+        "path": "/",
+        "startItem": {
+            "id": "3b6a13d3-df48-43f4-b9b3-0d27d3765be6",
+            "path": "test"
+        }
+    },
+    "id": "3b6a13d3-df48-43f4-b9b3-0d27d3765be6",
+    "properties": {
+        "sharedToggle": true,
+        "sharedString": "Shared string",
+        "textString": "123",
+        "textArea": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed finibus felis volutpat, tristique tortor in, accumsan arcu. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Vestibulum sollicitudin egestas mauris id sodales. Praesent aliquet vel enim et aliquam. Pellentesque ultrices consequat imperdiet. Morbi vehicula magna sit amet sem vulputate rutrum. Vivamus quis velit eget eros hendrerit viverra eget ut mi. Morbi interdum mauris sit amet purus vulputate sagittis. In ornare eleifend metus, ac lacinia arcu laoreet non.\n\nAliquam id dolor elit. Nam rutrum eros eu ex fermentum eleifend. Integer varius blandit facilisis. Mauris in sollicitudin libero, eget auctor est. Ut nec augue eget felis posuere placerat. Donec orci ante, finibus ac nibh non, euismod bibendum augue. Fusce vel interdum sapien, eu lacinia magna. Donec at ligula commodo, ultrices enim at, porta ligula. Nam fringilla ut purus non tempus. Aliquam bibendum in felis id sollicitudin.",
+        "datePickerWithTime": "2023-11-06T20:00:00Z",
+        "datePicker": "2023-11-06T00:00:00Z",
+        "toggle": true,
+        "numeric": 12,
+        "decimal": 123.2,
+        "slider": 70,
+        "tags": [
+            "Tag 1",
+            "Tag 2"
+        ],
+        "email": "test@umbraco",
+        "colorPicker": {
+            "color": "000000",
+            "label": "Black"
+        },
+        "contentPicker": {
+            "contentType": "testPage",
+            "name": "Test",
+            "createDate": "2023-10-28T11:35:35",
+            "updateDate": "2023-11-06T23:26:29.0224386",
+            "route": {
+                "path": "/",
+                "startItem": {
+                    "id": "3b6a13d3-df48-43f4-b9b3-0d27d3765be6",
+                    "path": "test"
+                }
+            },
+            "id": "3b6a13d3-df48-43f4-b9b3-0d27d3765be6",
+            "properties": {}
+        },
+        "eyeDropperColorPicker": "#6fa8dc",
+        "urlPicker": [
+            {
+                "url": "https://www.google.com",
+                "title": "Google",
+                "target": "_blank",
+                "destinationId": null,
+                "destinationType": null,
+                "route": null,
+                "linkType": "External"
+            }
+        ],
+        "multinodeTreepicker": [
+            {
+                "contentType": "testPage",
+                "name": "Test",
+                "createDate": "2023-10-28T11:35:35",
+                "updateDate": "2023-11-06T23:26:29.0224386",
+                "route": {
+                    "path": "/",
+                    "startItem": {
+                        "id": "3b6a13d3-df48-43f4-b9b3-0d27d3765be6",
+                        "path": "test"
+                    }
+                },
+                "id": "3b6a13d3-df48-43f4-b9b3-0d27d3765be6",
+                "properties": {}
+            }
+        ],
+        "richText": {
+            "markup": "\u003Ch1\u003EEt nemo nimium beatus est;\u003C/h1\u003E\n\u003Cp\u003ELorem ipsum dolor sit amet, \u003Cem\u003Econsectetur adipiscing elit\u003C/em\u003E. Bork Si qua in iis corrigere voluit, deteriora fecit.\u003C/p\u003E\n\u003Col\u003E\n\u003Cli\u003EPraeclare Laelius, et recte sof\u00F1w, illudque vere: O Publi, o gurges, Galloni! es homo miser, inquit.\u003C/li\u003E\n\u003Cli\u003EVidit Homerus probari fabulam non posse, si cantiunculis tantus irretitus vir teneretur;\u003C/li\u003E\n\u003Cli\u003ESed tamen intellego quid velit.\u003C/li\u003E\n\u003C/ol\u003E\n\u003Ch2\u003ENec vero sum nescius esse utilitatem in historia, non modo voluptatem.\u003C/h2\u003E\n\u003Cp\u003EHoc tu nunc in illo probas. \u003Cstrong\u003EDuo Reges:\u003C/strong\u003E constructio interrete. Bork Contineo me ab exemplis. Confecta res esset. Quid iudicant sensus?\u00A0\u003Ca rel=\u0022noopener\u0022 href=\u0022https://google.com/\u0022 target=\u0022_blank\u0022\u003EQuid de Platone aut de Democrito loquar?\u003C/a\u003E\u00A0Quodsi ipsam honestatem undique pertectam atque absolutam.\u003C/p\u003E\n\u003Cul\u003E\n\u003Cli\u003EDicimus aliquem hilare vivere;\u003C/li\u003E\n\u003Cli\u003EIntrandum est igitur in rerum naturam et penitus quid ea postulet pervidendum;\u003C/li\u003E\n\u003Cli\u003EErgo hoc quidem apparet, nos ad agendum esse natos.\u003C/li\u003E\n\u003Cli\u003EConferam tecum, quam cuique verso rem subicias;\u003C/li\u003E\n\u003C/ul\u003E"
+        },
+        "blockGrid": {
+            "gridColumns": 12,
+            "items": []
+        },
+        "markdown": "# Awesome markdown!\n\n\u003E This is a quote!\n\n**Very strong**",
+        "memberGroupPicker": [
+            "Awesome group"
+        ],
+        "memberPicker": "(unsupported)",
+        "userPicker": -1,
+        "blockList": {
+            "items": []
+        },
+        "checkboxList": [
+            "Item 1",
+            "Item 3"
+        ],
+        "dropdown": "Value 2",
+        "radiobox": "Item 1",
+        "repeatableTextstrings": [
+            "Test 1",
+            "Test 2"
+        ],
+        "uploadFile": "/media/q0yb0acw/umbraco-stickers.jpg",
+        "imageCropper": {
+            "url": "/media/mvvhicln/umbraco-stickers.jpg",
+            "focalPoint": {
+                "left": 0.35213032581453635,
+                "top": 0.5601052857030132
+            },
+            "crops": [
+                {
+                    "alias": "square",
+                    "width": 400,
+                    "height": 400,
+                    "coordinates": null
+                }
+            ]
+        },
+        "mediaPicker": [
+            {
+                "id": "6d60cc72-dd46-4c36-9b19-b65d2dc4717f",
+                "name": "Umbraco stickers",
+                "mediaType": "Image",
+                "url": "/media/otgga1kg/umbraco-stickers.jpg",
+                "extension": "",
+                "width": 0,
+                "height": 0,
+                "bytes": 0,
+                "properties": {},
+                "focalPoint": null,
+                "crops": [
+                    {
+                        "alias": "square",
+                        "width": 400,
+                        "height": 400,
+                        "coordinates": null
+                    }
+                ]
+            }
+        ]
+    },
+    "cultures": {
+        "en-us": {
+            "path": "/",
+            "startItem": {
+                "id": "3b6a13d3-df48-43f4-b9b3-0d27d3765be6",
+                "path": "test"
+            }
+        },
+        "pt-pt": {
+            "path": "/preview-3b6a13d3-df48-43f4-b9b3-0d27d3765be6/",
+            "startItem": {
+                "id": "3b6a13d3-df48-43f4-b9b3-0d27d3765be6",
+                "path": "test-pt"
+            }
+        }
+    }
+}
