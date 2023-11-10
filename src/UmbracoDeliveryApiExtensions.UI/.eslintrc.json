@@ -29,6 +29,7 @@
                   }
                 }
               ],
+              "@typescript-eslint/no-namespace": "off",
               "capitalized-comments": "off",
               "new-cap": [
                 "error",

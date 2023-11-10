@@ -7,7 +7,8 @@
     "dev": "vite --base /",
     "dev:clean": "vite --force --base /",
     "build": "tsc && vite build",
-    "watch": "chokidar src public -c \"tsc && vite build\" --initial"
+    "watch": "chokidar src public -c \"tsc && vite build\" --initial",
+    "postinstall": "patch-package"
   },
   "dependencies": {
     "@r2wc/react-to-web-component": "^2.0.3",
@@ -33,6 +34,7 @@
     "eslint-plugin-promise": "^6.1.1",
     "eslint-plugin-simple-import-sort": "^10.0.0",
     "eslint-plugin-wc": "^2.0.4",
+    "patch-package": "^8.0.0",
     "typescript": "^5.2.2",
     "vite": "^4.4.5"
   },

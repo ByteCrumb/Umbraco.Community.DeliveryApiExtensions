@@ -1,0 +1,26 @@
+diff --git a/node_modules/@r2wc/core/dist/core.d.ts b/node_modules/@r2wc/core/dist/core.d.ts
+index b5ef34a..770e4f8 100644
+--- a/node_modules/@r2wc/core/dist/core.d.ts
++++ b/node_modules/@r2wc/core/dist/core.d.ts
+@@ -3,7 +3,7 @@ type PropName<Props> = Extract<keyof Props, string>;
+ type PropNames<Props> = Array<PropName<Props>>;
+ export interface R2WCOptions<Props> {
+     shadow?: "open" | "closed";
+-    props?: PropNames<Props> | Record<PropName<Props>, R2WCType>;
++    props?: PropNames<Props> | Partial<Record<PropName<Props>, R2WCType>>;
+ }
+ export interface R2WCRenderer<Props, Context> {
+     mount: (container: HTMLElement, ReactComponent: React.ComponentType<Props>, props: Props) => Context;
+diff --git a/node_modules/@r2wc/core/dist/core.js b/node_modules/@r2wc/core/dist/core.js
+index 7be85b2..b3177b2 100644
+--- a/node_modules/@r2wc/core/dist/core.js
++++ b/node_modules/@r2wc/core/dist/core.js
+@@ -90,6 +90,8 @@ function z(t, e, r) {
+         if (n != null && n.stringify) {
+           const o = n.stringify(l);
+           this.getAttribute(u) !== o && this.setAttribute(u, o);
++        }else{
++          this[A]();
+         }
+       }
+     });
