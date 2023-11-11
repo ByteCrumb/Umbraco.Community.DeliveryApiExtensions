@@ -59,6 +59,7 @@ public static class UmbracoBuilderExtensions
                 options.UseAllOfForInheritance();
             }
 
+            options.SchemaFilter<EnumSchemaFilter>();
             options.SchemaFilter<DeliveryApiContentTypesSchemaFilter>();
         });
     }
