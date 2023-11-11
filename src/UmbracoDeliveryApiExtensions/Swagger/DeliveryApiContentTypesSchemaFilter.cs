@@ -7,7 +7,6 @@ using Umbraco.Cms.Core.Models;
 using Umbraco.Cms.Core.Models.DeliveryApi;
 using Umbraco.Cms.Core.Models.PublishedContent;
 using Umbraco.Cms.Core.PropertyEditors.DeliveryApi;
-using Umbraco.Cms.Core.PropertyEditors.ValueConverters;
 using Umbraco.Cms.Core.Services;
 using Umbraco.Cms.Core.Strings;
 using Umbraco.Extensions;
@@ -40,8 +39,6 @@ public class DeliveryApiContentTypesSchemaFilter : ISchemaFilter
     /// <inheritdoc/>
     public void Apply(OpenApiSchema schema, SchemaFilterContext context)
     {
-        FixEnums(schema, context);
-
         // Orval/Swashbuckle compatible, NOT supported by NSwag
         bool useOneOfForPolymorphism = _swaggerGenOptions.Value.SchemaGeneratorOptions.UseOneOfForPolymorphism;
 
@@ -285,34 +282,19 @@ public class DeliveryApiContentTypesSchemaFilter : ISchemaFilter
         schema.Discriminator = null;
     }
 
-    // HACK: The DeliveryApi property value type is currently not exposed by Umbraco
+    // The DeliveryApi property value type is currently not exposed by Umbraco
+    // https://github.com/umbraco/Umbraco-CMS/pull/15150
+    // TODO: Remove this when Umbraco exposes the delivery api property value type
     private static readonly FieldInfo? ConverterField = typeof(PublishedPropertyType).GetField("_converter", BindingFlags.NonPublic | BindingFlags.GetField | BindingFlags.Instance);
     private static Type GetPropertyType(IPublishedPropertyType publishedPropertyType)
     {
         Type modelClrType = publishedPropertyType.ModelClrType;
 
-        return ConverterField?.GetValue(publishedPropertyType) switch
+        if (ConverterField?.GetValue(publishedPropertyType) is IDeliveryApiPropertyValueConverter propertyValueConverter)
         {
-            BlockListPropertyValueConverter =>
-                // HACK: Needed due to umbraco returning the wrong type
-                // https://github.com/umbraco/Umbraco-CMS/pull/14728
-                typeof(ApiBlockListModel),
-            IDeliveryApiPropertyValueConverter propertyValueConverter => propertyValueConverter
-                .GetDeliveryApiPropertyValueType(publishedPropertyType),
-            _ => modelClrType,
-        };
-    }
-
-    // HACK: Needed because Umbraco generates invalid enum schemas
-    // https://github.com/umbraco/Umbraco-CMS/pull/14727
-    private static void FixEnums(OpenApiSchema schema, SchemaFilterContext context)
-    {
-        if (!context.Type.IsEnum)
-        {
-            return;
+            return propertyValueConverter.GetDeliveryApiPropertyValueType(publishedPropertyType);
         }
 
-        schema.Type = "string";
-        schema.Format = null;
+        return modelClrType;
     }
 }
