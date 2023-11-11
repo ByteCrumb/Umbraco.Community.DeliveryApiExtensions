@@ -11,8 +11,10 @@
     <Description>...</Description>
     <PackageTags>umbraco;umbraco-marketplace</PackageTags>
     <RootNamespace>Umbraco.Community.DeliveryApiExtensions</RootNamespace>
-    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
     <Version>0.1.0</Version>
     <Authors>ByteCrumb</Authors>
     <Copyright>$([System.DateTime]::UtcNow.ToString(`yyyy`)) © ByteCrumb</Copyright>
