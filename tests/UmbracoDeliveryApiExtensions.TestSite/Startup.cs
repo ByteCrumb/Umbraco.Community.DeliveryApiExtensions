@@ -1,3 +1,5 @@
+using UmbracoDeliveryApiExtensions.TestSite.Custom;
+
 namespace UmbracoDeliveryApiExtensions.TestSite;
 
 public class Startup
@@ -34,6 +36,7 @@ public class Startup
             .AddWebsite()
             .AddDeliveryApi()
             .AddComposers()
+            .ConfigureSwagger()
             .Build();
     }
 
