@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.VisualStudio.JavaScript.Sdk/0.5.89-alpha">
+<Project Sdk="Microsoft.VisualStudio.JavaScript.Sdk/0.5.126-alpha">
   <PropertyGroup>
     <!--Command to run on project build-->
     <BuildCommand>npm run build</BuildCommand>
