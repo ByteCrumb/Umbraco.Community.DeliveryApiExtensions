@@ -11,24 +11,25 @@
     <Description>...</Description>
     <PackageTags>umbraco;umbraco-marketplace</PackageTags>
     <RootNamespace>Umbraco.Community.DeliveryApiExtensions</RootNamespace>
-    <GenerateDocumentationFile>True</GenerateDocumentationFile>
-    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <IncludeSymbols>true</IncludeSymbols>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+    <EmbedUntrackedSources>true</EmbedUntrackedSources>
     <Version>0.1.0</Version>
     <Authors>ByteCrumb</Authors>
     <Copyright>$([System.DateTime]::UtcNow.ToString(`yyyy`)) © ByteCrumb</Copyright>
     <PackageProjectUrl>https://github.com/ByteCrumb/Umbraco.Community.DeliveryApiExtensions</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/ByteCrumb/Umbraco.Community.DeliveryApiExtensions</RepositoryUrl>
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
     <PackageReadmeFile>README_nuget.md</PackageReadmeFile>
     <RepositoryType>git</RepositoryType>
     <PackageLicenseExpression>MPL-2.0</PackageLicenseExpression>
 
-    <StaticWebAssetsDisableProjectBuildTransitivePropsFileGeneration>True</StaticWebAssetsDisableProjectBuildTransitivePropsFileGeneration>
+    <StaticWebAssetsDisableProjectBuildTransitivePropsFileGeneration>true</StaticWebAssetsDisableProjectBuildTransitivePropsFileGeneration>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="7.0.7" />
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All" />
     <PackageReference Include="Microsoft.OpenApi" Version="1.4.5" />
     <PackageReference Include="Umbraco.Cms.Api.Delivery" Version="12.2.0" />
     <PackageReference Include="Umbraco.Cms.Web.Website" Version="12.2.0" />
@@ -42,8 +43,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="..\..\docs\README_nuget.md" Pack="True" PackagePath="\" />
-    <None Include="buildTransitive\**" Pack="True" PackagePath="buildTransitive" />
+    <None Include="..\..\docs\README_nuget.md" Pack="true" PackagePath="\" />
+    <None Include="buildTransitive\**" Pack="true" PackagePath="buildTransitive" />
   </ItemGroup>
 
   <Target Name="GenerateAppSettingsSchema" AfterTargets="Build">
