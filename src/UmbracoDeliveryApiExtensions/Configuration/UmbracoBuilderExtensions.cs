@@ -8,11 +8,31 @@ using Umbraco.Community.DeliveryApiExtensions.Swagger;
 
 namespace Umbraco.Community.DeliveryApiExtensions.Configuration;
 
-internal static class UmbracoBuilderExtensions
+/// <summary>
+/// Extensions for <see cref="IUmbracoBuilder"/> to add DeliveryApiExtensions.
+/// </summary>
+public static class UmbracoBuilderExtensions
 {
-    public static void ConfigurePreview(this IUmbracoBuilder builder, IConfigurationSection configSection)
+    /// <summary>
+    /// Registers the necessary services and configuration for DeliveryApiExtensions.
+    /// </summary>
+    public static void AddDeliveryApiExtensions(this IUmbracoBuilder builder)
     {
-        _ = builder.ContentApps().Append<DeliveryApiPreviewApp>();
+        _ = builder.ManifestFilters().Append<ManifestFilter>();
+
+        IConfigurationSection configSection = builder.Config.GetSection<DeliveryApiExtensionsOptions>();
+        _ = builder.Services.AddOptions<DeliveryApiExtensionsOptions>(configSection);
+
+        // Preview
+        builder.AddPreview(configSection);
+
+        // TypedSwagger
+        builder.AddTypedSwagger(configSection);
+    }
+
+    internal static void AddPreview(this IUmbracoBuilder builder, IConfigurationSection configSection)
+    {
+        _ = builder.ContentApps().Append<DeliveryApiPreviewAppFactory>();
         IConfigurationSection previewConfigSection = configSection.GetSection<PreviewOptions>();
         _ = builder.Services.AddOptions<PreviewOptions>(previewConfigSection);
 
@@ -20,7 +40,7 @@ internal static class UmbracoBuilderExtensions
         _ = builder.Services.AddOptions<MediaOptions>(mediaConfigSection);
     }
 
-    public static void ConfigureSwagger(this IUmbracoBuilder builder, IConfigurationSection configSection)
+    internal static void AddTypedSwagger(this IUmbracoBuilder builder, IConfigurationSection configSection)
     {
         IConfigurationSection typedSwaggerConfigSection = configSection.GetSection<TypedSwaggerOptions>();
         TypedSwaggerOptions? typedSwaggerOptions = typedSwaggerConfigSection.Get<TypedSwaggerOptions>();

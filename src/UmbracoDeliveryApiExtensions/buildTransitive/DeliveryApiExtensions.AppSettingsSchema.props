@@ -1,0 +1,5 @@
+<Project>
+  <ItemGroup>
+    <UmbracoJsonSchemaFiles Include="$(MSBuildThisFileDirectory)..\appsettings-schema.DeliveryApiExtensions.json" Weight="-50" />
+  </ItemGroup>
+</Project>

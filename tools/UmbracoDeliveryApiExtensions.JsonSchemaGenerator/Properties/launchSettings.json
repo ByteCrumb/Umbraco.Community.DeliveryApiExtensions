@@ -1,0 +1,9 @@
+{
+  "profiles": {
+    "UmbracoDeliveryApiExtensions.JsonSchemaGenerator": {
+      "commandName": "Project",
+      "commandLineArgs": "-i ../../src/UmbracoDeliveryApiExtensions/bin/Debug/net7.0/UmbracoDeliveryApiExtensions.dll -o ../../src/UmbracoDeliveryApiExtensions/appsettings-schema.DeliveryApiExtensions.json -t Umbraco.Community.DeliveryApiExtensions.Configuration.Options.DeliveryApiExtensionsOptions",
+      "workingDirectory": "."
+    }
+  }
+}

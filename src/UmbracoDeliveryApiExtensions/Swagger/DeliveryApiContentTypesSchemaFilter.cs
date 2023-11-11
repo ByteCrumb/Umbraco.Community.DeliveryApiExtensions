@@ -14,6 +14,9 @@ using Umbraco.Extensions;
 
 namespace Umbraco.Community.DeliveryApiExtensions.Swagger;
 
+/// <summary>
+/// <see cref="ISchemaFilter"/> for adding typed content type schemas to the swagger document."/>
+/// </summary>
 public class DeliveryApiContentTypesSchemaFilter : ISchemaFilter
 {
     private readonly IOptions<SwaggerGenOptions> _swaggerGenOptions;
@@ -22,6 +25,9 @@ public class DeliveryApiContentTypesSchemaFilter : ISchemaFilter
     private readonly ISchemaIdSelector _schemaIdSelector;
     private readonly IShortStringHelper _shortStringHelper;
 
+    /// <summary>
+    ///     Initializes a new instance of the <see cref="DeliveryApiContentTypesSchemaFilter" /> class.
+    /// </summary>
     public DeliveryApiContentTypesSchemaFilter(IOptions<SwaggerGenOptions> swaggerGenOptions, IContentTypeService contentTypeService, IPublishedContentTypeFactory publishedContentTypeFactory, ISchemaIdSelector schemaIdSelector, IShortStringHelper shortStringHelper)
     {
         _swaggerGenOptions = swaggerGenOptions;
@@ -31,6 +37,7 @@ public class DeliveryApiContentTypesSchemaFilter : ISchemaFilter
         _shortStringHelper = shortStringHelper;
     }
 
+    /// <inheritdoc/>
     public void Apply(OpenApiSchema schema, SchemaFilterContext context)
     {
         FixEnums(schema, context);
@@ -80,7 +87,7 @@ public class DeliveryApiContentTypesSchemaFilter : ISchemaFilter
 
         schema.Discriminator = new OpenApiDiscriminator
         {
-            PropertyName = "contentType"
+            PropertyName = "contentType",
         };
 
         foreach (IContentType contentType in _contentTypeService.GetAll())
@@ -113,10 +120,10 @@ public class DeliveryApiContentTypesSchemaFilter : ISchemaFilter
                                             propertySchema.Nullable = true;
                                             return propertySchema;
                                         }
-                                    )
+                                    ),
                             }
-                        )
-                    }
+                        ),
+                    },
                 }
             );
 
@@ -146,7 +153,7 @@ public class DeliveryApiContentTypesSchemaFilter : ISchemaFilter
         });
         schema.Discriminator = new OpenApiDiscriminator
         {
-            PropertyName = "contentType"
+            PropertyName = "contentType",
         };
 
         foreach (IContentType contentType in _contentTypeService.GetAll().Where(c => !c.IsElement))
@@ -164,14 +171,14 @@ public class DeliveryApiContentTypesSchemaFilter : ISchemaFilter
                             Reference = new OpenApiReference
                             {
                                 Type = ReferenceType.Schema,
-                                Id = GetTypeSchemaId<IApiContent>(useOneOfForPolymorphism)
-                            }
+                                Id = GetTypeSchemaId<IApiContent>(useOneOfForPolymorphism),
+                            },
                         },
                         new OpenApiSchema
                         {
-                            Reference = new OpenApiReference { Type = ReferenceType.Schema, Id = $"{GetContentTypeSchemaId(contentType)}ElementModel" }
-                        }
-                    }
+                            Reference = new OpenApiReference { Type = ReferenceType.Schema, Id = $"{GetContentTypeSchemaId(contentType)}ElementModel" },
+                        },
+                    },
                 }
             );
 
@@ -201,7 +208,7 @@ public class DeliveryApiContentTypesSchemaFilter : ISchemaFilter
         });
         schema.Discriminator = new OpenApiDiscriminator
         {
-            PropertyName = "contentType"
+            PropertyName = "contentType",
         };
 
         foreach (IContentType contentType in _contentTypeService.GetAll().Where(c => !c.IsElement))
@@ -219,14 +226,14 @@ public class DeliveryApiContentTypesSchemaFilter : ISchemaFilter
                             Reference = new OpenApiReference
                             {
                                 Type = ReferenceType.Schema,
-                                Id = GetTypeSchemaId<IApiContentResponse>(useOneOfForPolymorphism)
-                            }
+                                Id = GetTypeSchemaId<IApiContentResponse>(useOneOfForPolymorphism),
+                            },
                         },
                         new OpenApiSchema
                         {
-                            Reference = new OpenApiReference { Type = ReferenceType.Schema, Id = $"{GetContentTypeSchemaId(contentType)}ContentModel" }
-                        }
-                    }
+                            Reference = new OpenApiReference { Type = ReferenceType.Schema, Id = $"{GetContentTypeSchemaId(contentType)}ContentModel" },
+                        },
+                    },
                 }
             );
 

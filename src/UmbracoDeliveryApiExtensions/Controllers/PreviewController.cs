@@ -18,6 +18,9 @@ using Umbraco.Extensions;
 
 namespace Umbraco.Community.DeliveryApiExtensions.Controllers;
 
+/// <summary>
+///     <see cref="Controller"/> for previewing delivery api content and media.
+/// </summary>
 [PluginController(Constants.ApiAreaName)]
 public class PreviewController : UmbracoAuthorizedJsonController
 {
@@ -28,6 +31,9 @@ public class PreviewController : UmbracoAuthorizedJsonController
     private readonly AppCaches _appCaches;
     private readonly JsonOptions _deliveryApiJsonOptions;
 
+    /// <summary>
+    ///     Initializes a new instance of the <see cref="PreviewController" /> class.
+    /// </summary>
     public PreviewController(
         ILogger<PreviewController> logger,
         IBackOfficeSecurityAccessor backOfficeSecurityAccessor,
@@ -45,6 +51,9 @@ public class PreviewController : UmbracoAuthorizedJsonController
         _deliveryApiJsonOptions = jsonOptions.Get(Cms.Core.Constants.JsonOptionsNames.DeliveryApi);
     }
 
+    /// <summary>
+    ///     Retrieves the delivery api response for the content with the specified id.
+    /// </summary>
     [HttpGet]
     public IActionResult GetContent(
         [FromRoute] Guid id,
@@ -77,14 +86,20 @@ public class PreviewController : UmbracoAuthorizedJsonController
         }
     }
 
+    /// <summary>
+    ///     Retrieves the delivery api response for the media with the specified id.
+    /// </summary>
     [HttpGet]
     public IActionResult GetMedia(
         [FromRoute] Guid id,
+        [FromHeader(Name = "Accept-Language")] string? language,
         [FromServices] IPublishedSnapshotAccessor publishedSnapshotAccessor,
         [FromServices] IApiMediaWithCropsResponseBuilder responseBuilder)
     {
         try
         {
+            SetCulture(language);
+
             IPublishedMediaCache mediaCache = publishedSnapshotAccessor.GetRequiredPublishedSnapshot().Media
                                               ?? throw new InvalidOperationException("Could not obtain the published media cache");
 
@@ -128,7 +143,7 @@ public class PreviewController : UmbracoAuthorizedJsonController
         return ContentPermissions.HasPathAccess(
             media.Path,
             user.CalculateMediaStartNodeIds(_entityService, _appCaches),
-            Cms.Core.Constants.System.RecycleBinContent);
+            Cms.Core.Constants.System.RecycleBinMedia);
     }
 
     private void SetCulture(string? culture)
