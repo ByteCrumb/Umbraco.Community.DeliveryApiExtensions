@@ -9,12 +9,18 @@ using Umbraco.Extensions;
 
 namespace Umbraco.Community.DeliveryApiExtensions.ContentApps;
 
-public class DeliveryApiPreviewApp : IContentAppFactory
+/// <summary>
+///     <see cref="IContentAppFactory"/> for the Delivery API preview content app.
+/// </summary>
+public class DeliveryApiPreviewAppFactory : IContentAppFactory
 {
     private readonly LinkGenerator _linkGenerator;
     private readonly IOptionsMonitor<Configuration.Options.DeliveryApiExtensionsOptions> _options;
 
-    public DeliveryApiPreviewApp(
+    /// <summary>
+    ///     Initializes a new instance of the <see cref="DeliveryApiPreviewAppFactory" /> class.
+    /// </summary>
+    public DeliveryApiPreviewAppFactory(
         LinkGenerator linkGenerator,
         IOptionsMonitor<Configuration.Options.DeliveryApiExtensionsOptions> options)
     {
@@ -22,6 +28,7 @@ public class DeliveryApiPreviewApp : IContentAppFactory
         _options = options;
     }
 
+    /// <inheritdoc/>
     public ContentApp? GetContentAppFor(object source, IEnumerable<IReadOnlyUserGroup> userGroups)
     {
         // Only show the content app if preview is enabled and the user belongs to one of the allowed user groups

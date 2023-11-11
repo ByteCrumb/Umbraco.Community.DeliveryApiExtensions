@@ -28,6 +28,10 @@ Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "openapi-typescript", "tests
 EndProject
 Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "orval", "tests\clients\orval\orval.esproj", "{D56E25FF-083E-4360-95F0-3E8B647BDAC7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UmbracoDeliveryApiExtensions.JsonSchemaGenerator", "tools\UmbracoDeliveryApiExtensions.JsonSchemaGenerator\UmbracoDeliveryApiExtensions.JsonSchemaGenerator.csproj", "{A29C7C82-A065-489B-AA16-DBB1FE0F1BDD}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tools", "tools", "{EAFC944D-BB8A-4CE6-AA42-8BFB06B0F1D4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -65,6 +69,10 @@ Global
 		{D56E25FF-083E-4360-95F0-3E8B647BDAC7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D56E25FF-083E-4360-95F0-3E8B647BDAC7}.Release|Any CPU.Build.0 = Release|Any CPU
 		{D56E25FF-083E-4360-95F0-3E8B647BDAC7}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{A29C7C82-A065-489B-AA16-DBB1FE0F1BDD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A29C7C82-A065-489B-AA16-DBB1FE0F1BDD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A29C7C82-A065-489B-AA16-DBB1FE0F1BDD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A29C7C82-A065-489B-AA16-DBB1FE0F1BDD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -75,6 +83,7 @@ Global
 		{CFCBEB6E-940C-45A9-88F8-7C2E630451E9} = {64029CDB-B81B-4ABF-A96C-778BA28B6952}
 		{0F623E8F-618D-4753-8FD5-810E33BF9C31} = {CFCBEB6E-940C-45A9-88F8-7C2E630451E9}
 		{D56E25FF-083E-4360-95F0-3E8B647BDAC7} = {CFCBEB6E-940C-45A9-88F8-7C2E630451E9}
+		{A29C7C82-A065-489B-AA16-DBB1FE0F1BDD} = {EAFC944D-BB8A-4CE6-AA42-8BFB06B0F1D4}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {6F07004F-9903-4AEB-9ED0-BE57A0326D20}

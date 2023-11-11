@@ -23,6 +23,8 @@ public class PreviewOptions
 
     /// <summary>
     /// The weight of the preview content app.
+    /// Controls the position between the existing Content (-100) and Info (100) apps.
+    /// Defaults to -50.
     /// </summary>
-    public int ContentAppWeight { get; set; }
+    public int ContentAppWeight { get; set; } = -50;
 }
