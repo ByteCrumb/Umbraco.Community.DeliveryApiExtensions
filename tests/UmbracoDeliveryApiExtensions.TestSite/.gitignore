@@ -466,6 +466,7 @@ appsettings-schema.*.json
 
 # Temp folder containing Examine indexes, NuCache, MediaCache, etc.
 /umbraco/Data/TEMP/
+Smidge/
 
 # SQLite database files - enable if you don't want to commit your test DB to the repo
 /umbraco/Data/*.sqlite.db

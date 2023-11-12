@@ -28,6 +28,7 @@ export default defineConfig(({mode}) => ({
     jsxFactory: 'h',
     jsxFragment: 'Fragment',
     jsxInject: 'import { h, Fragment } from \'preact\'',
+    legalComments: 'none',
   },
   resolve: {
     alias: {
