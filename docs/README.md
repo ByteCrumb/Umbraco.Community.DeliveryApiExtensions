@@ -26,7 +26,7 @@ import {getContentItemByPath} from './api/umbraco-api';
 
 **Backoffice preview** - Preview the Delivery API responses from the backoffice content/media nodes.
 
-![Preview](https://github.com/ByteCrumb/Umbraco.Community.DeliveryApiExtensions/blob/main/docs/screenshots/screenshot1.png)
+![Preview](https://github.com/ByteCrumb/Umbraco.Community.DeliveryApiExtensions/blob/feature/docs/docs/screenshots/screenshot1.png?raw=true)
 
 ## Installation 🧑‍💻
 

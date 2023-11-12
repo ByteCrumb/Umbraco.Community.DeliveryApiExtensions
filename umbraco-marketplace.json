@@ -1,6 +1,6 @@
 {
   "$schema": "https://marketplace.umbraco.com/umbraco-marketplace-schema.json",
-  "AlternateCategory": "Developer Tools",
+  "AlternateCategory": "Headless",
   "AuthorDetails": {
     "Name": "ByteCrumb",
     "Description": "Developer duo with a passion for Umbraco and .NET, building packages together.",
@@ -17,13 +17,18 @@
     ],
     "SyncContributorsFromRepository": false
   },
-  "Category": "Headless",
+  "Category": "Developer Tools",
   "Description": "Extensions for the Delivery API, including typed swagger and backoffice preview of the API responses.",
   "DocumentationUrl": "https://github.com/ByteCrumb/Umbraco.Community.DeliveryApiExtensions",
   "LicenseTypes": [ "Free" ],
   "IssueTrackerUrl": "https://github.com/ByteCrumb/Umbraco.Community.DeliveryApiExtensions/issues",
   "PackageType": "Package",
-  "Screenshots": [],
-  "Tags": [ "backoffice"],
-  "Title": "DeliveryApiExtensions"
+  "Screenshots": [
+    {
+      "ImageUrl": "https://raw.githubusercontent.com/ByteCrumb/Umbraco.Community.DeliveryApiExtensions/main/docs/screenshots/screenshot1.png",
+      "Caption": "Delivery API preview content app"
+    }
+  ],
+  "Tags": [ "headless", "delivery api", "swagger", "backoffice"],
+  "Title": "Delivery Api Extensions"
 }
