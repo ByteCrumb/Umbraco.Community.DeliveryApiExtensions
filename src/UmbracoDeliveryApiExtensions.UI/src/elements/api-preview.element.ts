@@ -2,14 +2,14 @@ import {defineElement} from '@umbraco-ui/uui';
 import {css, html, LitElement, nothing, type PropertyValueMap} from 'lit';
 import {property, state} from 'lit/decorators.js';
 
-import {AngularElementMixin} from '../mixins/angular-element.mixin';
+import {getCsrfToken, parseJsonResponse} from '../helpers/angular-backoffice-helpers';
 import {KebabCaseAttributesMixin} from '../mixins/kebab-case-attributes.mixin';
 
 /**
  * The Delivery Api Extensions Preview element.
  */
 @defineElement('bc-api-preview')
-export class ApiPreviewElement extends AngularElementMixin(KebabCaseAttributesMixin(LitElement)) {
+export class ApiPreviewElement extends KebabCaseAttributesMixin(LitElement) {
   static styles = css`
     :host {
         display: flex;
@@ -157,7 +157,7 @@ export class ApiPreviewElement extends AngularElementMixin(KebabCaseAttributesMi
       const response = await fetch(this.apiPath + (expand ? '?expand=all' : ''), params);
       if (response.status === 200) {
         return {
-          response: await this.parseJsonResponse(response),
+          response: await parseJsonResponse(response),
           error: false,
         };
       }
@@ -175,7 +175,7 @@ export class ApiPreviewElement extends AngularElementMixin(KebabCaseAttributesMi
     const params: RequestInit & {headers: Record<string, string>} = {
       method: 'GET',
       headers: {
-        'x-umb-xsrf-token': this.getCsrfToken(),
+        'x-umb-xsrf-token': getCsrfToken(),
       },
       credentials: 'include',
     };
