@@ -11,7 +11,7 @@ Console.ReadLine();
 void RenderPage(IApiContentResponseModel content)
 {
     Console.WriteLine($"  Name: {content.Name}");
-    Console.WriteLine($"  Path: {content.Route.Path}");
+    Console.WriteLine($"  Path: {content.Route?.Path}");
 
     if (content is TestPageContentResponseModel testPage)
     {
@@ -67,23 +67,23 @@ void RenderTestPage(TestPageContentResponseModel content)
     Console.WriteLine("\n  **Content Picker**");
     Print("name", properties?.ContentPicker?.Name);
     Print("route>path", properties?.ContentPicker?.Route?.Path);
-    //BUG Print("properties>textString", properties?.ContentPicker?.Properties?.TextString);
+    Print("properties>textString", (properties?.ContentPicker as TestPageContentModel)?.Properties?.TextString);
 
     Console.WriteLine("\n  **Multinode Treepicker**");
     Print("name", properties?.MultinodeTreepicker?.FirstOrDefault()?.Name);
     Print("route>path", properties?.MultinodeTreepicker?.FirstOrDefault()?.Route?.Path);
-    //BUG Print("properties>textString", properties?.MultinodeTreepicker?.FirstOrDefault()?.Properties?.TextString);
+    Print("properties>textString", (properties?.MultinodeTreepicker?.FirstOrDefault() as TestPageContentModel)?.Properties?.TextString);
 
     Console.WriteLine("\n  **Block List**");
 
-    foreach (var (block, i) in content.Properties?.BlockList?.Items?.Select((b, i) => (b, i)))
+    foreach ((ApiBlockItemModel block, int i) in content.Properties?.BlockList?.Items?.Select((b, i) => (b, i)) ?? Enumerable.Empty<(ApiBlockItemModel, int)>())
     {
         Console.WriteLine($"    Block[{i}]:");
         renderBlock(block);
     }
 
     Console.WriteLine("\n  **Block Grid**");
-    foreach (var (block, i) in content.Properties?.BlockGrid?.Items?.Select((b, i) => (b, i)))
+    foreach ((ApiBlockGridItemModel block, int i) in content.Properties?.BlockGrid?.Items?.Select((b, i) => (b, i)) ?? Enumerable.Empty<(ApiBlockGridItemModel, int)>())
     {
         Console.WriteLine($"    Block[{i}]:");
         renderBlock(block);
@@ -98,7 +98,7 @@ void RenderTestPage(TestPageContentResponseModel content)
 
 void renderBlock(ApiBlockItemModel block)
 {
-    Console.WriteLine($"      Type: {block.Content.GetType().Name}");
+    Console.WriteLine($"      Type: {block.Content?.GetType().Name}");
     switch (block.Content)
     {
         case TestBlockElementModel testBlock:
@@ -116,12 +116,12 @@ void renderBlock(ApiBlockItemModel block)
             break;
         }
 
-        case TestBlock2ElementModel:
+        case TestBlock2ElementModel testBlock2:
         {
-            //BUG Console.WriteLine($"      Shared string (testBlock2): {block.Content.Properties?.SharedString}");
+            Console.WriteLine($"      Shared string (testBlock2): {testBlock2.Properties?.SharedString}");
             if (block.Settings is BlockSettingsElementModel settings)
             {
-                Console.WriteLine($"      Block id (settings): {settings?.Properties?.AnchorId}");
+                Console.WriteLine($"      Block id (settings): {settings.Properties?.AnchorId}");
             }
 
             break;
