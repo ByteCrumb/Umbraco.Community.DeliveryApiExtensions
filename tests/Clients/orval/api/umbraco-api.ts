@@ -67,6 +67,8 @@ expand?: string;
 
 export type GetContentItemById404 = ProblemDetails | HttpValidationProblemDetails;
 
+export type GetContentItemById403 = ProblemDetails | HttpValidationProblemDetails;
+
 export type GetContentItemById401 = ProblemDetails | HttpValidationProblemDetails;
 
 export type GetContentItemByIdParams = {
@@ -78,6 +80,8 @@ expand?: string;
 
 export type GetContentItemByPath404 = ProblemDetails | HttpValidationProblemDetails;
 
+export type GetContentItemByPath403 = ProblemDetails | HttpValidationProblemDetails;
+
 export type GetContentItemByPath401 = ProblemDetails | HttpValidationProblemDetails;
 
 export type GetContentItemByPathParams = {
@@ -86,6 +90,10 @@ export type GetContentItemByPathParams = {
  */
 expand?: string;
 };
+
+export type GetContentItem403 = ProblemDetails | HttpValidationProblemDetails;
+
+export type GetContentItem401 = ProblemDetails | HttpValidationProblemDetails;
 
 export type GetContentItemParams = {
 id?: string[];
@@ -206,6 +214,10 @@ export const TestPageInvariantContentResponseModelContentType = {
   testPageInvariant: 'testPageInvariant',
 } as const;
 
+export type TestPageInvariantContentResponseModel = IApiContentResponseModelBase & TestPageInvariantContentModel & {
+  contentType: TestPageInvariantContentResponseModelContentType;
+};
+
 export type TestPageInvariantContentModelContentType = typeof TestPageInvariantContentModelContentType[keyof typeof TestPageInvariantContentModelContentType];
 
 
@@ -219,10 +231,6 @@ export type TestPageInvariantContentModel = IApiContentModelBase & {
   properties?: TestPageInvariantPropertiesModel;
 };
 
-export type TestPageInvariantContentResponseModel = IApiContentResponseModelBase & TestPageInvariantContentModel & {
-  contentType: TestPageInvariantContentResponseModelContentType;
-};
-
 export type TestPageContentResponseModelContentType = typeof TestPageContentResponseModelContentType[keyof typeof TestPageContentResponseModelContentType];
 
 
@@ -230,10 +238,6 @@ export type TestPageContentResponseModelContentType = typeof TestPageContentResp
 export const TestPageContentResponseModelContentType = {
   testPage: 'testPage',
 } as const;
-
-export type TestPageContentResponseModel = IApiContentResponseModelBase & TestPageContentModel & {
-  contentType: TestPageContentResponseModelContentType;
-};
 
 export type TestPageContentModelContentType = typeof TestPageContentModelContentType[keyof typeof TestPageContentModelContentType];
 
@@ -246,6 +250,10 @@ export const TestPageContentModelContentType = {
 export type TestPageContentModel = IApiContentModelBase & {
   contentType: TestPageContentModelContentType;
   properties?: TestPagePropertiesModel;
+};
+
+export type TestPageContentResponseModel = IApiContentResponseModelBase & TestPageContentModel & {
+  contentType: TestPageContentResponseModelContentType;
 };
 
 export interface TestCompositionPropertiesModel {
@@ -385,7 +393,7 @@ export interface IApiElementModelBase {
   readonly properties?: IApiElementModelBaseProperties;
 }
 
-export type IApiElementModel = TestCompositionElementModel | TestBlockElementModel | TestComposition2ElementModel | TestBlock2ElementModel | BlockSettingsElementModel;
+export type IApiElementModel = BlockSettingsElementModel | TestCompositionElementModel | TestComposition2ElementModel | TestBlockElementModel | TestBlock2ElementModel;
 
 export interface IApiContentStartItemModel {
   readonly id?: string;

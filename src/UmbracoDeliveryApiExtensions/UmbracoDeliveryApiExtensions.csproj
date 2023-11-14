@@ -17,7 +17,7 @@
     <IncludeSymbols>true</IncludeSymbols>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
     <EmbedUntrackedSources>true</EmbedUntrackedSources>
-    <Version>0.1.0</Version>
+    <Version>0.0.0</Version>
     <Authors>ByteCrumb</Authors>
     <Copyright>$([System.DateTime]::UtcNow.ToString(`yyyy`)) © ByteCrumb</Copyright>
     <PackageProjectUrl>https://github.com/ByteCrumb/Umbraco.Community.DeliveryApiExtensions</PackageProjectUrl>
