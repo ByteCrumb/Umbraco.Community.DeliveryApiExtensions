@@ -162,7 +162,7 @@ export interface components {
       id?: string;
       path?: string;
     };
-    IApiElementModel: components["schemas"]["TestCompositionElementModel"] | components["schemas"]["TestBlockElementModel"] | components["schemas"]["TestComposition2ElementModel"] | components["schemas"]["TestBlock2ElementModel"] | components["schemas"]["BlockSettingsElementModel"];
+    IApiElementModel: components["schemas"]["BlockSettingsElementModel"] | components["schemas"]["TestCompositionElementModel"] | components["schemas"]["TestComposition2ElementModel"] | components["schemas"]["TestBlockElementModel"] | components["schemas"]["TestBlock2ElementModel"];
     IApiElementModelBase: {
       /** Format: uuid */
       id?: string;
@@ -428,6 +428,18 @@ export interface operations {
           "application/json": components["schemas"]["IApiContentResponseModel"][];
         };
       };
+      /** @description Unauthorized */
+      401: {
+        content: {
+          "application/json": components["schemas"]["ProblemDetails"] | components["schemas"]["HttpValidationProblemDetails"];
+        };
+      };
+      /** @description Forbidden */
+      403: {
+        content: {
+          "application/json": components["schemas"]["ProblemDetails"] | components["schemas"]["HttpValidationProblemDetails"];
+        };
+      };
     };
   };
   GetContentItemByPath: {
@@ -459,6 +471,12 @@ export interface operations {
       };
       /** @description Unauthorized */
       401: {
+        content: {
+          "application/json": components["schemas"]["ProblemDetails"] | components["schemas"]["HttpValidationProblemDetails"];
+        };
+      };
+      /** @description Forbidden */
+      403: {
         content: {
           "application/json": components["schemas"]["ProblemDetails"] | components["schemas"]["HttpValidationProblemDetails"];
         };
@@ -500,6 +518,12 @@ export interface operations {
       };
       /** @description Unauthorized */
       401: {
+        content: {
+          "application/json": components["schemas"]["ProblemDetails"] | components["schemas"]["HttpValidationProblemDetails"];
+        };
+      };
+      /** @description Forbidden */
+      403: {
         content: {
           "application/json": components["schemas"]["ProblemDetails"] | components["schemas"]["HttpValidationProblemDetails"];
         };

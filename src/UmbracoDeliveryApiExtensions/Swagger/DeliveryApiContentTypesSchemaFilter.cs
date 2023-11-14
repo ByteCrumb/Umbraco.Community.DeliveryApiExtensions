@@ -9,6 +9,7 @@ using Umbraco.Cms.Core.Models.PublishedContent;
 using Umbraco.Cms.Core.PropertyEditors.DeliveryApi;
 using Umbraco.Cms.Core.Services;
 using Umbraco.Cms.Core.Strings;
+using Umbraco.Community.DeliveryApiExtensions.Configuration.Options;
 using Umbraco.Extensions;
 
 namespace Umbraco.Community.DeliveryApiExtensions.Swagger;
@@ -18,7 +19,7 @@ namespace Umbraco.Community.DeliveryApiExtensions.Swagger;
 /// </summary>
 public class DeliveryApiContentTypesSchemaFilter : ISchemaFilter
 {
-    private readonly IOptions<SwaggerGenOptions> _swaggerGenOptions;
+    private readonly IOptionsMonitor<TypedSwaggerOptions> _typedSwaggerOptions;
     private readonly IContentTypeService _contentTypeService;
     private readonly IPublishedContentTypeFactory _publishedContentTypeFactory;
     private readonly ISchemaIdSelector _schemaIdSelector;
@@ -27,9 +28,9 @@ public class DeliveryApiContentTypesSchemaFilter : ISchemaFilter
     /// <summary>
     ///     Initializes a new instance of the <see cref="DeliveryApiContentTypesSchemaFilter" /> class.
     /// </summary>
-    public DeliveryApiContentTypesSchemaFilter(IOptions<SwaggerGenOptions> swaggerGenOptions, IContentTypeService contentTypeService, IPublishedContentTypeFactory publishedContentTypeFactory, ISchemaIdSelector schemaIdSelector, IShortStringHelper shortStringHelper)
+    public DeliveryApiContentTypesSchemaFilter(IOptionsMonitor<TypedSwaggerOptions> typedSwaggerOptions, IContentTypeService contentTypeService, IPublishedContentTypeFactory publishedContentTypeFactory, ISchemaIdSelector schemaIdSelector, IShortStringHelper shortStringHelper)
     {
-        _swaggerGenOptions = swaggerGenOptions;
+        _typedSwaggerOptions = typedSwaggerOptions;
         _contentTypeService = contentTypeService;
         _publishedContentTypeFactory = publishedContentTypeFactory;
         _schemaIdSelector = schemaIdSelector;
@@ -37,39 +38,38 @@ public class DeliveryApiContentTypesSchemaFilter : ISchemaFilter
     }
 
     /// <inheritdoc/>
-    public void Apply(OpenApiSchema schema, SchemaFilterContext context)
+    public virtual void Apply(OpenApiSchema schema, SchemaFilterContext context)
     {
-        // Orval/Swashbuckle compatible, NOT supported by NSwag
-        bool useOneOfForPolymorphism = _swaggerGenOptions.Value.SchemaGeneratorOptions.UseOneOfForPolymorphism;
+        SwaggerGenerationSettings settings = _typedSwaggerOptions.CurrentValue.SettingsFactory();
 
-        if (!useOneOfForPolymorphism && !_swaggerGenOptions.Value.SchemaGeneratorOptions.UseAllOfForInheritance)
+        if (settings is { UseOneOf: false, UseAllOf: false })
         {
             return;
         }
 
         if (typeof(IApiElement) == context.Type)
         {
-            HandleIApiElement(schema, context, useOneOfForPolymorphism);
+            HandleIApiElement(schema, context, settings);
             return;
         }
 
         if (typeof(IApiContent) == context.Type)
         {
-            HandleIApiContent(schema, context, useOneOfForPolymorphism);
+            HandleIApiContent(schema, context, settings);
             return;
         }
 
         if (typeof(IApiContentResponse) == context.Type)
         {
-            HandleIApiContentResponse(schema, context, useOneOfForPolymorphism);
+            HandleIApiContentResponse(schema, context, settings);
             return;
         }
     }
 
-    private void HandleIApiElement(OpenApiSchema schema, SchemaFilterContext context, bool useOneOfForPolymorphism)
+    private void HandleIApiElement(OpenApiSchema schema, SchemaFilterContext context, SwaggerGenerationSettings settings)
     {
         OpenApiSchema? originalSchema = null;
-        if (useOneOfForPolymorphism)
+        if (settings.UseOneOf)
         {
             // Swashbuckle doesn't allow us to return an inline schema
             // So we instead clone the current schema as IApiElementBase and update the current schema to be OneOf
@@ -96,7 +96,7 @@ public class DeliveryApiContentTypesSchemaFilter : ISchemaFilter
                 new OpenApiSchema
                 {
                     Type = "object",
-                    AllOf = { new OpenApiSchema { Reference = new OpenApiReference { Type = ReferenceType.Schema, Id = GetTypeSchemaId<IApiElement>(useOneOfForPolymorphism) } } },
+                    AllOf = { new OpenApiSchema { Reference = new OpenApiReference { Type = ReferenceType.Schema, Id = GetTypeSchemaId<IApiElement>(settings.UseOneOf) } } },
                     AdditionalPropertiesAllowed = false,
                     Properties =
                     {
@@ -129,13 +129,13 @@ public class DeliveryApiContentTypesSchemaFilter : ISchemaFilter
         }
     }
 
-    private void HandleIApiContent(OpenApiSchema schema, SchemaFilterContext context, bool useOneOfForPolymorphism)
+    private void HandleIApiContent(OpenApiSchema schema, SchemaFilterContext context, SwaggerGenerationSettings settings)
     {
         // Ensure IApiElement is generated if not already
         context.SchemaGenerator.GenerateSchema(typeof(IApiElement), context.SchemaRepository);
 
         OpenApiSchema? originalSchema = null;
-        if (useOneOfForPolymorphism)
+        if (settings.UseOneOf)
         {
             originalSchema = schema;
             schema = new OpenApiSchema(originalSchema);
@@ -146,7 +146,7 @@ public class DeliveryApiContentTypesSchemaFilter : ISchemaFilter
 
         schema.AllOf.Add(new OpenApiSchema
         {
-            Reference = new OpenApiReference { Type = ReferenceType.Schema, Id = GetTypeSchemaId<IApiElement>(useOneOfForPolymorphism) },
+            Reference = new OpenApiReference { Type = ReferenceType.Schema, Id = GetTypeSchemaId<IApiElement>(settings.UseOneOf) },
         });
         schema.Discriminator = new OpenApiDiscriminator
         {
@@ -170,7 +170,7 @@ public class DeliveryApiContentTypesSchemaFilter : ISchemaFilter
                             Reference = new OpenApiReference
                             {
                                 Type = ReferenceType.Schema,
-                                Id = GetTypeSchemaId<IApiContent>(useOneOfForPolymorphism),
+                                Id = GetTypeSchemaId<IApiContent>(settings.UseOneOf),
                             },
                         },
                     },
@@ -205,13 +205,13 @@ public class DeliveryApiContentTypesSchemaFilter : ISchemaFilter
         }
     }
 
-    private void HandleIApiContentResponse(OpenApiSchema schema, SchemaFilterContext context, bool useOneOfForPolymorphism)
+    private void HandleIApiContentResponse(OpenApiSchema schema, SchemaFilterContext context, SwaggerGenerationSettings settings)
     {
         // Ensure IApiContent is generated if not already
         context.SchemaGenerator.GenerateSchema(typeof(IApiContent), context.SchemaRepository);
 
         OpenApiSchema? originalSchema = null;
-        if (useOneOfForPolymorphism)
+        if (settings.UseOneOf)
         {
             originalSchema = schema;
             schema = new OpenApiSchema(originalSchema);
@@ -222,7 +222,7 @@ public class DeliveryApiContentTypesSchemaFilter : ISchemaFilter
 
         schema.AllOf.Add(new OpenApiSchema
         {
-            Reference = new OpenApiReference { Type = ReferenceType.Schema, Id = GetTypeSchemaId<IApiContent>(useOneOfForPolymorphism) },
+            Reference = new OpenApiReference { Type = ReferenceType.Schema, Id = GetTypeSchemaId<IApiContent>(settings.UseOneOf) },
         });
         schema.Discriminator = new OpenApiDiscriminator
         {
@@ -244,7 +244,7 @@ public class DeliveryApiContentTypesSchemaFilter : ISchemaFilter
                             Reference = new OpenApiReference
                             {
                                 Type = ReferenceType.Schema,
-                                Id = GetTypeSchemaId<IApiContentResponse>(useOneOfForPolymorphism),
+                                Id = GetTypeSchemaId<IApiContentResponse>(settings.UseOneOf),
                             },
                         },
                         new OpenApiSchema

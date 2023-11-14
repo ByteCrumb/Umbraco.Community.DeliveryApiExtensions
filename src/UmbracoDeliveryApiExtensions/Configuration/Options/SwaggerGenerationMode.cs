@@ -12,9 +12,18 @@ public enum SwaggerGenerationMode
     Auto,
 
     /// <summary>
-    ///     <para>Swagger options will not be configured in any way, allowing full customization.</para>
+    ///     Swagger will be generated with only the 'UseAllOfForInheritance' option enabled.
+    ///     <para>Suitable for generators that don't support polymorphism using OneOf like <see href="https://github.com/RicoSuter/NSwag">NSwag</see>.</para>
+    /// </summary>
+    Compatibility,
+
+    /// <summary>
+    ///     <para>Swagger options will not be configured, allowing full customization.</para>
     ///     It can be configured from your codebase using:
-    ///     <code>services.Configure&lt;SwaggerGenOptions&gt;(options => ...)</code>
+    ///     <code>
+    ///     services.Configure&lt;SwaggerGenOptions&gt;(options =&gt; ...)
+    ///     services.Configure&lt;TypedSwaggerOptions&gt;(options =&gt; ...)
+    ///     </code>
     /// </summary>
     Manual,
 }

@@ -6,6 +6,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <WarningsAsErrors>nullable</WarningsAsErrors>
+    <WarningsNotAsErrors>8765</WarningsNotAsErrors>
   </PropertyGroup>
 
   <ItemGroup>
@@ -22,15 +23,15 @@
 
   <Target Name="GenerateApiClient" BeforeTargets="CoreCompile">
     <PropertyGroup>
-      <SourceUri>https://localhost:44363/umbraco/swagger/delivery/swagger.json</SourceUri>
+      <SourceUri>http://localhost:34962/umbraco/swagger/delivery/swagger.json?mode=compatibility</SourceUri>
       <ClassName>UmbracoApi</ClassName>
       <Namespace>nswag</Namespace>
       <Options>/GenerateClientInterfaces:true /GenerateNullableReferenceTypes:true /GenerateOptionalPropertiesAsNullable:true /GenerateOptionalParameters:true</Options>
     </PropertyGroup>
 
-    <Exec Command="$(_NSwagCommand) openapi2csclient /input:$(SourceUri) /classname:$(ClassName) /namespace:$(Namespace) /output:$(IntermediateOutputPath)/$(ClassName).cs $(Options)" LogStandardErrorAsError="true" />
+    <Exec Command="$(_NSwagCommand) openapi2csclient /input:$(SourceUri) /classname:$(ClassName) /namespace:$(Namespace) /output:$(IntermediateOutputPath)/$(ClassName).g.cs $(Options)" LogStandardErrorAsError="true" />
     <ItemGroup>
-      <Compile Include="$(IntermediateOutputPath)/$(ClassName).cs" />
+      <Compile Include="$(IntermediateOutputPath)/$(ClassName).g.cs" />
     </ItemGroup>
   </Target>
 
