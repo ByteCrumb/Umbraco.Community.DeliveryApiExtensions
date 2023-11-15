@@ -91,6 +91,10 @@ jobs:
       run: |
         npm run start
 
+    - name: Run NSwag client
+      working-directory: tests/clients/nswag
+      run: dotnet run -c Release
+
     - name: Run Playwright tests
       working-directory: tests/UmbracoDeliveryApiExtensions.Playwright
       run: |
