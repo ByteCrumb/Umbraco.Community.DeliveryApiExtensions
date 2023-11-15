@@ -11,6 +11,7 @@
     "postinstall": "patch-package"
   },
   "dependencies": {
+    "@lit/task": "^1.0.0",
     "@r2wc/react-to-web-component": "^2.0.3",
     "@uiw/react-json-view": "^2.0.0-alpha.9",
     "@umbraco-ui/uui": "^1.4.0",
