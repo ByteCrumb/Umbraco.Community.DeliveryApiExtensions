@@ -1,16 +1,11 @@
-using System.Reflection;
 using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using Umbraco.Cms.Api.Common.OpenApi;
-using Umbraco.Cms.Core.Models;
 using Umbraco.Cms.Core.Models.DeliveryApi;
-using Umbraco.Cms.Core.Models.PublishedContent;
-using Umbraco.Cms.Core.PropertyEditors.DeliveryApi;
-using Umbraco.Cms.Core.Services;
-using Umbraco.Cms.Core.Strings;
 using Umbraco.Community.DeliveryApiExtensions.Configuration.Options;
-using Umbraco.Extensions;
+using Umbraco.Community.DeliveryApiExtensions.Models;
+using Umbraco.Community.DeliveryApiExtensions.Services;
 
 namespace Umbraco.Community.DeliveryApiExtensions.Swagger;
 
@@ -20,21 +15,17 @@ namespace Umbraco.Community.DeliveryApiExtensions.Swagger;
 public class DeliveryApiContentTypesSchemaFilter : ISchemaFilter
 {
     private readonly IOptionsMonitor<TypedSwaggerOptions> _typedSwaggerOptions;
-    private readonly IContentTypeService _contentTypeService;
-    private readonly IPublishedContentTypeFactory _publishedContentTypeFactory;
+    private readonly IContentTypeInfoService _contentTypeInfoService;
     private readonly ISchemaIdSelector _schemaIdSelector;
-    private readonly IShortStringHelper _shortStringHelper;
 
     /// <summary>
     ///     Initializes a new instance of the <see cref="DeliveryApiContentTypesSchemaFilter" /> class.
     /// </summary>
-    public DeliveryApiContentTypesSchemaFilter(IOptionsMonitor<TypedSwaggerOptions> typedSwaggerOptions, IContentTypeService contentTypeService, IPublishedContentTypeFactory publishedContentTypeFactory, ISchemaIdSelector schemaIdSelector, IShortStringHelper shortStringHelper)
+    public DeliveryApiContentTypesSchemaFilter(IOptionsMonitor<TypedSwaggerOptions> typedSwaggerOptions, IContentTypeInfoService contentTypeInfoService, ISchemaIdSelector schemaIdSelector)
     {
         _typedSwaggerOptions = typedSwaggerOptions;
-        _contentTypeService = contentTypeService;
-        _publishedContentTypeFactory = publishedContentTypeFactory;
+        _contentTypeInfoService = contentTypeInfoService;
         _schemaIdSelector = schemaIdSelector;
-        _shortStringHelper = shortStringHelper;
     }
 
     /// <inheritdoc/>
@@ -47,26 +38,28 @@ public class DeliveryApiContentTypesSchemaFilter : ISchemaFilter
             return;
         }
 
+        ICollection<ContentTypeInfo> contentTypes = _contentTypeInfoService.GetContentTypes();
+
         if (typeof(IApiElement) == context.Type)
         {
-            HandleIApiElement(schema, context, settings);
+            HandleIApiElement(schema, context, contentTypes, settings);
             return;
         }
 
         if (typeof(IApiContent) == context.Type)
         {
-            HandleIApiContent(schema, context, settings);
+            HandleIApiContent(schema, context, contentTypes, settings);
             return;
         }
 
         if (typeof(IApiContentResponse) == context.Type)
         {
-            HandleIApiContentResponse(schema, context, settings);
+            HandleIApiContentResponse(schema, context, contentTypes, settings);
             return;
         }
     }
 
-    private void HandleIApiElement(OpenApiSchema schema, SchemaFilterContext context, SwaggerGenerationSettings settings)
+    private void HandleIApiElement(OpenApiSchema schema, SchemaFilterContext context, IEnumerable<ContentTypeInfo> contentTypes, SwaggerGenerationSettings settings)
     {
         OpenApiSchema? originalSchema = null;
         if (settings.UseOneOf)
@@ -87,12 +80,11 @@ public class DeliveryApiContentTypesSchemaFilter : ISchemaFilter
             PropertyName = "contentType",
         };
 
-        foreach (IContentType contentType in _contentTypeService.GetAll().Where(c => c.IsElement))
+        foreach (ContentTypeInfo contentType in contentTypes.Where(c => c.IsElement))
         {
-            IPublishedContentType publishedContentType = _publishedContentTypeFactory.CreateContentType(contentType);
 
             OpenApiSchema? contentTypeSchema = context.SchemaRepository.AddDefinition(
-                $"{GetContentTypeSchemaId(contentType)}ElementModel",
+                $"{contentType.SchemaId}ElementModel",
                 new OpenApiSchema
                 {
                     Type = "object",
@@ -101,19 +93,19 @@ public class DeliveryApiContentTypesSchemaFilter : ISchemaFilter
                     Properties =
                     {
                         ["properties"] = context.SchemaRepository.AddDefinition(
-                            $"{GetContentTypeSchemaId(contentType)}PropertiesModel",
+                            $"{contentType.SchemaId}PropertiesModel",
                             new OpenApiSchema
                             {
                                 Type = "object",
                                 AdditionalPropertiesAllowed = true,
-                                AllOf = contentType.ContentTypeComposition.Select(c => new OpenApiSchema { Reference = new OpenApiReference { Type = ReferenceType.Schema, Id = $"{GetContentTypeSchemaId(c)}PropertiesModel" } }).ToList(),
-                                Properties = publishedContentType.PropertyTypes
-                                    .Where(p => contentType.PropertyTypes.Any(x => x.Alias == p.Alias)) // Filter out composition properties
+                                AllOf = contentType.CompositionSchemaIds.Select(c => new OpenApiSchema { Reference = new OpenApiReference { Type = ReferenceType.Schema, Id = $"{c}PropertiesModel" } }).ToList(),
+                                Properties = contentType.Properties
+                                    .Where(p => !p.Inherited) // Filter out composition properties
                                     .ToDictionary(
                                         p => p.Alias,
                                         p =>
                                         {
-                                            OpenApiSchema propertySchema = context.SchemaGenerator.GenerateSchema(GetPropertyType(p), context.SchemaRepository);
+                                            OpenApiSchema propertySchema = context.SchemaGenerator.GenerateSchema(p.Type, context.SchemaRepository);
                                             propertySchema.Nullable = true;
                                             return propertySchema;
                                         }
@@ -129,7 +121,7 @@ public class DeliveryApiContentTypesSchemaFilter : ISchemaFilter
         }
     }
 
-    private void HandleIApiContent(OpenApiSchema schema, SchemaFilterContext context, SwaggerGenerationSettings settings)
+    private void HandleIApiContent(OpenApiSchema schema, SchemaFilterContext context, IEnumerable<ContentTypeInfo> contentTypes, SwaggerGenerationSettings settings)
     {
         // Ensure IApiElement is generated if not already
         context.SchemaGenerator.GenerateSchema(typeof(IApiElement), context.SchemaRepository);
@@ -153,12 +145,10 @@ public class DeliveryApiContentTypesSchemaFilter : ISchemaFilter
             PropertyName = "contentType",
         };
 
-        foreach (IContentType contentType in _contentTypeService.GetAll().Where(c => !c.IsElement))
+        foreach (ContentTypeInfo contentType in contentTypes.Where(c => !c.IsElement))
         {
-            IPublishedContentType publishedContentType = _publishedContentTypeFactory.CreateContentType(contentType);
-
             OpenApiSchema? contentTypeSchema = context.SchemaRepository.AddDefinition(
-                $"{GetContentTypeSchemaId(contentType)}ContentModel",
+                $"{contentType.SchemaId}ContentModel",
                 new OpenApiSchema
                 {
                     Type = "object",
@@ -177,19 +167,19 @@ public class DeliveryApiContentTypesSchemaFilter : ISchemaFilter
                     Properties =
                     {
                         ["properties"] = context.SchemaRepository.AddDefinition(
-                            $"{GetContentTypeSchemaId(contentType)}PropertiesModel",
+                            $"{contentType.SchemaId}PropertiesModel",
                             new OpenApiSchema
                             {
                                 Type = "object",
                                 AdditionalPropertiesAllowed = true,
-                                AllOf = contentType.ContentTypeComposition.Select(c => new OpenApiSchema { Reference = new OpenApiReference { Type = ReferenceType.Schema, Id = $"{GetContentTypeSchemaId(c)}PropertiesModel" } }).ToList(),
-                                Properties = publishedContentType.PropertyTypes
-                                    .Where(p => contentType.PropertyTypes.Any(x => x.Alias == p.Alias)) // Filter out composition properties
+                                AllOf = contentType.CompositionSchemaIds.Select(c => new OpenApiSchema { Reference = new OpenApiReference { Type = ReferenceType.Schema, Id = $"{c}PropertiesModel" } }).ToList(),
+                                Properties = contentType.Properties
+                                    .Where(p => !p.Inherited) // Filter out composition properties
                                     .ToDictionary(
                                         p => p.Alias,
                                         p =>
                                         {
-                                            OpenApiSchema propertySchema = context.SchemaGenerator.GenerateSchema(GetPropertyType(p), context.SchemaRepository);
+                                            OpenApiSchema propertySchema = context.SchemaGenerator.GenerateSchema(p.Type, context.SchemaRepository);
                                             propertySchema.Nullable = true;
                                             return propertySchema;
                                         }
@@ -205,7 +195,7 @@ public class DeliveryApiContentTypesSchemaFilter : ISchemaFilter
         }
     }
 
-    private void HandleIApiContentResponse(OpenApiSchema schema, SchemaFilterContext context, SwaggerGenerationSettings settings)
+    private void HandleIApiContentResponse(OpenApiSchema schema, SchemaFilterContext context, IEnumerable<ContentTypeInfo> contentTypes, SwaggerGenerationSettings settings)
     {
         // Ensure IApiContent is generated if not already
         context.SchemaGenerator.GenerateSchema(typeof(IApiContent), context.SchemaRepository);
@@ -229,10 +219,10 @@ public class DeliveryApiContentTypesSchemaFilter : ISchemaFilter
             PropertyName = "contentType",
         };
 
-        foreach (IContentType contentType in _contentTypeService.GetAll().Where(c => !c.IsElement))
+        foreach (ContentTypeInfo contentType in contentTypes.Where(c => !c.IsElement))
         {
             OpenApiSchema? contentTypeSchema = context.SchemaRepository.AddDefinition(
-                $"{GetContentTypeSchemaId(contentType)}ContentResponseModel",
+                $"{contentType.SchemaId}ContentResponseModel",
                 new OpenApiSchema
                 {
                     Type = "object",
@@ -249,7 +239,7 @@ public class DeliveryApiContentTypesSchemaFilter : ISchemaFilter
                         },
                         new OpenApiSchema
                         {
-                            Reference = new OpenApiReference { Type = ReferenceType.Schema, Id = $"{GetContentTypeSchemaId(contentType)}ContentModel" },
+                            Reference = new OpenApiReference { Type = ReferenceType.Schema, Id = $"{contentType.SchemaId}ContentModel" },
                         },
                     },
                 }
@@ -258,12 +248,6 @@ public class DeliveryApiContentTypesSchemaFilter : ISchemaFilter
             schema.Discriminator.Mapping[contentType.Alias] = contentTypeSchema.Reference.ReferenceV3;
             originalSchema?.OneOf.Add(contentTypeSchema);
         }
-    }
-
-    private string GetContentTypeSchemaId(IContentTypeBase contentType)
-    {
-        // This is what ModelsBuilder currently also uses
-        return contentType.Alias.ToCleanString(_shortStringHelper, CleanStringType.ConvertCase | CleanStringType.PascalCase);
     }
 
     private string GetTypeSchemaId<T>(bool baseSuffix)
@@ -280,21 +264,5 @@ public class DeliveryApiContentTypesSchemaFilter : ISchemaFilter
         schema.Properties.Clear();
         schema.AdditionalProperties = null;
         schema.Discriminator = null;
-    }
-
-    // The DeliveryApi property value type is currently not exposed by Umbraco
-    // https://github.com/umbraco/Umbraco-CMS/pull/15150
-    // TODO: Remove this when Umbraco exposes the delivery api property value type
-    private static readonly FieldInfo? ConverterField = typeof(PublishedPropertyType).GetField("_converter", BindingFlags.NonPublic | BindingFlags.GetField | BindingFlags.Instance);
-    private static Type GetPropertyType(IPublishedPropertyType publishedPropertyType)
-    {
-        Type modelClrType = publishedPropertyType.ModelClrType;
-
-        if (ConverterField?.GetValue(publishedPropertyType) is IDeliveryApiPropertyValueConverter propertyValueConverter)
-        {
-            return propertyValueConverter.GetDeliveryApiPropertyValueType(publishedPropertyType);
-        }
-
-        return modelClrType;
     }
 }
