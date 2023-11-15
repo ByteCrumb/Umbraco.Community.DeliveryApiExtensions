@@ -67,6 +67,8 @@ expand?: string;
 
 export type GetContentItemById404 = ProblemDetails | HttpValidationProblemDetails;
 
+export type GetContentItemById403 = ProblemDetails | HttpValidationProblemDetails;
+
 export type GetContentItemById401 = ProblemDetails | HttpValidationProblemDetails;
 
 export type GetContentItemByIdParams = {
@@ -78,6 +80,8 @@ expand?: string;
 
 export type GetContentItemByPath404 = ProblemDetails | HttpValidationProblemDetails;
 
+export type GetContentItemByPath403 = ProblemDetails | HttpValidationProblemDetails;
+
 export type GetContentItemByPath401 = ProblemDetails | HttpValidationProblemDetails;
 
 export type GetContentItemByPathParams = {
@@ -86,6 +90,10 @@ export type GetContentItemByPathParams = {
  */
 expand?: string;
 };
+
+export type GetContentItem403 = ProblemDetails | HttpValidationProblemDetails;
+
+export type GetContentItem401 = ProblemDetails | HttpValidationProblemDetails;
 
 export type GetContentItemParams = {
 id?: string[];
@@ -198,19 +206,6 @@ export type TestPageInvariantPropertiesModel = TestCompositionPropertiesModel & 
   userPicker?: TestPageInvariantPropertiesModelUserPicker;
 };
 
-export type TestPageInvariantElementModelContentType = typeof TestPageInvariantElementModelContentType[keyof typeof TestPageInvariantElementModelContentType];
-
-
-// eslint-disable-next-line @typescript-eslint/no-redeclare
-export const TestPageInvariantElementModelContentType = {
-  testPageInvariant: 'testPageInvariant',
-} as const;
-
-export type TestPageInvariantElementModel = IApiElementModelBase & {
-  contentType: TestPageInvariantElementModelContentType;
-  properties?: TestPageInvariantPropertiesModel;
-};
-
 export type TestPageInvariantContentResponseModelContentType = typeof TestPageInvariantContentResponseModelContentType[keyof typeof TestPageInvariantContentResponseModelContentType];
 
 
@@ -218,6 +213,10 @@ export type TestPageInvariantContentResponseModelContentType = typeof TestPageIn
 export const TestPageInvariantContentResponseModelContentType = {
   testPageInvariant: 'testPageInvariant',
 } as const;
+
+export type TestPageInvariantContentResponseModel = IApiContentResponseModelBase & TestPageInvariantContentModel & {
+  contentType: TestPageInvariantContentResponseModelContentType;
+};
 
 export type TestPageInvariantContentModelContentType = typeof TestPageInvariantContentModelContentType[keyof typeof TestPageInvariantContentModelContentType];
 
@@ -227,25 +226,9 @@ export const TestPageInvariantContentModelContentType = {
   testPageInvariant: 'testPageInvariant',
 } as const;
 
-export type TestPageInvariantContentModel = IApiContentModelBase & TestPageInvariantElementModel & {
+export type TestPageInvariantContentModel = IApiContentModelBase & {
   contentType: TestPageInvariantContentModelContentType;
-};
-
-export type TestPageInvariantContentResponseModel = IApiContentResponseModelBase & TestPageInvariantContentModel & {
-  contentType: TestPageInvariantContentResponseModelContentType;
-};
-
-export type TestPageElementModelContentType = typeof TestPageElementModelContentType[keyof typeof TestPageElementModelContentType];
-
-
-// eslint-disable-next-line @typescript-eslint/no-redeclare
-export const TestPageElementModelContentType = {
-  testPage: 'testPage',
-} as const;
-
-export type TestPageElementModel = IApiElementModelBase & {
-  contentType: TestPageElementModelContentType;
-  properties?: TestPagePropertiesModel;
+  properties?: TestPageInvariantPropertiesModel;
 };
 
 export type TestPageContentResponseModelContentType = typeof TestPageContentResponseModelContentType[keyof typeof TestPageContentResponseModelContentType];
@@ -264,8 +247,9 @@ export const TestPageContentModelContentType = {
   testPage: 'testPage',
 } as const;
 
-export type TestPageContentModel = IApiContentModelBase & TestPageElementModel & {
+export type TestPageContentModel = IApiContentModelBase & {
   contentType: TestPageContentModelContentType;
+  properties?: TestPagePropertiesModel;
 };
 
 export type TestPageContentResponseModel = IApiContentResponseModelBase & TestPageContentModel & {
@@ -409,7 +393,7 @@ export interface IApiElementModelBase {
   readonly properties?: IApiElementModelBaseProperties;
 }
 
-export type IApiElementModel = TestPageElementModel | TestCompositionElementModel | TestBlockElementModel | TestComposition2ElementModel | TestPageInvariantElementModel | TestBlock2ElementModel | BlockSettingsElementModel;
+export type IApiElementModel = BlockSettingsElementModel | TestCompositionElementModel | TestComposition2ElementModel | TestBlockElementModel | TestBlock2ElementModel;
 
 export interface IApiContentStartItemModel {
   readonly id?: string;

@@ -53,12 +53,22 @@ public static class UmbracoBuilderExtensions
 
         _ = builder.Services.Configure<SwaggerGenOptions>(options =>
         {
-            if (typedSwaggerOptions.Mode == SwaggerGenerationMode.Auto)
+            switch (typedSwaggerOptions.Mode)
             {
-                options.UseOneOfForPolymorphism();
-                options.UseAllOfForInheritance();
+                case SwaggerGenerationMode.Auto:
+                    options.UseOneOfForPolymorphism();
+                    options.UseAllOfForInheritance();
+                    break;
+
+                case SwaggerGenerationMode.Compatibility:
+                    options.UseAllOfForInheritance();
+                    break;
+                case SwaggerGenerationMode.Manual:
+                default:
+                    break;
             }
 
+            options.SchemaFilter<EnumSchemaFilter>();
             options.SchemaFilter<DeliveryApiContentTypesSchemaFilter>();
         });
     }

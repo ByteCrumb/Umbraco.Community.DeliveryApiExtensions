@@ -1,0 +1,38 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net7.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <WarningsAsErrors>nullable</WarningsAsErrors>
+    <WarningsNotAsErrors>8765</WarningsNotAsErrors>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.ApiDescription.Client" Version="7.0.13">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageReference Include="NSwag.ApiDescription.Client" Version="14.0.0-preview009">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <Target Name="GenerateApiClient" BeforeTargets="CoreCompile">
+    <PropertyGroup>
+      <SourceUri>http://localhost:34962/umbraco/swagger/delivery/swagger.json?mode=compatibility</SourceUri>
+      <ClassName>UmbracoApi</ClassName>
+      <Namespace>nswag</Namespace>
+      <Options>/GenerateClientInterfaces:true /GenerateNullableReferenceTypes:true /GenerateOptionalPropertiesAsNullable:true /GenerateOptionalParameters:true</Options>
+    </PropertyGroup>
+
+    <Exec Command="$(_NSwagCommand) openapi2csclient /input:$(SourceUri) /classname:$(ClassName) /namespace:$(Namespace) /output:$(IntermediateOutputPath)/$(ClassName).g.cs $(Options)" LogStandardErrorAsError="true" />
+    <ItemGroup>
+      <Compile Include="$(IntermediateOutputPath)/$(ClassName).g.cs" />
+    </ItemGroup>
+  </Target>
+
+</Project>
