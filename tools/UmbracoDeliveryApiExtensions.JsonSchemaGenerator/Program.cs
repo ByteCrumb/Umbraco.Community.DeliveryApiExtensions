@@ -1,7 +1,7 @@
 using System.Reflection;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 using CommandLine;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
 using NJsonSchema;
 using NJsonSchema.Generation;
 using UmbracoDeliveryApiExtensions.JsonSchemaGenerator;
@@ -9,12 +9,12 @@ using UmbracoDeliveryApiExtensions.JsonSchemaGenerator;
 CommandLineArguments arguments = Parser.Default.ParseArguments<CommandLineArguments>(args).Value;
 
 JsonSchemaGenerator schemaGenerator = new(
-    new JsonSchemaGeneratorSettings
+    new SystemTextJsonSchemaGeneratorSettings
     {
         SchemaNameGenerator = new PrefixedSchemaNameGenerator(arguments.PackageName),
-        SerializerSettings = new JsonSerializerSettings
+        SerializerOptions = new JsonSerializerOptions
         {
-            Converters = { new StringEnumConverter() },
+            Converters = { new JsonStringEnumConverter() },
         },
         IgnoreObsoleteProperties = true,
         AllowReferencesWithProperties = true,
@@ -38,7 +38,7 @@ JsonSchema wrapperSchema = new()
     },
     Definitions =
     {
-        [typeSchema.Title] = typeSchema,
+        [typeSchema.Title!] = typeSchema,
     },
 };
 

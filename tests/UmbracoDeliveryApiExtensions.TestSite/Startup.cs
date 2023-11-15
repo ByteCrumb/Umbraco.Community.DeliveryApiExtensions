@@ -1,3 +1,4 @@
+using Umbraco.Community.DeliveryApiExtensions.Configuration.Options;
 using UmbracoDeliveryApiExtensions.TestSite.Custom;
 
 namespace UmbracoDeliveryApiExtensions.TestSite;
@@ -38,6 +39,17 @@ public class Startup
             .AddComposers()
             .ConfigureSwagger()
             .Build();
+
+        // Allow overriding the swagger generation mode using a query string parameter.
+        services.AddOptions<TypedSwaggerOptions>().Configure<IHttpContextAccessor>(
+            (options, httpContextAccessor) =>
+            {
+                options.SettingsFactory = () =>
+                    Enum.TryParse(httpContextAccessor.HttpContext?.Request.Query["mode"], ignoreCase: true, out SwaggerGenerationMode mode)
+                        ? TypedSwaggerOptions.DefaultSettingsFactory(mode)
+                        : TypedSwaggerOptions.DefaultSettingsFactory(options.Mode);
+            }
+        );
     }
 
     /// <summary>
