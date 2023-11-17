@@ -1,3 +1,4 @@
+import {consume} from '@lit/context';
 import {Task} from '@lit/task';
 import {defineElement} from '@umbraco-ui/uui';
 import {css, html, LitElement} from 'lit';
@@ -6,6 +7,7 @@ import {ifDefined} from 'lit/directives/if-defined.js';
 
 import {AngularElementMixin} from '../mixins/angular-element.mixin';
 import {KebabCaseAttributesMixin} from '../mixins/kebab-case-attributes.mixin';
+import {type ApiPreviewContext, apiPreviewContext} from './api-preview-context';
 
 /**
  * The Delivery Api Extensions Preview Tab element.
@@ -32,14 +34,11 @@ export class ApiPreviewElementSection extends AngularElementMixin(KebabCaseAttri
     }
   `;
 
+  @consume({context: apiPreviewContext, subscribe: true})
+    context?: ApiPreviewContext;
+
   @property({type: String})
     title = '';
-
-  @property({type: String})
-    apiPath = '';
-
-  @property({type: String})
-    culture = '';
 
   @property({type: Boolean})
     preview = false;
@@ -51,8 +50,8 @@ export class ApiPreviewElementSection extends AngularElementMixin(KebabCaseAttri
   private _expand = false;
 
   private readonly _dataTask = new Task(this, {
-    task: async ([culture, preview, expand], {signal}) => this._fetchData(culture, preview, expand, signal),
-    args: (): [string, boolean, boolean] => [this.culture, this.preview, this._expand],
+    task: async ([culture, _, preview, expand], {signal}) => this._fetchData(culture, preview, expand, signal),
+    args: (): [string | undefined, string | undefined, boolean, boolean] => [this.context?.culture, this.context?.updateDate, this.preview, this._expand],
   });
 
   render() {
@@ -90,7 +89,11 @@ export class ApiPreviewElementSection extends AngularElementMixin(KebabCaseAttri
     `;
   }
 
-  private async _fetchData(culture: string, preview: boolean, expand: boolean, signal: AbortSignal): Promise<unknown> {
+  private async _fetchData(culture: string | undefined, preview: boolean, expand: boolean, signal: AbortSignal): Promise<unknown> {
+    if (!this.context?.apiPath) {
+      return null;
+    }
+
     const params: RequestInit & {headers: Record<string, string>} = {
       method: 'GET',
       headers: {
@@ -108,7 +111,7 @@ export class ApiPreviewElementSection extends AngularElementMixin(KebabCaseAttri
       params.headers.preview = 'true';
     }
 
-    const response = await fetch(`${this.apiPath}${(expand ? '?expand=all' : '')}`, params);
+    const response = await fetch(`${this.context.apiPath}${(expand ? '?expand=all' : '')}`, params);
     if (!response.ok) {
       throw new Error(response.statusText);
     }

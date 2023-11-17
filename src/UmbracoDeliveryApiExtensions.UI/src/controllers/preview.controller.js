@@ -6,27 +6,34 @@ angular
     'Umbraco.Community.DeliveryApiExtensions.Preview',
     [
       '$scope',
-      '$element',
       '$routeParams',
       'contentAppHelper',
       'eventsService',
-      function ($scope, $element, $routeParams, contentAppHelper, eventsService) {
+      function ($scope, $routeParams, contentAppHelper, eventsService) {
         const vm = this;
 
         registerAsKnownContentApp();
 
-        vm.apiPath = $scope.model.viewModel.apiPath;
-        vm.hasPreview = $scope.model.viewModel.entityType === 'document';
-        vm.culture = $routeParams.cculture || $routeParams.mculture;
+        vm.context = {
+          apiPath: $scope.model.viewModel.apiPath,
+          hasPreview: $scope.model.viewModel.entityType === 'document',
+          culture: $routeParams.cculture || $routeParams.mculture,
+          isPublished: $scope.variantContent?.state !== 'Draft',
+          updateDate: $scope.variantContent?.updateDate,
+        };
 
-        updateIsPublished();
-        const stateChangeWatch = $scope.$watch('variantContent.state', updateIsPublished);
         const contentSavedWatch = eventsService.on('content.saved', updatePreview);
-
         vm.$onDestroy = function () {
-          stateChangeWatch();
           contentSavedWatch();
         };
+
+        function updatePreview() {
+          vm.context = {
+            ...vm.context,
+            isPublished: $scope.variantContent?.state !== 'Draft',
+            updateDate: $scope.variantContent?.updateDate,
+          };
+        }
 
         // Ensures the content save/publish are displayed
         function registerAsKnownContentApp() {
@@ -34,17 +41,6 @@ angular
           if (contentAppHelper.CONTENT_BASED_APPS.indexOf(contentAppAlias) === -1) {
             contentAppHelper.CONTENT_BASED_APPS.push(contentAppAlias);
           }
-        }
-
-        function updateIsPublished() {
-          vm.isPublished = $scope.variantContent?.state !== 'Draft';
-        }
-
-        function updatePreview() {
-          updateIsPublished();
-          const apiPreviewElement = $element.find('bc-api-preview')[0];
-          apiPreviewElement.updatePreviewResponse();
-          apiPreviewElement.updatePublishedResponse();
         }
       },
     ],

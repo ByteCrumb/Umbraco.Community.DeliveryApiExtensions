@@ -1,9 +1,16 @@
+import {provide} from '@lit/context';
 import {defineElement} from '@umbraco-ui/uui';
 import {css, html, LitElement, nothing} from 'lit';
 import {property} from 'lit/decorators.js';
 
 import {AngularElementMixin} from '../mixins/angular-element.mixin';
 import {KebabCaseAttributesMixin} from '../mixins/kebab-case-attributes.mixin';
+import {type ApiPreviewContext, apiPreviewContext} from './api-preview-context';
+
+interface Context extends ApiPreviewContext {
+  readonly hasPreview: boolean;
+  readonly isPublished: boolean;
+}
 
 /**
  * The Delivery Api Extensions Preview element.
@@ -31,25 +38,21 @@ export class ApiPreviewElement extends AngularElementMixin(KebabCaseAttributesMi
      }
   `;
 
-  @property({type: String})
-    apiPath = '';
-
-  @property({type: String})
-    culture = '';
-
-  @property({type: Boolean})
-    isPublished = false;
-
-  @property({type: Boolean})
-    hasPreview = false;
+  @provide({context: apiPreviewContext})
+  @property({type: Object, attribute: false})
+    context: Context = undefined!;
 
   render() {
+    if(!this.context){
+      return nothing;
+    }
+
     return html`
-      ${this.hasPreview ? html`
-        <bc-api-preview-section title="Preview" api-path=${this.apiPath} culture=${this.culture} preview></bc-api-preview-section>
+      ${this.context?.hasPreview ? html`
+        <bc-api-preview-section title="Preview" preview></bc-api-preview-section>
       ` : nothing}
-      ${this.isPublished ? html`
-        <bc-api-preview-section title="Published" api-path=${this.apiPath} culture=${this.culture}></bc-api-preview-section>
+      ${this.context?.isPublished ? html`
+        <bc-api-preview-section title="Published"></bc-api-preview-section>
       ` : nothing}
     `;
   }
