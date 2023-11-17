@@ -40,37 +40,88 @@ public class DeliveryApiContentTypesSchemaFilter : ISchemaFilter
 
         ICollection<ContentTypeInfo> contentTypes = _contentTypeInfoService.GetContentTypes();
 
-        if (typeof(IApiElement) == context.Type)
+        if (typeof(IApiContentResponse) == context.Type)
         {
-            HandleIApiElement(schema, context, contentTypes, settings);
+            ApplyPolymorphicContentType<IApiContentResponse, IApiContent>(schema, context, contentTypes.Where(c => !c.IsElement), settings, contentType => (
+                $"{contentType.SchemaId}ContentResponseModel",
+                new OpenApiSchema
+                {
+                    Type = "object",
+                    AdditionalPropertiesAllowed = false,
+                    AllOf =
+                    {
+                        new OpenApiSchema { Reference = new OpenApiReference { Type = ReferenceType.Schema, Id = GetTypeSchemaId<IApiContentResponse>(settings.UseOneOf) } },
+                        new OpenApiSchema { Reference = new OpenApiReference { Type = ReferenceType.Schema, Id = $"{contentType.SchemaId}ContentModel" } },
+                    },
+                }
+            ));
             return;
         }
 
         if (typeof(IApiContent) == context.Type)
         {
-            HandleIApiContent(schema, context, contentTypes, settings);
+            ApplyPolymorphicContentType<IApiContent, IApiElement>(schema, context, contentTypes.Where(c => !c.IsElement), settings, contentType => (
+                $"{contentType.SchemaId}ContentModel",
+                new OpenApiSchema
+                {
+                    Type = "object",
+                    AdditionalPropertiesAllowed = false,
+                    AllOf = { new OpenApiSchema { Reference = new OpenApiReference { Type = ReferenceType.Schema, Id = GetTypeSchemaId<IApiElement>(settings.UseOneOf) } } },
+                    Properties =
+                    {
+                        ["properties"] = ContentTypePropertiesMapper(contentType, context),
+                    },
+                }
+            ));
             return;
         }
 
-        if (typeof(IApiContentResponse) == context.Type)
+        if (typeof(IApiElement) == context.Type)
         {
-            HandleIApiContentResponse(schema, context, contentTypes, settings);
+            ApplyPolymorphicContentType<IApiElement>(schema, context, contentTypes.Where(c => c.IsElement), settings, contentType => (
+                $"{contentType.SchemaId}ElementModel",
+                new OpenApiSchema
+                {
+                    Type = "object",
+                    AdditionalPropertiesAllowed = false,
+                    AllOf = { new OpenApiSchema { Reference = new OpenApiReference { Type = ReferenceType.Schema, Id = GetTypeSchemaId<IApiElement>(settings.UseOneOf) } } },
+                    Properties =
+                    {
+                        ["properties"] = ContentTypePropertiesMapper(contentType, context),
+                    },
+                }
+            ));
             return;
         }
     }
 
-    private void HandleIApiElement(OpenApiSchema schema, SchemaFilterContext context, IEnumerable<ContentTypeInfo> contentTypes, SwaggerGenerationSettings settings)
+    private void ApplyPolymorphicContentType<T, TAncestor>(OpenApiSchema schema, SchemaFilterContext context, IEnumerable<ContentTypeInfo> contentTypes, SwaggerGenerationSettings settings, Func<ContentTypeInfo, (string SchemaId, OpenApiSchema Schema)> contentTypeSchemaMapper)
+    {
+        // Ensure ancestor is generated if not already
+        context.SchemaGenerator.GenerateSchema(typeof(TAncestor), context.SchemaRepository);
+
+        // Add ancestor to AllOf, so all properties are inherited
+        schema.AllOf.Add(new OpenApiSchema
+        {
+            Reference = new OpenApiReference { Type = ReferenceType.Schema, Id = GetTypeSchemaId<TAncestor>(settings.UseOneOf) },
+        });
+
+        ApplyPolymorphicContentType<T>(schema, context, contentTypes, settings, contentTypeSchemaMapper);
+    }
+
+    private void ApplyPolymorphicContentType<T>(OpenApiSchema schema, SchemaFilterContext context, IEnumerable<ContentTypeInfo> contentTypes, SwaggerGenerationSettings settings, Func<ContentTypeInfo, (string SchemaId, OpenApiSchema Schema)> contentTypeSchemaMapper)
     {
         OpenApiSchema? originalSchema = null;
         if (settings.UseOneOf)
         {
-            // Swashbuckle doesn't allow us to return an inline schema
-            // So we instead clone the current schema as IApiElementBase and update the current schema to be OneOf
+            // Swashbuckle doesn't allow us to return a new inline schema.
+            // So, we clone the original schema instead, and register the clone with a "Base" schemaId suffix.
+            // This allows us to clear the original inline schema, and modify it to add any applicable OneOf entries.
 
             originalSchema = schema;
             schema = new OpenApiSchema(originalSchema);
 
-            context.SchemaRepository.Schemas.Add(GetTypeSchemaId<IApiElement>(true), schema);
+            context.SchemaRepository.Schemas.Add(GetTypeSchemaId<T>(true), schema);
 
             ClearSchema(originalSchema);
         }
@@ -82,172 +133,40 @@ public class DeliveryApiContentTypesSchemaFilter : ISchemaFilter
 
         foreach (ContentTypeInfo contentType in contentTypes.Where(c => c.IsElement))
         {
+            (string? schemaId, OpenApiSchema? openApiSchema) = contentTypeSchemaMapper(contentType);
 
-            OpenApiSchema? contentTypeSchema = context.SchemaRepository.AddDefinition(
-                $"{contentType.SchemaId}ElementModel",
-                new OpenApiSchema
-                {
-                    Type = "object",
-                    AllOf = { new OpenApiSchema { Reference = new OpenApiReference { Type = ReferenceType.Schema, Id = GetTypeSchemaId<IApiElement>(settings.UseOneOf) } } },
-                    AdditionalPropertiesAllowed = false,
-                    Properties =
-                    {
-                        ["properties"] = context.SchemaRepository.AddDefinition(
-                            $"{contentType.SchemaId}PropertiesModel",
-                            new OpenApiSchema
-                            {
-                                Type = "object",
-                                AdditionalPropertiesAllowed = true,
-                                AllOf = contentType.CompositionSchemaIds.Select(c => new OpenApiSchema { Reference = new OpenApiReference { Type = ReferenceType.Schema, Id = $"{c}PropertiesModel" } }).ToList(),
-                                Properties = contentType.Properties
-                                    .Where(p => !p.Inherited) // Filter out composition properties
-                                    .ToDictionary(
-                                        p => p.Alias,
-                                        p =>
-                                        {
-                                            OpenApiSchema propertySchema = context.SchemaGenerator.GenerateSchema(p.Type, context.SchemaRepository);
-                                            propertySchema.Nullable = true;
-                                            return propertySchema;
-                                        }
-                                    ),
-                            }
-                        ),
-                    },
-                }
-            );
+            OpenApiSchema? contentTypeSchema = context.SchemaRepository.AddDefinition(schemaId, openApiSchema);
 
             schema.Discriminator.Mapping[contentType.Alias] = contentTypeSchema.Reference.ReferenceV3;
             originalSchema?.OneOf.Add(contentTypeSchema);
         }
     }
 
-    private void HandleIApiContent(OpenApiSchema schema, SchemaFilterContext context, IEnumerable<ContentTypeInfo> contentTypes, SwaggerGenerationSettings settings)
+    private static OpenApiSchema ContentTypePropertiesMapper(ContentTypeInfo contentType, SchemaFilterContext context)
     {
-        // Ensure IApiElement is generated if not already
-        context.SchemaGenerator.GenerateSchema(typeof(IApiElement), context.SchemaRepository);
-
-        OpenApiSchema? originalSchema = null;
-        if (settings.UseOneOf)
-        {
-            originalSchema = schema;
-            schema = new OpenApiSchema(originalSchema);
-            context.SchemaRepository.Schemas.Add(GetTypeSchemaId<IApiContent>(true), schema);
-
-            ClearSchema(originalSchema);
-        }
-
-        schema.AllOf.Add(new OpenApiSchema
-        {
-            Reference = new OpenApiReference { Type = ReferenceType.Schema, Id = GetTypeSchemaId<IApiElement>(settings.UseOneOf) },
-        });
-        schema.Discriminator = new OpenApiDiscriminator
-        {
-            PropertyName = "contentType",
-        };
-
-        foreach (ContentTypeInfo contentType in contentTypes.Where(c => !c.IsElement))
-        {
-            OpenApiSchema? contentTypeSchema = context.SchemaRepository.AddDefinition(
-                $"{contentType.SchemaId}ContentModel",
-                new OpenApiSchema
+        return context.SchemaRepository.AddDefinition(
+            $"{contentType.SchemaId}PropertiesModel",
+            new OpenApiSchema
+            {
+                Type = "object",
+                AdditionalPropertiesAllowed = true,
+                AllOf = contentType.CompositionSchemaIds.Select(c => new OpenApiSchema
                 {
-                    Type = "object",
-                    AdditionalPropertiesAllowed = false,
-                    AllOf =
-                    {
-                        new OpenApiSchema
+                    Reference = new OpenApiReference { Type = ReferenceType.Schema, Id = $"{c}PropertiesModel" },
+                }).ToList(),
+                Properties = contentType.Properties
+                    .Where(p => !p.Inherited) // Filter out composition properties, as they are handled by AllOf
+                    .ToDictionary(
+                        p => p.Alias,
+                        p =>
                         {
-                            Reference = new OpenApiReference
-                            {
-                                Type = ReferenceType.Schema,
-                                Id = GetTypeSchemaId<IApiContent>(settings.UseOneOf),
-                            },
-                        },
-                    },
-                    Properties =
-                    {
-                        ["properties"] = context.SchemaRepository.AddDefinition(
-                            $"{contentType.SchemaId}PropertiesModel",
-                            new OpenApiSchema
-                            {
-                                Type = "object",
-                                AdditionalPropertiesAllowed = true,
-                                AllOf = contentType.CompositionSchemaIds.Select(c => new OpenApiSchema { Reference = new OpenApiReference { Type = ReferenceType.Schema, Id = $"{c}PropertiesModel" } }).ToList(),
-                                Properties = contentType.Properties
-                                    .Where(p => !p.Inherited) // Filter out composition properties
-                                    .ToDictionary(
-                                        p => p.Alias,
-                                        p =>
-                                        {
-                                            OpenApiSchema propertySchema = context.SchemaGenerator.GenerateSchema(p.Type, context.SchemaRepository);
-                                            propertySchema.Nullable = true;
-                                            return propertySchema;
-                                        }
-                                    ),
-                            }
-                        ),
-                    },
-                }
-            );
-
-            schema.Discriminator.Mapping[contentType.Alias] = contentTypeSchema.Reference.ReferenceV3;
-            originalSchema?.OneOf.Add(contentTypeSchema);
-        }
-    }
-
-    private void HandleIApiContentResponse(OpenApiSchema schema, SchemaFilterContext context, IEnumerable<ContentTypeInfo> contentTypes, SwaggerGenerationSettings settings)
-    {
-        // Ensure IApiContent is generated if not already
-        context.SchemaGenerator.GenerateSchema(typeof(IApiContent), context.SchemaRepository);
-
-        OpenApiSchema? originalSchema = null;
-        if (settings.UseOneOf)
-        {
-            originalSchema = schema;
-            schema = new OpenApiSchema(originalSchema);
-            context.SchemaRepository.Schemas.Add(GetTypeSchemaId<IApiContentResponse>(true), schema);
-
-            ClearSchema(originalSchema);
-        }
-
-        schema.AllOf.Add(new OpenApiSchema
-        {
-            Reference = new OpenApiReference { Type = ReferenceType.Schema, Id = GetTypeSchemaId<IApiContent>(settings.UseOneOf) },
-        });
-        schema.Discriminator = new OpenApiDiscriminator
-        {
-            PropertyName = "contentType",
-        };
-
-        foreach (ContentTypeInfo contentType in contentTypes.Where(c => !c.IsElement))
-        {
-            OpenApiSchema? contentTypeSchema = context.SchemaRepository.AddDefinition(
-                $"{contentType.SchemaId}ContentResponseModel",
-                new OpenApiSchema
-                {
-                    Type = "object",
-                    AdditionalPropertiesAllowed = false,
-                    AllOf =
-                    {
-                        new OpenApiSchema
-                        {
-                            Reference = new OpenApiReference
-                            {
-                                Type = ReferenceType.Schema,
-                                Id = GetTypeSchemaId<IApiContentResponse>(settings.UseOneOf),
-                            },
-                        },
-                        new OpenApiSchema
-                        {
-                            Reference = new OpenApiReference { Type = ReferenceType.Schema, Id = $"{contentType.SchemaId}ContentModel" },
-                        },
-                    },
-                }
-            );
-
-            schema.Discriminator.Mapping[contentType.Alias] = contentTypeSchema.Reference.ReferenceV3;
-            originalSchema?.OneOf.Add(contentTypeSchema);
-        }
+                            OpenApiSchema propertySchema = context.SchemaGenerator.GenerateSchema(p.Type, context.SchemaRepository);
+                            propertySchema.Nullable = true;
+                            return propertySchema;
+                        }
+                    ),
+            }
+        );
     }
 
     private string GetTypeSchemaId<T>(bool baseSuffix)
