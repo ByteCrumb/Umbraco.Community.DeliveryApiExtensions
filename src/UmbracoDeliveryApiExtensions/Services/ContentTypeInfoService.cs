@@ -9,12 +9,21 @@ using Umbraco.Extensions;
 
 namespace Umbraco.Community.DeliveryApiExtensions.Services;
 
+/// <summary>
+/// Service responsible for providing content type information.
+/// </summary>
+/// <remarks>
+/// Used for typed swagger schema generation.
+/// </remarks>
 public interface IContentTypeInfoService
 {
+    /// <summary>
+    /// Gets all the available content types.
+    /// </summary>
     ICollection<ContentTypeInfo> GetContentTypes();
 }
 
-internal class ContentTypeInfoService : IContentTypeInfoService
+internal sealed class ContentTypeInfoService : IContentTypeInfoService
 {
     private readonly IContentTypeService _contentTypeService;
     private readonly IPublishedContentTypeFactory _publishedContentTypeFactory;

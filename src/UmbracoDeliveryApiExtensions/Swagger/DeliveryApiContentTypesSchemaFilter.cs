@@ -38,11 +38,9 @@ public class DeliveryApiContentTypesSchemaFilter : ISchemaFilter
             return;
         }
 
-        ICollection<ContentTypeInfo> contentTypes = _contentTypeInfoService.GetContentTypes();
-
         if (typeof(IApiContentResponse) == context.Type)
         {
-            ApplyPolymorphicContentType<IApiContentResponse, IApiContent>(schema, context, contentTypes.Where(c => !c.IsElement), settings, contentType => (
+            ApplyPolymorphicContentType<IApiContentResponse, IApiContent>(schema, context, _contentTypeInfoService.GetContentTypes().Where(c => !c.IsElement), settings, contentType => (
                 $"{contentType.SchemaId}ContentResponseModel",
                 new OpenApiSchema
                 {
@@ -60,13 +58,13 @@ public class DeliveryApiContentTypesSchemaFilter : ISchemaFilter
 
         if (typeof(IApiContent) == context.Type)
         {
-            ApplyPolymorphicContentType<IApiContent, IApiElement>(schema, context, contentTypes.Where(c => !c.IsElement), settings, contentType => (
+            ApplyPolymorphicContentType<IApiContent, IApiElement>(schema, context, _contentTypeInfoService.GetContentTypes().Where(c => !c.IsElement), settings, contentType => (
                 $"{contentType.SchemaId}ContentModel",
                 new OpenApiSchema
                 {
                     Type = "object",
                     AdditionalPropertiesAllowed = false,
-                    AllOf = { new OpenApiSchema { Reference = new OpenApiReference { Type = ReferenceType.Schema, Id = GetTypeSchemaId<IApiElement>(settings.UseOneOf) } } },
+                    AllOf = { new OpenApiSchema { Reference = new OpenApiReference { Type = ReferenceType.Schema, Id = GetTypeSchemaId<IApiContent>(settings.UseOneOf) } } },
                     Properties =
                     {
                         ["properties"] = ContentTypePropertiesMapper(contentType, context),
@@ -78,7 +76,7 @@ public class DeliveryApiContentTypesSchemaFilter : ISchemaFilter
 
         if (typeof(IApiElement) == context.Type)
         {
-            ApplyPolymorphicContentType<IApiElement>(schema, context, contentTypes.Where(c => c.IsElement), settings, contentType => (
+            ApplyPolymorphicContentType<IApiElement>(schema, context, _contentTypeInfoService.GetContentTypes().Where(c => c.IsElement), settings, contentType => (
                 $"{contentType.SchemaId}ElementModel",
                 new OpenApiSchema
                 {
@@ -131,7 +129,7 @@ public class DeliveryApiContentTypesSchemaFilter : ISchemaFilter
             PropertyName = "contentType",
         };
 
-        foreach (ContentTypeInfo contentType in contentTypes.Where(c => c.IsElement))
+        foreach (ContentTypeInfo contentType in contentTypes)
         {
             (string? schemaId, OpenApiSchema? openApiSchema) = contentTypeSchemaMapper(contentType);
 
