@@ -25,8 +25,12 @@
   "PackageType": "Package",
   "Screenshots": [
     {
-      "ImageUrl": "https://raw.githubusercontent.com/ByteCrumb/Umbraco.Community.DeliveryApiExtensions/main/docs/screenshots/screenshot1.png",
+      "ImageUrl": "https://raw.githubusercontent.com/ByteCrumb/Umbraco.Community.DeliveryApiExtensions/main/docs/screenshots/api-preview.png",
       "Caption": "Delivery API preview content app"
+    },
+    {
+      "ImageUrl": "https://raw.githubusercontent.com/ByteCrumb/Umbraco.Community.DeliveryApiExtensions/main/docs/screenshots/typed-swagger-schema.png",
+      "Caption": "Typed swagger schema example"
     }
   ],
   "Tags": [ "headless", "delivery api", "swagger", "backoffice"],
