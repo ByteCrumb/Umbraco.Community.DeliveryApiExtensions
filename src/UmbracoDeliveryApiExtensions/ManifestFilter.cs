@@ -12,7 +12,7 @@ internal sealed class ManifestFilter : IManifestFilter
         manifests.Add(new PackageManifest
         {
             PackageName = "DeliveryApiExtensions",
-            Version = assembly.GetName().Version?.ToString(3) ?? "0.1.0",
+            Version = assembly.GetName().Version?.ToString(3) ?? "0.0.0",
             AllowPackageTelemetry = true,
             Scripts = new[] {
                 "/App_Plugins/DeliveryApiExtensions/delivery-api-extensions.iife.js",

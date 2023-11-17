@@ -1,7 +1,5 @@
 name: Release Package
 
-# This action will start when a correctly formatted tag is pushed (e.g. 0.1.0)
-
 on:
   push:
     tags:
@@ -9,21 +7,27 @@ on:
 
 jobs:
   build:
-
-    runs-on: windows-latest
-
+    runs-on: ubuntu-latest
     steps:
-
     - name: Checkout repository
       uses: actions/checkout@v3
+
+    - name: Setup npm
+      uses: actions/setup-node@v3
+      with:
+        node-version: 20
+        cache: 'npm'
 
     - name: Setup .NET
       uses: actions/setup-dotnet@v2
       with:
-        dotnet-version: 6.0.x
-  
+        dotnet-version: 7.x
+
+    - name: Set VERSION variable from tag
+      run: echo "VERSION=${GITHUB_REF/refs\/tags\/v/}" >> $GITHUB_ENV
+
     - name: Build project
-      run: dotnet build src\UmbracoDeliveryApiExtensions\UmbracoDeliveryApiExtensions.csproj --configuration Release
+      run: dotnet build src\UmbracoDeliveryApiExtensions\UmbracoDeliveryApiExtensions.csproj --configuration Release /p:Version=${VERSION}
 
     - name: Push to NuGet
       run: dotnet nuget push **\*.nupkg --api-key ${{secrets.NUGET_API_KEY}} --source https://api.nuget.org/v3/index.json
