@@ -79,14 +79,14 @@ void RenderTestPage(TestPageContentResponseModel content)
     foreach ((ApiBlockItemModel block, int i) in content.Properties?.BlockList?.Items?.Select((b, i) => (b, i)) ?? Enumerable.Empty<(ApiBlockItemModel, int)>())
     {
         Console.WriteLine($"    Block[{i}]:");
-        renderBlock(block);
+        RenderBlock(block);
     }
 
     Console.WriteLine("\n  **Block Grid**");
     foreach ((ApiBlockGridItemModel block, int i) in content.Properties?.BlockGrid?.Items?.Select((b, i) => (b, i)) ?? Enumerable.Empty<(ApiBlockGridItemModel, int)>())
     {
         Console.WriteLine($"    Block[{i}]:");
-        renderBlock(block);
+        RenderBlock(block);
     }
 
     Console.WriteLine("\n  **From composition(s)**");
@@ -96,7 +96,7 @@ void RenderTestPage(TestPageContentResponseModel content)
     Print("  sharedRichText", properties?.SharedRichText);
 }
 
-void renderBlock(ApiBlockItemModel block)
+void RenderBlock(ApiBlockItemModel block)
 {
     Console.WriteLine($"      Type: {block.Content?.GetType().Name}");
     switch (block.Content)
@@ -106,11 +106,11 @@ void renderBlock(ApiBlockItemModel block)
             Console.WriteLine($"      String: {testBlock.Properties?.String}");
             Console.WriteLine($"      Multinode Treepicker: {testBlock.Properties?.MultinodeTreepicker?.FirstOrDefault()?.Id}");
             Console.WriteLine($"      Shared string: {testBlock.Properties?.SharedString}");
-            var nestedBlock = testBlock.Properties?.Blocks?.Items?.FirstOrDefault();
+            ApiBlockItemModel? nestedBlock = testBlock.Properties?.Blocks?.Items?.FirstOrDefault();
             if (nestedBlock is not null)
             {
                 Console.WriteLine("      **Nested block**");
-                renderBlock(nestedBlock);
+                RenderBlock(nestedBlock);
             }
 
             break;
