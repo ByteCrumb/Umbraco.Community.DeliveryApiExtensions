@@ -10,8 +10,8 @@ import {KebabCaseAttributesMixin} from '../mixins/kebab-case-attributes.mixin';
 /**
  * The Delivery Api Extensions Preview Tab element.
  */
-@defineElement('bc-api-preview-tab')
-export class ApiPreviewElementTab extends AngularElementMixin(KebabCaseAttributesMixin(LitElement)) {
+@defineElement('bc-api-preview-section')
+export class ApiPreviewElementSection extends AngularElementMixin(KebabCaseAttributesMixin(LitElement)) {
   static styles = css`
     uui-box {
       display: grid;
@@ -119,6 +119,6 @@ export class ApiPreviewElementTab extends AngularElementMixin(KebabCaseAttribute
 
 declare global {
   interface HTMLElementTagNameMap {
-    'bc-api-preview-tab': ApiPreviewElementTab;
+    'bc-api-preview-section': ApiPreviewElementSection;
   }
 }

@@ -46,10 +46,10 @@ export class ApiPreviewElement extends AngularElementMixin(KebabCaseAttributesMi
   render() {
     return html`
       ${this.hasPreview ? html`
-        <bc-api-preview-tab title="Preview" api-path=${this.apiPath} culture=${this.culture} preview></bc-api-preview-tab>
+        <bc-api-preview-section title="Preview" api-path=${this.apiPath} culture=${this.culture} preview></bc-api-preview-section>
       ` : nothing}
       ${this.isPublished ? html`
-        <bc-api-preview-tab title="Published" api-path=${this.apiPath} culture=${this.culture}></bc-api-preview-tab>
+        <bc-api-preview-section title="Published" api-path=${this.apiPath} culture=${this.culture}></bc-api-preview-section>
       ` : nothing}
     `;
   }
