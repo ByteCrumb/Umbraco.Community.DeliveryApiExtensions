@@ -7,17 +7,22 @@ Contributions to this package are very welcome! 🙌
 > [!IMPORTANT]  
 > **Requirements**
 > - .NET 7
-> - Node 20+ (if you are a Windows user, take a look at [Volta](https://volta.sh/), it's a really nice tool to manage JS tool versions, like Node ✨)
+> - Node 20+ (using [Volta](https://volta.sh/) is recommended to ensure you always have the right version ✨)
 > 
 
-First things first, let's build the front-end! 🌻  
-You can do that by using your favourite terminal, going to the `src/UmbracoDeliveryApiExtensions.UI` folder and simply running `npm install --frozen-lockfile`.
+**Visual Studio**  
+When using VS everything should just work, running the test website (`tests\UmbracoDeliveryApiExtensions.TestSite`) should automaticaly build both the UI and the package.
 
-In `tests\UmbracoDeliveryApiExtensions.TestSite` you will find a test Umbraco website, that is connected to our library (`src\UmbracoDeliveryApiExtensions`) that you can run (either using Visual Studio or using `dotnet run` in a terminal) and test your changes in!
+**Command line**  
+Running `dotnet run` in the test website path (`tests\UmbracoDeliveryApiExtensions.TestSite`) should automaticaly build both the UI and the package.
 
-**Credentials**  
+There are also other helpful npm scripts to just run the UI, watch for file changes, among others, so check the different projects `package.json` to see what is already set up.
+
+**Backoffice credentials**  
 Username: `admin@umbraco`  
 Password: `#Umbraco123!`
+
+## Project structure
 
 ### Back-end 🦾
 
