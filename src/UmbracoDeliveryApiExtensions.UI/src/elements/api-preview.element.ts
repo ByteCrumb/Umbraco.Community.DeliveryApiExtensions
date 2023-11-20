@@ -2,7 +2,7 @@ import {defineElement} from '@umbraco-ui/uui';
 import {css, html, LitElement, nothing, type PropertyValueMap} from 'lit';
 import {property, state} from 'lit/decorators.js';
 
-import {getCsrfToken, parseJsonResponse} from '../helpers/angular-backoffice-helpers';
+import {XsrfTokenHeaderName, getCsrfToken, parseJsonResponse} from '../helpers/angular-backoffice-helpers';
 import {KebabCaseAttributesMixin} from '../mixins/kebab-case-attributes.mixin';
 
 /**
@@ -175,7 +175,7 @@ export class ApiPreviewElement extends KebabCaseAttributesMixin(LitElement) {
     const params: RequestInit & {headers: Record<string, string>} = {
       method: 'GET',
       headers: {
-        'x-umb-xsrf-token': getCsrfToken(),
+        [XsrfTokenHeaderName]: getCsrfToken(),
       },
       credentials: 'include',
     };

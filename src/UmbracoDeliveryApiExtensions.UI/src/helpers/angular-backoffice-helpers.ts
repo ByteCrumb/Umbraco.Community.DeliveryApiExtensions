@@ -1,5 +1,7 @@
 import Cookies from 'js-cookie';
 
+export const XsrfTokenHeaderName = 'x-umb-xsrf-token';
+
 export function getCsrfToken(): string {
   return Cookies.get('UMB-XSRF-TOKEN') ?? '';
 }
