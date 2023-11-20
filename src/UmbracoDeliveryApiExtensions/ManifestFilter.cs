@@ -17,7 +17,8 @@ internal sealed class ManifestFilter : IManifestFilter
             Scripts = new[] {
                 "/App_Plugins/DeliveryApiExtensions/delivery-api-extensions.iife.js",
             },
-            Stylesheets = Array.Empty<string>()
+            BundleOptions = BundleOptions.None,
+            Stylesheets = Array.Empty<string>(),
         });
     }
 }

@@ -13,6 +13,7 @@ export default defineConfig({
   use: {
     baseURL: process.env.URL,
     trace: 'on-first-retry',
+    ignoreHTTPSErrors: true
   },
 
   /* Configure projects for major browsers */
@@ -27,7 +28,7 @@ export default defineConfig({
   webServer: {
     command: 'dotnet run --project ..\\UmbracoDeliveryApiExtensions.TestSite',
     url: process.env.URL + '/umbraco',
-    reuseExistingServer: !process.env.CI,
+    reuseExistingServer: true,
     ignoreHTTPSErrors: true,
     stdout: process.env.CI ? 'ignore' : 'pipe',
     cwd: '..\\UmbracoDeliveryApiExtensions.TestSite',

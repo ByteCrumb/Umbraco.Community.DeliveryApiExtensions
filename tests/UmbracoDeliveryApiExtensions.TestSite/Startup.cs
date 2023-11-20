@@ -1,4 +1,5 @@
 using Umbraco.Community.DeliveryApiExtensions.Configuration.Options;
+using UmbracoDeliveryApiExtensions.TestSite.Custom;
 
 namespace UmbracoDeliveryApiExtensions.TestSite;
 
@@ -36,6 +37,7 @@ public class Startup
             .AddWebsite()
             .AddDeliveryApi()
             .AddComposers()
+            .ConfigureSwagger()
             .Build();
 
         // Allow overriding the swagger generation mode using a query string parameter.

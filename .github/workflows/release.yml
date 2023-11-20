@@ -1,13 +1,61 @@
-name: Release Package
+name: Build and release
 
 on:
   push:
-    tags:
-      - "[0-9]+.[0-9]+.[0-9]+"
+    tags: [ "[0-9]+.[0-9]+.[0-9]+" ]
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+
+env:
+  VERSION: ${{ startsWith(github.ref, 'refs/tags/') && github.ref_name || null }}
+  NODE_VERSION: 20
+  DOTNET_VERSION: 7.x
 
 jobs:
   build:
+    name: Build
     runs-on: ubuntu-latest
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Set version
+      if: ${{ !env.VERSION }}
+      run: |
+        calculatedSha=$(git rev-parse --short ${{ github.sha }})
+        echo "VERSION=0.0.0-$calculatedSha" >> $GITHUB_ENV
+
+    - name: Setup npm
+      uses: actions/setup-node@v3
+      with:
+        node-version: ${{env.NODE_VERSION}}
+        cache: 'npm'
+        cache-dependency-path: '**/package-lock.json'
+
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: ${{env.DOTNET_VERSION}}
+
+    - name: Build project
+      run: dotnet build src/UmbracoDeliveryApiExtensions
+           -c Release
+           /p:ContinuousIntegrationBuild=true
+           /p:Version=${{env.VERSION}}
+
+    - name: Upload package as artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: artifact
+        path: |
+          **/*.nupkg
+          **/*.snupkg
+
+  tests:
+    name: Tests
+    runs-on: ubuntu-latest
+    needs: build
     steps:
     - name: Checkout repository
       uses: actions/checkout@v3
@@ -15,19 +63,56 @@ jobs:
     - name: Setup npm
       uses: actions/setup-node@v3
       with:
-        node-version: 20
+        node-version: ${{env.NODE_VERSION}}
         cache: 'npm'
+        cache-dependency-path: '**/package-lock.json'
 
     - name: Setup .NET
-      uses: actions/setup-dotnet@v2
+      uses: actions/setup-dotnet@v3
       with:
-        dotnet-version: 7.x
+        dotnet-version: ${{env.DOTNET_VERSION}}
 
-    - name: Set VERSION variable from tag
-      run: echo "VERSION=${GITHUB_REF/refs\/tags\/v/}" >> $GITHUB_ENV
+    - name: Run Test website
+      env:
+        LANG: en_US.UTF-8
+      run: |
+        timeout 120 grep -q 'Application started.' <(dotnet run --project tests/UmbracoDeliveryApiExtensions.TestSite --launch-profile CI | tee -p /dev/fd/2)
 
-    - name: Build project
-      run: dotnet build src\UmbracoDeliveryApiExtensions\UmbracoDeliveryApiExtensions.csproj --configuration Release /p:Version=${VERSION}
+    - name: Install packages
+      working-directory: tests
+      run: |
+        find . -maxdepth 3 -name package.json -execdir npm ci \;
 
-    - name: Push to NuGet
-      run: dotnet nuget push **\*.nupkg --api-key ${{secrets.NUGET_API_KEY}} --source https://api.nuget.org/v3/index.json
+    - name: Run Orval client
+      working-directory: tests/clients/orval
+      run: |
+        npm run start
+
+    - name: Run openapi-typescript client
+      working-directory: tests/clients/openapi-typescript
+      run: |
+        npm run start
+
+    - name: Run NSwag client
+      working-directory: tests/clients/nswag
+      run: dotnet run -c Release
+
+    - name: Run Playwright tests
+      working-directory: tests/UmbracoDeliveryApiExtensions.Playwright
+      run: |
+        npm run test
+
+  release:
+    name: Release
+    runs-on: ubuntu-latest
+    if: ${{ startsWith(github.ref, 'refs/tags/') }}
+    needs: [build, tests]
+    steps:
+
+    - name: Download artifact from build
+      uses: actions/download-artifact@v3
+      with:
+        name: artifact
+
+    - name: Push to Nuget
+      run: dotnet nuget push "*.nupkg" --api-key ${{secrets.NUGET_API_KEY}} --source https://api.nuget.org/v3/index.json
