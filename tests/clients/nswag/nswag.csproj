@@ -6,7 +6,6 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <WarningsAsErrors>nullable</WarningsAsErrors>
-    <WarningsNotAsErrors>8765</WarningsNotAsErrors>
   </PropertyGroup>
 
   <ItemGroup>
@@ -21,12 +20,16 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="ClientTemplateOverrides\" />
+  </ItemGroup>
+
   <Target Name="GenerateApiClient" BeforeTargets="CoreCompile">
     <PropertyGroup>
       <SourceUri>http://localhost:34962/umbraco/swagger/delivery/swagger.json?mode=compatibility</SourceUri>
       <ClassName>UmbracoApi</ClassName>
       <Namespace>nswag</Namespace>
-      <Options>/GenerateClientInterfaces:true /GenerateNullableReferenceTypes:true /GenerateOptionalPropertiesAsNullable:true /GenerateOptionalParameters:true</Options>
+      <Options>/GenerateClientInterfaces:true /GenerateNullableReferenceTypes:true /GenerateOptionalPropertiesAsNullable:true /GenerateOptionalParameters:true /TemplateDirectory:ClientTemplateOverrides</Options>
     </PropertyGroup>
 
     <Exec Command="$(_NSwagCommand) openapi2csclient /input:$(SourceUri) /classname:$(ClassName) /namespace:$(Namespace) /output:$(IntermediateOutputPath)/$(ClassName).g.cs $(Options)" LogStandardErrorAsError="true" />
