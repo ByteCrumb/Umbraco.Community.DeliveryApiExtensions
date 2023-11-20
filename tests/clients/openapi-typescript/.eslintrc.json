@@ -5,6 +5,7 @@
         "es2021": true
     },
     "extends": "xo-space",
+    "ignorePatterns": ["api/*"],
     "overrides": [
         {
             "extends": [

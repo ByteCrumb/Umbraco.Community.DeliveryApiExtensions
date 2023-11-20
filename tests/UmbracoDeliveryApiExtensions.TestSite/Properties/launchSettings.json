@@ -17,6 +17,14 @@
       },
       "dotnetRunMessages": true,
       "applicationUrl": "https://localhost:44363;http://localhost:34962"
+    },
+    "CI": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Production"
+      },
+      "dotnetRunMessages": true,
+      "applicationUrl": "https://localhost:44363;http://localhost:34962"
     }
   },
   "$schema": "https://json.schemastore.org/launchsettings.json",

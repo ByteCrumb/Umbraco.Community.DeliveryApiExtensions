@@ -4,6 +4,7 @@ using Swashbuckle.AspNetCore.SwaggerGen;
 using Umbraco.Cms.Core.DependencyInjection;
 using Umbraco.Community.DeliveryApiExtensions.Configuration.Options;
 using Umbraco.Community.DeliveryApiExtensions.ContentApps;
+using Umbraco.Community.DeliveryApiExtensions.Services;
 using Umbraco.Community.DeliveryApiExtensions.Swagger;
 
 namespace Umbraco.Community.DeliveryApiExtensions.Configuration;
@@ -49,6 +50,7 @@ public static class UmbracoBuilderExtensions
             return;
         }
 
+        _ = builder.Services.AddSingleton<IContentTypeInfoService, ContentTypeInfoService>();
         _ = builder.Services.AddOptions<TypedSwaggerOptions>(typedSwaggerConfigSection);
 
         _ = builder.Services.Configure<SwaggerGenOptions>(options =>

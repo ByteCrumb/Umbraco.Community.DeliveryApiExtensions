@@ -3,7 +3,6 @@ import {defineElement} from '@umbraco-ui/uui';
 import {css, html, LitElement, nothing} from 'lit';
 import {property} from 'lit/decorators.js';
 
-import {AngularElementMixin} from '../mixins/angular-element.mixin';
 import {KebabCaseAttributesMixin} from '../mixins/kebab-case-attributes.mixin';
 import {type ApiPreviewContext, apiPreviewContext} from './api-preview-context';
 
@@ -16,7 +15,7 @@ interface Context extends ApiPreviewContext {
  * The Delivery Api Extensions Preview element.
  */
 @defineElement('bc-api-preview')
-export class ApiPreviewElement extends AngularElementMixin(KebabCaseAttributesMixin(LitElement)) {
+export class ApiPreviewElement extends KebabCaseAttributesMixin(LitElement) {
   static styles = css`
     :host {
         display: flex;
@@ -43,7 +42,7 @@ export class ApiPreviewElement extends AngularElementMixin(KebabCaseAttributesMi
     context: Context = undefined!;
 
   render() {
-    if(!this.context){
+    if (!this.context) {
       return nothing;
     }
 

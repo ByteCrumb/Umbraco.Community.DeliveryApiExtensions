@@ -5,7 +5,7 @@ import {css, html, LitElement} from 'lit';
 import {property, query, state} from 'lit/decorators.js';
 import {ifDefined} from 'lit/directives/if-defined.js';
 
-import {AngularElementMixin} from '../mixins/angular-element.mixin';
+import {CsrfTokenHeaderName, getCsrfToken, parseJsonResponse} from '../helpers/angular-backoffice-helpers';
 import {KebabCaseAttributesMixin} from '../mixins/kebab-case-attributes.mixin';
 import {type ApiPreviewContext, apiPreviewContext} from './api-preview-context';
 
@@ -13,7 +13,7 @@ import {type ApiPreviewContext, apiPreviewContext} from './api-preview-context';
  * The Delivery Api Extensions Preview Tab element.
  */
 @defineElement('bc-api-preview-section')
-export class ApiPreviewElementSection extends AngularElementMixin(KebabCaseAttributesMixin(LitElement)) {
+export class ApiPreviewElementSection extends KebabCaseAttributesMixin(LitElement) {
   static styles = css`
     uui-box {
       display: grid;
@@ -97,7 +97,7 @@ export class ApiPreviewElementSection extends AngularElementMixin(KebabCaseAttri
     const params: RequestInit & {headers: Record<string, string>} = {
       method: 'GET',
       headers: {
-        'x-umb-xsrf-token': this.getCsrfToken(),
+        [CsrfTokenHeaderName]: getCsrfToken(),
       },
       credentials: 'include',
       signal,
@@ -116,7 +116,7 @@ export class ApiPreviewElementSection extends AngularElementMixin(KebabCaseAttri
       throw new Error(response.statusText);
     }
 
-    return this.parseJsonResponse(response);
+    return parseJsonResponse(response);
   }
 }
 

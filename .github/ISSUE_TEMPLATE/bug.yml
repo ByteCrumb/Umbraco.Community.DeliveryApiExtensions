@@ -1,6 +1,6 @@
 name: "Bug report"
 description: "File a bug report to help improve this package."
-labels: "bug"
+labels: ["bug"]
 body:
 - type: markdown
   attributes:
@@ -9,14 +9,14 @@ body:
 - type: input
   id: "PackageVersion"
   attributes:
-    label: "Which UmbracoDeliveryApiExtensions version are you using?"
+    label: "Which version of the package are you using?"
     description: "Leave blank if you're not sure: the latest version will be assumed."
   validations:
     required: false
 - type: input
   id: "umbracoVersion"
   attributes:
-    label: "Which Umbraco version are you using? For example: 10.4.0 - don't just write v10"
+    label: "Which Umbraco version are you using? For example: 12.2.0 - don't just write v12"
     description: "Use the help icon in the Umbraco backoffice to find the version you're using."
   validations:
     required: true
@@ -25,17 +25,17 @@ body:
   attributes:
     label: "Bug summary"
     description: "Write a summary of the bug."
-    description: "Remember that you can format code and logs nicely with the `<>` button"
     placeholder: >
       Try to pinpoint it as much as possible.
       
       Try to state the actual problem, and not just what you think the solution might be.
+
+      (Remember that you can format code and logs nicely with the `<>` button)
   validations:
     required: true
 - type: textarea
   attributes:
     label: "Steps to reproduce"
-    id: "reproduction"
     description: "How can we reproduce the problem on a clean AdminOnlyPackage + Umbraco install?"
     placeholder: >
       Please include any links, screenshots, stack-traces, etc.
@@ -44,7 +44,6 @@ body:
 - type: textarea
   attributes:
     label: "Expected result / actual result"
-    id: "result"
     description: "What did you expect that would happen on your Umbraco site and what is the actual result of the above steps?"
     placeholder: >
       Describe the intended/desired outcome after you did the steps mentioned.
