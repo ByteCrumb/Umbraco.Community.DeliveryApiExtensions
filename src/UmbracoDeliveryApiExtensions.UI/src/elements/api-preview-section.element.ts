@@ -3,6 +3,7 @@ import {Task} from '@lit/task';
 import {defineElement} from '@umbraco-ui/uui';
 import {css, html, LitElement} from 'lit';
 import {property, query, state} from 'lit/decorators.js';
+import {cache} from 'lit/directives/cache.js';
 import {ifDefined} from 'lit/directives/if-defined.js';
 
 import {CsrfTokenHeaderName, getCsrfToken, parseJsonResponse} from '../helpers/angular-backoffice-helpers';
@@ -15,7 +16,13 @@ import {type ApiPreviewContext, apiPreviewContext} from './api-preview-context';
 @defineElement('bc-api-preview-section')
 export class ApiPreviewElementSection extends KebabCaseAttributesMixin(LitElement) {
   static styles = css`
+    :host {
+      display: flex;
+    }
+
     uui-box {
+      flex: 1;
+      overflow: auto;
       display: grid;
       grid-template-rows: max-content minmax(150px, auto);
     }
@@ -43,8 +50,8 @@ export class ApiPreviewElementSection extends KebabCaseAttributesMixin(LitElemen
   @property({type: Boolean})
     preview = false;
 
-  @query('uui-scroll-container')
-    scrollContainer?: HTMLElement;
+  @query('bc-json-preview')
+    jsonPreviewElement?: HTMLElement;
 
   @state()
   private _expand = false;
@@ -65,26 +72,26 @@ export class ApiPreviewElementSection extends KebabCaseAttributesMixin(LitElemen
       this._expand = !this._expand;
     };
 
+    const content = this._dataTask.render({
+      initial: () => renderLoader(),
+      pending: () => renderLoader(this.jsonPreviewElement?.offsetHeight),
+      complete: data => html`
+      <bc-json-preview .value=${data}></bc-json-preview>
+    `,
+      error: error => html`
+    <div class="centered">
+        <span>❌ Error: ${error && typeof error === 'object' && 'message' in error ? error.message : error}!</span>
+      </div>
+    `,
+    });
+
     return html`
       <uui-box>
         <div class="headline" slot="headline">
           <span>${this.title}</span>
           <uui-toggle label="Expand" title=${this._expand ? 'all' : 'none'} label-position="left" @change=${toggleExpand}></uui-toggle>
         </div>
-        <uui-scroll-container>
-          ${this._dataTask.render({
-    initial: () => renderLoader(),
-    pending: () => renderLoader(this.scrollContainer?.scrollHeight),
-    complete: data => html`
-      <bc-json-preview .value=${data}></bc-json-preview>
-    `,
-    error: error => html`
-    <div class="centered">
-        <span>❌ Error: ${error}!</span>
-      </div>
-    `,
-  })}
-        </uui-scroll-container>
+        ${cache(content)}
       </uui-box>
     `;
   }

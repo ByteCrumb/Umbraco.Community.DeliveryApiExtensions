@@ -23,16 +23,13 @@ export class ApiPreviewElement extends KebabCaseAttributesMixin(LitElement) {
         gap: 1rem;
     }
 
-    :host > * {
-      flex: 1;
-      min-width: 0;
-      min-height: 0;
-      overflow: auto;
-    }
-
     @media (min-width: 1024px) {
       :host {
         flex-direction: row;
+      }
+
+      :host > * {
+        flex: 1;
       }
      }
   `;
