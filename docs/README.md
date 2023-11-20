@@ -11,7 +11,7 @@ Extensions for the Umbraco Delivery API.
 ### Backoffice preview
 Preview the Delivery API responses from the backoffice content/media nodes.
 
-![Preview](https://github.com/ByteCrumb/Umbraco.Community.DeliveryApiExtensions/blob/feature/docs/docs/screenshots/api-preview.png?raw=true)
+![Preview](https://github.com/ByteCrumb/Umbraco.Community.DeliveryApiExtensions/blob/main/docs/screenshots/api-preview.png?raw=true)
 
 ### Typed swagger
 Adds types to the Umbraco swagger based on your document and data types (just like Models Builder), so that you can more seamlessly generate typed clients.  
@@ -33,7 +33,7 @@ if (content.contentType === 'home') {
 }
 ```
 
-![Typed Swagger](https://github.com/ByteCrumb/Umbraco.Community.DeliveryApiExtensions/blob/feature/docs/docs/screenshots/typed-swagger-schema.png?raw=true)
+![Typed Swagger](https://github.com/ByteCrumb/Umbraco.Community.DeliveryApiExtensions/blob/main/docs/screenshots/typed-swagger-schema.png?raw=true)
 
 ## Installation 🧑‍💻
 
