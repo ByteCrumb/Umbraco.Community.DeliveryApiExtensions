@@ -1,12 +1,10 @@
 using System.Text.Json;
 using nswag;
 
-IUmbracoApi umbracoApi = new UmbracoApi("https://localhost:44363", new HttpClient());
+IUmbracoApi umbracoApi = new UmbracoApi("http://localhost:34962", new HttpClient());
 
 IApiContentResponseModel page = await umbracoApi.GetContentItemByPathAsync("/", expand: "all");
 RenderPage(page);
-
-Console.ReadLine();
 
 void RenderPage(IApiContentResponseModel content)
 {

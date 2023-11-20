@@ -1,11 +1,11 @@
 name: "Feature request"
 description: "Suggest an idea for this package."
-labels: "enhancement"
+labels: ["enhancement"]
 body:
 - type: markdown
   attributes:
     value: |
-      Thanks for taking the time to suggest this feature request!
+      Thanks for taking the time to suggest a feature!
 - type: textarea
   id: "summary"
   attributes:
