@@ -1,4 +1,4 @@
-import {expect} from '@playwright/test';
+﻿import {expect} from '@playwright/test';
 import {ContentBuilder, DocumentTypeBuilder} from '@umbraco/playwright-models';
 import {type ApiHelpers, test} from '@umbraco/playwright-testhelpers';
 
@@ -48,10 +48,13 @@ test.describe('API preview - Content', () => {
     await page.locator('button[data-element="sub-view-deliveryApiPreview"]').click();
 
     // Check that only the preview section is being displayed
-    const sectionsLocator = page.locator('bc-api-preview > uui-box');
+    const sectionsLocator = page.locator('bc-api-preview-section');
     await expect(sectionsLocator).toHaveCount(1);
 
-    await expect(sectionsLocator.first().locator('*[slot=headline] > span')).toHaveText('Preview');
+    const previewSection = sectionsLocator.first();
+    await expect(previewSection).toHaveAttribute('preview');
+
+    await expect(previewSection.locator('bc-json-preview')).toBeVisible();
   });
 
   async function createTestContent(umbracoApi: ApiHelpers) {
