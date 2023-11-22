@@ -24,7 +24,7 @@ jobs:
       if: ${{ !env.VERSION }}
       run: |
         calculatedSha=$(git rev-parse --short ${{ github.sha }})
-        echo "VERSION=0.0.0-$calculatedSha" >> $GITHUB_ENV
+        echo "VERSION=0.0.0-preview-$calculatedSha" >> $GITHUB_ENV
 
     - name: Setup npm
       uses: actions/setup-node@v3
