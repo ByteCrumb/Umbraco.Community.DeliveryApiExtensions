@@ -24,7 +24,7 @@
                   "selector": ["class", "interface", "typeAlias", "enum", "typeParameter"],
                   "format": ["StrictPascalCase"],
                   "filter": {
-                    "regex": "^(HTMLElementTagNameMap|HTMLElementEventMap|HTML[A-Za-z]{0,}Element|UIEvent|UIEventInit|DOMError|WebUIListenerBehavior)$",
+                    "regex": "^(HTMLElementTagNameMap|HTMLElementEventMap|HTML[A-Za-z]{0,}Element|UIEvent|UIEventInit|DOMError|WebUIListenerBehavior|I([A-Z][a-z]+)+)$",
                     "match": false
                   }
                 }
@@ -39,7 +39,16 @@
               ],
               "simple-import-sort/imports": "error",
               "simple-import-sort/exports": "error"
-          }
+            },
+            "overrides": [
+              {
+                "files": ["*.controller.ts"],
+                "rules": {
+                  "@typescript-eslint/no-this-alias": ["off"],
+                  "max-params": ["off"]
+                }
+              }
+          ]
         }
     ],
     "parserOptions": {

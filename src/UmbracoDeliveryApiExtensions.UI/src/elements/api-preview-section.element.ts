@@ -6,9 +6,9 @@ import {property, query, state} from 'lit/decorators.js';
 import {cache} from 'lit/directives/cache.js';
 import {ifDefined} from 'lit/directives/if-defined.js';
 
+import {type ApiPreviewContext, apiPreviewContext} from '../contexts/api-preview.context';
 import {CsrfTokenHeaderName, getCsrfToken, parseJsonResponse} from '../helpers/angular-backoffice-helpers';
 import {KebabCaseAttributesMixin} from '../mixins/kebab-case-attributes.mixin';
-import {type ApiPreviewContext, apiPreviewContext} from './api-preview-context';
 
 /**
  * The Delivery Api Extensions Preview Tab element.

@@ -3,13 +3,9 @@ import {defineElement} from '@umbraco-ui/uui';
 import {css, html, LitElement, nothing} from 'lit';
 import {property} from 'lit/decorators.js';
 
+import {apiPreviewContext} from '../contexts/api-preview.context';
+import {type PreviewControllerContext} from '../controllers/preview.controller';
 import {KebabCaseAttributesMixin} from '../mixins/kebab-case-attributes.mixin';
-import {type ApiPreviewContext, apiPreviewContext} from './api-preview-context';
-
-interface Context extends ApiPreviewContext {
-  readonly hasPreview: boolean;
-  readonly isPublished: boolean;
-}
 
 /**
  * The Delivery Api Extensions Preview element.
@@ -36,7 +32,7 @@ export class ApiPreviewElement extends KebabCaseAttributesMixin(LitElement) {
 
   @provide({context: apiPreviewContext})
   @property({type: Object, attribute: false})
-    context: Context = undefined!;
+    context: PreviewControllerContext = undefined!;
 
   render() {
     if (!this.context) {
