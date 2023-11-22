@@ -76,7 +76,7 @@ jobs:
       env:
         LANG: en_US.UTF-8
       run: |
-        timeout 120 grep -q 'Application started.' <(dotnet run --project tests/UmbracoDeliveryApiExtensions.TestSite --launch-profile CI | tee -p /dev/fd/2)
+        timeout 300 grep -q 'Application started.' <(dotnet run --project tests/UmbracoDeliveryApiExtensions.TestSite --launch-profile CI | tee -p /dev/fd/2)
 
     - name: Install packages
       working-directory: tests
