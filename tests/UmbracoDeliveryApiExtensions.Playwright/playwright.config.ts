@@ -13,7 +13,7 @@ export default defineConfig({
   use: {
     baseURL: process.env.URL,
     trace: 'on-first-retry',
-    ignoreHTTPSErrors: true
+    ignoreHTTPSErrors: true,
   },
 
   /* Configure projects for major browsers */

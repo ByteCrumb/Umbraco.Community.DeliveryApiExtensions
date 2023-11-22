@@ -41,7 +41,14 @@
             </uui-tab-group>
           </div>
           <uui-scroll-container id="editor-content">
-            <bc-api-preview api-path="/src/data/content-{expand|none}.json" is-published has-preview></bc-api-preview>
+            <bc-api-preview></bc-api-preview>
+            <script>
+              document.getElementsByTagName('bc-api-preview')[0].context = {
+                apiPath: '/src/data/content-{expand|none}.json',
+                isPublished: true,
+                hasPreview: true
+              }
+            </script>
           </uui-scroll-container>
           <div id="editor-bottom">
             <uui-button>Save and preview</uui-button>

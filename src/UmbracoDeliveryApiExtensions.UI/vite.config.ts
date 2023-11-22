@@ -6,7 +6,7 @@ export default defineConfig(({mode}) => ({
     lib: {
       entry: 'src/main.js',
       name: 'DeliveryApiExtensions',
-      formats: ['es', 'iife'],
+      formats: ['iife'],
     },
     outDir: '../UmbracoDeliveryApiExtensions/wwwroot/DeliveryApiExtensions',
     emptyOutDir: true,
