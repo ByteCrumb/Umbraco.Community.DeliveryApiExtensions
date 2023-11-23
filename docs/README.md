@@ -1,4 +1,8 @@
+<!--IF NUGET
+![Package Logo](https://raw.githubusercontent.com/ByteCrumb/Umbraco.Community.DeliveryApiExtensions/main/docs/icon.png)
+<!--ELSE-->
 <img src="https://raw.githubusercontent.com/ByteCrumb/Umbraco.Community.DeliveryApiExtensions/main/docs/icon.png" alt="Delivery Api Extensions logo" height="130" align="right">
+<!--END-->
 
 # Umbraco Delivery Api Extensions
 

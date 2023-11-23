@@ -45,7 +45,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="..\..\docs\README.md" Pack="true" PackagePath="\" />
     <None Include="..\..\docs\icon.png" Pack="true" PackagePath="\" />
     <None Include="buildTransitive\**" Pack="true" PackagePath="buildTransitive" />
   </ItemGroup>
@@ -53,4 +52,24 @@
   <Target Name="GenerateAppSettingsSchema" AfterTargets="Build">
     <Exec Command="dotnet run --project ../../tools/UmbracoDeliveryApiExtensions.JsonSchemaGenerator -- -i $(OutputPath)UmbracoDeliveryApiExtensions.dll -o appsettings-schema.DeliveryApiExtensions.json -t Umbraco.Community.DeliveryApiExtensions.Configuration.Options.DeliveryApiExtensionsOptions" />
   </Target>
+
+  <ItemGroup>
+    <MarkdownFiles Include="..\..\docs\README.md" />
+  </ItemGroup>
+  <Target Name="ProcessMarkdownFiles" AfterTargets="Build" Inputs="@(MarkdownFiles)" Outputs="@(MarkdownFiles->'$(IntermediateOutputPath)\%(Filename)%(Extension)')" >
+    <PropertyGroup>
+      <Regex>&lt;!--IF NUGET\s*([\s\S]*?)(\s*&lt;!--ELSE--&gt;\s*([\s\S]*?))?\s*&lt;!--END--&gt;</Regex>
+      <Replacement>$1</Replacement>
+    </PropertyGroup>
+
+    <WriteLinesToFile
+      File="@(MarkdownFiles->'$(IntermediateOutputPath)\%(Filename)%(Extension)')"
+      Lines="$([System.Text.RegularExpressions.Regex]::Replace($([System.IO.File]::ReadAllText('%(Identity)')), '$(Regex)', '$(Replacement)'))"
+      Overwrite="true" />
+
+    <ItemGroup>
+      <None Include="@(MarkdownFiles->'$(IntermediateOutputPath)\%(Filename)%(Extension)')" Pack="true" PackagePath="\" />
+    </ItemGroup>
+  </Target>
+
 </Project>
