@@ -9,8 +9,8 @@
     <Product>Umbraco.Community.DeliveryApiExtensions</Product>
     <PackageId>Umbraco.Community.DeliveryApiExtensions</PackageId>
     <Title>DeliveryApiExtensions</Title>
-    <Description>...</Description>
-    <PackageTags>umbraco;umbraco-marketplace</PackageTags>
+    <Description>Extensions for the Delivery API, including typed swagger and backoffice preview of the API responses.</Description>
+    <PackageTags>umbraco;umbraco-marketplace;Swagger;OpenAPI</PackageTags>
     <RootNamespace>Umbraco.Community.DeliveryApiExtensions</RootNamespace>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
@@ -22,6 +22,7 @@
     <Copyright>$([System.DateTime]::UtcNow.ToString(`yyyy`)) © ByteCrumb</Copyright>
     <PackageProjectUrl>https://github.com/ByteCrumb/Umbraco.Community.DeliveryApiExtensions</PackageProjectUrl>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
+    <PackageIcon>icon.png</PackageIcon>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <RepositoryType>git</RepositoryType>
     <PackageLicenseExpression>MPL-2.0</PackageLicenseExpression>
@@ -44,11 +45,31 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="..\..\docs\README.md" Pack="true" PackagePath="\" />
+    <None Include="..\..\docs\icon.png" Pack="true" PackagePath="\" />
     <None Include="buildTransitive\**" Pack="true" PackagePath="buildTransitive" />
   </ItemGroup>
 
   <Target Name="GenerateAppSettingsSchema" AfterTargets="Build">
     <Exec Command="dotnet run --project ../../tools/UmbracoDeliveryApiExtensions.JsonSchemaGenerator -- -i $(OutputPath)UmbracoDeliveryApiExtensions.dll -o appsettings-schema.DeliveryApiExtensions.json -t Umbraco.Community.DeliveryApiExtensions.Configuration.Options.DeliveryApiExtensionsOptions" />
   </Target>
+
+  <ItemGroup>
+    <MarkdownFiles Include="..\..\docs\README.md" />
+  </ItemGroup>
+  <Target Name="ProcessMarkdownFiles" AfterTargets="Build" Inputs="@(MarkdownFiles)" Outputs="@(MarkdownFiles->'$(IntermediateOutputPath)\%(Filename)%(Extension)')" >
+    <PropertyGroup>
+      <Regex>&lt;!--IF NUGET\s*([\s\S]*?)(\s*&lt;!--ELSE--&gt;\s*([\s\S]*?))?\s*&lt;!--END--&gt;</Regex>
+      <Replacement>$1</Replacement>
+    </PropertyGroup>
+
+    <WriteLinesToFile
+      File="@(MarkdownFiles->'$(IntermediateOutputPath)\%(Filename)%(Extension)')"
+      Lines="$([System.Text.RegularExpressions.Regex]::Replace($([System.IO.File]::ReadAllText('%(Identity)')), '$(Regex)', '$(Replacement)'))"
+      Overwrite="true" />
+
+    <ItemGroup>
+      <None Include="@(MarkdownFiles->'$(IntermediateOutputPath)\%(Filename)%(Extension)')" Pack="true" PackagePath="\" />
+    </ItemGroup>
+  </Target>
+
 </Project>

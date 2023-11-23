@@ -1,4 +1,10 @@
-# Umbraco Delivery Api Extensions 🧩
+<!--IF NUGET
+![Package Logo](https://raw.githubusercontent.com/ByteCrumb/Umbraco.Community.DeliveryApiExtensions/main/docs/icon.png)
+<!--ELSE-->
+<img src="https://raw.githubusercontent.com/ByteCrumb/Umbraco.Community.DeliveryApiExtensions/main/docs/icon.png" alt="Delivery Api Extensions logo" height="130" align="right">
+<!--END-->
+
+# Umbraco Delivery Api Extensions
 
 [![Downloads](https://img.shields.io/nuget/dt/Umbraco.Community.UmbracoDeliveryApiExtensions?color=cc9900)](https://www.nuget.org/packages/Umbraco.Community.UmbracoDeliveryApiExtensions/)
 [![NuGet](https://img.shields.io/nuget/vpre/Umbraco.Community.UmbracoDeliveryApiExtensions?color=0273B3)](https://www.nuget.org/packages/Umbraco.Community.UmbracoDeliveryApiExtensions)
@@ -11,7 +17,7 @@ Extensions for the Umbraco Delivery API.
 ### Backoffice preview
 Preview the Delivery API responses from the backoffice content/media nodes.
 
-![Preview](https://github.com/ByteCrumb/Umbraco.Community.DeliveryApiExtensions/blob/main/docs/screenshots/api-preview.png?raw=true)
+![Preview](https://raw.githubusercontent.com/ByteCrumb/Umbraco.Community.DeliveryApiExtensions/main/docs/screenshots/api-preview.png)
 
 ### Typed swagger
 Adds types to the Umbraco swagger based on your document and data types (just like Models Builder), so that you can more seamlessly generate typed clients.  
@@ -33,7 +39,7 @@ if (content.contentType === 'home') {
 }
 ```
 
-![Typed Swagger](https://github.com/ByteCrumb/Umbraco.Community.DeliveryApiExtensions/blob/main/docs/screenshots/typed-swagger-schema.png?raw=true)
+![Typed Swagger](https://raw.githubusercontent.com/ByteCrumb/Umbraco.Community.DeliveryApiExtensions/main/docs/screenshots/typed-swagger-schema.png)
 
 ## Installation 🧑‍💻
 
