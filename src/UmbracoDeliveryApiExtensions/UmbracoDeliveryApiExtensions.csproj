@@ -9,8 +9,8 @@
     <Product>Umbraco.Community.DeliveryApiExtensions</Product>
     <PackageId>Umbraco.Community.DeliveryApiExtensions</PackageId>
     <Title>DeliveryApiExtensions</Title>
-    <Description>...</Description>
-    <PackageTags>umbraco;umbraco-marketplace</PackageTags>
+    <Description>Extensions for the Delivery API, including typed swagger and backoffice preview of the API responses.</Description>
+    <PackageTags>umbraco;umbraco-marketplace;Swagger;OpenAPI</PackageTags>
     <RootNamespace>Umbraco.Community.DeliveryApiExtensions</RootNamespace>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
@@ -22,6 +22,7 @@
     <Copyright>$([System.DateTime]::UtcNow.ToString(`yyyy`)) © ByteCrumb</Copyright>
     <PackageProjectUrl>https://github.com/ByteCrumb/Umbraco.Community.DeliveryApiExtensions</PackageProjectUrl>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
+    <PackageIcon>icon.png</PackageIcon>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <RepositoryType>git</RepositoryType>
     <PackageLicenseExpression>MPL-2.0</PackageLicenseExpression>
@@ -45,6 +46,7 @@
 
   <ItemGroup>
     <None Include="..\..\docs\README.md" Pack="true" PackagePath="\" />
+    <None Include="..\..\docs\icon.png" Pack="true" PackagePath="\" />
     <None Include="buildTransitive\**" Pack="true" PackagePath="buildTransitive" />
   </ItemGroup>
 

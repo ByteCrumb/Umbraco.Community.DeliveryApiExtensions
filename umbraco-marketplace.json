@@ -33,6 +33,6 @@
       "Caption": "Typed swagger schema example"
     }
   ],
-  "Tags": [ "headless", "delivery api", "swagger", "backoffice"],
+  "Tags": [ "headless", "delivery api", "swagger", "openapi", "backoffice" ],
   "Title": "Delivery Api Extensions"
 }
