@@ -10,7 +10,7 @@ on:
     branches: [ main, develop ]
 
 env:
-  VERSION: ${{ startsWith(github.ref, 'refs/tags/') && github.ref_name || null }}
+  PKG_VERSION: ${{ startsWith(github.ref, 'refs/tags/') && github.ref_name || null }}
   NODE_VERSION: 20
   DOTNET_VERSION: 7.x
 
@@ -23,10 +23,10 @@ jobs:
       uses: actions/checkout@v3
 
     - name: Set version
-      if: ${{ !env.VERSION }}
+      if: ${{ !env.PKG_VERSION }}
       run: |
         calculatedSha=$(git rev-parse --short ${{ github.sha }})
-        echo "VERSION=0.0.0-preview.${{github.run_number}}.$calculatedSha" >> $GITHUB_ENV
+        echo "PKG_VERSION=0.0.0-preview.${{github.run_number}}.$calculatedSha" >> $GITHUB_ENV
 
     - name: Setup npm
       uses: actions/setup-node@v3
@@ -44,7 +44,7 @@ jobs:
       run: dotnet build src/UmbracoDeliveryApiExtensions
            -c Release
            /p:ContinuousIntegrationBuild=true
-           /p:Version=${VERSION#v}
+           /p:Version=${PKG_VERSION#v}
 
     - name: Upload package as artifact
       uses: actions/upload-artifact@v3
@@ -117,5 +117,5 @@ jobs:
       with:
         name: artifact
 
-    - name: Push to Nuget
+    - name: Push to NuGet
       run: dotnet nuget push **/*.nupkg --api-key ${{secrets.NUGET_API_KEY}} --source https://api.nuget.org/v3/index.json
