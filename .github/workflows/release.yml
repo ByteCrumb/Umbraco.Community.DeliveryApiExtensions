@@ -48,6 +48,7 @@ jobs:
       uses: actions/upload-artifact@v3
       with:
         name: artifact
+        if-no-files-found: error
         path: |
           **/*.nupkg
           **/*.snupkg
@@ -115,4 +116,4 @@ jobs:
         name: artifact
 
     - name: Push to Nuget
-      run: dotnet nuget push "*.nupkg" --api-key ${{secrets.NUGET_API_KEY}} --source https://api.nuget.org/v3/index.json
+      run: dotnet nuget push **/*.nupkg --api-key ${{secrets.NUGET_API_KEY}} --source https://api.nuget.org/v3/index.json
