@@ -45,7 +45,7 @@ public static class UmbracoBuilderExtensions
     {
         IConfigurationSection typedSwaggerConfigSection = configSection.GetSection<TypedSwaggerOptions>();
         TypedSwaggerOptions? typedSwaggerOptions = typedSwaggerConfigSection.Get<TypedSwaggerOptions>();
-        if (typedSwaggerOptions is null || !typedSwaggerOptions.Enabled)
+        if (typedSwaggerOptions?.Enabled == false)
         {
             return;
         }
@@ -55,7 +55,7 @@ public static class UmbracoBuilderExtensions
 
         _ = builder.Services.Configure<SwaggerGenOptions>(options =>
         {
-            switch (typedSwaggerOptions.Mode)
+            switch (typedSwaggerOptions?.Mode ?? SwaggerGenerationMode.Auto)
             {
                 case SwaggerGenerationMode.Auto:
                     options.UseOneOfForPolymorphism();
