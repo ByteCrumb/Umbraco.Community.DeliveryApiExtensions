@@ -6,8 +6,8 @@
 
 # Umbraco Delivery Api Extensions
 
-[![Downloads](https://img.shields.io/nuget/dt/Umbraco.Community.UmbracoDeliveryApiExtensions?color=cc9900)](https://www.nuget.org/packages/Umbraco.Community.UmbracoDeliveryApiExtensions/)
-[![NuGet](https://img.shields.io/nuget/vpre/Umbraco.Community.UmbracoDeliveryApiExtensions?color=0273B3)](https://www.nuget.org/packages/Umbraco.Community.UmbracoDeliveryApiExtensions)
+[![Downloads](https://img.shields.io/nuget/dt/Umbraco.Community.DeliveryApiExtensions?color=cc9900)](https://www.nuget.org/packages/Umbraco.Community.DeliveryApiExtensions/)
+[![NuGet](https://img.shields.io/nuget/vpre/Umbraco.Community.DeliveryApiExtensions?color=0273B3)](https://www.nuget.org/packages/Umbraco.Community.DeliveryApiExtensions)
 [![GitHub license](https://img.shields.io/github/license/ByteCrumb/Umbraco.Community.DeliveryApiExtensions?color=8AB803)](../LICENSE)
 
 Extensions for the Umbraco Delivery API.
@@ -46,7 +46,7 @@ if (content.contentType === 'home') {
 Add the package to an existing Umbraco website (v12.2+) from nuget:
 
 ```sh
-dotnet add package Umbraco.Community.UmbracoDeliveryApiExtensions
+dotnet add package Umbraco.Community.DeliveryApiExtensions
 ```
 
 ### Configuration (appsettings.json)
