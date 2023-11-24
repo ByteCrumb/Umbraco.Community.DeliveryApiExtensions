@@ -2,7 +2,7 @@ name: Build and release
 
 on:
   push:
-    tags: [ "[0-9]+.[0-9]+.[0-9]+" ]
+    tags: [ "v[0-9]+.[0-9]+.[0-9]+" ]
     branches: [ main, develop ]
   pull_request:
     branches: [ main, develop ]
@@ -42,7 +42,7 @@ jobs:
       run: dotnet build src/UmbracoDeliveryApiExtensions
            -c Release
            /p:ContinuousIntegrationBuild=true
-           /p:Version=${{env.VERSION}}
+           /p:Version=${VERSION#v}
 
     - name: Upload package as artifact
       uses: actions/upload-artifact@v3
