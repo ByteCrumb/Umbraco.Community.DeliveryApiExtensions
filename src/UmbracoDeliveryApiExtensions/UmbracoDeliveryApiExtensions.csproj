@@ -49,16 +49,6 @@
     <None Include="buildTransitive\**" Pack="true" PackagePath="buildTransitive" />
   </ItemGroup>
 
-  <!-- Include static files if not already,
-       this is needed as generated files wouldn't be included otherwise,
-       as the list of files to include is generated before the files are generated.
-  -->
-  <Target Name="IncludeStaticFiles" BeforeTargets="ResolveProjectStaticWebAssets">
-    <ItemGroup>
-      <Content Include="wwwroot\**" Exclude="@(Content)" />
-    </ItemGroup>
-  </Target>
-
   <!-- Generate AppSettings Schema -->
   <Target Name="GenerateAppSettingsSchema" AfterTargets="Build">
     <Exec Command="dotnet run --project ../../tools/UmbracoDeliveryApiExtensions.JsonSchemaGenerator -- -i $(OutputPath)UmbracoDeliveryApiExtensions.dll -o appsettings-schema.DeliveryApiExtensions.json -t Umbraco.Community.DeliveryApiExtensions.Configuration.Options.DeliveryApiExtensionsOptions" />

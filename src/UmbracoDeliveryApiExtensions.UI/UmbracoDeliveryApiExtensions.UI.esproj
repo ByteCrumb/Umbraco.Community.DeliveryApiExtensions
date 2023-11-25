@@ -2,8 +2,13 @@
   <PropertyGroup>
     <StartupCommand>npm run dev</StartupCommand>
     <ShouldRunNpmBuildScript>false</ShouldRunNpmBuildScript>
+    <StaticWebAssetSourceId>Umbraco.Community.DeliveryApiExtensions</StaticWebAssetSourceId>
+    <DebugAssetsDirectory>$(MSBuildProjectDirectory)\dist</DebugAssetsDirectory>
   </PropertyGroup>
-  <ItemGroup>
-    <Folder Include="src\data\" />
-  </ItemGroup>
+
+  <Target Name="OverrideStaticWebAssetBasePath" BeforeTargets="GetStaticWebAssetsProjectConfiguration" >
+    <PropertyGroup>
+      <StaticWebAssetBasePath>App_Plugins</StaticWebAssetBasePath>
+    </PropertyGroup>
+  </Target>
 </Project>
