@@ -45,7 +45,7 @@ export class ApiPreviewElementSection extends KebabCaseAttributesMixin(LitElemen
     context?: ApiPreviewContext;
 
   @property({type: String})
-    title = '';
+    headline = '';
 
   @property({type: Boolean})
     preview = false;
@@ -88,7 +88,7 @@ export class ApiPreviewElementSection extends KebabCaseAttributesMixin(LitElemen
     return html`
       <uui-box>
         <div class="headline" slot="headline">
-          <span>${this.title}</span>
+          <span>${this.headline}</span>
           <uui-toggle label="Expand" title=${this._expand ? 'all' : 'none'} label-position="left" @change=${toggleExpand}></uui-toggle>
         </div>
         ${cache(content)}

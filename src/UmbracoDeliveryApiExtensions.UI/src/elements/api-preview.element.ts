@@ -41,10 +41,10 @@ export class ApiPreviewElement extends KebabCaseAttributesMixin(LitElement) {
 
     return html`
       ${this.context?.hasPreview ? html`
-        <bc-api-preview-section title="Preview" preview></bc-api-preview-section>
+        <bc-api-preview-section headline="Preview" preview></bc-api-preview-section>
       ` : nothing}
       ${this.context?.isPublished ? html`
-        <bc-api-preview-section title="Published"></bc-api-preview-section>
+        <bc-api-preview-section headline="Published"></bc-api-preview-section>
       ` : nothing}
     `;
   }
