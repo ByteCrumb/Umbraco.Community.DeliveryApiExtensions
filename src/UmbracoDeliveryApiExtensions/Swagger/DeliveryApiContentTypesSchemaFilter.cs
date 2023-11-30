@@ -14,6 +14,9 @@ namespace Umbraco.Community.DeliveryApiExtensions.Swagger;
 /// </summary>
 public class DeliveryApiContentTypesSchemaFilter : ISchemaFilter
 {
+    private const string ContentDiscriminator = "contentType";
+    private const string MediaDiscriminator = "mediaType";
+
     private readonly IOptionsMonitor<TypedSwaggerOptions> _typedSwaggerOptions;
     private readonly IContentTypeInfoService _contentTypeInfoService;
     private readonly ISchemaIdSelector _schemaIdSelector;
@@ -21,7 +24,10 @@ public class DeliveryApiContentTypesSchemaFilter : ISchemaFilter
     /// <summary>
     ///     Initializes a new instance of the <see cref="DeliveryApiContentTypesSchemaFilter" /> class.
     /// </summary>
-    public DeliveryApiContentTypesSchemaFilter(IOptionsMonitor<TypedSwaggerOptions> typedSwaggerOptions, IContentTypeInfoService contentTypeInfoService, ISchemaIdSelector schemaIdSelector)
+    public DeliveryApiContentTypesSchemaFilter(
+        IOptionsMonitor<TypedSwaggerOptions> typedSwaggerOptions,
+        IContentTypeInfoService contentTypeInfoService,
+        ISchemaIdSelector schemaIdSelector)
     {
         _typedSwaggerOptions = typedSwaggerOptions;
         _contentTypeInfoService = contentTypeInfoService;
@@ -52,7 +58,7 @@ public class DeliveryApiContentTypesSchemaFilter : ISchemaFilter
                         new OpenApiSchema { Reference = new OpenApiReference { Type = ReferenceType.Schema, Id = $"{contentType.SchemaId}ContentModel" } },
                     },
                 }
-            ));
+            ), ContentDiscriminator);
             return;
         }
 
@@ -67,10 +73,10 @@ public class DeliveryApiContentTypesSchemaFilter : ISchemaFilter
                     AllOf = { new OpenApiSchema { Reference = new OpenApiReference { Type = ReferenceType.Schema, Id = GetTypeSchemaId<IApiContent>(settings.UseOneOf) } } },
                     Properties =
                     {
-                        ["properties"] = ContentTypePropertiesMapper(contentType, context),
+                        ["properties"] = ContentTypePropertiesMapper(contentType, context, "Content"),
                     },
                 }
-            ));
+            ), ContentDiscriminator);
             return;
         }
 
@@ -85,15 +91,69 @@ public class DeliveryApiContentTypesSchemaFilter : ISchemaFilter
                     AllOf = { new OpenApiSchema { Reference = new OpenApiReference { Type = ReferenceType.Schema, Id = GetTypeSchemaId<IApiElement>(settings.UseOneOf) } } },
                     Properties =
                     {
-                        ["properties"] = ContentTypePropertiesMapper(contentType, context),
+                        ["properties"] = ContentTypePropertiesMapper(contentType, context, "Content"),
                     },
                 }
-            ));
+            ), ContentDiscriminator);
+            return;
+        }
+
+        if (typeof(ApiMediaWithCropsResponse) == context.Type)
+        {
+            ApplyPolymorphicContentType<ApiMediaWithCropsResponse, ApiMediaWithCrops>(schema, context, _contentTypeInfoService.GetMediaTypes(), settings, contentType => (
+                $"{contentType.SchemaId}CustomMediaWithCropsResponseModel",
+                new OpenApiSchema
+                {
+                    Type = "object",
+                    AdditionalPropertiesAllowed = false,
+                    AllOf =
+                    {
+                        new OpenApiSchema { Reference = new OpenApiReference { Type = ReferenceType.Schema, Id = GetTypeSchemaId<ApiMediaWithCropsResponse>(settings.UseOneOf) } },
+                        new OpenApiSchema { Reference = new OpenApiReference { Type = ReferenceType.Schema, Id = $"{contentType.SchemaId}CustomMediaWithCropsModel" } },
+                    },
+                }
+            ), MediaDiscriminator);
+            return;
+        }
+
+        if (typeof(ApiMediaWithCrops) == context.Type)
+        {
+            ApplyPolymorphicContentType<ApiMediaWithCrops, IApiMedia>(schema, context, _contentTypeInfoService.GetMediaTypes(), settings, contentType => (
+                $"{contentType.SchemaId}CustomMediaWithCropsModel",
+                new OpenApiSchema
+                {
+                    Type = "object",
+                    AdditionalPropertiesAllowed = false,
+                    AllOf =
+                    {
+                        new OpenApiSchema { Reference = new OpenApiReference { Type = ReferenceType.Schema, Id = GetTypeSchemaId<ApiMediaWithCrops>(settings.UseOneOf) } },
+                        new OpenApiSchema { Reference = new OpenApiReference { Type = ReferenceType.Schema, Id = $"{contentType.SchemaId}CustomMediaModel" } },
+                    },
+                }
+            ), MediaDiscriminator);
+            return;
+        }
+
+        if (typeof(IApiMedia) == context.Type)
+        {
+            ApplyPolymorphicContentType<IApiMedia>(schema, context, _contentTypeInfoService.GetMediaTypes(), settings, contentType => (
+                $"{contentType.SchemaId}CustomMediaModel",
+                new OpenApiSchema
+                {
+                    Type = "object",
+                    AdditionalPropertiesAllowed = false,
+                    AllOf = { new OpenApiSchema { Reference = new OpenApiReference { Type = ReferenceType.Schema, Id = GetTypeSchemaId<IApiMedia>(settings.UseOneOf) } } },
+                    Properties =
+                    {
+                        ["properties"] = ContentTypePropertiesMapper(contentType, context, "Media"),
+                    },
+                }
+            ), ContentDiscriminator);
             return;
         }
     }
 
-    private void ApplyPolymorphicContentType<T, TAncestor>(OpenApiSchema schema, SchemaFilterContext context, IEnumerable<ContentTypeInfo> contentTypes, SwaggerGenerationSettings settings, Func<ContentTypeInfo, (string SchemaId, OpenApiSchema Schema)> contentTypeSchemaMapper)
+    private void ApplyPolymorphicContentType<T, TAncestor>(OpenApiSchema schema, SchemaFilterContext context, IEnumerable<ContentTypeInfo> contentTypes, SwaggerGenerationSettings settings, Func<ContentTypeInfo, (string SchemaId, OpenApiSchema Schema)> contentTypeSchemaMapper, string discriminator)
     {
         // Ensure ancestor is generated if not already
         context.SchemaGenerator.GenerateSchema(typeof(TAncestor), context.SchemaRepository);
@@ -104,10 +164,10 @@ public class DeliveryApiContentTypesSchemaFilter : ISchemaFilter
             Reference = new OpenApiReference { Type = ReferenceType.Schema, Id = GetTypeSchemaId<TAncestor>(settings.UseOneOf) },
         });
 
-        ApplyPolymorphicContentType<T>(schema, context, contentTypes, settings, contentTypeSchemaMapper);
+        ApplyPolymorphicContentType<T>(schema, context, contentTypes, settings, contentTypeSchemaMapper, discriminator);
     }
 
-    private void ApplyPolymorphicContentType<T>(OpenApiSchema schema, SchemaFilterContext context, IEnumerable<ContentTypeInfo> contentTypes, SwaggerGenerationSettings settings, Func<ContentTypeInfo, (string SchemaId, OpenApiSchema Schema)> contentTypeSchemaMapper)
+    private void ApplyPolymorphicContentType<T>(OpenApiSchema schema, SchemaFilterContext context, IEnumerable<ContentTypeInfo> contentTypes, SwaggerGenerationSettings settings, Func<ContentTypeInfo, (string SchemaId, OpenApiSchema Schema)> contentTypeSchemaMapper, string discriminator)
     {
         OpenApiSchema? originalSchema = null;
         if (settings.UseOneOf)
@@ -126,7 +186,7 @@ public class DeliveryApiContentTypesSchemaFilter : ISchemaFilter
 
         schema.Discriminator = new OpenApiDiscriminator
         {
-            PropertyName = "contentType",
+            PropertyName = discriminator,
         };
 
         foreach (ContentTypeInfo contentType in contentTypes)
@@ -140,17 +200,17 @@ public class DeliveryApiContentTypesSchemaFilter : ISchemaFilter
         }
     }
 
-    private static OpenApiSchema ContentTypePropertiesMapper(ContentTypeInfo contentType, SchemaFilterContext context)
+    private static OpenApiSchema ContentTypePropertiesMapper(ContentTypeInfo contentType, SchemaFilterContext context, string type)
     {
         return context.SchemaRepository.AddDefinition(
-            $"{contentType.SchemaId}PropertiesModel",
+            $"{contentType.SchemaId}{type}PropertiesModel",
             new OpenApiSchema
             {
                 Type = "object",
                 AdditionalPropertiesAllowed = true,
                 AllOf = contentType.CompositionSchemaIds.Select(c => new OpenApiSchema
                 {
-                    Reference = new OpenApiReference { Type = ReferenceType.Schema, Id = $"{c}PropertiesModel" },
+                    Reference = new OpenApiReference { Type = ReferenceType.Schema, Id = $"{c}{type}PropertiesModel" },
                 }).ToList(),
                 Properties = contentType.Properties
                     .Where(p => !p.Inherited) // Filter out composition properties, as they are handled by AllOf

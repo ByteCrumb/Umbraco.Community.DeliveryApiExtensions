@@ -21,17 +21,28 @@ public interface IContentTypeInfoService
     /// Gets all the available content types.
     /// </summary>
     ICollection<ContentTypeInfo> GetContentTypes();
+
+    /// <summary>
+    /// Gets all the available media types.
+    /// </summary>
+    ICollection<ContentTypeInfo> GetMediaTypes();
 }
 
 internal sealed class ContentTypeInfoService : IContentTypeInfoService
 {
     private readonly IContentTypeService _contentTypeService;
+    private readonly IMediaTypeService _mediaTypeService;
     private readonly IPublishedContentTypeFactory _publishedContentTypeFactory;
     private readonly IShortStringHelper _shortStringHelper;
 
-    public ContentTypeInfoService(IContentTypeService contentTypeService, IPublishedContentTypeFactory publishedContentTypeFactory, IShortStringHelper shortStringHelper)
+    public ContentTypeInfoService(
+        IContentTypeService contentTypeService,
+        IMediaTypeService mediaTypeService,
+        IPublishedContentTypeFactory publishedContentTypeFactory,
+        IShortStringHelper shortStringHelper)
     {
         _contentTypeService = contentTypeService;
+        _mediaTypeService = mediaTypeService;
         _publishedContentTypeFactory = publishedContentTypeFactory;
         _shortStringHelper = shortStringHelper;
     }
@@ -64,12 +75,39 @@ internal sealed class ContentTypeInfoService : IContentTypeInfoService
         return result;
     }
 
+    public ICollection<ContentTypeInfo> GetMediaTypes()
+    {
+        List<ContentTypeInfo> result = new();
+        HashSet<string> compositionAliases = new();
+
+        foreach (IMediaType mediaType in _mediaTypeService.GetAll())
+        {
+            HashSet<string> ownPropertyAliases = mediaType.PropertyTypes.Select(p => p.Alias).ToHashSet();
+            IPublishedContentType publishedContentType = _publishedContentTypeFactory.CreateContentType(mediaType);
+
+            result.Add(new ContentTypeInfo
+            {
+                Alias = mediaType.Alias,
+                SchemaId = GetContentTypeSchemaId(mediaType),
+                CompositionSchemaIds = mediaType.ContentTypeComposition.Select(GetContentTypeSchemaId).ToList(),
+                Properties = publishedContentType.PropertyTypes.Select(p => new ContentTypePropertyInfo { Alias = p.Alias, Type = GetPropertyType(p), Inherited = !ownPropertyAliases.Contains(p.Alias) }).ToList(),
+                IsElement = mediaType.IsElement,
+                IsComposition = false,
+            });
+
+            compositionAliases.UnionWith(mediaType.CompositionAliases());
+        }
+
+        result.ForEach(c => c.IsComposition = compositionAliases.Contains(c.Alias));
+
+        return result;
+    }
+
     private string GetContentTypeSchemaId(IContentTypeBase contentType)
     {
         // This is what ModelsBuilder currently also uses
         return contentType.Alias.ToCleanString(_shortStringHelper, CleanStringType.ConvertCase | CleanStringType.PascalCase);
     }
-
 
     // The DeliveryApi property value type is currently not exposed by Umbraco
     // https://github.com/umbraco/Umbraco-CMS/pull/15150
