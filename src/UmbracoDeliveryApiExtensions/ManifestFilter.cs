@@ -14,11 +14,11 @@ internal sealed class ManifestFilter : IManifestFilter
             PackageName = "DeliveryApiExtensions",
             Version = assembly.GetName().Version?.ToString(3) ?? "0.0.0",
             AllowPackageTelemetry = true,
-            Scripts = new[] {
+            Scripts = [
                 "/App_Plugins/DeliveryApiExtensions/delivery-api-extensions.iife.js",
-            },
+            ],
             BundleOptions = BundleOptions.None,
-            Stylesheets = Array.Empty<string>(),
+            Stylesheets = [],
         });
     }
 }

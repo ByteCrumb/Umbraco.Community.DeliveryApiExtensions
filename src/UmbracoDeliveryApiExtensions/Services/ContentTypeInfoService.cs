@@ -1,7 +1,5 @@
-using System.Reflection;
 using Umbraco.Cms.Core.Models;
 using Umbraco.Cms.Core.Models.PublishedContent;
-using Umbraco.Cms.Core.PropertyEditors.DeliveryApi;
 using Umbraco.Cms.Core.Services;
 using Umbraco.Cms.Core.Strings;
 using Umbraco.Community.DeliveryApiExtensions.Models;
@@ -38,8 +36,8 @@ internal sealed class ContentTypeInfoService : IContentTypeInfoService
 
     public ICollection<ContentTypeInfo> GetContentTypes()
     {
-        List<ContentTypeInfo> result = new();
-        HashSet<string> compositionAliases = new();
+        List<ContentTypeInfo> result = [];
+        HashSet<string> compositionAliases = [];
 
         foreach (IContentType contentType in _contentTypeService.GetAll())
         {
@@ -51,7 +49,7 @@ internal sealed class ContentTypeInfoService : IContentTypeInfoService
                 Alias = contentType.Alias,
                 SchemaId = GetContentTypeSchemaId(contentType),
                 CompositionSchemaIds = contentType.ContentTypeComposition.Select(GetContentTypeSchemaId).ToList(),
-                Properties = publishedContentType.PropertyTypes.Select(p => new ContentTypePropertyInfo { Alias = p.Alias, Type = GetPropertyType(p), Inherited = !ownPropertyAliases.Contains(p.Alias) }).ToList(),
+                Properties = publishedContentType.PropertyTypes.Select(p => new ContentTypePropertyInfo { Alias = p.Alias, Type = p.DeliveryApiModelClrType, Inherited = !ownPropertyAliases.Contains(p.Alias) }).ToList(),
                 IsElement = contentType.IsElement,
                 IsComposition = false,
             });
@@ -68,23 +66,5 @@ internal sealed class ContentTypeInfoService : IContentTypeInfoService
     {
         // This is what ModelsBuilder currently also uses
         return contentType.Alias.ToCleanString(_shortStringHelper, CleanStringType.ConvertCase | CleanStringType.PascalCase);
-    }
-
-
-    // The DeliveryApi property value type is currently not exposed by Umbraco
-    // https://github.com/umbraco/Umbraco-CMS/pull/15150
-    // TODO: Remove this when Umbraco exposes the delivery api property value type
-    private static readonly FieldInfo? ConverterField = typeof(PublishedPropertyType).GetField("_converter", BindingFlags.NonPublic | BindingFlags.GetField | BindingFlags.Instance);
-
-    private static Type GetPropertyType(IPublishedPropertyType publishedPropertyType)
-    {
-        Type modelClrType = publishedPropertyType.ModelClrType;
-
-        if (ConverterField?.GetValue(publishedPropertyType) is IDeliveryApiPropertyValueConverter propertyValueConverter)
-        {
-            return propertyValueConverter.GetDeliveryApiPropertyValueType(publishedPropertyType);
-        }
-
-        return modelClrType;
     }
 }

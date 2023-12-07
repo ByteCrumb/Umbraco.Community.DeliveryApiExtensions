@@ -1,9 +1,5 @@
 <Project Sdk="Microsoft.NET.Sdk.Razor">
   <PropertyGroup>
-    <TargetFramework>net7.0</TargetFramework>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
-    <WarningsAsErrors>nullable</WarningsAsErrors>
     <StaticWebAssetBasePath>App_Plugins</StaticWebAssetBasePath>
     <ContentTargetFolders>.</ContentTargetFolders>
     <Product>Umbraco.Community.DeliveryApiExtensions</Product>
@@ -17,7 +13,7 @@
     <IncludeSymbols>true</IncludeSymbols>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
     <EmbedUntrackedSources>true</EmbedUntrackedSources>
-    <Version>0.0.0</Version>
+    <Version>0.0.0-dev</Version>
     <Authors>ByteCrumb</Authors>
     <Copyright>$([System.DateTime]::UtcNow.ToString(`yyyy`)) © ByteCrumb</Copyright>
     <PackageProjectUrl>https://github.com/ByteCrumb/Umbraco.Community.DeliveryApiExtensions</PackageProjectUrl>
@@ -31,11 +27,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All" />
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0" PrivateAssets="All" />
     <PackageReference Include="Microsoft.OpenApi" Version="1.4.5" />
-    <PackageReference Include="Umbraco.Cms.Api.Delivery" Version="12.2.0" />
-    <PackageReference Include="Umbraco.Cms.Web.Website" Version="12.2.0" />
-    <PackageReference Include="Umbraco.Cms.Web.BackOffice" Version="12.2.0" />
+    <PackageReference Include="Umbraco.Cms.Api.Delivery" Version="13.0.0-rc4" />
+    <PackageReference Include="Umbraco.Cms.Web.Website" Version="13.0.0-rc4" />
+    <PackageReference Include="Umbraco.Cms.Web.BackOffice" Version="13.0.0-rc4" />
   </ItemGroup>
 
   <ItemGroup>
@@ -58,16 +54,13 @@
   <ItemGroup>
     <MarkdownFiles Include="..\..\docs\README.md" />
   </ItemGroup>
-  <Target Name="ProcessMarkdownFiles" AfterTargets="Build" Inputs="@(MarkdownFiles)" Outputs="@(MarkdownFiles->'$(IntermediateOutputPath)\%(Filename)%(Extension)')" >
+  <Target Name="ProcessMarkdownFiles" AfterTargets="Build" Inputs="@(MarkdownFiles)" Outputs="@(MarkdownFiles->'$(IntermediateOutputPath)\%(Filename)%(Extension)')">
     <PropertyGroup>
       <Regex>&lt;!--IF NUGET\s*([\s\S]*?)(\s*&lt;!--ELSE--&gt;\s*([\s\S]*?))?\s*&lt;!--END--&gt;</Regex>
       <Replacement>$1</Replacement>
     </PropertyGroup>
 
-    <WriteLinesToFile
-      File="@(MarkdownFiles->'$(IntermediateOutputPath)\%(Filename)%(Extension)')"
-      Lines="$([System.Text.RegularExpressions.Regex]::Replace($([System.IO.File]::ReadAllText('%(Identity)')), '$(Regex)', '$(Replacement)'))"
-      Overwrite="true" />
+    <WriteLinesToFile File="@(MarkdownFiles->'$(IntermediateOutputPath)\%(Filename)%(Extension)')" Lines="$([System.Text.RegularExpressions.Regex]::Replace($([System.IO.File]::ReadAllText('%(Identity)')), '$(Regex)', '$(Replacement)'))" Overwrite="true" />
 
     <ItemGroup>
       <None Include="@(MarkdownFiles->'$(IntermediateOutputPath)\%(Filename)%(Extension)')" Pack="true" PackagePath="\" />

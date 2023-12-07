@@ -19,7 +19,7 @@ public class PreviewOptions
     /// The aliases of the allowed user groups.
     /// Defaults to empty, which allows all user groups.
     /// </summary>
-    public List<string> AllowedUserGroupAliases { get; set; } = new();
+    public List<string> AllowedUserGroupAliases { get; set; } = [];
 
     /// <summary>
     /// The weight of the preview content app.
