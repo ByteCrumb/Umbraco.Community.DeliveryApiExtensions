@@ -12,7 +12,7 @@ on:
 env:
   PKG_VERSION: ${{ startsWith(github.ref, 'refs/tags/') && github.ref_name || null }}
   NODE_VERSION: 20
-  DOTNET_VERSION: 7.x
+  DOTNET_VERSION: 8.x
 
 jobs:
   build:
