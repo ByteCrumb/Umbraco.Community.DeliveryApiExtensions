@@ -1,6 +1,6 @@
 import type {R2WCOptions} from '@r2wc/core';
 import r2wc from '@r2wc/react-to-web-component';
-import {defineElement} from '@umbraco-ui/uui';
+import { customElement } from 'lit/decorators.js';
 
 declare global {
   namespace JSX {
@@ -19,5 +19,5 @@ export default function defineReactElement<Props extends Record<string, unknown>
   options.shadow ??= 'open';
 
   const ReactWebComponentElement = r2wc(ReactComponent, options);
-  defineElement(name)(ReactWebComponentElement);
+  customElement(name)(ReactWebComponentElement);
 }
