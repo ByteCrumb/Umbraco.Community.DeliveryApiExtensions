@@ -1,7 +1,6 @@
 import {provide} from '@lit/context';
-import {defineElement} from '@umbraco-ui/uui';
 import {css, html, LitElement, nothing} from 'lit';
-import {property} from 'lit/decorators.js';
+import {customElement, property} from 'lit/decorators.js';
 
 import {apiPreviewContext} from '../contexts/api-preview.context';
 import {type PreviewControllerContext} from '../controllers/preview.controller';
@@ -10,7 +9,7 @@ import {KebabCaseAttributesMixin} from '../mixins/kebab-case-attributes.mixin';
 /**
  * The Delivery Api Extensions Preview element.
  */
-@defineElement('bc-api-preview')
+@customElement('bc-api-preview')
 export class ApiPreviewElement extends KebabCaseAttributesMixin(LitElement) {
   static styles = css`
     :host {
