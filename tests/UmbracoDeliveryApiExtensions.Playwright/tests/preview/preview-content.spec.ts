@@ -2,18 +2,21 @@
 import {ContentBuilder, DocumentTypeBuilder} from '@umbraco/playwright-models';
 import {type ApiHelpers, test} from '@umbraco/playwright-testhelpers';
 
+import {loginAsAdmin, loginAsDev, loginAsEditor} from '../../helpers/UmbracoApiHelpers';
+
 test.describe('API preview - Content', () => {
   const docTypeName = 'PlaywrightTestDocType';
   const nodeName = 'PlaywrightTestNode';
 
   test.beforeEach(async ({umbracoApi}) => {
-    await umbracoApi.login();
+    await loginAsAdmin(umbracoApi.page);
 
     await cleanTestContent(umbracoApi);
     await createTestContent(umbracoApi);
   });
 
   test.afterEach(async ({umbracoApi}) => {
+    await loginAsAdmin(umbracoApi.page);
     await cleanTestContent(umbracoApi);
   });
 
@@ -55,6 +58,35 @@ test.describe('API preview - Content', () => {
     await expect(previewSection).toHaveAttribute('preview');
 
     await expect(previewSection.locator('bc-json-preview')).toBeVisible();
+  });
+
+  test('Preview content app is visible for enabled group', async ({page, umbracoUi}) => {
+    await loginAsDev(page);
+
+    // Go to test node
+    await umbracoUi.navigateToContent(nodeName);
+
+    // Check that the content app is visible
+    const contentAppLocator = page.locator('button[data-element="sub-view-deliveryApiPreview"]');
+    await expect(contentAppLocator).toBeVisible();
+
+    // Click on the content app
+    await contentAppLocator.click();
+
+    // Verify that the preview component is visible
+    const apiPreviewElement = page.locator('bc-api-preview');
+    await expect(apiPreviewElement).toBeVisible();
+  });
+
+  test('Preview content app is not visible for non enabled group', async ({page, umbracoUi}) => {
+    await loginAsEditor(page);
+
+    // Go to test node
+    await umbracoUi.navigateToContent(nodeName);
+
+    // Check that the content app is not visible
+    const contentAppLocator = page.locator('button[data-element="sub-view-deliveryApiPreview"]');
+    await expect(contentAppLocator).toBeHidden();
   });
 
   async function createTestContent(umbracoApi: ApiHelpers) {
