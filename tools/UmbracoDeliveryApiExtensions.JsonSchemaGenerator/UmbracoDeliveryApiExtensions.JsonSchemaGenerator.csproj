@@ -6,7 +6,7 @@
 
   <ItemGroup>
     <PackageReference Include="CommandLineParser" Version="2.9.1" />
-    <PackageReference Include="NJsonSchema" Version="11.0.0-preview006" />
+    <PackageReference Include="NJsonSchema" Version="11.0.0-preview008" />
   </ItemGroup>
 
 </Project>

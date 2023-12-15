@@ -29,9 +29,9 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0" PrivateAssets="All" />
     <PackageReference Include="Microsoft.OpenApi" Version="1.4.5" />
-    <PackageReference Include="Umbraco.Cms.Api.Delivery" Version="13.0.0-rc4" />
-    <PackageReference Include="Umbraco.Cms.Web.Website" Version="13.0.0-rc4" />
-    <PackageReference Include="Umbraco.Cms.Web.BackOffice" Version="13.0.0-rc4" />
+    <PackageReference Include="Umbraco.Cms.Api.Delivery" Version="13.0.0" />
+    <PackageReference Include="Umbraco.Cms.Web.Website" Version="13.0.0" />
+    <PackageReference Include="Umbraco.Cms.Web.BackOffice" Version="13.0.0" />
   </ItemGroup>
 
   <ItemGroup>
