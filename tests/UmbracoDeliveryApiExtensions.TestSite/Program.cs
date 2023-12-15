@@ -1,3 +1,5 @@
+using Umbraco.Cms.Api.Common.OpenApi;
+using Umbraco.Cms.Web.Common.ApplicationBuilder;
 using Umbraco.Community.DeliveryApiExtensions.Configuration.Options;
 using UmbracoDeliveryApiExtensions.TestSite.Custom;
 
@@ -8,8 +10,14 @@ builder.CreateUmbracoBuilder()
     .AddWebsite()
     .AddDeliveryApi()
     .AddComposers()
-    .ConfigureSwagger()
     .Build();
+
+// Always enable swagger (also in Production, which is the environment used by the tests)
+builder.Services.Configure<UmbracoPipelineOptions>(options =>
+{
+    options.PipelineFilters.RemoveAll(filter => filter is SwaggerRouteTemplatePipelineFilter);
+    options.AddFilter(new AlwaysEnabledSwaggerPipelineFilter("UmbracoApiCommon"));
+});
 
 // Allow overriding the swagger generation mode using a query string parameter.
 builder.Services.AddOptions<TypedSwaggerOptions>().Configure<IHttpContextAccessor>(
