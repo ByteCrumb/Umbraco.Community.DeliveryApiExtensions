@@ -1,8 +1,8 @@
-import {type ApiBlockListModelItemsItem, getContentItemByPath, type IApiContentResponseModel, type TestPageContentResponseModel} from './api/umbraco-api';
+import {type ApiBlockListModelItemsItem, getContentItemByPath20, type IApiContentResponseModel, type TestPageContentResponseModel} from './api/umbraco-api';
 
 (async () => {
   console.log('** Page - Default **');
-  const content = (await getContentItemByPath('/', {expand: 'all'})).data;
+  const content = (await getContentItemByPath20('/', {expand: 'properties[$all]'})).data;
   renderPage(content);
 })();
 

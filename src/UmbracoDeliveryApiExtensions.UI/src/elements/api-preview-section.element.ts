@@ -117,7 +117,7 @@ export class ApiPreviewElementSection extends KebabCaseAttributesMixin(LitElemen
       params.headers.preview = 'true';
     }
 
-    const response = await fetch(`${this.context.apiPath}${(expand ? '?expand=all' : '')}`, params);
+    const response = await fetch(`${this.context.apiPath}${(expand ? '?expand=properties[$all]' : '')}`, params);
     if (!response.ok) {
       throw new Error(response.statusText);
     }

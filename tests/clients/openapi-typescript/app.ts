@@ -5,10 +5,10 @@ import {type components, type paths} from './api/umbraco-api';
 (async () => {
   const {GET} = createClient<paths>({baseUrl: 'http://localhost:34962'});
 
-  const {data} = await GET('/umbraco/delivery/api/v1/content/item/{path}', {
+  const {data} = await GET('/umbraco/delivery/api/v2/content/item/{path}', {
     params: {
       query: {
-        expand: 'all',
+        expand: 'properties[$all]',
       },
       path: {
         path: '/',

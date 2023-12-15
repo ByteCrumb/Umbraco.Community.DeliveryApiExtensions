@@ -6,28 +6,60 @@
 
 export interface paths {
   "/umbraco/delivery/api/v1/content": {
+    /** @deprecated */
     get: operations["GetContent"];
   };
+  "/umbraco/delivery/api/v2/content": {
+    get: operations["GetContent2.0"];
+  };
   "/umbraco/delivery/api/v1/content/item": {
+    /** @deprecated */
     get: operations["GetContentItem"];
   };
   "/umbraco/delivery/api/v1/content/item/{path}": {
+    /** @deprecated */
     get: operations["GetContentItemByPath"];
   };
+  "/umbraco/delivery/api/v2/content/item/{path}": {
+    get: operations["GetContentItemByPath2.0"];
+  };
   "/umbraco/delivery/api/v1/content/item/{id}": {
+    /** @deprecated */
     get: operations["GetContentItemById"];
   };
+  "/umbraco/delivery/api/v2/content/item/{id}": {
+    get: operations["GetContentItemById2.0"];
+  };
+  "/umbraco/delivery/api/v2/content/items": {
+    get: operations["GetContentItems2.0"];
+  };
   "/umbraco/delivery/api/v1/media": {
+    /** @deprecated */
     get: operations["GetMedia"];
   };
+  "/umbraco/delivery/api/v2/media": {
+    get: operations["GetMedia2.0"];
+  };
   "/umbraco/delivery/api/v1/media/item": {
+    /** @deprecated */
     get: operations["GetMediaItem"];
   };
   "/umbraco/delivery/api/v1/media/item/{path}": {
+    /** @deprecated */
     get: operations["GetMediaItemByPath"];
   };
+  "/umbraco/delivery/api/v2/media/item/{path}": {
+    get: operations["GetMediaItemByPath2.0"];
+  };
   "/umbraco/delivery/api/v1/media/item/{id}": {
+    /** @deprecated */
     get: operations["GetMediaItemById"];
+  };
+  "/umbraco/delivery/api/v2/media/item/{id}": {
+    get: operations["GetMediaItemById2.0"];
+  };
+  "/umbraco/delivery/api/v2/media/items": {
+    get: operations["GetMediaItems2.0"];
   };
 }
 
@@ -66,11 +98,12 @@ export interface components {
     };
     ApiImageCropperValueModel: {
       url?: string;
-      focalPoint?: components["schemas"]["ImageCropperFocalPointModel"];
-      crops?: components["schemas"]["ImageCropperCropModel"][] | null;
+      focalPoint?: components["schemas"]["ImageFocalPointModel"];
+      crops?: components["schemas"]["ImageCropModel"][] | null;
     };
     ApiLinkModel: {
       url?: string | null;
+      queryString?: string | null;
       title?: string | null;
       target?: string | null;
       /** Format: uuid */
@@ -79,32 +112,6 @@ export interface components {
       route?: components["schemas"]["IApiContentRouteModel"];
       linkType?: components["schemas"]["LinkTypeModel"];
     };
-    ApiMediaWithCropsModel: {
-      /** Format: uuid */
-      id?: string;
-      name?: string;
-      mediaType?: string;
-      url?: string;
-      extension?: string | null;
-      /** Format: int32 */
-      width?: number | null;
-      /** Format: int32 */
-      height?: number | null;
-      /** Format: int32 */
-      bytes?: number | null;
-      properties?: {
-        [key: string]: unknown;
-      };
-      focalPoint?: components["schemas"]["ImageCropperFocalPointModel"];
-      crops?: components["schemas"]["ImageCropperCropModel"][] | null;
-    };
-    ApiMediaWithCropsResponseModel: {
-      path?: string;
-      /** Format: date-time */
-      createDate?: string;
-      /** Format: date-time */
-      updateDate?: string;
-    } & components["schemas"]["ApiMediaWithCropsModel"];
     BlockSettingsElementModel: {
       contentType: "blockSettings";
       properties?: components["schemas"]["BlockSettingsPropertiesModel"];
@@ -171,7 +178,50 @@ export interface components {
         [key: string]: unknown;
       };
     };
-    ImageCropperCropCoordinatesModel: {
+    IApiMediaWithCropsModel: {
+      focalPoint?: components["schemas"]["ImageFocalPointModel"];
+      crops?: (readonly components["schemas"]["ImageCropModel"][]) | null;
+      /** Format: uuid */
+      id?: string;
+      name?: string;
+      mediaType?: string;
+      url?: string;
+      extension?: string | null;
+      /** Format: int32 */
+      width?: number | null;
+      /** Format: int32 */
+      height?: number | null;
+      /** Format: int32 */
+      bytes?: number | null;
+      properties?: {
+        [key: string]: unknown;
+      };
+    };
+    IApiMediaWithCropsResponseModel: {
+      path?: string;
+      /** Format: date-time */
+      createDate?: string;
+      /** Format: date-time */
+      updateDate?: string;
+      focalPoint?: components["schemas"]["ImageFocalPointModel"];
+      crops?: (readonly components["schemas"]["ImageCropModel"][]) | null;
+      /** Format: uuid */
+      id?: string;
+      name?: string;
+      mediaType?: string;
+      url?: string;
+      extension?: string | null;
+      /** Format: int32 */
+      width?: number | null;
+      /** Format: int32 */
+      height?: number | null;
+      /** Format: int32 */
+      bytes?: number | null;
+      properties?: {
+        [key: string]: unknown;
+      };
+    };
+    ImageCropCoordinatesModel: {
       /** Format: double */
       x1?: number;
       /** Format: double */
@@ -181,15 +231,15 @@ export interface components {
       /** Format: double */
       y2?: number;
     };
-    ImageCropperCropModel: {
+    ImageCropModel: {
       alias?: string | null;
       /** Format: int32 */
       width?: number;
       /** Format: int32 */
       height?: number;
-      coordinates?: components["schemas"]["ImageCropperCropCoordinatesModel"];
+      coordinates?: components["schemas"]["ImageCropCoordinatesModel"];
     };
-    ImageCropperFocalPointModel: {
+    ImageFocalPointModel: {
       /** Format: double */
       left?: number;
       /** Format: double */
@@ -197,15 +247,15 @@ export interface components {
     };
     /** @enum {string} */
     LinkTypeModel: "Content" | "Media" | "External";
-    PagedApiMediaWithCropsResponseModel: {
-      /** Format: int64 */
-      total: number;
-      items: components["schemas"]["ApiMediaWithCropsResponseModel"][];
-    };
     PagedIApiContentResponseModel: {
       /** Format: int64 */
       total: number;
       items: components["schemas"]["IApiContentResponseModel"][];
+    };
+    PagedIApiMediaWithCropsResponseModel: {
+      /** Format: int64 */
+      total: number;
+      items: components["schemas"]["IApiMediaWithCropsResponseModel"][];
     };
     PickedColorModel: {
       color?: string;
@@ -222,6 +272,7 @@ export interface components {
     };
     RichTextModel: {
       markup?: string;
+      blocks?: (components["schemas"]["ApiBlockItemModel"] | components["schemas"]["ApiBlockGridItemModel"])[];
     };
     TestBlock2ElementModel: {
       contentType: "testBlock2";
@@ -295,7 +346,8 @@ export interface components {
       markdown?: string | null;
       memberGroupPicker?: string[] | null;
       memberPicker?: string | null;
-      userPicker?: Record<string, unknown> | null;
+      /** Format: int32 */
+      userPicker?: number | null;
       blockList?: components["schemas"]["ApiBlockListModel"];
       checkboxList?: string[] | null;
       dropdown?: string | null;
@@ -303,7 +355,7 @@ export interface components {
       repeatableTextstrings?: string[] | null;
       uploadFile?: string | null;
       imageCropper?: components["schemas"]["ApiImageCropperValueModel"];
-      mediaPicker?: ((components["schemas"]["ApiMediaWithCropsModel"] | components["schemas"]["ApiMediaWithCropsResponseModel"])[]) | null;
+      mediaPicker?: components["schemas"]["IApiMediaWithCropsModel"][] | null;
     }) & components["schemas"]["TestCompositionPropertiesModel"] & components["schemas"]["TestComposition2PropertiesModel"];
     TestPagePropertiesModel: ({
       textString?: string | null;
@@ -331,7 +383,8 @@ export interface components {
       markdown?: string | null;
       memberGroupPicker?: string[] | null;
       memberPicker?: string | null;
-      userPicker?: Record<string, unknown> | null;
+      /** Format: int32 */
+      userPicker?: number | null;
       blockList?: components["schemas"]["ApiBlockListModel"];
       checkboxList?: string[] | null;
       dropdown?: string | null;
@@ -339,7 +392,7 @@ export interface components {
       repeatableTextstrings?: string[] | null;
       uploadFile?: string | null;
       imageCropper?: components["schemas"]["ApiImageCropperValueModel"];
-      mediaPicker?: ((components["schemas"]["ApiMediaWithCropsModel"] | components["schemas"]["ApiMediaWithCropsResponseModel"])[]) | null;
+      mediaPicker?: components["schemas"]["IApiMediaWithCropsModel"][] | null;
     }) & components["schemas"]["TestCompositionPropertiesModel"] & components["schemas"]["TestComposition2PropertiesModel"];
   };
   responses: never;
@@ -355,6 +408,7 @@ export type external = Record<string, never>;
 
 export interface operations {
 
+  /** @deprecated */
   GetContent: {
     parameters: {
       query?: {
@@ -403,6 +457,57 @@ export interface operations {
       };
     };
   };
+  "GetContent2.0": {
+    parameters: {
+      query?: {
+        /** @description Specifies the content items to fetch. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api#query-parameters) for more details on this. */
+        fetch?: string;
+        /** @description Defines how to filter the fetched content items. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api#query-parameters) for more details on this. */
+        filter?: string[];
+        /** @description Defines how to sort the found content items. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api#query-parameters) for more details on this. */
+        sort?: string[];
+        /** @description Specifies the number of found content items to skip. Use this to control pagination of the response. */
+        skip?: number;
+        /** @description Specifies the number of found content items to take. Use this to control pagination of the response. */
+        take?: number;
+        /** @description Defines the properties that should be expanded in the response. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api#query-parameters) for more details on this. */
+        expand?: string;
+        /** @description Explicitly defines which properties should be included in the response (by default all properties are included). Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api#query-parameters) for more details on this. */
+        fields?: string;
+      };
+      header?: {
+        /** @description Defines the language to return. Use this when querying language variant content items. */
+        "Accept-Language"?: string;
+        /** @description API key specified through configuration to authorize access to the API. */
+        "Api-Key"?: string;
+        /** @description Whether to request draft content. */
+        Preview?: boolean;
+        /** @description URL segment or GUID of a root content item. */
+        "Start-Item"?: string;
+      };
+    };
+    responses: {
+      /** @description Success */
+      200: {
+        content: {
+          "application/json": components["schemas"]["PagedIApiContentResponseModel"];
+        };
+      };
+      /** @description Bad Request */
+      400: {
+        content: {
+          "application/json": components["schemas"]["ProblemDetails"] | components["schemas"]["HttpValidationProblemDetails"];
+        };
+      };
+      /** @description Not Found */
+      404: {
+        content: {
+          "application/json": components["schemas"]["ProblemDetails"] | components["schemas"]["HttpValidationProblemDetails"];
+        };
+      };
+    };
+  };
+  /** @deprecated */
   GetContentItem: {
     parameters: {
       query?: {
@@ -442,6 +547,7 @@ export interface operations {
       };
     };
   };
+  /** @deprecated */
   GetContentItemByPath: {
     parameters: {
       query?: {
@@ -489,6 +595,56 @@ export interface operations {
       };
     };
   };
+  "GetContentItemByPath2.0": {
+    parameters: {
+      query?: {
+        /** @description Defines the properties that should be expanded in the response. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api#query-parameters) for more details on this. */
+        expand?: string;
+        /** @description Explicitly defines which properties should be included in the response (by default all properties are included). Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api#query-parameters) for more details on this. */
+        fields?: string;
+      };
+      header?: {
+        /** @description Defines the language to return. Use this when querying language variant content items. */
+        "Accept-Language"?: string;
+        /** @description API key specified through configuration to authorize access to the API. */
+        "Api-Key"?: string;
+        /** @description Whether to request draft content. */
+        Preview?: boolean;
+        /** @description URL segment or GUID of a root content item. */
+        "Start-Item"?: string;
+      };
+      path: {
+        path: string;
+      };
+    };
+    responses: {
+      /** @description Success */
+      200: {
+        content: {
+          "application/json": components["schemas"]["IApiContentResponseModel"];
+        };
+      };
+      /** @description Unauthorized */
+      401: {
+        content: {
+          "application/json": components["schemas"]["ProblemDetails"] | components["schemas"]["HttpValidationProblemDetails"];
+        };
+      };
+      /** @description Forbidden */
+      403: {
+        content: {
+          "application/json": components["schemas"]["ProblemDetails"] | components["schemas"]["HttpValidationProblemDetails"];
+        };
+      };
+      /** @description Not Found */
+      404: {
+        content: {
+          "application/json": components["schemas"]["ProblemDetails"] | components["schemas"]["HttpValidationProblemDetails"];
+        };
+      };
+    };
+  };
+  /** @deprecated */
   GetContentItemById: {
     parameters: {
       query?: {
@@ -536,6 +692,97 @@ export interface operations {
       };
     };
   };
+  "GetContentItemById2.0": {
+    parameters: {
+      query?: {
+        /** @description Defines the properties that should be expanded in the response. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api#query-parameters) for more details on this. */
+        expand?: string;
+        /** @description Explicitly defines which properties should be included in the response (by default all properties are included). Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api#query-parameters) for more details on this. */
+        fields?: string;
+      };
+      header?: {
+        /** @description Defines the language to return. Use this when querying language variant content items. */
+        "Accept-Language"?: string;
+        /** @description API key specified through configuration to authorize access to the API. */
+        "Api-Key"?: string;
+        /** @description Whether to request draft content. */
+        Preview?: boolean;
+        /** @description URL segment or GUID of a root content item. */
+        "Start-Item"?: string;
+      };
+      path: {
+        id: string;
+      };
+    };
+    responses: {
+      /** @description Success */
+      200: {
+        content: {
+          "application/json": components["schemas"]["IApiContentResponseModel"];
+        };
+      };
+      /** @description Unauthorized */
+      401: {
+        content: {
+          "application/json": components["schemas"]["ProblemDetails"] | components["schemas"]["HttpValidationProblemDetails"];
+        };
+      };
+      /** @description Forbidden */
+      403: {
+        content: {
+          "application/json": components["schemas"]["ProblemDetails"] | components["schemas"]["HttpValidationProblemDetails"];
+        };
+      };
+      /** @description Not Found */
+      404: {
+        content: {
+          "application/json": components["schemas"]["ProblemDetails"] | components["schemas"]["HttpValidationProblemDetails"];
+        };
+      };
+    };
+  };
+  "GetContentItems2.0": {
+    parameters: {
+      query?: {
+        id?: string[];
+        /** @description Defines the properties that should be expanded in the response. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api#query-parameters) for more details on this. */
+        expand?: string;
+        /** @description Explicitly defines which properties should be included in the response (by default all properties are included). Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api#query-parameters) for more details on this. */
+        fields?: string;
+      };
+      header?: {
+        /** @description Defines the language to return. Use this when querying language variant content items. */
+        "Accept-Language"?: string;
+        /** @description API key specified through configuration to authorize access to the API. */
+        "Api-Key"?: string;
+        /** @description Whether to request draft content. */
+        Preview?: boolean;
+        /** @description URL segment or GUID of a root content item. */
+        "Start-Item"?: string;
+      };
+    };
+    responses: {
+      /** @description Success */
+      200: {
+        content: {
+          "application/json": components["schemas"]["IApiContentResponseModel"][];
+        };
+      };
+      /** @description Unauthorized */
+      401: {
+        content: {
+          "application/json": components["schemas"]["ProblemDetails"] | components["schemas"]["HttpValidationProblemDetails"];
+        };
+      };
+      /** @description Forbidden */
+      403: {
+        content: {
+          "application/json": components["schemas"]["ProblemDetails"] | components["schemas"]["HttpValidationProblemDetails"];
+        };
+      };
+    };
+  };
+  /** @deprecated */
   GetMedia: {
     parameters: {
       query?: {
@@ -561,7 +808,7 @@ export interface operations {
       /** @description Success */
       200: {
         content: {
-          "application/json": components["schemas"]["PagedApiMediaWithCropsResponseModel"];
+          "application/json": components["schemas"]["PagedIApiMediaWithCropsResponseModel"];
         };
       };
       /** @description Bad Request */
@@ -572,6 +819,45 @@ export interface operations {
       };
     };
   };
+  "GetMedia2.0": {
+    parameters: {
+      query?: {
+        /** @description Specifies the media items to fetch. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api#query-parameters) for more details on this. */
+        fetch?: string;
+        /** @description Defines how to filter the fetched media items. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api#query-parameters) for more details on this. */
+        filter?: string[];
+        /** @description Defines how to sort the found media items. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api#query-parameters) for more details on this. */
+        sort?: string[];
+        /** @description Specifies the number of found media items to skip. Use this to control pagination of the response. */
+        skip?: number;
+        /** @description Specifies the number of found media items to take. Use this to control pagination of the response. */
+        take?: number;
+        /** @description Defines the properties that should be expanded in the response. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api#query-parameters) for more details on this. */
+        expand?: string;
+        /** @description Explicitly defines which properties should be included in the response (by default all properties are included). Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api#query-parameters) for more details on this. */
+        fields?: string;
+      };
+      header?: {
+        /** @description API key specified through configuration to authorize access to the API. */
+        "Api-Key"?: string;
+      };
+    };
+    responses: {
+      /** @description Success */
+      200: {
+        content: {
+          "application/json": components["schemas"]["PagedIApiMediaWithCropsResponseModel"];
+        };
+      };
+      /** @description Bad Request */
+      400: {
+        content: {
+          "application/json": components["schemas"]["ProblemDetails"] | components["schemas"]["HttpValidationProblemDetails"];
+        };
+      };
+    };
+  };
+  /** @deprecated */
   GetMediaItem: {
     parameters: {
       query?: {
@@ -588,11 +874,12 @@ export interface operations {
       /** @description Success */
       200: {
         content: {
-          "application/json": components["schemas"]["ApiMediaWithCropsResponseModel"][];
+          "application/json": components["schemas"]["IApiMediaWithCropsResponseModel"][];
         };
       };
     };
   };
+  /** @deprecated */
   GetMediaItemByPath: {
     parameters: {
       query?: {
@@ -611,7 +898,7 @@ export interface operations {
       /** @description Success */
       200: {
         content: {
-          "application/json": components["schemas"]["ApiMediaWithCropsResponseModel"];
+          "application/json": components["schemas"]["IApiMediaWithCropsResponseModel"];
         };
       };
       /** @description Not Found */
@@ -622,6 +909,38 @@ export interface operations {
       };
     };
   };
+  "GetMediaItemByPath2.0": {
+    parameters: {
+      query?: {
+        /** @description Defines the properties that should be expanded in the response. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api#query-parameters) for more details on this. */
+        expand?: string;
+        /** @description Explicitly defines which properties should be included in the response (by default all properties are included). Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api#query-parameters) for more details on this. */
+        fields?: string;
+      };
+      header?: {
+        /** @description API key specified through configuration to authorize access to the API. */
+        "Api-Key"?: string;
+      };
+      path: {
+        path: string;
+      };
+    };
+    responses: {
+      /** @description Success */
+      200: {
+        content: {
+          "application/json": components["schemas"]["IApiMediaWithCropsResponseModel"];
+        };
+      };
+      /** @description Not Found */
+      404: {
+        content: {
+          "application/json": components["schemas"]["ProblemDetails"] | components["schemas"]["HttpValidationProblemDetails"];
+        };
+      };
+    };
+  };
+  /** @deprecated */
   GetMediaItemById: {
     parameters: {
       query?: {
@@ -640,13 +959,67 @@ export interface operations {
       /** @description Success */
       200: {
         content: {
-          "application/json": components["schemas"]["ApiMediaWithCropsResponseModel"];
+          "application/json": components["schemas"]["IApiMediaWithCropsResponseModel"];
         };
       };
       /** @description Not Found */
       404: {
         content: {
           "application/json": components["schemas"]["ProblemDetails"] | components["schemas"]["HttpValidationProblemDetails"];
+        };
+      };
+    };
+  };
+  "GetMediaItemById2.0": {
+    parameters: {
+      query?: {
+        /** @description Defines the properties that should be expanded in the response. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api#query-parameters) for more details on this. */
+        expand?: string;
+        /** @description Explicitly defines which properties should be included in the response (by default all properties are included). Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api#query-parameters) for more details on this. */
+        fields?: string;
+      };
+      header?: {
+        /** @description API key specified through configuration to authorize access to the API. */
+        "Api-Key"?: string;
+      };
+      path: {
+        id: string;
+      };
+    };
+    responses: {
+      /** @description Success */
+      200: {
+        content: {
+          "application/json": components["schemas"]["IApiMediaWithCropsResponseModel"];
+        };
+      };
+      /** @description Not Found */
+      404: {
+        content: {
+          "application/json": components["schemas"]["ProblemDetails"] | components["schemas"]["HttpValidationProblemDetails"];
+        };
+      };
+    };
+  };
+  "GetMediaItems2.0": {
+    parameters: {
+      query?: {
+        id?: string[];
+        /** @description Defines the properties that should be expanded in the response. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api#query-parameters) for more details on this. */
+        expand?: string;
+        /** @description Explicitly defines which properties should be included in the response (by default all properties are included). Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api#query-parameters) for more details on this. */
+        fields?: string;
+      };
+      header?: {
+        /** @description API key specified through configuration to authorize access to the API. */
+        "Api-Key"?: string;
+      };
+    };
+    responses: {
+      /** @description Success */
+      200: {
+        content: {
+          "application/json": components["schemas"]["IApiMediaWithCropsResponseModel"][];
         };
       };
     };

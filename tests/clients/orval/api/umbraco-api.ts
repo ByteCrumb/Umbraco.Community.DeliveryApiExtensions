@@ -10,6 +10,31 @@ import type {
   AxiosRequestConfig,
   AxiosResponse
 } from 'axios'
+export type GetMediaItems20Params = {
+id?: string[];
+/**
+ * Defines the properties that should be expanded in the response. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api#query-parameters) for more details on this.
+ */
+expand?: string;
+/**
+ * Explicitly defines which properties should be included in the response (by default all properties are included). Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api#query-parameters) for more details on this.
+ */
+fields?: string;
+};
+
+export type GetMediaItemById20404 = ProblemDetails | HttpValidationProblemDetails;
+
+export type GetMediaItemById20Params = {
+/**
+ * Defines the properties that should be expanded in the response. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api#query-parameters) for more details on this.
+ */
+expand?: string;
+/**
+ * Explicitly defines which properties should be included in the response (by default all properties are included). Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api#query-parameters) for more details on this.
+ */
+fields?: string;
+};
+
 export type GetMediaItemById404 = ProblemDetails | HttpValidationProblemDetails;
 
 export type GetMediaItemByIdParams = {
@@ -17,6 +42,19 @@ export type GetMediaItemByIdParams = {
  * Defines the properties that should be expanded in the response. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api#query-parameters) for more details on this.
  */
 expand?: string;
+};
+
+export type GetMediaItemByPath20404 = ProblemDetails | HttpValidationProblemDetails;
+
+export type GetMediaItemByPath20Params = {
+/**
+ * Defines the properties that should be expanded in the response. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api#query-parameters) for more details on this.
+ */
+expand?: string;
+/**
+ * Explicitly defines which properties should be included in the response (by default all properties are included). Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api#query-parameters) for more details on this.
+ */
+fields?: string;
 };
 
 export type GetMediaItemByPath404 = ProblemDetails | HttpValidationProblemDetails;
@@ -34,6 +72,39 @@ id?: string[];
  * Defines the properties that should be expanded in the response. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api#query-parameters) for more details on this.
  */
 expand?: string;
+};
+
+export type GetMedia20400 = ProblemDetails | HttpValidationProblemDetails;
+
+export type GetMedia20Params = {
+/**
+ * Specifies the media items to fetch. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api#query-parameters) for more details on this.
+ */
+fetch?: string;
+/**
+ * Defines how to filter the fetched media items. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api#query-parameters) for more details on this.
+ */
+filter?: string[];
+/**
+ * Defines how to sort the found media items. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api#query-parameters) for more details on this.
+ */
+sort?: string[];
+/**
+ * Specifies the number of found media items to skip. Use this to control pagination of the response.
+ */
+skip?: number;
+/**
+ * Specifies the number of found media items to take. Use this to control pagination of the response.
+ */
+take?: number;
+/**
+ * Defines the properties that should be expanded in the response. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api#query-parameters) for more details on this.
+ */
+expand?: string;
+/**
+ * Explicitly defines which properties should be included in the response (by default all properties are included). Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api#query-parameters) for more details on this.
+ */
+fields?: string;
 };
 
 export type GetMedia400 = ProblemDetails | HttpValidationProblemDetails;
@@ -65,6 +136,39 @@ take?: number;
 expand?: string;
 };
 
+export type GetContentItems20403 = ProblemDetails | HttpValidationProblemDetails;
+
+export type GetContentItems20401 = ProblemDetails | HttpValidationProblemDetails;
+
+export type GetContentItems20Params = {
+id?: string[];
+/**
+ * Defines the properties that should be expanded in the response. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api#query-parameters) for more details on this.
+ */
+expand?: string;
+/**
+ * Explicitly defines which properties should be included in the response (by default all properties are included). Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api#query-parameters) for more details on this.
+ */
+fields?: string;
+};
+
+export type GetContentItemById20404 = ProblemDetails | HttpValidationProblemDetails;
+
+export type GetContentItemById20403 = ProblemDetails | HttpValidationProblemDetails;
+
+export type GetContentItemById20401 = ProblemDetails | HttpValidationProblemDetails;
+
+export type GetContentItemById20Params = {
+/**
+ * Defines the properties that should be expanded in the response. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api#query-parameters) for more details on this.
+ */
+expand?: string;
+/**
+ * Explicitly defines which properties should be included in the response (by default all properties are included). Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api#query-parameters) for more details on this.
+ */
+fields?: string;
+};
+
 export type GetContentItemById404 = ProblemDetails | HttpValidationProblemDetails;
 
 export type GetContentItemById403 = ProblemDetails | HttpValidationProblemDetails;
@@ -76,6 +180,23 @@ export type GetContentItemByIdParams = {
  * Defines the properties that should be expanded in the response. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api#query-parameters) for more details on this.
  */
 expand?: string;
+};
+
+export type GetContentItemByPath20404 = ProblemDetails | HttpValidationProblemDetails;
+
+export type GetContentItemByPath20403 = ProblemDetails | HttpValidationProblemDetails;
+
+export type GetContentItemByPath20401 = ProblemDetails | HttpValidationProblemDetails;
+
+export type GetContentItemByPath20Params = {
+/**
+ * Defines the properties that should be expanded in the response. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api#query-parameters) for more details on this.
+ */
+expand?: string;
+/**
+ * Explicitly defines which properties should be included in the response (by default all properties are included). Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api#query-parameters) for more details on this.
+ */
+fields?: string;
 };
 
 export type GetContentItemByPath404 = ProblemDetails | HttpValidationProblemDetails;
@@ -101,6 +222,41 @@ id?: string[];
  * Defines the properties that should be expanded in the response. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api#query-parameters) for more details on this.
  */
 expand?: string;
+};
+
+export type GetContent20404 = ProblemDetails | HttpValidationProblemDetails;
+
+export type GetContent20400 = ProblemDetails | HttpValidationProblemDetails;
+
+export type GetContent20Params = {
+/**
+ * Specifies the content items to fetch. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api#query-parameters) for more details on this.
+ */
+fetch?: string;
+/**
+ * Defines how to filter the fetched content items. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api#query-parameters) for more details on this.
+ */
+filter?: string[];
+/**
+ * Defines how to sort the found content items. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api#query-parameters) for more details on this.
+ */
+sort?: string[];
+/**
+ * Specifies the number of found content items to skip. Use this to control pagination of the response.
+ */
+skip?: number;
+/**
+ * Specifies the number of found content items to take. Use this to control pagination of the response.
+ */
+take?: number;
+/**
+ * Defines the properties that should be expanded in the response. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api#query-parameters) for more details on this.
+ */
+expand?: string;
+/**
+ * Explicitly defines which properties should be included in the response (by default all properties are included). Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api#query-parameters) for more details on this.
+ */
+fields?: string;
 };
 
 export type GetContent404 = ProblemDetails | HttpValidationProblemDetails;
@@ -134,10 +290,6 @@ take?: number;
 expand?: string;
 };
 
-export type TestPagePropertiesModelUserPicker = unknown | null;
-
-export type TestPagePropertiesModelMediaPickerItem = ApiMediaWithCropsModel | ApiMediaWithCropsResponseModel;
-
 export type TestPagePropertiesModel = TestCompositionPropertiesModel & TestComposition2PropertiesModel & {
   blockGrid?: ApiBlockGridModel;
   blockList?: ApiBlockListModel;
@@ -152,7 +304,7 @@ export type TestPagePropertiesModel = TestCompositionPropertiesModel & TestCompo
   eyeDropperColorPicker?: string | null;
   imageCropper?: ApiImageCropperValueModel;
   markdown?: string | null;
-  mediaPicker?: TestPagePropertiesModelMediaPickerItem[] | null;
+  mediaPicker?: IApiMediaWithCropsModel[] | null;
   memberGroupPicker?: string[] | null;
   memberPicker?: string | null;
   multinodeTreepicker?: IApiContentModel[] | null;
@@ -167,12 +319,8 @@ export type TestPagePropertiesModel = TestCompositionPropertiesModel & TestCompo
   toggle?: boolean | null;
   uploadFile?: string | null;
   urlPicker?: ApiLinkModel[] | null;
-  userPicker?: TestPagePropertiesModelUserPicker;
+  userPicker?: number | null;
 };
-
-export type TestPageInvariantPropertiesModelUserPicker = unknown | null;
-
-export type TestPageInvariantPropertiesModelMediaPickerItem = ApiMediaWithCropsModel | ApiMediaWithCropsResponseModel;
 
 export type TestPageInvariantPropertiesModel = TestCompositionPropertiesModel & TestComposition2PropertiesModel & {
   blockGrid?: ApiBlockGridModel;
@@ -188,7 +336,7 @@ export type TestPageInvariantPropertiesModel = TestCompositionPropertiesModel & 
   eyeDropperColorPicker?: string | null;
   imageCropper?: ApiImageCropperValueModel;
   markdown?: string | null;
-  mediaPicker?: TestPageInvariantPropertiesModelMediaPickerItem[] | null;
+  mediaPicker?: IApiMediaWithCropsModel[] | null;
   memberGroupPicker?: string[] | null;
   memberPicker?: string | null;
   multinodeTreepicker?: IApiContentModel[] | null;
@@ -203,7 +351,7 @@ export type TestPageInvariantPropertiesModel = TestCompositionPropertiesModel & 
   toggle?: boolean | null;
   uploadFile?: string | null;
   urlPicker?: ApiLinkModel[] | null;
-  userPicker?: TestPageInvariantPropertiesModelUserPicker;
+  userPicker?: number | null;
 };
 
 export type TestPageInvariantContentResponseModelContentType = typeof TestPageInvariantContentResponseModelContentType[keyof typeof TestPageInvariantContentResponseModelContentType];
@@ -239,14 +387,6 @@ export const TestPageContentResponseModelContentType = {
   testPage: 'testPage',
 } as const;
 
-export type TestPageContentModelContentType = typeof TestPageContentModelContentType[keyof typeof TestPageContentModelContentType];
-
-
-// eslint-disable-next-line @typescript-eslint/no-redeclare
-export const TestPageContentModelContentType = {
-  testPage: 'testPage',
-} as const;
-
 export type TestPageContentModel = IApiContentModelBase & {
   contentType: TestPageContentModelContentType;
   properties?: TestPagePropertiesModel;
@@ -255,6 +395,14 @@ export type TestPageContentModel = IApiContentModelBase & {
 export type TestPageContentResponseModel = IApiContentResponseModelBase & TestPageContentModel & {
   contentType: TestPageContentResponseModelContentType;
 };
+
+export type TestPageContentModelContentType = typeof TestPageContentModelContentType[keyof typeof TestPageContentModelContentType];
+
+
+// eslint-disable-next-line @typescript-eslint/no-redeclare
+export const TestPageContentModelContentType = {
+  testPage: 'testPage',
+} as const;
 
 export interface TestCompositionPropertiesModel {
   sharedString?: string | null;
@@ -328,7 +476,10 @@ export type TestBlock2ElementModel = IApiElementModelBase & {
   properties?: TestBlock2PropertiesModel;
 };
 
+export type RichTextModelBlocksItem = ApiBlockItemModel | ApiBlockGridItemModel;
+
 export interface RichTextModel {
+  blocks?: RichTextModelBlocksItem[];
   markup?: string;
 }
 
@@ -346,13 +497,13 @@ export interface PickedColorModel {
   label?: string;
 }
 
-export interface PagedIApiContentResponseModel {
-  items: IApiContentResponseModel[];
+export interface PagedIApiMediaWithCropsResponseModel {
+  items: IApiMediaWithCropsResponseModel[];
   total: number;
 }
 
-export interface PagedApiMediaWithCropsResponseModel {
-  items: ApiMediaWithCropsResponseModel[];
+export interface PagedIApiContentResponseModel {
+  items: IApiContentResponseModel[];
   total: number;
 }
 
@@ -366,23 +517,58 @@ export const LinkTypeModel = {
   External: 'External',
 } as const;
 
-export interface ImageCropperFocalPointModel {
+export interface ImageFocalPointModel {
   left?: number;
   top?: number;
 }
 
-export interface ImageCropperCropCoordinatesModel {
+export interface ImageCropCoordinatesModel {
   x1?: number;
   x2?: number;
   y1?: number;
   y2?: number;
 }
 
-export interface ImageCropperCropModel {
+export interface ImageCropModel {
   alias?: string | null;
-  coordinates?: ImageCropperCropCoordinatesModel;
+  coordinates?: ImageCropCoordinatesModel;
   height?: number;
   width?: number;
+}
+
+export type IApiMediaWithCropsResponseModelProperties = {[key: string]: unknown};
+
+export interface IApiMediaWithCropsResponseModel {
+  readonly bytes?: number | null;
+  readonly createDate?: string;
+  readonly crops?: ImageCropModel[] | null;
+  readonly extension?: string | null;
+  focalPoint?: ImageFocalPointModel;
+  readonly height?: number | null;
+  readonly id?: string;
+  readonly mediaType?: string;
+  readonly name?: string;
+  readonly path?: string;
+  readonly properties?: IApiMediaWithCropsResponseModelProperties;
+  readonly updateDate?: string;
+  readonly url?: string;
+  readonly width?: number | null;
+}
+
+export type IApiMediaWithCropsModelProperties = {[key: string]: unknown};
+
+export interface IApiMediaWithCropsModel {
+  readonly bytes?: number | null;
+  readonly crops?: ImageCropModel[] | null;
+  readonly extension?: string | null;
+  focalPoint?: ImageFocalPointModel;
+  readonly height?: number | null;
+  readonly id?: string;
+  readonly mediaType?: string;
+  readonly name?: string;
+  readonly properties?: IApiMediaWithCropsModelProperties;
+  readonly url?: string;
+  readonly width?: number | null;
 }
 
 export type IApiElementModelBaseProperties = {[key: string]: unknown};
@@ -409,17 +595,6 @@ export type IApiContentResponseModelBaseProperties = {[key: string]: unknown};
 
 export type IApiContentResponseModelBaseCultures = {[key: string]: IApiContentRouteModel};
 
-export type IApiContentResponseModelBase = IApiContentModelBase & {
-  readonly contentType?: string;
-  readonly createDate?: string;
-  readonly cultures?: IApiContentResponseModelBaseCultures;
-  readonly id?: string;
-  readonly name?: string | null;
-  readonly properties?: IApiContentResponseModelBaseProperties;
-  route?: IApiContentRouteModel;
-  readonly updateDate?: string;
-};
-
 export type IApiContentResponseModel = TestPageContentResponseModel | TestPageInvariantContentResponseModel;
 
 export type IApiContentModelBaseProperties = {[key: string]: unknown};
@@ -434,12 +609,23 @@ export type IApiContentModelBase = IApiElementModelBase & {
   readonly updateDate?: string;
 };
 
+export type IApiContentResponseModelBase = IApiContentModelBase & {
+  readonly contentType?: string;
+  readonly createDate?: string;
+  readonly cultures?: IApiContentResponseModelBaseCultures;
+  readonly id?: string;
+  readonly name?: string | null;
+  readonly properties?: IApiContentResponseModelBaseProperties;
+  route?: IApiContentRouteModel;
+  readonly updateDate?: string;
+};
+
 export type IApiContentModel = TestPageContentModel | TestPageInvariantContentModel;
 
 export type HttpValidationProblemDetailsErrors = {[key: string]: string[]};
 
 export type HttpValidationProblemDetails = ProblemDetails & {
-  readonly errors?: HttpValidationProblemDetailsErrors;
+  errors?: HttpValidationProblemDetailsErrors;
   [key: string]: unknown;
 };
 
@@ -460,32 +646,11 @@ export type BlockSettingsElementModel = IApiElementModelBase & {
   properties?: BlockSettingsPropertiesModel;
 };
 
-export type ApiMediaWithCropsModelProperties = {[key: string]: unknown};
-
-export interface ApiMediaWithCropsModel {
-  readonly bytes?: number | null;
-  crops?: ImageCropperCropModel[] | null;
-  readonly extension?: string | null;
-  focalPoint?: ImageCropperFocalPointModel;
-  readonly height?: number | null;
-  readonly id?: string;
-  readonly mediaType?: string;
-  readonly name?: string;
-  readonly properties?: ApiMediaWithCropsModelProperties;
-  readonly url?: string;
-  readonly width?: number | null;
-}
-
-export type ApiMediaWithCropsResponseModel = ApiMediaWithCropsModel & {
-  createDate?: string;
-  path?: string;
-  updateDate?: string;
-};
-
 export interface ApiLinkModel {
   readonly destinationId?: string | null;
   readonly destinationType?: string | null;
   linkType?: LinkTypeModel;
+  readonly queryString?: string | null;
   route?: IApiContentRouteModel;
   readonly target?: string | null;
   readonly title?: string | null;
@@ -493,8 +658,8 @@ export interface ApiLinkModel {
 }
 
 export interface ApiImageCropperValueModel {
-  crops?: ImageCropperCropModel[] | null;
-  focalPoint?: ImageCropperFocalPointModel;
+  crops?: ImageCropModel[] | null;
+  focalPoint?: ImageFocalPointModel;
   url?: string;
 }
 
@@ -532,7 +697,10 @@ export interface ApiBlockGridModel {
 
 
 
-  export const getContent = <TData = AxiosResponse<PagedIApiContentResponseModel>>(
+  /**
+ * @deprecated
+ */
+export const getContent = <TData = AxiosResponse<PagedIApiContentResponseModel>>(
     params?: GetContentParams, options?: AxiosRequestConfig
  ): Promise<TData> => {
     return axios.get(
@@ -542,6 +710,19 @@ export interface ApiBlockGridModel {
     );
   }
 
+export const getContent20 = <TData = AxiosResponse<PagedIApiContentResponseModel>>(
+    params?: GetContent20Params, options?: AxiosRequestConfig
+ ): Promise<TData> => {
+    return axios.get(
+      `http://localhost:34962/umbraco/delivery/api/v2/content`,{
+    ...options,
+        params: {...params, ...options?.params},}
+    );
+  }
+
+/**
+ * @deprecated
+ */
 export const getContentItem = <TData = AxiosResponse<IApiContentResponseModel[]>>(
     params?: GetContentItemParams, options?: AxiosRequestConfig
  ): Promise<TData> => {
@@ -552,6 +733,9 @@ export const getContentItem = <TData = AxiosResponse<IApiContentResponseModel[]>
     );
   }
 
+/**
+ * @deprecated
+ */
 export const getContentItemByPath = <TData = AxiosResponse<IApiContentResponseModel>>(
     path: string,
     params?: GetContentItemByPathParams, options?: AxiosRequestConfig
@@ -563,6 +747,20 @@ export const getContentItemByPath = <TData = AxiosResponse<IApiContentResponseMo
     );
   }
 
+export const getContentItemByPath20 = <TData = AxiosResponse<IApiContentResponseModel>>(
+    path: string,
+    params?: GetContentItemByPath20Params, options?: AxiosRequestConfig
+ ): Promise<TData> => {
+    return axios.get(
+      `http://localhost:34962/umbraco/delivery/api/v2/content/item/${path}`,{
+    ...options,
+        params: {...params, ...options?.params},}
+    );
+  }
+
+/**
+ * @deprecated
+ */
 export const getContentItemById = <TData = AxiosResponse<IApiContentResponseModel>>(
     id: string,
     params?: GetContentItemByIdParams, options?: AxiosRequestConfig
@@ -574,7 +772,31 @@ export const getContentItemById = <TData = AxiosResponse<IApiContentResponseMode
     );
   }
 
-export const getMedia = <TData = AxiosResponse<PagedApiMediaWithCropsResponseModel>>(
+export const getContentItemById20 = <TData = AxiosResponse<IApiContentResponseModel>>(
+    id: string,
+    params?: GetContentItemById20Params, options?: AxiosRequestConfig
+ ): Promise<TData> => {
+    return axios.get(
+      `http://localhost:34962/umbraco/delivery/api/v2/content/item/${id}`,{
+    ...options,
+        params: {...params, ...options?.params},}
+    );
+  }
+
+export const getContentItems20 = <TData = AxiosResponse<IApiContentResponseModel[]>>(
+    params?: GetContentItems20Params, options?: AxiosRequestConfig
+ ): Promise<TData> => {
+    return axios.get(
+      `http://localhost:34962/umbraco/delivery/api/v2/content/items`,{
+    ...options,
+        params: {...params, ...options?.params},}
+    );
+  }
+
+/**
+ * @deprecated
+ */
+export const getMedia = <TData = AxiosResponse<PagedIApiMediaWithCropsResponseModel>>(
     params?: GetMediaParams, options?: AxiosRequestConfig
  ): Promise<TData> => {
     return axios.get(
@@ -584,7 +806,20 @@ export const getMedia = <TData = AxiosResponse<PagedApiMediaWithCropsResponseMod
     );
   }
 
-export const getMediaItem = <TData = AxiosResponse<ApiMediaWithCropsResponseModel[]>>(
+export const getMedia20 = <TData = AxiosResponse<PagedIApiMediaWithCropsResponseModel>>(
+    params?: GetMedia20Params, options?: AxiosRequestConfig
+ ): Promise<TData> => {
+    return axios.get(
+      `http://localhost:34962/umbraco/delivery/api/v2/media`,{
+    ...options,
+        params: {...params, ...options?.params},}
+    );
+  }
+
+/**
+ * @deprecated
+ */
+export const getMediaItem = <TData = AxiosResponse<IApiMediaWithCropsResponseModel[]>>(
     params?: GetMediaItemParams, options?: AxiosRequestConfig
  ): Promise<TData> => {
     return axios.get(
@@ -594,7 +829,10 @@ export const getMediaItem = <TData = AxiosResponse<ApiMediaWithCropsResponseMode
     );
   }
 
-export const getMediaItemByPath = <TData = AxiosResponse<ApiMediaWithCropsResponseModel>>(
+/**
+ * @deprecated
+ */
+export const getMediaItemByPath = <TData = AxiosResponse<IApiMediaWithCropsResponseModel>>(
     path: string,
     params?: GetMediaItemByPathParams, options?: AxiosRequestConfig
  ): Promise<TData> => {
@@ -605,7 +843,21 @@ export const getMediaItemByPath = <TData = AxiosResponse<ApiMediaWithCropsRespon
     );
   }
 
-export const getMediaItemById = <TData = AxiosResponse<ApiMediaWithCropsResponseModel>>(
+export const getMediaItemByPath20 = <TData = AxiosResponse<IApiMediaWithCropsResponseModel>>(
+    path: string,
+    params?: GetMediaItemByPath20Params, options?: AxiosRequestConfig
+ ): Promise<TData> => {
+    return axios.get(
+      `http://localhost:34962/umbraco/delivery/api/v2/media/item/${path}`,{
+    ...options,
+        params: {...params, ...options?.params},}
+    );
+  }
+
+/**
+ * @deprecated
+ */
+export const getMediaItemById = <TData = AxiosResponse<IApiMediaWithCropsResponseModel>>(
     id: string,
     params?: GetMediaItemByIdParams, options?: AxiosRequestConfig
  ): Promise<TData> => {
@@ -616,11 +868,40 @@ export const getMediaItemById = <TData = AxiosResponse<ApiMediaWithCropsResponse
     );
   }
 
+export const getMediaItemById20 = <TData = AxiosResponse<IApiMediaWithCropsResponseModel>>(
+    id: string,
+    params?: GetMediaItemById20Params, options?: AxiosRequestConfig
+ ): Promise<TData> => {
+    return axios.get(
+      `http://localhost:34962/umbraco/delivery/api/v2/media/item/${id}`,{
+    ...options,
+        params: {...params, ...options?.params},}
+    );
+  }
+
+export const getMediaItems20 = <TData = AxiosResponse<IApiMediaWithCropsResponseModel[]>>(
+    params?: GetMediaItems20Params, options?: AxiosRequestConfig
+ ): Promise<TData> => {
+    return axios.get(
+      `http://localhost:34962/umbraco/delivery/api/v2/media/items`,{
+    ...options,
+        params: {...params, ...options?.params},}
+    );
+  }
+
 export type GetContentResult = AxiosResponse<PagedIApiContentResponseModel>
+export type GetContent20Result = AxiosResponse<PagedIApiContentResponseModel>
 export type GetContentItemResult = AxiosResponse<IApiContentResponseModel[]>
 export type GetContentItemByPathResult = AxiosResponse<IApiContentResponseModel>
+export type GetContentItemByPath20Result = AxiosResponse<IApiContentResponseModel>
 export type GetContentItemByIdResult = AxiosResponse<IApiContentResponseModel>
-export type GetMediaResult = AxiosResponse<PagedApiMediaWithCropsResponseModel>
-export type GetMediaItemResult = AxiosResponse<ApiMediaWithCropsResponseModel[]>
-export type GetMediaItemByPathResult = AxiosResponse<ApiMediaWithCropsResponseModel>
-export type GetMediaItemByIdResult = AxiosResponse<ApiMediaWithCropsResponseModel>
+export type GetContentItemById20Result = AxiosResponse<IApiContentResponseModel>
+export type GetContentItems20Result = AxiosResponse<IApiContentResponseModel[]>
+export type GetMediaResult = AxiosResponse<PagedIApiMediaWithCropsResponseModel>
+export type GetMedia20Result = AxiosResponse<PagedIApiMediaWithCropsResponseModel>
+export type GetMediaItemResult = AxiosResponse<IApiMediaWithCropsResponseModel[]>
+export type GetMediaItemByPathResult = AxiosResponse<IApiMediaWithCropsResponseModel>
+export type GetMediaItemByPath20Result = AxiosResponse<IApiMediaWithCropsResponseModel>
+export type GetMediaItemByIdResult = AxiosResponse<IApiMediaWithCropsResponseModel>
+export type GetMediaItemById20Result = AxiosResponse<IApiMediaWithCropsResponseModel>
+export type GetMediaItems20Result = AxiosResponse<IApiMediaWithCropsResponseModel[]>
