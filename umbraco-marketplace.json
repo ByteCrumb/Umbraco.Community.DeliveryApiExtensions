@@ -25,11 +25,11 @@
   "PackageType": "Package",
   "Screenshots": [
     {
-      "ImageUrl": "https://raw.githubusercontent.com/ByteCrumb/Umbraco.Community.DeliveryApiExtensions/main/docs/screenshots/api-preview.png",
+      "ImageUrl": "https://raw.githubusercontent.com/ByteCrumb/Umbraco.Community.DeliveryApiExtensions/v12/main/docs/screenshots/api-preview.png",
       "Caption": "Delivery API preview content app"
     },
     {
-      "ImageUrl": "https://raw.githubusercontent.com/ByteCrumb/Umbraco.Community.DeliveryApiExtensions/main/docs/screenshots/typed-swagger-schema.png",
+      "ImageUrl": "https://raw.githubusercontent.com/ByteCrumb/Umbraco.Community.DeliveryApiExtensions/v12/main/docs/screenshots/typed-swagger-schema.png",
       "Caption": "Typed swagger schema example"
     }
   ],

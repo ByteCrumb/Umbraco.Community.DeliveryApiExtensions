@@ -1,7 +1,7 @@
 <!--IF NUGET
-![Package Logo](https://raw.githubusercontent.com/ByteCrumb/Umbraco.Community.DeliveryApiExtensions/main/docs/icon.png)
+![Package Logo](https://raw.githubusercontent.com/ByteCrumb/Umbraco.Community.DeliveryApiExtensions/HEAD/docs/icon.png)
 <!--ELSE-->
-<img src="https://raw.githubusercontent.com/ByteCrumb/Umbraco.Community.DeliveryApiExtensions/main/docs/icon.png" alt="Delivery Api Extensions logo" height="130" align="right">
+<img src="https://raw.githubusercontent.com/ByteCrumb/Umbraco.Community.DeliveryApiExtensions/HEAD/docs/icon.png" alt="Delivery Api Extensions logo" height="130" align="right">
 <!--END-->
 
 # Umbraco Delivery Api Extensions
@@ -17,7 +17,7 @@ Extensions for the Umbraco Delivery API.
 ### Backoffice preview
 Preview the Delivery API responses from the backoffice content/media nodes.
 
-![Preview](https://raw.githubusercontent.com/ByteCrumb/Umbraco.Community.DeliveryApiExtensions/main/docs/screenshots/api-preview.png)
+![Preview](https://raw.githubusercontent.com/ByteCrumb/Umbraco.Community.DeliveryApiExtensions/v12/main/docs/screenshots/api-preview.png)
 
 ### Typed swagger
 Adds types to the Umbraco swagger based on your document and data types (just like Models Builder), so that you can more seamlessly generate typed clients.  
@@ -39,7 +39,7 @@ if (content.contentType === 'home') {
 }
 ```
 
-![Typed Swagger](https://raw.githubusercontent.com/ByteCrumb/Umbraco.Community.DeliveryApiExtensions/main/docs/screenshots/typed-swagger-schema.png)
+![Typed Swagger](https://raw.githubusercontent.com/ByteCrumb/Umbraco.Community.DeliveryApiExtensions/v12/main/docs/screenshots/typed-swagger-schema.png)
 
 ## Installation 🧑‍💻
 
@@ -86,4 +86,4 @@ It can be configured from your codebase using:
 
 ## Contributing 🙌
 
-Contributions to this package are most welcome! Please read the [Contributing Guidelines](https://github.com/ByteCrumb/Umbraco.Community.DeliveryApiExtensions/blob/main/.github/CONTRIBUTING.md).
+Contributions to this package are most welcome! Please read the [Contributing Guidelines](https://github.com/ByteCrumb/Umbraco.Community.DeliveryApiExtensions/blob/HEAD/.github/CONTRIBUTING.md).
