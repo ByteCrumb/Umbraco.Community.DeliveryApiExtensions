@@ -39,7 +39,7 @@
     "eslint-plugin-wc": "^2.0.4",
     "patch-package": "^8.0.0",
     "typescript": "^5.2.2",
-    "vite": "^4.5.1"
+    "vite": "^4.5.2"
   },
   "volta": {
     "node": "20.9.0"
