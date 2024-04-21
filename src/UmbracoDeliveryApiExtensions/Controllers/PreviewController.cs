@@ -12,8 +12,6 @@ using Umbraco.Cms.Core.PublishedCache;
 using Umbraco.Cms.Core.Security;
 using Umbraco.Cms.Core.Services;
 using Umbraco.Cms.Infrastructure.DeliveryApi;
-using Umbraco.Cms.Web.BackOffice.Controllers;
-using Umbraco.Cms.Web.Common.Attributes;
 using Umbraco.Extensions;
 
 namespace Umbraco.Community.DeliveryApiExtensions.Controllers;
@@ -21,8 +19,7 @@ namespace Umbraco.Community.DeliveryApiExtensions.Controllers;
 /// <summary>
 ///     <see cref="Controller"/> for previewing delivery api content and media.
 /// </summary>
-[PluginController(Constants.ApiAreaName)]
-public class PreviewController : UmbracoAuthorizedJsonController
+public sealed class PreviewController : BaseController
 {
     private readonly ILogger<PreviewController> _logger;
     private readonly IBackOfficeSecurityAccessor _backOfficeSecurityAccessor;
@@ -54,7 +51,7 @@ public class PreviewController : UmbracoAuthorizedJsonController
     /// <summary>
     ///     Retrieves the delivery api response for the content with the specified id.
     /// </summary>
-    [HttpGet]
+    [HttpGet("content/{id}")]
     public IActionResult GetContent(
         [FromRoute] Guid id,
         [FromHeader(Name = "Accept-Language")] string? language,
@@ -89,7 +86,7 @@ public class PreviewController : UmbracoAuthorizedJsonController
     /// <summary>
     ///     Retrieves the delivery api response for the media with the specified id.
     /// </summary>
-    [HttpGet]
+    [HttpGet("media/{id}")]
     public IActionResult GetMedia(
         [FromRoute] Guid id,
         [FromHeader(Name = "Accept-Language")] string? language,

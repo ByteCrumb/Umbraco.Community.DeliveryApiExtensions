@@ -3,7 +3,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using Umbraco.Cms.Core.DependencyInjection;
 using Umbraco.Community.DeliveryApiExtensions.Configuration.Options;
-using Umbraco.Community.DeliveryApiExtensions.ContentApps;
 using Umbraco.Community.DeliveryApiExtensions.Services;
 using Umbraco.Community.DeliveryApiExtensions.Swagger;
 
@@ -19,8 +18,6 @@ public static class UmbracoBuilderExtensions
     /// </summary>
     public static void AddDeliveryApiExtensions(this IUmbracoBuilder builder)
     {
-        _ = builder.ManifestFilters().Append<ManifestFilter>();
-
         IConfigurationSection configSection = builder.Config.GetSection<DeliveryApiExtensionsOptions>();
         _ = builder.Services.AddOptions<DeliveryApiExtensionsOptions>(configSection);
 
@@ -33,7 +30,6 @@ public static class UmbracoBuilderExtensions
 
     internal static void AddPreview(this IUmbracoBuilder builder, IConfigurationSection configSection)
     {
-        _ = builder.ContentApps().Append<DeliveryApiPreviewAppFactory>();
         IConfigurationSection previewConfigSection = configSection.GetSection<PreviewOptions>();
         _ = builder.Services.AddOptions<PreviewOptions>(previewConfigSection);
 
