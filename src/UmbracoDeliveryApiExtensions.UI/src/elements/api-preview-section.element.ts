@@ -1,13 +1,16 @@
 import {consume} from '@lit/context';
 import {Task} from '@lit/task';
 import {css, html, LitElement} from 'lit';
-import {customElement, property, query, state} from 'lit/decorators.js';
+import {
+  customElement, property, query, state,
+} from 'lit/decorators.js';
 import {cache} from 'lit/directives/cache.js';
 import {ifDefined} from 'lit/directives/if-defined.js';
 
 import {type ApiPreviewContext, apiPreviewContext} from '../contexts/api-preview.context';
-import {CsrfTokenHeaderName, getCsrfToken, parseJsonResponse} from '../helpers/angular-backoffice-helpers';
 import {KebabCaseAttributesMixin} from '../mixins/kebab-case-attributes.mixin';
+
+export * from './json-preview.element';
 
 /**
  * The Delivery Api Extensions Preview Tab element.
@@ -102,9 +105,7 @@ export class ApiPreviewElementSection extends KebabCaseAttributesMixin(LitElemen
 
     const params: RequestInit & {headers: Record<string, string>} = {
       method: 'GET',
-      headers: {
-        [CsrfTokenHeaderName]: getCsrfToken(),
-      },
+      headers: {},
       credentials: 'include',
       signal,
     };
@@ -122,7 +123,7 @@ export class ApiPreviewElementSection extends KebabCaseAttributesMixin(LitElemen
       throw new Error(response.statusText);
     }
 
-    return parseJsonResponse(response);
+    return response.json();
   }
 }
 

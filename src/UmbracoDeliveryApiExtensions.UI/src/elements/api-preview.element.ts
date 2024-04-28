@@ -1,16 +1,23 @@
 import {provide} from '@lit/context';
-import {css, html, LitElement, nothing} from 'lit';
+import {UmbElementMixin} from '@umbraco-cms/backoffice/element-api';
+import {
+  css, html, LitElement, nothing,
+} from 'lit';
 import {customElement, property} from 'lit/decorators.js';
 
-import {apiPreviewContext} from '../contexts/api-preview.context';
-import {type PreviewControllerContext} from '../controllers/preview.controller';
+import {type ApiPreviewContext, apiPreviewContext} from '../contexts/api-preview.context';
 import {KebabCaseAttributesMixin} from '../mixins/kebab-case-attributes.mixin';
+
+export interface PreviewControllerContext extends ApiPreviewContext {
+  readonly hasPreview: boolean;
+  readonly isPublished: boolean;
+}
 
 /**
  * The Delivery Api Extensions Preview element.
  */
 @customElement('bc-api-preview')
-export class ApiPreviewElement extends KebabCaseAttributesMixin(LitElement) {
+export default class ApiPreviewElement extends UmbElementMixin(KebabCaseAttributesMixin(LitElement)) {
   static styles = css`
     :host {
         display: flex;
@@ -31,7 +38,11 @@ export class ApiPreviewElement extends KebabCaseAttributesMixin(LitElement) {
 
   @provide({context: apiPreviewContext})
   @property({type: Object, attribute: false})
-    context: PreviewControllerContext = undefined!;
+    context: PreviewControllerContext = {
+      apiPath: '/src/data/content-{expand|none}.json',
+      isPublished: true,
+      hasPreview: true,
+    };
 
   render() {
     if (!this.context) {

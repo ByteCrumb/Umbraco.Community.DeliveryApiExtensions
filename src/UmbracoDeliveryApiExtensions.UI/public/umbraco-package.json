@@ -1,0 +1,13 @@
+{
+  "$schema": "../node_modules/@umbraco-cms/backoffice/dist-cms/umbraco-package-schema.json",
+  "name": "DeliveryApiExtensions",
+  "version": "0.1.0",
+  "extensions": [
+    {
+      "type": "entryPoint",
+      "alias": "DeliveryApiExtensions.EntryPoint",
+      "name": "Delivery Api Extensions",
+      "js": "/App_Plugins/DeliveryApiExtensions/delivery-api-extensions.js"
+    }
+  ]
+}

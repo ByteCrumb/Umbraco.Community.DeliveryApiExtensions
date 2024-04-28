@@ -4,21 +4,15 @@ export default defineConfig(({mode}) => ({
   base: '/App_Plugins/DeliveryApiExtensions',
   build: {
     lib: {
-      entry: 'src/main.js',
+      entry: 'src/main.ts',
       name: 'DeliveryApiExtensions',
-      formats: ['iife'],
+      formats: ['es'],
     },
     outDir: 'dist/DeliveryApiExtensions',
     emptyOutDir: true,
     sourcemap: true,
     rollupOptions: {
-      external: [/^angular/, /^@umbraco/],
-      output: {
-        globals: {
-          angular: 'angular',
-          '@umbraco-ui/uui': 'uui',
-        },
-      },
+      external: [/^@umbraco/],
     },
   },
   define: {
