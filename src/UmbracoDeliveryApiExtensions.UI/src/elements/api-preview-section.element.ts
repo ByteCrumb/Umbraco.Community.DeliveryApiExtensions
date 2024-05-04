@@ -1,4 +1,3 @@
-import {consume} from '@lit/context';
 import {Task} from '@lit/task';
 import {css, html, LitElement} from 'lit';
 import {
@@ -6,8 +5,9 @@ import {
 } from 'lit/decorators.js';
 import {cache} from 'lit/directives/cache.js';
 import {ifDefined} from 'lit/directives/if-defined.js';
+import { UmbElementMixin } from '@umbraco-cms/backoffice/element-api';
 
-import {type ApiPreviewContext, apiPreviewContext} from '../contexts/api-preview.context';
+import {API_PREVIEW_CONTEXT} from '../contexts/api-preview.context';
 import {KebabCaseAttributesMixin} from '../mixins/kebab-case-attributes.mixin';
 
 export * from './json-preview.element';
@@ -16,7 +16,7 @@ export * from './json-preview.element';
  * The Delivery Api Extensions Preview Tab element.
  */
 @customElement('bc-api-preview-section')
-export class ApiPreviewElementSection extends KebabCaseAttributesMixin(LitElement) {
+export class ApiPreviewElementSection extends UmbElementMixin(KebabCaseAttributesMixin(LitElement)) {
   static styles = css`
     :host {
       display: flex;
@@ -43,8 +43,7 @@ export class ApiPreviewElementSection extends KebabCaseAttributesMixin(LitElemen
     }
   `;
 
-  @consume({context: apiPreviewContext, subscribe: true})
-    context?: ApiPreviewContext;
+  #context?: typeof API_PREVIEW_CONTEXT.TYPE;
 
   @property({type: String})
     headline = '';
@@ -58,10 +57,30 @@ export class ApiPreviewElementSection extends KebabCaseAttributesMixin(LitElemen
   @state()
   private _expand = false;
 
+  @state()
+  private _culture : string | undefined = undefined;
+
+  @state()
+  private _updateDate : string | undefined = undefined;
+
   private readonly _dataTask = new Task(this, {
-    task: async ([culture, _, preview, expand], {signal}) => this._fetchData(culture, preview, expand, signal),
-    args: (): [string | undefined, string | undefined, boolean, boolean] => [this.context?.culture, this.context?.updateDate, this.preview, this._expand],
+    task: async ([,, preview, expand], {signal}) => this.#context?.fetchData(preview, expand, signal),
+    args: (): [string | undefined, string | undefined, boolean, boolean] => [this._culture, this._updateDate, this.preview, this._expand],
   });
+
+  constructor(){
+    super();
+
+    this.consumeContext(API_PREVIEW_CONTEXT, (context) => {
+      this.#context = context;
+      this.observe(context.culture, (culture) => {
+        this._culture = culture;
+      });
+      this.observe(context.culture, (culture) => {
+        this._culture = culture;
+      });
+    });
+  }
 
   render() {
     const renderLoader = (minHeight?: number) => html`
@@ -96,34 +115,6 @@ export class ApiPreviewElementSection extends KebabCaseAttributesMixin(LitElemen
         ${cache(content)}
       </uui-box>
     `;
-  }
-
-  private async _fetchData(culture: string | undefined, preview: boolean, expand: boolean, signal: AbortSignal): Promise<unknown> {
-    if (!this.context?.apiPath) {
-      return null;
-    }
-
-    const params: RequestInit & {headers: Record<string, string>} = {
-      method: 'GET',
-      headers: {},
-      credentials: 'include',
-      signal,
-    };
-
-    if (culture) {
-      params.headers['Accept-Language'] = culture;
-    }
-
-    if (preview) {
-      params.headers.preview = 'true';
-    }
-
-    const response = await fetch(`${this.context.apiPath}${(expand ? '?expand=properties[$all]' : '')}`, params);
-    if (!response.ok) {
-      throw new Error(response.statusText);
-    }
-
-    return response.json();
   }
 }
 
