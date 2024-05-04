@@ -58,14 +58,11 @@ export class ApiPreviewElementSection extends UmbElementMixin(KebabCaseAttribute
   private _expand = false;
 
   @state()
-  private _culture : string | undefined = undefined;
-
-  @state()
   private _updateDate : string | undefined = undefined;
 
   private readonly _dataTask = new Task(this, {
-    task: async ([,, preview, expand], {signal}) => this.#context?.fetchData(preview, expand, signal),
-    args: (): [string | undefined, string | undefined, boolean, boolean] => [this._culture, this._updateDate, this.preview, this._expand],
+    task: async ([, preview, expand], {signal}) => this.#context?.fetchData(preview, expand, signal),
+    args: (): [string | undefined, boolean, boolean] => [this._updateDate, this.preview, this._expand],
   });
 
   constructor(){
@@ -73,11 +70,8 @@ export class ApiPreviewElementSection extends UmbElementMixin(KebabCaseAttribute
 
     this.consumeContext(API_PREVIEW_CONTEXT, (context) => {
       this.#context = context;
-      this.observe(context.culture, (culture) => {
-        this._culture = culture;
-      });
-      this.observe(context.culture, (culture) => {
-        this._culture = culture;
+      this.observe(context.updateDate, (updateDate) => {
+        this._updateDate = updateDate;
       });
     });
   }

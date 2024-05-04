@@ -8,7 +8,7 @@ import {KebabCaseAttributesMixin} from '../mixins/kebab-case-attributes.mixin';
 import { UMB_DOCUMENT_WORKSPACE_CONTEXT } from '@umbraco-cms/backoffice/document';
 import { UMB_MEDIA_WORKSPACE_CONTEXT } from '@umbraco-cms/backoffice/media';
 import { DocumentVariantStateModel } from '@umbraco-cms/backoffice/external/backend-api';
-import { API_PREVIEW_CONTEXT, ApiPreviewContext } from '../contexts/api-preview.context';
+import { API_PREVIEW_CONTEXT, ApiPreviewContentType, ApiPreviewContext } from '../contexts/api-preview.context';
 
 /**
  * The Delivery Api Extensions Preview element.
@@ -33,8 +33,7 @@ export default class ApiPreviewElement extends UmbElementMixin(KebabCaseAttribut
      }
   `;
 
-  #apiPreviewContext?: typeof API_PREVIEW_CONTEXT.TYPE;
-  #contentContext?: typeof UMB_DOCUMENT_WORKSPACE_CONTEXT.TYPE;
+  #apiPreviewContext = new ApiPreviewContext(this);
 
   @state()
   private _hasPreview = false;
@@ -44,27 +43,25 @@ export default class ApiPreviewElement extends UmbElementMixin(KebabCaseAttribut
 
   constructor(){
     super();
+    this.provideContext(API_PREVIEW_CONTEXT, this.#apiPreviewContext);
 
-    this.provideContext(API_PREVIEW_CONTEXT, new ApiPreviewContext(this));
-    this.consumeContext(API_PREVIEW_CONTEXT, (context) => {
-      this.#apiPreviewContext = context;
-    });
-
+    // Content context
     this.consumeContext(UMB_DOCUMENT_WORKSPACE_CONTEXT, (context) => {
-      this.#contentContext = context;
       if(!context) return;
       this._hasPreview = true;
+      this.#apiPreviewContext?.setType(ApiPreviewContentType.Document);
 
       this.observe(
-        this.#contentContext.unique,
+        context.unique,
         (unique) => {
-          this.#apiPreviewContext?.setDocumentId(unique!);
-        },
-        '_documentUnique',
+          this.#apiPreviewContext?.setUniqueId(unique!);
+        }
       );
 
-      this.observe(this.#contentContext.variants, (variants) => {
+      this.observe(context.variants, (variants) => {
+        // TODO: Get the actual current variant and not just the first one. This is also not called on Save.
         const state = variants[0]?.state;
+        this._hasPreview = state && state !== DocumentVariantStateModel.NOT_CREATED ? true : false;
         this._isPublished = state === DocumentVariantStateModel.PUBLISHED || state === DocumentVariantStateModel.PUBLISHED_PENDING_CHANGES;
 
         const currentVariant = variants[0];
@@ -73,9 +70,27 @@ export default class ApiPreviewElement extends UmbElementMixin(KebabCaseAttribut
       });
     });
 
+    // Media context
     this.consumeContext(UMB_MEDIA_WORKSPACE_CONTEXT, (context) => {
       if(!context) return;
+      this.#apiPreviewContext?.setType(ApiPreviewContentType.Media);
       this._hasPreview = false;
+
+      this.observe(
+        context.unique,
+        (unique) => {
+          if(!unique) return;
+          this.#apiPreviewContext?.setUniqueId(unique);
+        }
+      );
+
+      this.observe(context.isNew, (isNew) => {
+        this._isPublished = !isNew;
+      });
+
+      this.observe(context.variants, (variants) => {
+        this.#apiPreviewContext?.setUpdateDate(variants[0]?.updateDate ?? undefined);
+      });
     });
   }
 

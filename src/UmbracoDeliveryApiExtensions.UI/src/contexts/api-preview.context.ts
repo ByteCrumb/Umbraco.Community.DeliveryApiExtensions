@@ -7,26 +7,29 @@ import { UmbStringState } from '@umbraco-cms/backoffice/observable-api';
 export class ApiPreviewContext extends UmbControllerBase {
   #repo: ApiPreviewRepository;
 
-  #culture? = new UmbStringState(undefined);
-  culture = this.#culture?.asObservable();
-
-  #documentId? = new UmbStringState(undefined);
-  documentId = this.#documentId?.asObservable();
+  #type: ApiPreviewContentType = ApiPreviewContentType.Document;
+  #culture? : string | undefined;
+  #uniqueId? : string | undefined;
 
   #updateDate? = new UmbStringState(undefined);
   updateDate = this.#updateDate?.asObservable();
 
-  constructor(host: UmbControllerHost) {
+  constructor(
+    host: UmbControllerHost) {
       super(host);
       this.#repo = new ApiPreviewRepository(host);
   }
 
-  setDocumentId(documentId: string) {
-    this.#documentId?.setValue(documentId);
+  setType(type: ApiPreviewContentType) {
+    this.#type = type;
+  }
+
+  setUniqueId(uniqueId: string) {
+    this.#uniqueId = uniqueId;
   }
 
   setCulture(culture: string | undefined) {
-    this.#culture?.setValue(culture);
+    this.#culture = culture;
   }
 
   setUpdateDate(updateDate: string | undefined) {
@@ -34,12 +37,15 @@ export class ApiPreviewContext extends UmbControllerBase {
   }
 
   async fetchData(preview: boolean, expand: boolean, signal: AbortSignal): Promise<unknown> {
-    const documentId = this.#documentId?.getValue();
-    if(!documentId) return null;
-
-    return this.#repo.fetchData(documentId, this.#culture?.getValue(), preview, expand, signal);
+    if(!this.#uniqueId) return null;
+    return this.#repo.fetchData(this.#type, this.#uniqueId, this.#culture, preview, expand, signal);
   }
 }
 
+export enum ApiPreviewContentType {
+  Document = 'content',
+  Media = 'media',
+}
+
 export const API_PREVIEW_CONTEXT =
-  new UmbContextToken<ApiPreviewContext>('api-preview');
+  new UmbContextToken<ApiPreviewContext>('api-preview-context');

@@ -12,6 +12,8 @@ using Umbraco.Cms.Core.PublishedCache;
 using Umbraco.Cms.Core.Security;
 using Umbraco.Cms.Core.Services;
 using Umbraco.Cms.Infrastructure.DeliveryApi;
+using Umbraco.Community.DeliveryApiExtensions.Configuration.Options;
+using Umbraco.Community.DeliveryApiExtensions.Controllers.Models;
 using Umbraco.Extensions;
 
 namespace Umbraco.Community.DeliveryApiExtensions.Controllers;
@@ -49,7 +51,50 @@ public sealed class PreviewController : BaseController
     }
 
     /// <summary>
-    ///     Retrieves the delivery api response for the content with the specified id.
+    /// Gets the API preview config.
+    /// </summary>
+    [HttpGet("config")]
+    public PreviewConfig GetConfig(
+        [FromServices] IOptionsMonitor<PreviewOptions> optionsMonitor)
+    {
+        PreviewConfig response = new() { Enabled = false };
+        IUser? user = _backOfficeSecurityAccessor.BackOfficeSecurity?.CurrentUser;
+        if (user is null)
+        {
+            return response;
+        }
+
+        PreviewOptions options = optionsMonitor.CurrentValue;
+
+        // If preview is not set as enabled, no need to check anything else.
+        if (!options.Enabled)
+        {
+            return response;
+        }
+
+        // If there are no allowed user groups set, allow admins by default.
+        if (options.AllowedUserGroupAliases.Count == 0)
+        {
+            if (!user.IsAdmin())
+            {
+                return response;
+            }
+        }
+        // Check if the user belongs to one of the allowed user groups.
+        else if (!user.Groups.Any(group => options.AllowedUserGroupAliases.Contains(group.Alias)))
+        {
+            return response;
+        }
+
+        response.Enabled = options.Enabled;
+        response.Media = new PreviewMediaConfig { Enabled = options.Media.Enabled, };
+        response.ContentAppWeight = options.ContentAppWeight;
+
+        return response;
+    }
+
+    /// <summary>
+    /// Retrieves the delivery api response for the content with the specified id.
     /// </summary>
     [HttpGet("content/{id}")]
     public IActionResult GetContent(
@@ -84,7 +129,7 @@ public sealed class PreviewController : BaseController
     }
 
     /// <summary>
-    ///     Retrieves the delivery api response for the media with the specified id.
+    /// Retrieves the delivery api response for the media with the specified id.
     /// </summary>
     [HttpGet("media/{id}")]
     public IActionResult GetMedia(
