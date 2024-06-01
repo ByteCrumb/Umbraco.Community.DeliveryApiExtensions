@@ -36,12 +36,6 @@ export class ApiPreviewElementSection extends UmbElementMixin(KebabCaseAttribute
       align-items: center;
       height: 100%;
     }
-
-    .headline{
-      display: flex;
-      justify-content: space-between;
-      gap: 1rem;
-    }
   `;
 
   #context?: typeof API_PREVIEW_CONTEXT.TYPE;
@@ -111,10 +105,8 @@ export class ApiPreviewElementSection extends UmbElementMixin(KebabCaseAttribute
 
     return html`
       <uui-box>
-        <div class="headline" slot="headline">
-          <span>${this.headline}</span>
-          <uui-toggle label="Expand" title=${this._expand ? 'all' : 'none'} label-position="left" @change=${toggleExpand}></uui-toggle>
-        </div>
+        <span slot="headline">${this.headline}</span>
+        <uui-toggle slot="header-actions" label="Expand" title=${this._expand ? 'all' : 'none'} label-position="left" @change=${toggleExpand}></uui-toggle>
         ${cache(content)}
       </uui-box>
     `;
