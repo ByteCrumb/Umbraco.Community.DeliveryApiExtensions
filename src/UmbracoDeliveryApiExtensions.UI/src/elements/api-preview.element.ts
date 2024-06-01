@@ -9,6 +9,10 @@ import { UMB_DOCUMENT_WORKSPACE_CONTEXT } from '@umbraco-cms/backoffice/document
 import { UMB_MEDIA_WORKSPACE_CONTEXT } from '@umbraco-cms/backoffice/media';
 import { DocumentVariantStateModel } from '@umbraco-cms/backoffice/external/backend-api';
 import { API_PREVIEW_CONTEXT, ApiPreviewContentType, ApiPreviewContext } from '../contexts/api-preview.context';
+import { UMB_PROPERTY_DATASET_CONTEXT } from '@umbraco-cms/backoffice/property';
+import { UmbRequestReloadChildrenOfEntityEvent, UmbRequestReloadStructureForEntityEvent } from '@umbraco-cms/backoffice/entity-action';
+import { UMB_ACTION_EVENT_CONTEXT } from '@umbraco-cms/backoffice/action';
+import { ApiPreviewContentChangedEvent } from '../events/api-preview-content-changed';
 
 /**
  * The Delivery Api Extensions Preview element.
@@ -45,7 +49,11 @@ export default class ApiPreviewElement extends UmbElementMixin(KebabCaseAttribut
     super();
     this.provideContext(API_PREVIEW_CONTEXT, this.#apiPreviewContext);
 
-    // Content context
+    this.consumeContext(UMB_PROPERTY_DATASET_CONTEXT, (instance) => {
+      const currentCulture = instance.getVariantId().culture ?? undefined;
+      this.#apiPreviewContext?.setCulture(currentCulture);
+    });
+
     this.consumeContext(UMB_DOCUMENT_WORKSPACE_CONTEXT, (context) => {
       if(!context) return;
       this._hasPreview = true;
@@ -58,16 +66,13 @@ export default class ApiPreviewElement extends UmbElementMixin(KebabCaseAttribut
         }
       );
 
-      this.observe(context.variants, (variants) => {
-        // TODO: Get the actual current variant and not just the first one. This is also not called on Save.
-        const state = variants[0]?.state;
+      this.observe(context.variants, (options) => {
+        const currentVariant = options.find((option) => option.culture === (this.#apiPreviewContext.getCulture() ?? null));
+        const state = currentVariant?.state;
+
         this._hasPreview = state && state !== DocumentVariantStateModel.NOT_CREATED ? true : false;
         this._isPublished = state === DocumentVariantStateModel.PUBLISHED || state === DocumentVariantStateModel.PUBLISHED_PENDING_CHANGES;
-
-        const currentVariant = variants[0];
-        this.#apiPreviewContext?.setCulture(currentVariant?.culture ?? undefined);
-        this.#apiPreviewContext?.setUpdateDate(currentVariant?.updateDate ?? undefined);
-      });
+			});
     });
 
     // Media context
@@ -87,12 +92,35 @@ export default class ApiPreviewElement extends UmbElementMixin(KebabCaseAttribut
       this.observe(context.isNew, (isNew) => {
         this._isPublished = !isNew;
       });
-
-      this.observe(context.variants, (variants) => {
-        this.#apiPreviewContext?.setUpdateDate(variants[0]?.updateDate ?? undefined);
-      });
     });
+
+    // Listen to Umbraco events triggered on save
+    this.consumeContext(UMB_ACTION_EVENT_CONTEXT, (instance) => {
+			instance?.removeEventListener(
+				UmbRequestReloadChildrenOfEntityEvent.TYPE,
+				this.#onContentChanged as EventListener,
+			);
+
+			instance?.removeEventListener(
+				UmbRequestReloadStructureForEntityEvent.TYPE,
+				this.#onContentChanged as EventListener,
+			);
+
+			instance.addEventListener(
+				UmbRequestReloadChildrenOfEntityEvent.TYPE,
+				this.#onContentChanged as EventListener,
+			);
+
+			instance.addEventListener(
+				UmbRequestReloadStructureForEntityEvent.TYPE,
+				this.#onContentChanged as EventListener,
+			);
+		});
   }
+
+  #onContentChanged = () => {
+		this.#apiPreviewContext.dispatchEvent(new ApiPreviewContentChangedEvent());
+	};
 
   render() {
     return html`

@@ -2,7 +2,6 @@ import { UmbControllerBase } from '@umbraco-cms/backoffice/class-api';
 import { UmbContextToken } from '@umbraco-cms/backoffice/context-api';
 import { UmbControllerHost } from '@umbraco-cms/backoffice/controller-api';
 import { ApiPreviewRepository } from './api-preview.repository';
-import { UmbStringState } from '@umbraco-cms/backoffice/observable-api';
 
 export class ApiPreviewContext extends UmbControllerBase {
   #repo: ApiPreviewRepository;
@@ -10,9 +9,6 @@ export class ApiPreviewContext extends UmbControllerBase {
   #type: ApiPreviewContentType = ApiPreviewContentType.Document;
   #culture? : string | undefined;
   #uniqueId? : string | undefined;
-
-  #updateDate? = new UmbStringState(undefined);
-  updateDate = this.#updateDate?.asObservable();
 
   constructor(
     host: UmbControllerHost) {
@@ -28,12 +24,12 @@ export class ApiPreviewContext extends UmbControllerBase {
     this.#uniqueId = uniqueId;
   }
 
-  setCulture(culture: string | undefined) {
-    this.#culture = culture;
+  getCulture() {
+    return this.#culture;
   }
 
-  setUpdateDate(updateDate: string | undefined) {
-    this.#updateDate?.setValue(updateDate);
+  setCulture(culture: string | undefined) {
+    this.#culture = culture;
   }
 
   async fetchData(preview: boolean, expand: boolean, signal: AbortSignal): Promise<unknown> {

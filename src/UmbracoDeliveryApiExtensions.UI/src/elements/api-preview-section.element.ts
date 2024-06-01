@@ -9,6 +9,7 @@ import { UmbElementMixin } from '@umbraco-cms/backoffice/element-api';
 
 import {API_PREVIEW_CONTEXT} from '../contexts/api-preview.context';
 import {KebabCaseAttributesMixin} from '../mixins/kebab-case-attributes.mixin';
+import { ApiPreviewContentChangedEvent } from '../events/api-preview-content-changed';
 
 export * from './json-preview.element';
 
@@ -57,12 +58,9 @@ export class ApiPreviewElementSection extends UmbElementMixin(KebabCaseAttribute
   @state()
   private _expand = false;
 
-  @state()
-  private _updateDate : string | undefined = undefined;
-
   private readonly _dataTask = new Task(this, {
-    task: async ([, preview, expand], {signal}) => this.#context?.fetchData(preview, expand, signal),
-    args: (): [string | undefined, boolean, boolean] => [this._updateDate, this.preview, this._expand],
+    task: async ([preview, expand], {signal}) => this.#context?.fetchData(preview, expand, signal),
+    args: (): [boolean, boolean] => [this.preview, this._expand],
   });
 
   constructor(){
@@ -70,11 +68,22 @@ export class ApiPreviewElementSection extends UmbElementMixin(KebabCaseAttribute
 
     this.consumeContext(API_PREVIEW_CONTEXT, (context) => {
       this.#context = context;
-      this.observe(context.updateDate, (updateDate) => {
-        this._updateDate = updateDate;
-      });
+
+      this.#context?.removeEventListener(
+				ApiPreviewContentChangedEvent.TYPE,
+				this.#onContentChanged as EventListener,
+			);
+
+      this.#context?.addEventListener(
+				ApiPreviewContentChangedEvent.TYPE,
+				this.#onContentChanged as EventListener,
+			);
     });
   }
+
+  #onContentChanged = () => {
+		this._dataTask.run();
+	};
 
   render() {
     const renderLoader = (minHeight?: number) => html`
