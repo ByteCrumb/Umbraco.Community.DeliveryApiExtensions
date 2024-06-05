@@ -19,18 +19,12 @@
     <Folder Include="ClientTemplateOverrides\" />
   </ItemGroup>
 
-  <Target Name="GenerateApiClient" BeforeTargets="CoreCompile">
-    <PropertyGroup>
-      <SourceUri>http://localhost:34962/umbraco/swagger/delivery/swagger.json?mode=compatibility</SourceUri>
+  <ItemGroup>
+    <OpenApiReference Include="..\..\UmbracoDeliveryApiExtensions.TestSite\delivery-compat.swagger.g.json" CodeGenerator="NSwagCSharp">
+      <OutputPath>$(ProjectDir)UmbracoApi.g.cs</OutputPath>
       <ClassName>UmbracoApi</ClassName>
       <Namespace>nswag</Namespace>
       <Options>/JsonLibrary:SystemTextJson /GenerateClientInterfaces:true /GenerateNullableReferenceTypes:true /GenerateOptionalPropertiesAsNullable:true /GenerateOptionalParameters:true /TemplateDirectory:ClientTemplateOverrides</Options>
-    </PropertyGroup>
-
-    <Exec Command="$(_NSwagCommand) openapi2csclient /input:$(SourceUri) /classname:$(ClassName) /namespace:$(Namespace) /output:$(IntermediateOutputPath)/$(ClassName).g.cs $(Options)" LogStandardErrorAsError="true" />
-    <ItemGroup>
-      <Compile Include="$(IntermediateOutputPath)/$(ClassName).g.cs" />
-    </ItemGroup>
-  </Target>
-
+    </OpenApiReference>
+  </ItemGroup>
 </Project>

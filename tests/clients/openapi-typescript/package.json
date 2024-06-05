@@ -8,7 +8,7 @@
     "start": "npm run generate-api-client && npm run build && node dist/app.js",
     "build": "tsc --build",
     "clean": "tsc --build --clean",
-    "generate-api-client": "openapi-typescript http://localhost:34962/umbraco/swagger/delivery/swagger.json -o ./api/umbraco-api.d.ts"
+    "generate-api-client": "openapi-typescript ../../UmbracoDeliveryApiExtensions.TestSite/delivery.swagger.g.json -o ./api/umbraco-api.d.ts"
   },
   "devDependencies": {
     "@types/node": "^20.9.0",
