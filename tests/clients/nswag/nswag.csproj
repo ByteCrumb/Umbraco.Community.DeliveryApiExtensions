@@ -9,7 +9,6 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="NSwag.ApiDescription.Client" Version="14.0.7">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -25,7 +24,7 @@
       <SourceUri>http://localhost:34962/umbraco/swagger/delivery/swagger.json?mode=compatibility</SourceUri>
       <ClassName>UmbracoApi</ClassName>
       <Namespace>nswag</Namespace>
-      <Options>/GenerateClientInterfaces:true /GenerateNullableReferenceTypes:true /GenerateOptionalPropertiesAsNullable:true /GenerateOptionalParameters:true /TemplateDirectory:ClientTemplateOverrides</Options>
+      <Options>/JsonLibrary:SystemTextJson /GenerateClientInterfaces:true /GenerateNullableReferenceTypes:true /GenerateOptionalPropertiesAsNullable:true /GenerateOptionalParameters:true /TemplateDirectory:ClientTemplateOverrides</Options>
     </PropertyGroup>
 
     <Exec Command="$(_NSwagCommand) openapi2csclient /input:$(SourceUri) /classname:$(ClassName) /namespace:$(Namespace) /output:$(IntermediateOutputPath)/$(ClassName).g.cs $(Options)" LogStandardErrorAsError="true" />
