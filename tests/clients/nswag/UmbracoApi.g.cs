@@ -40,7 +40,7 @@ namespace nswag
         /// <param name="api_Key">API key specified through configuration to authorize access to the API.</param>
         /// <param name="preview">Whether to request draft content.</param>
         /// <param name="start_Item">URL segment or GUID of a root content item.</param>
-        /// <returns>Success</returns>
+        /// <returns>OK</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
         [System.Obsolete]
         System.Threading.Tasks.Task<PagedIApiContentResponseModel> GetContentAsync(string? fetch = null, System.Collections.Generic.IEnumerable<string>? filter = null, System.Collections.Generic.IEnumerable<string>? sort = null, int? skip = null, int? take = null, string? expand = null, string? accept_Language = null, string? api_Key = null, bool? preview = null, string? start_Item = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
@@ -57,7 +57,7 @@ namespace nswag
         /// <param name="api_Key">API key specified through configuration to authorize access to the API.</param>
         /// <param name="preview">Whether to request draft content.</param>
         /// <param name="start_Item">URL segment or GUID of a root content item.</param>
-        /// <returns>Success</returns>
+        /// <returns>OK</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
         System.Threading.Tasks.Task<PagedIApiContentResponseModel> GetContent2_0Async(string? fetch = null, System.Collections.Generic.IEnumerable<string>? filter = null, System.Collections.Generic.IEnumerable<string>? sort = null, int? skip = null, int? take = null, string? expand = null, string? fields = null, string? accept_Language = null, string? api_Key = null, bool? preview = null, string? start_Item = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
@@ -67,7 +67,7 @@ namespace nswag
         /// <param name="api_Key">API key specified through configuration to authorize access to the API.</param>
         /// <param name="preview">Whether to request draft content.</param>
         /// <param name="start_Item">URL segment or GUID of a root content item.</param>
-        /// <returns>Success</returns>
+        /// <returns>OK</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
         [System.Obsolete]
         System.Threading.Tasks.Task<System.Collections.Generic.ICollection<IApiContentResponseModel>> GetContentItemAsync(System.Collections.Generic.IEnumerable<System.Guid>? id = null, string? expand = null, string? accept_Language = null, string? api_Key = null, bool? preview = null, string? start_Item = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
@@ -78,7 +78,7 @@ namespace nswag
         /// <param name="api_Key">API key specified through configuration to authorize access to the API.</param>
         /// <param name="preview">Whether to request draft content.</param>
         /// <param name="start_Item">URL segment or GUID of a root content item.</param>
-        /// <returns>Success</returns>
+        /// <returns>OK</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
         [System.Obsolete]
         System.Threading.Tasks.Task<IApiContentResponseModel> GetContentItemByPathAsync(string path, string? expand = null, string? accept_Language = null, string? api_Key = null, bool? preview = null, string? start_Item = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
@@ -90,7 +90,7 @@ namespace nswag
         /// <param name="api_Key">API key specified through configuration to authorize access to the API.</param>
         /// <param name="preview">Whether to request draft content.</param>
         /// <param name="start_Item">URL segment or GUID of a root content item.</param>
-        /// <returns>Success</returns>
+        /// <returns>OK</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
         System.Threading.Tasks.Task<IApiContentResponseModel> GetContentItemByPath2_0Async(string path, string? expand = null, string? fields = null, string? accept_Language = null, string? api_Key = null, bool? preview = null, string? start_Item = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
@@ -100,7 +100,7 @@ namespace nswag
         /// <param name="api_Key">API key specified through configuration to authorize access to the API.</param>
         /// <param name="preview">Whether to request draft content.</param>
         /// <param name="start_Item">URL segment or GUID of a root content item.</param>
-        /// <returns>Success</returns>
+        /// <returns>OK</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
         [System.Obsolete]
         System.Threading.Tasks.Task<IApiContentResponseModel> GetContentItemByIdAsync(System.Guid id, string? expand = null, string? accept_Language = null, string? api_Key = null, bool? preview = null, string? start_Item = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
@@ -112,7 +112,7 @@ namespace nswag
         /// <param name="api_Key">API key specified through configuration to authorize access to the API.</param>
         /// <param name="preview">Whether to request draft content.</param>
         /// <param name="start_Item">URL segment or GUID of a root content item.</param>
-        /// <returns>Success</returns>
+        /// <returns>OK</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
         System.Threading.Tasks.Task<IApiContentResponseModel> GetContentItemById2_0Async(System.Guid id, string? expand = null, string? fields = null, string? accept_Language = null, string? api_Key = null, bool? preview = null, string? start_Item = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
@@ -123,81 +123,81 @@ namespace nswag
         /// <param name="api_Key">API key specified through configuration to authorize access to the API.</param>
         /// <param name="preview">Whether to request draft content.</param>
         /// <param name="start_Item">URL segment or GUID of a root content item.</param>
-        /// <returns>Success</returns>
+        /// <returns>OK</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
         System.Threading.Tasks.Task<System.Collections.Generic.ICollection<IApiContentResponseModel>> GetContentItems2_0Async(System.Collections.Generic.IEnumerable<System.Guid>? id = null, string? expand = null, string? fields = null, string? accept_Language = null, string? api_Key = null, bool? preview = null, string? start_Item = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-        /// <param name="fetch">Specifies the media items to fetch. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api#query-parameters) for more details on this.</param>
-        /// <param name="filter">Defines how to filter the fetched media items. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api#query-parameters) for more details on this.</param>
-        /// <param name="sort">Defines how to sort the found media items. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api#query-parameters) for more details on this.</param>
+        /// <param name="fetch">Specifies the media items to fetch. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api/media-delivery-api#query-parameters) for more details on this.</param>
+        /// <param name="filter">Defines how to filter the fetched media items. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api/media-delivery-api#query-parameters) for more details on this.</param>
+        /// <param name="sort">Defines how to sort the found media items. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api/media-delivery-api#query-parameters) for more details on this.</param>
         /// <param name="skip">Specifies the number of found media items to skip. Use this to control pagination of the response.</param>
         /// <param name="take">Specifies the number of found media items to take. Use this to control pagination of the response.</param>
-        /// <param name="expand">Defines the properties that should be expanded in the response. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api#query-parameters) for more details on this.</param>
+        /// <param name="expand">Defines the properties that should be expanded in the response. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api/media-delivery-api#query-parameters) for more details on this.</param>
         /// <param name="api_Key">API key specified through configuration to authorize access to the API.</param>
-        /// <returns>Success</returns>
+        /// <returns>OK</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
         [System.Obsolete]
         System.Threading.Tasks.Task<PagedIApiMediaWithCropsResponseModel> GetMediaAsync(string? fetch = null, System.Collections.Generic.IEnumerable<string>? filter = null, System.Collections.Generic.IEnumerable<string>? sort = null, int? skip = null, int? take = null, string? expand = null, string? api_Key = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-        /// <param name="fetch">Specifies the media items to fetch. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api#query-parameters) for more details on this.</param>
-        /// <param name="filter">Defines how to filter the fetched media items. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api#query-parameters) for more details on this.</param>
-        /// <param name="sort">Defines how to sort the found media items. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api#query-parameters) for more details on this.</param>
+        /// <param name="fetch">Specifies the media items to fetch. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api/media-delivery-api#query-parameters) for more details on this.</param>
+        /// <param name="filter">Defines how to filter the fetched media items. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api/media-delivery-api#query-parameters) for more details on this.</param>
+        /// <param name="sort">Defines how to sort the found media items. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api/media-delivery-api#query-parameters) for more details on this.</param>
         /// <param name="skip">Specifies the number of found media items to skip. Use this to control pagination of the response.</param>
         /// <param name="take">Specifies the number of found media items to take. Use this to control pagination of the response.</param>
-        /// <param name="expand">Defines the properties that should be expanded in the response. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api#query-parameters) for more details on this.</param>
-        /// <param name="fields">Explicitly defines which properties should be included in the response (by default all properties are included). Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api#query-parameters) for more details on this.</param>
+        /// <param name="expand">Defines the properties that should be expanded in the response. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api/media-delivery-api#query-parameters) for more details on this.</param>
+        /// <param name="fields">Explicitly defines which properties should be included in the response (by default all properties are included). Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api/media-delivery-api#query-parameters) for more details on this.</param>
         /// <param name="api_Key">API key specified through configuration to authorize access to the API.</param>
-        /// <returns>Success</returns>
+        /// <returns>OK</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
         System.Threading.Tasks.Task<PagedIApiMediaWithCropsResponseModel> GetMedia2_0Async(string? fetch = null, System.Collections.Generic.IEnumerable<string>? filter = null, System.Collections.Generic.IEnumerable<string>? sort = null, int? skip = null, int? take = null, string? expand = null, string? fields = null, string? api_Key = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-        /// <param name="expand">Defines the properties that should be expanded in the response. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api#query-parameters) for more details on this.</param>
+        /// <param name="expand">Defines the properties that should be expanded in the response. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api/media-delivery-api#query-parameters) for more details on this.</param>
         /// <param name="api_Key">API key specified through configuration to authorize access to the API.</param>
-        /// <returns>Success</returns>
+        /// <returns>OK</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
         [System.Obsolete]
         System.Threading.Tasks.Task<System.Collections.Generic.ICollection<IApiMediaWithCropsResponseModel>> GetMediaItemAsync(System.Collections.Generic.IEnumerable<System.Guid>? id = null, string? expand = null, string? api_Key = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-        /// <param name="expand">Defines the properties that should be expanded in the response. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api#query-parameters) for more details on this.</param>
+        /// <param name="expand">Defines the properties that should be expanded in the response. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api/media-delivery-api#query-parameters) for more details on this.</param>
         /// <param name="api_Key">API key specified through configuration to authorize access to the API.</param>
-        /// <returns>Success</returns>
+        /// <returns>OK</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
         [System.Obsolete]
         System.Threading.Tasks.Task<IApiMediaWithCropsResponseModel> GetMediaItemByPathAsync(string path, string? expand = null, string? api_Key = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-        /// <param name="expand">Defines the properties that should be expanded in the response. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api#query-parameters) for more details on this.</param>
-        /// <param name="fields">Explicitly defines which properties should be included in the response (by default all properties are included). Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api#query-parameters) for more details on this.</param>
+        /// <param name="expand">Defines the properties that should be expanded in the response. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api/media-delivery-api#query-parameters) for more details on this.</param>
+        /// <param name="fields">Explicitly defines which properties should be included in the response (by default all properties are included). Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api/media-delivery-api#query-parameters) for more details on this.</param>
         /// <param name="api_Key">API key specified through configuration to authorize access to the API.</param>
-        /// <returns>Success</returns>
+        /// <returns>OK</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
         System.Threading.Tasks.Task<IApiMediaWithCropsResponseModel> GetMediaItemByPath2_0Async(string path, string? expand = null, string? fields = null, string? api_Key = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-        /// <param name="expand">Defines the properties that should be expanded in the response. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api#query-parameters) for more details on this.</param>
+        /// <param name="expand">Defines the properties that should be expanded in the response. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api/media-delivery-api#query-parameters) for more details on this.</param>
         /// <param name="api_Key">API key specified through configuration to authorize access to the API.</param>
-        /// <returns>Success</returns>
+        /// <returns>OK</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
         [System.Obsolete]
         System.Threading.Tasks.Task<IApiMediaWithCropsResponseModel> GetMediaItemByIdAsync(System.Guid id, string? expand = null, string? api_Key = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-        /// <param name="expand">Defines the properties that should be expanded in the response. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api#query-parameters) for more details on this.</param>
-        /// <param name="fields">Explicitly defines which properties should be included in the response (by default all properties are included). Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api#query-parameters) for more details on this.</param>
+        /// <param name="expand">Defines the properties that should be expanded in the response. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api/media-delivery-api#query-parameters) for more details on this.</param>
+        /// <param name="fields">Explicitly defines which properties should be included in the response (by default all properties are included). Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api/media-delivery-api#query-parameters) for more details on this.</param>
         /// <param name="api_Key">API key specified through configuration to authorize access to the API.</param>
-        /// <returns>Success</returns>
+        /// <returns>OK</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
         System.Threading.Tasks.Task<IApiMediaWithCropsResponseModel> GetMediaItemById2_0Async(System.Guid id, string? expand = null, string? fields = null, string? api_Key = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-        /// <param name="expand">Defines the properties that should be expanded in the response. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api#query-parameters) for more details on this.</param>
-        /// <param name="fields">Explicitly defines which properties should be included in the response (by default all properties are included). Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api#query-parameters) for more details on this.</param>
+        /// <param name="expand">Defines the properties that should be expanded in the response. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api/media-delivery-api#query-parameters) for more details on this.</param>
+        /// <param name="fields">Explicitly defines which properties should be included in the response (by default all properties are included). Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api/media-delivery-api#query-parameters) for more details on this.</param>
         /// <param name="api_Key">API key specified through configuration to authorize access to the API.</param>
-        /// <returns>Success</returns>
+        /// <returns>OK</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
         System.Threading.Tasks.Task<System.Collections.Generic.ICollection<IApiMediaWithCropsResponseModel>> GetMediaItems2_0Async(System.Collections.Generic.IEnumerable<System.Guid>? id = null, string? expand = null, string? fields = null, string? api_Key = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
@@ -258,7 +258,7 @@ namespace nswag
         /// <param name="api_Key">API key specified through configuration to authorize access to the API.</param>
         /// <param name="preview">Whether to request draft content.</param>
         /// <param name="start_Item">URL segment or GUID of a root content item.</param>
-        /// <returns>Success</returns>
+        /// <returns>OK</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
         [System.Obsolete]
         public virtual async System.Threading.Tasks.Task<PagedIApiContentResponseModel> GetContentAsync(string? fetch = null, System.Collections.Generic.IEnumerable<string>? filter = null, System.Collections.Generic.IEnumerable<string>? sort = null, int? skip = null, int? take = null, string? expand = null, string? accept_Language = null, string? api_Key = null, bool? preview = null, string? start_Item = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
@@ -360,12 +360,8 @@ namespace nswag
                         else
                         if (status_ == 404)
                         {
-                            var objectResponse_ = await ReadObjectResponseAsync<ProblemDetails>(response_, headers_, cancellationToken).ConfigureAwait(false);
-                            if (objectResponse_.Object == null)
-                            {
-                                throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
-                            }
-                            throw new ApiException<ProblemDetails>("Not Found", status_, objectResponse_.Text, headers_, objectResponse_.Object, null);
+                            string responseText_ = ( response_.Content == null ) ? string.Empty : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
+                            throw new ApiException("Not Found", status_, responseText_, headers_, null);
                         }
                         else
                         {
@@ -399,7 +395,7 @@ namespace nswag
         /// <param name="api_Key">API key specified through configuration to authorize access to the API.</param>
         /// <param name="preview">Whether to request draft content.</param>
         /// <param name="start_Item">URL segment or GUID of a root content item.</param>
-        /// <returns>Success</returns>
+        /// <returns>OK</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
         public virtual async System.Threading.Tasks.Task<PagedIApiContentResponseModel> GetContent2_0Async(string? fetch = null, System.Collections.Generic.IEnumerable<string>? filter = null, System.Collections.Generic.IEnumerable<string>? sort = null, int? skip = null, int? take = null, string? expand = null, string? fields = null, string? accept_Language = null, string? api_Key = null, bool? preview = null, string? start_Item = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
@@ -504,12 +500,8 @@ namespace nswag
                         else
                         if (status_ == 404)
                         {
-                            var objectResponse_ = await ReadObjectResponseAsync<ProblemDetails>(response_, headers_, cancellationToken).ConfigureAwait(false);
-                            if (objectResponse_.Object == null)
-                            {
-                                throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
-                            }
-                            throw new ApiException<ProblemDetails>("Not Found", status_, objectResponse_.Text, headers_, objectResponse_.Object, null);
+                            string responseText_ = ( response_.Content == null ) ? string.Empty : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
+                            throw new ApiException("Not Found", status_, responseText_, headers_, null);
                         }
                         else
                         {
@@ -537,7 +529,7 @@ namespace nswag
         /// <param name="api_Key">API key specified through configuration to authorize access to the API.</param>
         /// <param name="preview">Whether to request draft content.</param>
         /// <param name="start_Item">URL segment or GUID of a root content item.</param>
-        /// <returns>Success</returns>
+        /// <returns>OK</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
         [System.Obsolete]
         public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<IApiContentResponseModel>> GetContentItemAsync(System.Collections.Generic.IEnumerable<System.Guid>? id = null, string? expand = null, string? accept_Language = null, string? api_Key = null, bool? preview = null, string? start_Item = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
@@ -613,22 +605,14 @@ namespace nswag
                         else
                         if (status_ == 401)
                         {
-                            var objectResponse_ = await ReadObjectResponseAsync<ProblemDetails>(response_, headers_, cancellationToken).ConfigureAwait(false);
-                            if (objectResponse_.Object == null)
-                            {
-                                throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
-                            }
-                            throw new ApiException<ProblemDetails>("Unauthorized", status_, objectResponse_.Text, headers_, objectResponse_.Object, null);
+                            string responseText_ = ( response_.Content == null ) ? string.Empty : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
+                            throw new ApiException("Unauthorized", status_, responseText_, headers_, null);
                         }
                         else
                         if (status_ == 403)
                         {
-                            var objectResponse_ = await ReadObjectResponseAsync<ProblemDetails>(response_, headers_, cancellationToken).ConfigureAwait(false);
-                            if (objectResponse_.Object == null)
-                            {
-                                throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
-                            }
-                            throw new ApiException<ProblemDetails>("Forbidden", status_, objectResponse_.Text, headers_, objectResponse_.Object, null);
+                            string responseText_ = ( response_.Content == null ) ? string.Empty : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
+                            throw new ApiException("Forbidden", status_, responseText_, headers_, null);
                         }
                         else
                         {
@@ -656,7 +640,7 @@ namespace nswag
         /// <param name="api_Key">API key specified through configuration to authorize access to the API.</param>
         /// <param name="preview">Whether to request draft content.</param>
         /// <param name="start_Item">URL segment or GUID of a root content item.</param>
-        /// <returns>Success</returns>
+        /// <returns>OK</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
         [System.Obsolete]
         public virtual async System.Threading.Tasks.Task<IApiContentResponseModel> GetContentItemByPathAsync(string path, string? expand = null, string? accept_Language = null, string? api_Key = null, bool? preview = null, string? start_Item = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
@@ -732,32 +716,20 @@ namespace nswag
                         else
                         if (status_ == 401)
                         {
-                            var objectResponse_ = await ReadObjectResponseAsync<ProblemDetails>(response_, headers_, cancellationToken).ConfigureAwait(false);
-                            if (objectResponse_.Object == null)
-                            {
-                                throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
-                            }
-                            throw new ApiException<ProblemDetails>("Unauthorized", status_, objectResponse_.Text, headers_, objectResponse_.Object, null);
+                            string responseText_ = ( response_.Content == null ) ? string.Empty : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
+                            throw new ApiException("Unauthorized", status_, responseText_, headers_, null);
                         }
                         else
                         if (status_ == 403)
                         {
-                            var objectResponse_ = await ReadObjectResponseAsync<ProblemDetails>(response_, headers_, cancellationToken).ConfigureAwait(false);
-                            if (objectResponse_.Object == null)
-                            {
-                                throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
-                            }
-                            throw new ApiException<ProblemDetails>("Forbidden", status_, objectResponse_.Text, headers_, objectResponse_.Object, null);
+                            string responseText_ = ( response_.Content == null ) ? string.Empty : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
+                            throw new ApiException("Forbidden", status_, responseText_, headers_, null);
                         }
                         else
                         if (status_ == 404)
                         {
-                            var objectResponse_ = await ReadObjectResponseAsync<ProblemDetails>(response_, headers_, cancellationToken).ConfigureAwait(false);
-                            if (objectResponse_.Object == null)
-                            {
-                                throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
-                            }
-                            throw new ApiException<ProblemDetails>("Not Found", status_, objectResponse_.Text, headers_, objectResponse_.Object, null);
+                            string responseText_ = ( response_.Content == null ) ? string.Empty : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
+                            throw new ApiException("Not Found", status_, responseText_, headers_, null);
                         }
                         else
                         {
@@ -786,7 +758,7 @@ namespace nswag
         /// <param name="api_Key">API key specified through configuration to authorize access to the API.</param>
         /// <param name="preview">Whether to request draft content.</param>
         /// <param name="start_Item">URL segment or GUID of a root content item.</param>
-        /// <returns>Success</returns>
+        /// <returns>OK</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
         public virtual async System.Threading.Tasks.Task<IApiContentResponseModel> GetContentItemByPath2_0Async(string path, string? expand = null, string? fields = null, string? accept_Language = null, string? api_Key = null, bool? preview = null, string? start_Item = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
@@ -865,32 +837,20 @@ namespace nswag
                         else
                         if (status_ == 401)
                         {
-                            var objectResponse_ = await ReadObjectResponseAsync<ProblemDetails>(response_, headers_, cancellationToken).ConfigureAwait(false);
-                            if (objectResponse_.Object == null)
-                            {
-                                throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
-                            }
-                            throw new ApiException<ProblemDetails>("Unauthorized", status_, objectResponse_.Text, headers_, objectResponse_.Object, null);
+                            string responseText_ = ( response_.Content == null ) ? string.Empty : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
+                            throw new ApiException("Unauthorized", status_, responseText_, headers_, null);
                         }
                         else
                         if (status_ == 403)
                         {
-                            var objectResponse_ = await ReadObjectResponseAsync<ProblemDetails>(response_, headers_, cancellationToken).ConfigureAwait(false);
-                            if (objectResponse_.Object == null)
-                            {
-                                throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
-                            }
-                            throw new ApiException<ProblemDetails>("Forbidden", status_, objectResponse_.Text, headers_, objectResponse_.Object, null);
+                            string responseText_ = ( response_.Content == null ) ? string.Empty : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
+                            throw new ApiException("Forbidden", status_, responseText_, headers_, null);
                         }
                         else
                         if (status_ == 404)
                         {
-                            var objectResponse_ = await ReadObjectResponseAsync<ProblemDetails>(response_, headers_, cancellationToken).ConfigureAwait(false);
-                            if (objectResponse_.Object == null)
-                            {
-                                throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
-                            }
-                            throw new ApiException<ProblemDetails>("Not Found", status_, objectResponse_.Text, headers_, objectResponse_.Object, null);
+                            string responseText_ = ( response_.Content == null ) ? string.Empty : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
+                            throw new ApiException("Not Found", status_, responseText_, headers_, null);
                         }
                         else
                         {
@@ -918,7 +878,7 @@ namespace nswag
         /// <param name="api_Key">API key specified through configuration to authorize access to the API.</param>
         /// <param name="preview">Whether to request draft content.</param>
         /// <param name="start_Item">URL segment or GUID of a root content item.</param>
-        /// <returns>Success</returns>
+        /// <returns>OK</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
         [System.Obsolete]
         public virtual async System.Threading.Tasks.Task<IApiContentResponseModel> GetContentItemByIdAsync(System.Guid id, string? expand = null, string? accept_Language = null, string? api_Key = null, bool? preview = null, string? start_Item = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
@@ -994,32 +954,20 @@ namespace nswag
                         else
                         if (status_ == 401)
                         {
-                            var objectResponse_ = await ReadObjectResponseAsync<ProblemDetails>(response_, headers_, cancellationToken).ConfigureAwait(false);
-                            if (objectResponse_.Object == null)
-                            {
-                                throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
-                            }
-                            throw new ApiException<ProblemDetails>("Unauthorized", status_, objectResponse_.Text, headers_, objectResponse_.Object, null);
+                            string responseText_ = ( response_.Content == null ) ? string.Empty : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
+                            throw new ApiException("Unauthorized", status_, responseText_, headers_, null);
                         }
                         else
                         if (status_ == 403)
                         {
-                            var objectResponse_ = await ReadObjectResponseAsync<ProblemDetails>(response_, headers_, cancellationToken).ConfigureAwait(false);
-                            if (objectResponse_.Object == null)
-                            {
-                                throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
-                            }
-                            throw new ApiException<ProblemDetails>("Forbidden", status_, objectResponse_.Text, headers_, objectResponse_.Object, null);
+                            string responseText_ = ( response_.Content == null ) ? string.Empty : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
+                            throw new ApiException("Forbidden", status_, responseText_, headers_, null);
                         }
                         else
                         if (status_ == 404)
                         {
-                            var objectResponse_ = await ReadObjectResponseAsync<ProblemDetails>(response_, headers_, cancellationToken).ConfigureAwait(false);
-                            if (objectResponse_.Object == null)
-                            {
-                                throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
-                            }
-                            throw new ApiException<ProblemDetails>("Not Found", status_, objectResponse_.Text, headers_, objectResponse_.Object, null);
+                            string responseText_ = ( response_.Content == null ) ? string.Empty : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
+                            throw new ApiException("Not Found", status_, responseText_, headers_, null);
                         }
                         else
                         {
@@ -1048,7 +996,7 @@ namespace nswag
         /// <param name="api_Key">API key specified through configuration to authorize access to the API.</param>
         /// <param name="preview">Whether to request draft content.</param>
         /// <param name="start_Item">URL segment or GUID of a root content item.</param>
-        /// <returns>Success</returns>
+        /// <returns>OK</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
         public virtual async System.Threading.Tasks.Task<IApiContentResponseModel> GetContentItemById2_0Async(System.Guid id, string? expand = null, string? fields = null, string? accept_Language = null, string? api_Key = null, bool? preview = null, string? start_Item = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
@@ -1127,32 +1075,20 @@ namespace nswag
                         else
                         if (status_ == 401)
                         {
-                            var objectResponse_ = await ReadObjectResponseAsync<ProblemDetails>(response_, headers_, cancellationToken).ConfigureAwait(false);
-                            if (objectResponse_.Object == null)
-                            {
-                                throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
-                            }
-                            throw new ApiException<ProblemDetails>("Unauthorized", status_, objectResponse_.Text, headers_, objectResponse_.Object, null);
+                            string responseText_ = ( response_.Content == null ) ? string.Empty : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
+                            throw new ApiException("Unauthorized", status_, responseText_, headers_, null);
                         }
                         else
                         if (status_ == 403)
                         {
-                            var objectResponse_ = await ReadObjectResponseAsync<ProblemDetails>(response_, headers_, cancellationToken).ConfigureAwait(false);
-                            if (objectResponse_.Object == null)
-                            {
-                                throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
-                            }
-                            throw new ApiException<ProblemDetails>("Forbidden", status_, objectResponse_.Text, headers_, objectResponse_.Object, null);
+                            string responseText_ = ( response_.Content == null ) ? string.Empty : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
+                            throw new ApiException("Forbidden", status_, responseText_, headers_, null);
                         }
                         else
                         if (status_ == 404)
                         {
-                            var objectResponse_ = await ReadObjectResponseAsync<ProblemDetails>(response_, headers_, cancellationToken).ConfigureAwait(false);
-                            if (objectResponse_.Object == null)
-                            {
-                                throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
-                            }
-                            throw new ApiException<ProblemDetails>("Not Found", status_, objectResponse_.Text, headers_, objectResponse_.Object, null);
+                            string responseText_ = ( response_.Content == null ) ? string.Empty : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
+                            throw new ApiException("Not Found", status_, responseText_, headers_, null);
                         }
                         else
                         {
@@ -1181,7 +1117,7 @@ namespace nswag
         /// <param name="api_Key">API key specified through configuration to authorize access to the API.</param>
         /// <param name="preview">Whether to request draft content.</param>
         /// <param name="start_Item">URL segment or GUID of a root content item.</param>
-        /// <returns>Success</returns>
+        /// <returns>OK</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
         public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<IApiContentResponseModel>> GetContentItems2_0Async(System.Collections.Generic.IEnumerable<System.Guid>? id = null, string? expand = null, string? fields = null, string? accept_Language = null, string? api_Key = null, bool? preview = null, string? start_Item = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
@@ -1260,22 +1196,14 @@ namespace nswag
                         else
                         if (status_ == 401)
                         {
-                            var objectResponse_ = await ReadObjectResponseAsync<ProblemDetails>(response_, headers_, cancellationToken).ConfigureAwait(false);
-                            if (objectResponse_.Object == null)
-                            {
-                                throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
-                            }
-                            throw new ApiException<ProblemDetails>("Unauthorized", status_, objectResponse_.Text, headers_, objectResponse_.Object, null);
+                            string responseText_ = ( response_.Content == null ) ? string.Empty : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
+                            throw new ApiException("Unauthorized", status_, responseText_, headers_, null);
                         }
                         else
                         if (status_ == 403)
                         {
-                            var objectResponse_ = await ReadObjectResponseAsync<ProblemDetails>(response_, headers_, cancellationToken).ConfigureAwait(false);
-                            if (objectResponse_.Object == null)
-                            {
-                                throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
-                            }
-                            throw new ApiException<ProblemDetails>("Forbidden", status_, objectResponse_.Text, headers_, objectResponse_.Object, null);
+                            string responseText_ = ( response_.Content == null ) ? string.Empty : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
+                            throw new ApiException("Forbidden", status_, responseText_, headers_, null);
                         }
                         else
                         {
@@ -1298,14 +1226,14 @@ namespace nswag
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-        /// <param name="fetch">Specifies the media items to fetch. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api#query-parameters) for more details on this.</param>
-        /// <param name="filter">Defines how to filter the fetched media items. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api#query-parameters) for more details on this.</param>
-        /// <param name="sort">Defines how to sort the found media items. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api#query-parameters) for more details on this.</param>
+        /// <param name="fetch">Specifies the media items to fetch. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api/media-delivery-api#query-parameters) for more details on this.</param>
+        /// <param name="filter">Defines how to filter the fetched media items. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api/media-delivery-api#query-parameters) for more details on this.</param>
+        /// <param name="sort">Defines how to sort the found media items. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api/media-delivery-api#query-parameters) for more details on this.</param>
         /// <param name="skip">Specifies the number of found media items to skip. Use this to control pagination of the response.</param>
         /// <param name="take">Specifies the number of found media items to take. Use this to control pagination of the response.</param>
-        /// <param name="expand">Defines the properties that should be expanded in the response. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api#query-parameters) for more details on this.</param>
+        /// <param name="expand">Defines the properties that should be expanded in the response. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api/media-delivery-api#query-parameters) for more details on this.</param>
         /// <param name="api_Key">API key specified through configuration to authorize access to the API.</param>
-        /// <returns>Success</returns>
+        /// <returns>OK</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
         [System.Obsolete]
         public virtual async System.Threading.Tasks.Task<PagedIApiMediaWithCropsResponseModel> GetMediaAsync(string? fetch = null, System.Collections.Generic.IEnumerable<string>? filter = null, System.Collections.Generic.IEnumerable<string>? sort = null, int? skip = null, int? take = null, string? expand = null, string? api_Key = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
@@ -1416,15 +1344,15 @@ namespace nswag
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-        /// <param name="fetch">Specifies the media items to fetch. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api#query-parameters) for more details on this.</param>
-        /// <param name="filter">Defines how to filter the fetched media items. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api#query-parameters) for more details on this.</param>
-        /// <param name="sort">Defines how to sort the found media items. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api#query-parameters) for more details on this.</param>
+        /// <param name="fetch">Specifies the media items to fetch. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api/media-delivery-api#query-parameters) for more details on this.</param>
+        /// <param name="filter">Defines how to filter the fetched media items. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api/media-delivery-api#query-parameters) for more details on this.</param>
+        /// <param name="sort">Defines how to sort the found media items. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api/media-delivery-api#query-parameters) for more details on this.</param>
         /// <param name="skip">Specifies the number of found media items to skip. Use this to control pagination of the response.</param>
         /// <param name="take">Specifies the number of found media items to take. Use this to control pagination of the response.</param>
-        /// <param name="expand">Defines the properties that should be expanded in the response. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api#query-parameters) for more details on this.</param>
-        /// <param name="fields">Explicitly defines which properties should be included in the response (by default all properties are included). Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api#query-parameters) for more details on this.</param>
+        /// <param name="expand">Defines the properties that should be expanded in the response. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api/media-delivery-api#query-parameters) for more details on this.</param>
+        /// <param name="fields">Explicitly defines which properties should be included in the response (by default all properties are included). Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api/media-delivery-api#query-parameters) for more details on this.</param>
         /// <param name="api_Key">API key specified through configuration to authorize access to the API.</param>
-        /// <returns>Success</returns>
+        /// <returns>OK</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
         public virtual async System.Threading.Tasks.Task<PagedIApiMediaWithCropsResponseModel> GetMedia2_0Async(string? fetch = null, System.Collections.Generic.IEnumerable<string>? filter = null, System.Collections.Generic.IEnumerable<string>? sort = null, int? skip = null, int? take = null, string? expand = null, string? fields = null, string? api_Key = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
@@ -1538,9 +1466,9 @@ namespace nswag
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-        /// <param name="expand">Defines the properties that should be expanded in the response. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api#query-parameters) for more details on this.</param>
+        /// <param name="expand">Defines the properties that should be expanded in the response. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api/media-delivery-api#query-parameters) for more details on this.</param>
         /// <param name="api_Key">API key specified through configuration to authorize access to the API.</param>
-        /// <returns>Success</returns>
+        /// <returns>OK</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
         [System.Obsolete]
         public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<IApiMediaWithCropsResponseModel>> GetMediaItemAsync(System.Collections.Generic.IEnumerable<System.Guid>? id = null, string? expand = null, string? api_Key = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
@@ -1625,9 +1553,9 @@ namespace nswag
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-        /// <param name="expand">Defines the properties that should be expanded in the response. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api#query-parameters) for more details on this.</param>
+        /// <param name="expand">Defines the properties that should be expanded in the response. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api/media-delivery-api#query-parameters) for more details on this.</param>
         /// <param name="api_Key">API key specified through configuration to authorize access to the API.</param>
-        /// <returns>Success</returns>
+        /// <returns>OK</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
         [System.Obsolete]
         public virtual async System.Threading.Tasks.Task<IApiMediaWithCropsResponseModel> GetMediaItemByPathAsync(string path, string? expand = null, string? api_Key = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
@@ -1694,12 +1622,8 @@ namespace nswag
                         else
                         if (status_ == 404)
                         {
-                            var objectResponse_ = await ReadObjectResponseAsync<ProblemDetails>(response_, headers_, cancellationToken).ConfigureAwait(false);
-                            if (objectResponse_.Object == null)
-                            {
-                                throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
-                            }
-                            throw new ApiException<ProblemDetails>("Not Found", status_, objectResponse_.Text, headers_, objectResponse_.Object, null);
+                            string responseText_ = ( response_.Content == null ) ? string.Empty : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
+                            throw new ApiException("Not Found", status_, responseText_, headers_, null);
                         }
                         else
                         {
@@ -1722,10 +1646,10 @@ namespace nswag
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-        /// <param name="expand">Defines the properties that should be expanded in the response. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api#query-parameters) for more details on this.</param>
-        /// <param name="fields">Explicitly defines which properties should be included in the response (by default all properties are included). Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api#query-parameters) for more details on this.</param>
+        /// <param name="expand">Defines the properties that should be expanded in the response. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api/media-delivery-api#query-parameters) for more details on this.</param>
+        /// <param name="fields">Explicitly defines which properties should be included in the response (by default all properties are included). Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api/media-delivery-api#query-parameters) for more details on this.</param>
         /// <param name="api_Key">API key specified through configuration to authorize access to the API.</param>
-        /// <returns>Success</returns>
+        /// <returns>OK</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
         public virtual async System.Threading.Tasks.Task<IApiMediaWithCropsResponseModel> GetMediaItemByPath2_0Async(string path, string? expand = null, string? fields = null, string? api_Key = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
@@ -1795,12 +1719,8 @@ namespace nswag
                         else
                         if (status_ == 404)
                         {
-                            var objectResponse_ = await ReadObjectResponseAsync<ProblemDetails>(response_, headers_, cancellationToken).ConfigureAwait(false);
-                            if (objectResponse_.Object == null)
-                            {
-                                throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
-                            }
-                            throw new ApiException<ProblemDetails>("Not Found", status_, objectResponse_.Text, headers_, objectResponse_.Object, null);
+                            string responseText_ = ( response_.Content == null ) ? string.Empty : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
+                            throw new ApiException("Not Found", status_, responseText_, headers_, null);
                         }
                         else
                         {
@@ -1823,9 +1743,9 @@ namespace nswag
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-        /// <param name="expand">Defines the properties that should be expanded in the response. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api#query-parameters) for more details on this.</param>
+        /// <param name="expand">Defines the properties that should be expanded in the response. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api/media-delivery-api#query-parameters) for more details on this.</param>
         /// <param name="api_Key">API key specified through configuration to authorize access to the API.</param>
-        /// <returns>Success</returns>
+        /// <returns>OK</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
         [System.Obsolete]
         public virtual async System.Threading.Tasks.Task<IApiMediaWithCropsResponseModel> GetMediaItemByIdAsync(System.Guid id, string? expand = null, string? api_Key = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
@@ -1892,12 +1812,8 @@ namespace nswag
                         else
                         if (status_ == 404)
                         {
-                            var objectResponse_ = await ReadObjectResponseAsync<ProblemDetails>(response_, headers_, cancellationToken).ConfigureAwait(false);
-                            if (objectResponse_.Object == null)
-                            {
-                                throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
-                            }
-                            throw new ApiException<ProblemDetails>("Not Found", status_, objectResponse_.Text, headers_, objectResponse_.Object, null);
+                            string responseText_ = ( response_.Content == null ) ? string.Empty : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
+                            throw new ApiException("Not Found", status_, responseText_, headers_, null);
                         }
                         else
                         {
@@ -1920,10 +1836,10 @@ namespace nswag
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-        /// <param name="expand">Defines the properties that should be expanded in the response. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api#query-parameters) for more details on this.</param>
-        /// <param name="fields">Explicitly defines which properties should be included in the response (by default all properties are included). Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api#query-parameters) for more details on this.</param>
+        /// <param name="expand">Defines the properties that should be expanded in the response. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api/media-delivery-api#query-parameters) for more details on this.</param>
+        /// <param name="fields">Explicitly defines which properties should be included in the response (by default all properties are included). Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api/media-delivery-api#query-parameters) for more details on this.</param>
         /// <param name="api_Key">API key specified through configuration to authorize access to the API.</param>
-        /// <returns>Success</returns>
+        /// <returns>OK</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
         public virtual async System.Threading.Tasks.Task<IApiMediaWithCropsResponseModel> GetMediaItemById2_0Async(System.Guid id, string? expand = null, string? fields = null, string? api_Key = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
@@ -1993,12 +1909,8 @@ namespace nswag
                         else
                         if (status_ == 404)
                         {
-                            var objectResponse_ = await ReadObjectResponseAsync<ProblemDetails>(response_, headers_, cancellationToken).ConfigureAwait(false);
-                            if (objectResponse_.Object == null)
-                            {
-                                throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
-                            }
-                            throw new ApiException<ProblemDetails>("Not Found", status_, objectResponse_.Text, headers_, objectResponse_.Object, null);
+                            string responseText_ = ( response_.Content == null ) ? string.Empty : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
+                            throw new ApiException("Not Found", status_, responseText_, headers_, null);
                         }
                         else
                         {
@@ -2021,10 +1933,10 @@ namespace nswag
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-        /// <param name="expand">Defines the properties that should be expanded in the response. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api#query-parameters) for more details on this.</param>
-        /// <param name="fields">Explicitly defines which properties should be included in the response (by default all properties are included). Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api#query-parameters) for more details on this.</param>
+        /// <param name="expand">Defines the properties that should be expanded in the response. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api/media-delivery-api#query-parameters) for more details on this.</param>
+        /// <param name="fields">Explicitly defines which properties should be included in the response (by default all properties are included). Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api/media-delivery-api#query-parameters) for more details on this.</param>
         /// <param name="api_Key">API key specified through configuration to authorize access to the API.</param>
-        /// <returns>Success</returns>
+        /// <returns>OK</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
         public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<IApiMediaWithCropsResponseModel>> GetMediaItems2_0Async(System.Collections.Generic.IEnumerable<System.Guid>? id = null, string? expand = null, string? fields = null, string? api_Key = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
@@ -2225,16 +2137,18 @@ namespace nswag
     {
 
         [System.Text.Json.Serialization.JsonPropertyName("alias")]
-        public string? Alias { get; set; } = default!;
+        [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
+        public string Alias { get; set; } = default!;
 
         [System.Text.Json.Serialization.JsonPropertyName("rowSpan")]
-        public int? RowSpan { get; set; } = default!;
+        public int RowSpan { get; set; } = default!;
 
         [System.Text.Json.Serialization.JsonPropertyName("columnSpan")]
-        public int? ColumnSpan { get; set; } = default!;
+        public int ColumnSpan { get; set; } = default!;
 
         [System.Text.Json.Serialization.JsonPropertyName("items")]
-        public System.Collections.Generic.ICollection<ApiBlockGridItemModel>? Items { get; set; } = default!;
+        [System.ComponentModel.DataAnnotations.Required]
+        public System.Collections.Generic.ICollection<ApiBlockGridItemModel> Items { get; set; } = new System.Collections.ObjectModel.Collection<ApiBlockGridItemModel>();
 
     }
 
@@ -2261,10 +2175,11 @@ namespace nswag
     {
 
         [System.Text.Json.Serialization.JsonPropertyName("gridColumns")]
-        public int? GridColumns { get; set; } = default!;
+        public int GridColumns { get; set; } = default!;
 
         [System.Text.Json.Serialization.JsonPropertyName("items")]
-        public System.Collections.Generic.ICollection<ApiBlockGridItemModel>? Items { get; set; } = default!;
+        [System.ComponentModel.DataAnnotations.Required]
+        public System.Collections.Generic.ICollection<ApiBlockGridItemModel> Items { get; set; } = new System.Collections.ObjectModel.Collection<ApiBlockGridItemModel>();
 
     }
 
@@ -2273,7 +2188,8 @@ namespace nswag
     {
 
         [System.Text.Json.Serialization.JsonPropertyName("content")]
-        public IApiElementModel? Content { get; set; } = default!;
+        [System.ComponentModel.DataAnnotations.Required]
+        public IApiElementModel Content { get; set; } = new IApiElementModel();
 
         [System.Text.Json.Serialization.JsonPropertyName("settings")]
         public IApiElementModel? Settings { get; set; } = default!;
@@ -2285,7 +2201,81 @@ namespace nswag
     {
 
         [System.Text.Json.Serialization.JsonPropertyName("items")]
-        public System.Collections.Generic.ICollection<ApiBlockItemModel>? Items { get; set; } = default!;
+        [System.ComponentModel.DataAnnotations.Required]
+        public System.Collections.Generic.ICollection<ApiBlockItemModel> Items { get; set; } = new System.Collections.ObjectModel.Collection<ApiBlockItemModel>();
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.0.7.0 (NJsonSchema v11.0.0.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial class ApiContentModel : ApiElementModel
+    {
+
+        [System.Text.Json.Serialization.JsonPropertyName("name")]
+        public string? Name { get; set; } = default!;
+
+        [System.Text.Json.Serialization.JsonPropertyName("createDate")]
+        public System.DateTimeOffset? CreateDate { get; set; } = default!;
+
+        [System.Text.Json.Serialization.JsonPropertyName("updateDate")]
+        public System.DateTimeOffset? UpdateDate { get; set; } = default!;
+
+        [System.Text.Json.Serialization.JsonPropertyName("route")]
+        public IApiContentRouteModel? Route { get; set; } = default!;
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.0.7.0 (NJsonSchema v11.0.0.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial class ApiContentResponseModel : ApiContentModel
+    {
+
+        [System.Text.Json.Serialization.JsonPropertyName("cultures")]
+        public System.Collections.Generic.IDictionary<string, IApiContentRouteModel>? Cultures { get; set; } = default!;
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.0.7.0 (NJsonSchema v11.0.0.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial class ApiContentRouteModel
+    {
+
+        [System.Text.Json.Serialization.JsonPropertyName("path")]
+        [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
+        public string Path { get; set; } = default!;
+
+        [System.Text.Json.Serialization.JsonPropertyName("startItem")]
+        [System.ComponentModel.DataAnnotations.Required]
+        public IApiContentStartItemModel StartItem { get; set; } = new IApiContentStartItemModel();
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.0.7.0 (NJsonSchema v11.0.0.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial class ApiContentStartItemModel
+    {
+
+        [System.Text.Json.Serialization.JsonPropertyName("id")]
+        [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
+        public System.Guid Id { get; set; } = default!;
+
+        [System.Text.Json.Serialization.JsonPropertyName("path")]
+        [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
+        public string Path { get; set; } = default!;
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.0.7.0 (NJsonSchema v11.0.0.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial class ApiElementModel
+    {
+
+        [System.Text.Json.Serialization.JsonPropertyName("id")]
+        [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
+        public System.Guid Id { get; set; } = default!;
+
+        [System.Text.Json.Serialization.JsonPropertyName("contentType")]
+        [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
+        public string ContentType { get; set; } = default!;
+
+        [System.Text.Json.Serialization.JsonPropertyName("properties")]
+        [System.ComponentModel.DataAnnotations.Required]
+        public System.Collections.Generic.IDictionary<string, object> Properties { get; set; } = new System.Collections.Generic.Dictionary<string, object>();
 
     }
 
@@ -2294,7 +2284,8 @@ namespace nswag
     {
 
         [System.Text.Json.Serialization.JsonPropertyName("url")]
-        public string? Url { get; set; } = default!;
+        [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
+        public string Url { get; set; } = default!;
 
         [System.Text.Json.Serialization.JsonPropertyName("focalPoint")]
         public ImageFocalPointModel? FocalPoint { get; set; } = default!;
@@ -2330,8 +2321,68 @@ namespace nswag
         public IApiContentRouteModel? Route { get; set; } = default!;
 
         [System.Text.Json.Serialization.JsonPropertyName("linkType")]
+        [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
         [System.Text.Json.Serialization.JsonConverter(typeof(System.Text.Json.Serialization.JsonStringEnumConverter))]
-        public LinkTypeModel? LinkType { get; set; } = default!;
+        public LinkTypeModel LinkType { get; set; } = default!;
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.0.7.0 (NJsonSchema v11.0.0.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial class ApiMediaWithCropsModel
+    {
+
+        [System.Text.Json.Serialization.JsonPropertyName("id")]
+        [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
+        public System.Guid Id { get; set; } = default!;
+
+        [System.Text.Json.Serialization.JsonPropertyName("name")]
+        [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
+        public string Name { get; set; } = default!;
+
+        [System.Text.Json.Serialization.JsonPropertyName("mediaType")]
+        [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
+        public string MediaType { get; set; } = default!;
+
+        [System.Text.Json.Serialization.JsonPropertyName("url")]
+        [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
+        public string Url { get; set; } = default!;
+
+        [System.Text.Json.Serialization.JsonPropertyName("extension")]
+        public string? Extension { get; set; } = default!;
+
+        [System.Text.Json.Serialization.JsonPropertyName("width")]
+        public int? Width { get; set; } = default!;
+
+        [System.Text.Json.Serialization.JsonPropertyName("height")]
+        public int? Height { get; set; } = default!;
+
+        [System.Text.Json.Serialization.JsonPropertyName("bytes")]
+        public int? Bytes { get; set; } = default!;
+
+        [System.Text.Json.Serialization.JsonPropertyName("properties")]
+        [System.ComponentModel.DataAnnotations.Required]
+        public System.Collections.Generic.IDictionary<string, object> Properties { get; set; } = new System.Collections.Generic.Dictionary<string, object>();
+
+        [System.Text.Json.Serialization.JsonPropertyName("focalPoint")]
+        public ImageFocalPointModel? FocalPoint { get; set; } = default!;
+
+        [System.Text.Json.Serialization.JsonPropertyName("crops")]
+        public System.Collections.Generic.ICollection<ImageCropModel>? Crops { get; set; } = default!;
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.0.7.0 (NJsonSchema v11.0.0.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial class ApiMediaWithCropsResponseModel : ApiMediaWithCropsModel
+    {
+
+        [System.Text.Json.Serialization.JsonPropertyName("path")]
+        public string? Path { get; set; } = default!;
+
+        [System.Text.Json.Serialization.JsonPropertyName("createDate")]
+        public System.DateTimeOffset? CreateDate { get; set; } = default!;
+
+        [System.Text.Json.Serialization.JsonPropertyName("updateDate")]
+        public System.DateTimeOffset? UpdateDate { get; set; } = default!;
 
     }
 
@@ -2381,23 +2432,28 @@ namespace nswag
     public partial class IApiContentModel : IApiElementModel
     {
 
+        [System.Text.Json.Serialization.JsonPropertyName("id")]
+        [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
+        public System.Guid Id { get; set; } = default!;
+
+        [System.Text.Json.Serialization.JsonPropertyName("properties")]
+        [System.ComponentModel.DataAnnotations.Required]
+        public System.Collections.Generic.IDictionary<string, object> Properties { get; set; } = new System.Collections.Generic.Dictionary<string, object>();
+
         [System.Text.Json.Serialization.JsonPropertyName("name")]
         public string? Name { get; set; } = default!;
 
         [System.Text.Json.Serialization.JsonPropertyName("createDate")]
-        public System.DateTimeOffset? CreateDate { get; set; } = default!;
+        [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
+        public System.DateTimeOffset CreateDate { get; set; } = default!;
 
         [System.Text.Json.Serialization.JsonPropertyName("updateDate")]
-        public System.DateTimeOffset? UpdateDate { get; set; } = default!;
+        [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
+        public System.DateTimeOffset UpdateDate { get; set; } = default!;
 
         [System.Text.Json.Serialization.JsonPropertyName("route")]
-        public IApiContentRouteModel? Route { get; set; } = default!;
-
-        [System.Text.Json.Serialization.JsonPropertyName("id")]
-        public System.Guid? Id { get; set; } = default!;
-
-        [System.Text.Json.Serialization.JsonPropertyName("properties")]
-        public System.Collections.Generic.IDictionary<string, object>? Properties { get; set; } = default!;
+        [System.ComponentModel.DataAnnotations.Required]
+        public IApiContentRouteModel Route { get; set; } = new IApiContentRouteModel();
 
     }
 
@@ -2408,26 +2464,32 @@ namespace nswag
     public partial class IApiContentResponseModel : IApiContentModel
     {
 
-        [System.Text.Json.Serialization.JsonPropertyName("cultures")]
-        public System.Collections.Generic.IDictionary<string, IApiContentRouteModel>? Cultures { get; set; } = default!;
+        [System.Text.Json.Serialization.JsonPropertyName("id")]
+        [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
+        public System.Guid Id { get; set; } = default!;
+
+        [System.Text.Json.Serialization.JsonPropertyName("properties")]
+        [System.ComponentModel.DataAnnotations.Required]
+        public System.Collections.Generic.IDictionary<string, object> Properties { get; set; } = new System.Collections.Generic.Dictionary<string, object>();
 
         [System.Text.Json.Serialization.JsonPropertyName("name")]
         public string? Name { get; set; } = default!;
 
         [System.Text.Json.Serialization.JsonPropertyName("createDate")]
-        public System.DateTimeOffset? CreateDate { get; set; } = default!;
+        [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
+        public System.DateTimeOffset CreateDate { get; set; } = default!;
 
         [System.Text.Json.Serialization.JsonPropertyName("updateDate")]
-        public System.DateTimeOffset? UpdateDate { get; set; } = default!;
+        [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
+        public System.DateTimeOffset UpdateDate { get; set; } = default!;
 
         [System.Text.Json.Serialization.JsonPropertyName("route")]
-        public IApiContentRouteModel? Route { get; set; } = default!;
+        [System.ComponentModel.DataAnnotations.Required]
+        public IApiContentRouteModel Route { get; set; } = new IApiContentRouteModel();
 
-        [System.Text.Json.Serialization.JsonPropertyName("id")]
-        public System.Guid? Id { get; set; } = default!;
-
-        [System.Text.Json.Serialization.JsonPropertyName("properties")]
-        public System.Collections.Generic.IDictionary<string, object>? Properties { get; set; } = default!;
+        [System.Text.Json.Serialization.JsonPropertyName("cultures")]
+        [System.ComponentModel.DataAnnotations.Required]
+        public System.Collections.Generic.IDictionary<string, IApiContentRouteModel> Cultures { get; set; } = new System.Collections.Generic.Dictionary<string, IApiContentRouteModel>();
 
     }
 
@@ -2436,10 +2498,12 @@ namespace nswag
     {
 
         [System.Text.Json.Serialization.JsonPropertyName("path")]
-        public string? Path { get; set; } = default!;
+        [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
+        public string Path { get; set; } = default!;
 
         [System.Text.Json.Serialization.JsonPropertyName("startItem")]
-        public IApiContentStartItemModel? StartItem { get; set; } = default!;
+        [System.ComponentModel.DataAnnotations.Required]
+        public IApiContentStartItemModel StartItem { get; set; } = new IApiContentStartItemModel();
 
     }
 
@@ -2448,10 +2512,12 @@ namespace nswag
     {
 
         [System.Text.Json.Serialization.JsonPropertyName("id")]
-        public System.Guid? Id { get; set; } = default!;
+        [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
+        public System.Guid Id { get; set; } = default!;
 
         [System.Text.Json.Serialization.JsonPropertyName("path")]
-        public string? Path { get; set; } = default!;
+        [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
+        public string Path { get; set; } = default!;
 
     }
 
@@ -2472,10 +2538,12 @@ namespace nswag
     {
 
         [System.Text.Json.Serialization.JsonPropertyName("id")]
-        public System.Guid? Id { get; set; } = default!;
+        [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
+        public System.Guid Id { get; set; } = default!;
 
         [System.Text.Json.Serialization.JsonPropertyName("properties")]
-        public System.Collections.Generic.IDictionary<string, object>? Properties { get; set; } = default!;
+        [System.ComponentModel.DataAnnotations.Required]
+        public System.Collections.Generic.IDictionary<string, object> Properties { get; set; } = new System.Collections.Generic.Dictionary<string, object>();
 
     }
 
@@ -2483,23 +2551,21 @@ namespace nswag
     public partial class IApiMediaWithCropsModel
     {
 
-        [System.Text.Json.Serialization.JsonPropertyName("focalPoint")]
-        public ImageFocalPointModel? FocalPoint { get; set; } = default!;
-
-        [System.Text.Json.Serialization.JsonPropertyName("crops")]
-        public System.Collections.Generic.ICollection<ImageCropModel>? Crops { get; set; } = default!;
-
         [System.Text.Json.Serialization.JsonPropertyName("id")]
-        public System.Guid? Id { get; set; } = default!;
+        [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
+        public System.Guid Id { get; set; } = default!;
 
         [System.Text.Json.Serialization.JsonPropertyName("name")]
-        public string? Name { get; set; } = default!;
+        [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
+        public string Name { get; set; } = default!;
 
         [System.Text.Json.Serialization.JsonPropertyName("mediaType")]
-        public string? MediaType { get; set; } = default!;
+        [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
+        public string MediaType { get; set; } = default!;
 
         [System.Text.Json.Serialization.JsonPropertyName("url")]
-        public string? Url { get; set; } = default!;
+        [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
+        public string Url { get; set; } = default!;
 
         [System.Text.Json.Serialization.JsonPropertyName("extension")]
         public string? Extension { get; set; } = default!;
@@ -2514,7 +2580,14 @@ namespace nswag
         public int? Bytes { get; set; } = default!;
 
         [System.Text.Json.Serialization.JsonPropertyName("properties")]
-        public System.Collections.Generic.IDictionary<string, object>? Properties { get; set; } = default!;
+        [System.ComponentModel.DataAnnotations.Required]
+        public System.Collections.Generic.IDictionary<string, object> Properties { get; set; } = new System.Collections.Generic.Dictionary<string, object>();
+
+        [System.Text.Json.Serialization.JsonPropertyName("focalPoint")]
+        public ImageFocalPointModel? FocalPoint { get; set; } = default!;
+
+        [System.Text.Json.Serialization.JsonPropertyName("crops")]
+        public System.Collections.Generic.ICollection<ImageCropModel>? Crops { get; set; } = default!;
 
     }
 
@@ -2522,32 +2595,21 @@ namespace nswag
     public partial class IApiMediaWithCropsResponseModel
     {
 
-        [System.Text.Json.Serialization.JsonPropertyName("path")]
-        public string? Path { get; set; } = default!;
-
-        [System.Text.Json.Serialization.JsonPropertyName("createDate")]
-        public System.DateTimeOffset? CreateDate { get; set; } = default!;
-
-        [System.Text.Json.Serialization.JsonPropertyName("updateDate")]
-        public System.DateTimeOffset? UpdateDate { get; set; } = default!;
-
-        [System.Text.Json.Serialization.JsonPropertyName("focalPoint")]
-        public ImageFocalPointModel? FocalPoint { get; set; } = default!;
-
-        [System.Text.Json.Serialization.JsonPropertyName("crops")]
-        public System.Collections.Generic.ICollection<ImageCropModel>? Crops { get; set; } = default!;
-
         [System.Text.Json.Serialization.JsonPropertyName("id")]
-        public System.Guid? Id { get; set; } = default!;
+        [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
+        public System.Guid Id { get; set; } = default!;
 
         [System.Text.Json.Serialization.JsonPropertyName("name")]
-        public string? Name { get; set; } = default!;
+        [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
+        public string Name { get; set; } = default!;
 
         [System.Text.Json.Serialization.JsonPropertyName("mediaType")]
-        public string? MediaType { get; set; } = default!;
+        [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
+        public string MediaType { get; set; } = default!;
 
         [System.Text.Json.Serialization.JsonPropertyName("url")]
-        public string? Url { get; set; } = default!;
+        [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
+        public string Url { get; set; } = default!;
 
         [System.Text.Json.Serialization.JsonPropertyName("extension")]
         public string? Extension { get; set; } = default!;
@@ -2562,7 +2624,27 @@ namespace nswag
         public int? Bytes { get; set; } = default!;
 
         [System.Text.Json.Serialization.JsonPropertyName("properties")]
-        public System.Collections.Generic.IDictionary<string, object>? Properties { get; set; } = default!;
+        [System.ComponentModel.DataAnnotations.Required]
+        public System.Collections.Generic.IDictionary<string, object> Properties { get; set; } = new System.Collections.Generic.Dictionary<string, object>();
+
+        [System.Text.Json.Serialization.JsonPropertyName("focalPoint")]
+        [System.ComponentModel.DataAnnotations.Required]
+        public ImageFocalPointModel FocalPoint { get; set; } = new ImageFocalPointModel();
+
+        [System.Text.Json.Serialization.JsonPropertyName("crops")]
+        public System.Collections.Generic.ICollection<ImageCropModel>? Crops { get; set; } = default!;
+
+        [System.Text.Json.Serialization.JsonPropertyName("path")]
+        [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
+        public string Path { get; set; } = default!;
+
+        [System.Text.Json.Serialization.JsonPropertyName("createDate")]
+        [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
+        public System.DateTimeOffset CreateDate { get; set; } = default!;
+
+        [System.Text.Json.Serialization.JsonPropertyName("updateDate")]
+        [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
+        public System.DateTimeOffset UpdateDate { get; set; } = default!;
 
     }
 
@@ -2571,16 +2653,16 @@ namespace nswag
     {
 
         [System.Text.Json.Serialization.JsonPropertyName("x1")]
-        public double? X1 { get; set; } = default!;
+        public double X1 { get; set; } = default!;
 
         [System.Text.Json.Serialization.JsonPropertyName("y1")]
-        public double? Y1 { get; set; } = default!;
+        public double Y1 { get; set; } = default!;
 
         [System.Text.Json.Serialization.JsonPropertyName("x2")]
-        public double? X2 { get; set; } = default!;
+        public double X2 { get; set; } = default!;
 
         [System.Text.Json.Serialization.JsonPropertyName("y2")]
-        public double? Y2 { get; set; } = default!;
+        public double Y2 { get; set; } = default!;
 
     }
 
@@ -2592,10 +2674,10 @@ namespace nswag
         public string? Alias { get; set; } = default!;
 
         [System.Text.Json.Serialization.JsonPropertyName("width")]
-        public int? Width { get; set; } = default!;
+        public int Width { get; set; } = default!;
 
         [System.Text.Json.Serialization.JsonPropertyName("height")]
-        public int? Height { get; set; } = default!;
+        public int Height { get; set; } = default!;
 
         [System.Text.Json.Serialization.JsonPropertyName("coordinates")]
         public ImageCropCoordinatesModel? Coordinates { get; set; } = default!;
@@ -2607,10 +2689,10 @@ namespace nswag
     {
 
         [System.Text.Json.Serialization.JsonPropertyName("left")]
-        public double? Left { get; set; } = default!;
+        public double Left { get; set; } = default!;
 
         [System.Text.Json.Serialization.JsonPropertyName("top")]
-        public double? Top { get; set; } = default!;
+        public double Top { get; set; } = default!;
 
     }
 
@@ -2659,11 +2741,13 @@ namespace nswag
     public partial class PickedColorModel
     {
 
-        [System.Text.Json.Serialization.JsonPropertyName("color")]
-        public string? Color { get; set; } = default!;
+        [System.Text.Json.Serialization.JsonPropertyName("value")]
+        [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
+        public string Value { get; set; } = default!;
 
         [System.Text.Json.Serialization.JsonPropertyName("label")]
-        public string? Label { get; set; } = default!;
+        [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
+        public string Label { get; set; } = default!;
 
     }
 
@@ -2702,10 +2786,12 @@ namespace nswag
     {
 
         [System.Text.Json.Serialization.JsonPropertyName("markup")]
-        public string? Markup { get; set; } = default!;
+        [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
+        public string Markup { get; set; } = default!;
 
         [System.Text.Json.Serialization.JsonPropertyName("blocks")]
-        public System.Collections.Generic.ICollection<ApiBlockItemModel>? Blocks { get; set; } = default!;
+        [System.ComponentModel.DataAnnotations.Required]
+        public System.Collections.Generic.ICollection<ApiBlockItemModel> Blocks { get; set; } = new System.Collections.ObjectModel.Collection<ApiBlockItemModel>();
 
     }
 

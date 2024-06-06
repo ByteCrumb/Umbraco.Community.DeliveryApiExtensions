@@ -211,7 +211,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Success",
+            "description": "OK",
             "content": {
               "application/json": {
                 "schema": {
@@ -231,14 +231,7 @@
             }
           },
           "404": {
-            "description": "Not Found",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              }
-            }
+            "description": "Not Found"
           }
         },
         "deprecated": true
@@ -474,7 +467,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Success",
+            "description": "OK",
             "content": {
               "application/json": {
                 "schema": {
@@ -494,14 +487,7 @@
             }
           },
           "404": {
-            "description": "Not Found",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              }
-            }
+            "description": "Not Found"
           }
         }
       }
@@ -590,7 +576,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Success",
+            "description": "OK",
             "content": {
               "application/json": {
                 "schema": {
@@ -603,24 +589,10 @@
             }
           },
           "401": {
-            "description": "Unauthorized",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              }
-            }
+            "description": "Unauthorized"
           },
           "403": {
-            "description": "Forbidden",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              }
-            }
+            "description": "Forbidden"
           }
         },
         "deprecated": true
@@ -707,7 +679,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Success",
+            "description": "OK",
             "content": {
               "application/json": {
                 "schema": {
@@ -717,34 +689,13 @@
             }
           },
           "401": {
-            "description": "Unauthorized",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              }
-            }
+            "description": "Unauthorized"
           },
           "403": {
-            "description": "Forbidden",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              }
-            }
+            "description": "Forbidden"
           },
           "404": {
-            "description": "Not Found",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              }
-            }
+            "description": "Not Found"
           }
         },
         "deprecated": true
@@ -856,7 +807,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Success",
+            "description": "OK",
             "content": {
               "application/json": {
                 "schema": {
@@ -866,34 +817,13 @@
             }
           },
           "401": {
-            "description": "Unauthorized",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              }
-            }
+            "description": "Unauthorized"
           },
           "403": {
-            "description": "Forbidden",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              }
-            }
+            "description": "Forbidden"
           },
           "404": {
-            "description": "Not Found",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              }
-            }
+            "description": "Not Found"
           }
         }
       }
@@ -979,7 +909,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Success",
+            "description": "OK",
             "content": {
               "application/json": {
                 "schema": {
@@ -989,34 +919,13 @@
             }
           },
           "401": {
-            "description": "Unauthorized",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              }
-            }
+            "description": "Unauthorized"
           },
           "403": {
-            "description": "Forbidden",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              }
-            }
+            "description": "Forbidden"
           },
           "404": {
-            "description": "Not Found",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              }
-            }
+            "description": "Not Found"
           }
         },
         "deprecated": true
@@ -1128,7 +1037,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Success",
+            "description": "OK",
             "content": {
               "application/json": {
                 "schema": {
@@ -1138,34 +1047,13 @@
             }
           },
           "401": {
-            "description": "Unauthorized",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              }
-            }
+            "description": "Unauthorized"
           },
           "403": {
-            "description": "Forbidden",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              }
-            }
+            "description": "Forbidden"
           },
           "404": {
-            "description": "Not Found",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              }
-            }
+            "description": "Not Found"
           }
         }
       }
@@ -1279,7 +1167,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Success",
+            "description": "OK",
             "content": {
               "application/json": {
                 "schema": {
@@ -1292,24 +1180,10 @@
             }
           },
           "401": {
-            "description": "Unauthorized",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              }
-            }
+            "description": "Unauthorized"
           },
           "403": {
-            "description": "Forbidden",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              }
-            }
+            "description": "Forbidden"
           }
         }
       }
@@ -1324,7 +1198,7 @@
           {
             "name": "fetch",
             "in": "query",
-            "description": "Specifies the media items to fetch. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api#query-parameters) for more details on this.",
+            "description": "Specifies the media items to fetch. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api/media-delivery-api#query-parameters) for more details on this.",
             "schema": {
               "type": "string"
             },
@@ -1343,7 +1217,7 @@
           {
             "name": "filter",
             "in": "query",
-            "description": "Defines how to filter the fetched media items. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api#query-parameters) for more details on this.",
+            "description": "Defines how to filter the fetched media items. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api/media-delivery-api#query-parameters) for more details on this.",
             "schema": {
               "type": "array",
               "items": {
@@ -1369,7 +1243,7 @@
           {
             "name": "sort",
             "in": "query",
-            "description": "Defines how to sort the found media items. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api#query-parameters) for more details on this.",
+            "description": "Defines how to sort the found media items. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api/media-delivery-api#query-parameters) for more details on this.",
             "schema": {
               "type": "array",
               "items": {
@@ -1429,7 +1303,7 @@
           {
             "name": "expand",
             "in": "query",
-            "description": "Defines the properties that should be expanded in the response. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api#query-parameters) for more details on this.",
+            "description": "Defines the properties that should be expanded in the response. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api/media-delivery-api#query-parameters) for more details on this.",
             "schema": {
               "type": "string"
             },
@@ -1459,7 +1333,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Success",
+            "description": "OK",
             "content": {
               "application/json": {
                 "schema": {
@@ -1492,7 +1366,7 @@
           {
             "name": "fetch",
             "in": "query",
-            "description": "Specifies the media items to fetch. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api#query-parameters) for more details on this.",
+            "description": "Specifies the media items to fetch. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api/media-delivery-api#query-parameters) for more details on this.",
             "schema": {
               "type": "string"
             },
@@ -1511,7 +1385,7 @@
           {
             "name": "filter",
             "in": "query",
-            "description": "Defines how to filter the fetched media items. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api#query-parameters) for more details on this.",
+            "description": "Defines how to filter the fetched media items. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api/media-delivery-api#query-parameters) for more details on this.",
             "schema": {
               "type": "array",
               "items": {
@@ -1537,7 +1411,7 @@
           {
             "name": "sort",
             "in": "query",
-            "description": "Defines how to sort the found media items. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api#query-parameters) for more details on this.",
+            "description": "Defines how to sort the found media items. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api/media-delivery-api#query-parameters) for more details on this.",
             "schema": {
               "type": "array",
               "items": {
@@ -1597,7 +1471,7 @@
           {
             "name": "expand",
             "in": "query",
-            "description": "Defines the properties that should be expanded in the response. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api#query-parameters) for more details on this.",
+            "description": "Defines the properties that should be expanded in the response. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api/media-delivery-api#query-parameters) for more details on this.",
             "schema": {
               "type": "string"
             },
@@ -1622,7 +1496,7 @@
           {
             "name": "fields",
             "in": "query",
-            "description": "Explicitly defines which properties should be included in the response (by default all properties are included). Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api#query-parameters) for more details on this.",
+            "description": "Explicitly defines which properties should be included in the response (by default all properties are included). Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api/media-delivery-api#query-parameters) for more details on this.",
             "schema": {
               "type": "string"
             },
@@ -1652,7 +1526,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Success",
+            "description": "OK",
             "content": {
               "application/json": {
                 "schema": {
@@ -1696,7 +1570,7 @@
           {
             "name": "expand",
             "in": "query",
-            "description": "Defines the properties that should be expanded in the response. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api#query-parameters) for more details on this.",
+            "description": "Defines the properties that should be expanded in the response. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api/media-delivery-api#query-parameters) for more details on this.",
             "schema": {
               "type": "string"
             },
@@ -1726,7 +1600,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Success",
+            "description": "OK",
             "content": {
               "application/json": {
                 "schema": {
@@ -1760,7 +1634,7 @@
           {
             "name": "expand",
             "in": "query",
-            "description": "Defines the properties that should be expanded in the response. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api#query-parameters) for more details on this.",
+            "description": "Defines the properties that should be expanded in the response. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api/media-delivery-api#query-parameters) for more details on this.",
             "schema": {
               "type": "string"
             },
@@ -1790,7 +1664,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Success",
+            "description": "OK",
             "content": {
               "application/json": {
                 "schema": {
@@ -1800,14 +1674,7 @@
             }
           },
           "404": {
-            "description": "Not Found",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              }
-            }
+            "description": "Not Found"
           }
         },
         "deprecated": true
@@ -1831,7 +1698,7 @@
           {
             "name": "expand",
             "in": "query",
-            "description": "Defines the properties that should be expanded in the response. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api#query-parameters) for more details on this.",
+            "description": "Defines the properties that should be expanded in the response. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api/media-delivery-api#query-parameters) for more details on this.",
             "schema": {
               "type": "string"
             },
@@ -1856,7 +1723,7 @@
           {
             "name": "fields",
             "in": "query",
-            "description": "Explicitly defines which properties should be included in the response (by default all properties are included). Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api#query-parameters) for more details on this.",
+            "description": "Explicitly defines which properties should be included in the response (by default all properties are included). Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api/media-delivery-api#query-parameters) for more details on this.",
             "schema": {
               "type": "string"
             },
@@ -1886,7 +1753,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Success",
+            "description": "OK",
             "content": {
               "application/json": {
                 "schema": {
@@ -1896,14 +1763,7 @@
             }
           },
           "404": {
-            "description": "Not Found",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              }
-            }
+            "description": "Not Found"
           }
         }
       }
@@ -1927,7 +1787,7 @@
           {
             "name": "expand",
             "in": "query",
-            "description": "Defines the properties that should be expanded in the response. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api#query-parameters) for more details on this.",
+            "description": "Defines the properties that should be expanded in the response. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api/media-delivery-api#query-parameters) for more details on this.",
             "schema": {
               "type": "string"
             },
@@ -1957,7 +1817,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Success",
+            "description": "OK",
             "content": {
               "application/json": {
                 "schema": {
@@ -1967,14 +1827,7 @@
             }
           },
           "404": {
-            "description": "Not Found",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              }
-            }
+            "description": "Not Found"
           }
         },
         "deprecated": true
@@ -1999,7 +1852,7 @@
           {
             "name": "expand",
             "in": "query",
-            "description": "Defines the properties that should be expanded in the response. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api#query-parameters) for more details on this.",
+            "description": "Defines the properties that should be expanded in the response. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api/media-delivery-api#query-parameters) for more details on this.",
             "schema": {
               "type": "string"
             },
@@ -2024,7 +1877,7 @@
           {
             "name": "fields",
             "in": "query",
-            "description": "Explicitly defines which properties should be included in the response (by default all properties are included). Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api#query-parameters) for more details on this.",
+            "description": "Explicitly defines which properties should be included in the response (by default all properties are included). Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api/media-delivery-api#query-parameters) for more details on this.",
             "schema": {
               "type": "string"
             },
@@ -2054,7 +1907,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Success",
+            "description": "OK",
             "content": {
               "application/json": {
                 "schema": {
@@ -2064,14 +1917,7 @@
             }
           },
           "404": {
-            "description": "Not Found",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              }
-            }
+            "description": "Not Found"
           }
         }
       }
@@ -2098,7 +1944,7 @@
           {
             "name": "expand",
             "in": "query",
-            "description": "Defines the properties that should be expanded in the response. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api#query-parameters) for more details on this.",
+            "description": "Defines the properties that should be expanded in the response. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api/media-delivery-api#query-parameters) for more details on this.",
             "schema": {
               "type": "string"
             },
@@ -2123,7 +1969,7 @@
           {
             "name": "fields",
             "in": "query",
-            "description": "Explicitly defines which properties should be included in the response (by default all properties are included). Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api#query-parameters) for more details on this.",
+            "description": "Explicitly defines which properties should be included in the response (by default all properties are included). Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api/media-delivery-api#query-parameters) for more details on this.",
             "schema": {
               "type": "string"
             },
@@ -2153,7 +1999,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Success",
+            "description": "OK",
             "content": {
               "application/json": {
                 "schema": {
@@ -2172,6 +2018,12 @@
   "components": {
     "schemas": {
       "ApiBlockGridAreaModel": {
+        "required": [
+          "alias",
+          "columnSpan",
+          "items",
+          "rowSpan"
+        ],
         "type": "object",
         "properties": {
           "alias": {
@@ -2195,35 +2047,41 @@
         "additionalProperties": false
       },
       "ApiBlockGridItemModel": {
-        "type": "object",
         "allOf": [
           {
             "$ref": "#/components/schemas/ApiBlockItemModel"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "rowSpan": {
+                "type": "integer",
+                "format": "int32"
+              },
+              "columnSpan": {
+                "type": "integer",
+                "format": "int32"
+              },
+              "areaGridColumns": {
+                "type": "integer",
+                "format": "int32"
+              },
+              "areas": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/ApiBlockGridAreaModel"
+                }
+              }
+            },
+            "additionalProperties": false
           }
-        ],
-        "properties": {
-          "rowSpan": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "columnSpan": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "areaGridColumns": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "areas": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/ApiBlockGridAreaModel"
-            }
-          }
-        },
-        "additionalProperties": false
+        ]
       },
       "ApiBlockGridModel": {
+        "required": [
+          "gridColumns",
+          "items"
+        ],
         "type": "object",
         "properties": {
           "gridColumns": {
@@ -2240,6 +2098,9 @@
         "additionalProperties": false
       },
       "ApiBlockItemModel": {
+        "required": [
+          "content"
+        ],
         "type": "object",
         "properties": {
           "content": {
@@ -2252,6 +2113,9 @@
         "additionalProperties": false
       },
       "ApiBlockListModel": {
+        "required": [
+          "items"
+        ],
         "type": "object",
         "properties": {
           "items": {
@@ -2263,7 +2127,111 @@
         },
         "additionalProperties": false
       },
+      "ApiContentModel": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/ApiElementModel"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "createDate": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "updateDate": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "route": {
+                "$ref": "#/components/schemas/IApiContentRouteModel"
+              }
+            },
+            "additionalProperties": false
+          }
+        ]
+      },
+      "ApiContentResponseModel": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/ApiContentModel"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "cultures": {
+                "type": "object",
+                "additionalProperties": {
+                  "$ref": "#/components/schemas/IApiContentRouteModel"
+                }
+              }
+            },
+            "additionalProperties": false
+          }
+        ]
+      },
+      "ApiContentRouteModel": {
+        "required": [
+          "path",
+          "startItem"
+        ],
+        "type": "object",
+        "properties": {
+          "path": {
+            "type": "string"
+          },
+          "startItem": {
+            "$ref": "#/components/schemas/IApiContentStartItemModel"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiContentStartItemModel": {
+        "required": [
+          "id",
+          "path"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "path": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiElementModel": {
+        "required": [
+          "contentType",
+          "id",
+          "properties"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "contentType": {
+            "type": "string"
+          },
+          "properties": {
+            "type": "object",
+            "additionalProperties": { }
+          }
+        },
+        "additionalProperties": false
+      },
       "ApiImageCropperValueModel": {
+        "required": [
+          "url"
+        ],
         "type": "object",
         "properties": {
           "url": {
@@ -2283,6 +2251,9 @@
         "additionalProperties": false
       },
       "ApiLinkModel": {
+        "required": [
+          "linkType"
+        ],
         "type": "object",
         "properties": {
           "url": {
@@ -2325,6 +2296,98 @@
         },
         "additionalProperties": false
       },
+      "ApiMediaWithCropsModel": {
+        "required": [
+          "id",
+          "mediaType",
+          "name",
+          "properties",
+          "url"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "readOnly": true
+          },
+          "name": {
+            "type": "string",
+            "readOnly": true
+          },
+          "mediaType": {
+            "type": "string",
+            "readOnly": true
+          },
+          "url": {
+            "type": "string",
+            "readOnly": true
+          },
+          "extension": {
+            "type": "string",
+            "nullable": true,
+            "readOnly": true
+          },
+          "width": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true,
+            "readOnly": true
+          },
+          "height": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true,
+            "readOnly": true
+          },
+          "bytes": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true,
+            "readOnly": true
+          },
+          "properties": {
+            "type": "object",
+            "additionalProperties": { },
+            "readOnly": true
+          },
+          "focalPoint": {
+            "$ref": "#/components/schemas/ImageFocalPointModel"
+          },
+          "crops": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ImageCropModel"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiMediaWithCropsResponseModel": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/ApiMediaWithCropsModel"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "path": {
+                "type": "string"
+              },
+              "createDate": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "updateDate": {
+                "type": "string",
+                "format": "date-time"
+              }
+            },
+            "additionalProperties": false
+          }
+        ]
+      },
       "BlockSettingsElementModel": {
         "type": "object",
         "allOf": [
@@ -2349,26 +2412,36 @@
         }
       },
       "HttpValidationProblemDetails": {
-        "type": "object",
         "allOf": [
           {
             "$ref": "#/components/schemas/ProblemDetails"
-          }
-        ],
-        "properties": {
-          "errors": {
+          },
+          {
             "type": "object",
-            "additionalProperties": {
-              "type": "array",
-              "items": {
-                "type": "string"
+            "properties": {
+              "errors": {
+                "type": "object",
+                "additionalProperties": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
               }
-            }
+            },
+            "additionalProperties": { }
           }
-        },
-        "additionalProperties": { }
+        ]
       },
       "IApiContentModel": {
+        "required": [
+          "contentType",
+          "createDate",
+          "id",
+          "properties",
+          "route",
+          "updateDate"
+        ],
         "type": "object",
         "allOf": [
           {
@@ -2376,6 +2449,20 @@
           }
         ],
         "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "readOnly": true
+          },
+          "contentType": {
+            "type": "string",
+            "readOnly": true
+          },
+          "properties": {
+            "type": "object",
+            "additionalProperties": { },
+            "readOnly": true
+          },
           "name": {
             "type": "string",
             "nullable": true,
@@ -2393,20 +2480,6 @@
           },
           "route": {
             "$ref": "#/components/schemas/IApiContentRouteModel"
-          },
-          "id": {
-            "type": "string",
-            "format": "uuid",
-            "readOnly": true
-          },
-          "contentType": {
-            "type": "string",
-            "readOnly": true
-          },
-          "properties": {
-            "type": "object",
-            "additionalProperties": { },
-            "readOnly": true
           }
         },
         "additionalProperties": false,
@@ -2419,6 +2492,15 @@
         }
       },
       "IApiContentResponseModel": {
+        "required": [
+          "contentType",
+          "createDate",
+          "cultures",
+          "id",
+          "properties",
+          "route",
+          "updateDate"
+        ],
         "type": "object",
         "allOf": [
           {
@@ -2426,11 +2508,18 @@
           }
         ],
         "properties": {
-          "cultures": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "readOnly": true
+          },
+          "contentType": {
+            "type": "string",
+            "readOnly": true
+          },
+          "properties": {
             "type": "object",
-            "additionalProperties": {
-              "$ref": "#/components/schemas/IApiContentRouteModel"
-            },
+            "additionalProperties": { },
             "readOnly": true
           },
           "name": {
@@ -2451,18 +2540,11 @@
           "route": {
             "$ref": "#/components/schemas/IApiContentRouteModel"
           },
-          "id": {
-            "type": "string",
-            "format": "uuid",
-            "readOnly": true
-          },
-          "contentType": {
-            "type": "string",
-            "readOnly": true
-          },
-          "properties": {
+          "cultures": {
             "type": "object",
-            "additionalProperties": { },
+            "additionalProperties": {
+              "$ref": "#/components/schemas/IApiContentRouteModel"
+            },
             "readOnly": true
           }
         },
@@ -2476,6 +2558,10 @@
         }
       },
       "IApiContentRouteModel": {
+        "required": [
+          "path",
+          "startItem"
+        ],
         "type": "object",
         "properties": {
           "path": {
@@ -2489,6 +2575,10 @@
         "additionalProperties": false
       },
       "IApiContentStartItemModel": {
+        "required": [
+          "id",
+          "path"
+        ],
         "type": "object",
         "properties": {
           "id": {
@@ -2504,6 +2594,11 @@
         "additionalProperties": false
       },
       "IApiElementModel": {
+        "required": [
+          "contentType",
+          "id",
+          "properties"
+        ],
         "type": "object",
         "properties": {
           "id": {
@@ -2534,19 +2629,15 @@
         }
       },
       "IApiMediaWithCropsModel": {
+        "required": [
+          "id",
+          "mediaType",
+          "name",
+          "properties",
+          "url"
+        ],
         "type": "object",
         "properties": {
-          "focalPoint": {
-            "$ref": "#/components/schemas/ImageFocalPointModel"
-          },
-          "crops": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/ImageCropModel"
-            },
-            "nullable": true,
-            "readOnly": true
-          },
           "id": {
             "type": "string",
             "format": "uuid",
@@ -2591,13 +2682,91 @@
             "type": "object",
             "additionalProperties": { },
             "readOnly": true
+          },
+          "focalPoint": {
+            "$ref": "#/components/schemas/ImageFocalPointModel"
+          },
+          "crops": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ImageCropModel"
+            },
+            "nullable": true,
+            "readOnly": true
           }
         },
         "additionalProperties": false
       },
       "IApiMediaWithCropsResponseModel": {
+        "required": [
+          "createDate",
+          "focalPoint",
+          "id",
+          "mediaType",
+          "name",
+          "path",
+          "properties",
+          "updateDate",
+          "url"
+        ],
         "type": "object",
         "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "readOnly": true
+          },
+          "name": {
+            "type": "string",
+            "readOnly": true
+          },
+          "mediaType": {
+            "type": "string",
+            "readOnly": true
+          },
+          "url": {
+            "type": "string",
+            "readOnly": true
+          },
+          "extension": {
+            "type": "string",
+            "nullable": true,
+            "readOnly": true
+          },
+          "width": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true,
+            "readOnly": true
+          },
+          "height": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true,
+            "readOnly": true
+          },
+          "bytes": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true,
+            "readOnly": true
+          },
+          "properties": {
+            "type": "object",
+            "additionalProperties": { },
+            "readOnly": true
+          },
+          "focalPoint": {
+            "$ref": "#/components/schemas/ImageFocalPointModel"
+          },
+          "crops": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ImageCropModel"
+            },
+            "nullable": true,
+            "readOnly": true
+          },
           "path": {
             "type": "string",
             "readOnly": true
@@ -2611,67 +2780,17 @@
             "type": "string",
             "format": "date-time",
             "readOnly": true
-          },
-          "focalPoint": {
-            "$ref": "#/components/schemas/ImageFocalPointModel"
-          },
-          "crops": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/ImageCropModel"
-            },
-            "nullable": true,
-            "readOnly": true
-          },
-          "id": {
-            "type": "string",
-            "format": "uuid",
-            "readOnly": true
-          },
-          "name": {
-            "type": "string",
-            "readOnly": true
-          },
-          "mediaType": {
-            "type": "string",
-            "readOnly": true
-          },
-          "url": {
-            "type": "string",
-            "readOnly": true
-          },
-          "extension": {
-            "type": "string",
-            "nullable": true,
-            "readOnly": true
-          },
-          "width": {
-            "type": "integer",
-            "format": "int32",
-            "nullable": true,
-            "readOnly": true
-          },
-          "height": {
-            "type": "integer",
-            "format": "int32",
-            "nullable": true,
-            "readOnly": true
-          },
-          "bytes": {
-            "type": "integer",
-            "format": "int32",
-            "nullable": true,
-            "readOnly": true
-          },
-          "properties": {
-            "type": "object",
-            "additionalProperties": { },
-            "readOnly": true
           }
         },
         "additionalProperties": false
       },
       "ImageCropCoordinatesModel": {
+        "required": [
+          "x1",
+          "x2",
+          "y1",
+          "y2"
+        ],
         "type": "object",
         "properties": {
           "x1": {
@@ -2694,6 +2813,10 @@
         "additionalProperties": false
       },
       "ImageCropModel": {
+        "required": [
+          "height",
+          "width"
+        ],
         "type": "object",
         "properties": {
           "alias": {
@@ -2715,6 +2838,10 @@
         "additionalProperties": false
       },
       "ImageFocalPointModel": {
+        "required": [
+          "left",
+          "top"
+        ],
         "type": "object",
         "properties": {
           "left": {
@@ -2777,9 +2904,13 @@
         "additionalProperties": false
       },
       "PickedColorModel": {
+        "required": [
+          "label",
+          "value"
+        ],
         "type": "object",
         "properties": {
-          "color": {
+          "value": {
             "type": "string"
           },
           "label": {
@@ -2816,6 +2947,10 @@
         "additionalProperties": { }
       },
       "RichTextModel": {
+        "required": [
+          "blocks",
+          "markup"
+        ],
         "type": "object",
         "properties": {
           "markup": {
@@ -3298,6 +3433,19 @@
               "$ref": "#/components/schemas/IApiMediaWithCropsModel"
             },
             "nullable": true
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "Backoffice User": {
+        "type": "oauth2",
+        "description": "Umbraco Authentication",
+        "flows": {
+          "authorizationCode": {
+            "authorizationUrl": "/umbraco/management/api/v1/security/back-office/authorize",
+            "tokenUrl": "/umbraco/management/api/v1/security/back-office/token",
+            "scopes": { }
           }
         }
       }

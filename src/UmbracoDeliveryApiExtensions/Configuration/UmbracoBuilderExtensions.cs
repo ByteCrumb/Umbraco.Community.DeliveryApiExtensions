@@ -5,6 +5,7 @@ using Umbraco.Cms.Core.DependencyInjection;
 using Umbraco.Community.DeliveryApiExtensions.Configuration.Options;
 using Umbraco.Community.DeliveryApiExtensions.Services;
 using Umbraco.Community.DeliveryApiExtensions.Swagger;
+using Umbraco.Extensions;
 
 namespace Umbraco.Community.DeliveryApiExtensions.Configuration;
 
@@ -49,7 +50,7 @@ public static class UmbracoBuilderExtensions
         _ = builder.Services.AddSingleton<IContentTypeInfoService, ContentTypeInfoService>();
         _ = builder.Services.AddOptions<TypedSwaggerOptions>(typedSwaggerConfigSection);
 
-        _ = builder.Services.Configure<SwaggerGenOptions>(options =>
+        _ = builder.Services.PostConfigure<SwaggerGenOptions>(options =>
         {
             switch (typedSwaggerOptions?.Mode ?? SwaggerGenerationMode.Auto)
             {
@@ -59,6 +60,7 @@ public static class UmbracoBuilderExtensions
                     break;
 
                 case SwaggerGenerationMode.Compatibility:
+                    options.SchemaGeneratorOptions.UseOneOfForPolymorphism = false;
                     options.UseAllOfForInheritance();
                     break;
                 case SwaggerGenerationMode.Manual:
@@ -66,8 +68,29 @@ public static class UmbracoBuilderExtensions
                     break;
             }
 
-            options.SchemaFilter<EnumSchemaFilter>();
+            options.SupportNonNullableReferenceTypes();
+
+            options.SchemaFilterDescriptors.Insert(0, new FilterDescriptor
+            {
+                Type = typeof(FixPropertyNullabilityFilter),
+                Arguments = [],
+            });
+
             options.SchemaFilter<DeliveryApiContentTypesSchemaFilter>();
+            options.DocumentFilter<DeliveryApiContentTypesSchemaFilter>();
+
+            Func<Type, IEnumerable<Type>> currentSubTypesSelector = options.SchemaGeneratorOptions.SubTypesSelector;
+            options.SelectSubTypesUsing(baseType =>
+            {
+                List<Type> result = currentSubTypesSelector(baseType).ToList();
+
+                if (result.Count == 1 && result[0] == baseType && baseType.Assembly.GetTypes().Where(type => type.IsSubclassOf(baseType)).ToList() is { Count: > 0 } subTypes)
+                {
+                    return subTypes;
+                }
+
+                return result;
+            });
         });
     }
 }
