@@ -2127,52 +2127,6 @@
         },
         "additionalProperties": false
       },
-      "ApiContentModel": {
-        "allOf": [
-          {
-            "$ref": "#/components/schemas/ApiElementModel"
-          },
-          {
-            "type": "object",
-            "properties": {
-              "name": {
-                "type": "string"
-              },
-              "createDate": {
-                "type": "string",
-                "format": "date-time"
-              },
-              "updateDate": {
-                "type": "string",
-                "format": "date-time"
-              },
-              "route": {
-                "$ref": "#/components/schemas/IApiContentRouteModel"
-              }
-            },
-            "additionalProperties": false
-          }
-        ]
-      },
-      "ApiContentResponseModel": {
-        "allOf": [
-          {
-            "$ref": "#/components/schemas/ApiContentModel"
-          },
-          {
-            "type": "object",
-            "properties": {
-              "cultures": {
-                "type": "object",
-                "additionalProperties": {
-                  "$ref": "#/components/schemas/IApiContentRouteModel"
-                }
-              }
-            },
-            "additionalProperties": false
-          }
-        ]
-      },
       "ApiContentRouteModel": {
         "required": [
           "path",
@@ -2202,28 +2156,6 @@
           },
           "path": {
             "type": "string"
-          }
-        },
-        "additionalProperties": false
-      },
-      "ApiElementModel": {
-        "required": [
-          "contentType",
-          "id",
-          "properties"
-        ],
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string",
-            "format": "uuid"
-          },
-          "contentType": {
-            "type": "string"
-          },
-          "properties": {
-            "type": "object",
-            "additionalProperties": { }
           }
         },
         "additionalProperties": false
@@ -2295,98 +2227,6 @@
           }
         },
         "additionalProperties": false
-      },
-      "ApiMediaWithCropsModel": {
-        "required": [
-          "id",
-          "mediaType",
-          "name",
-          "properties",
-          "url"
-        ],
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string",
-            "format": "uuid",
-            "readOnly": true
-          },
-          "name": {
-            "type": "string",
-            "readOnly": true
-          },
-          "mediaType": {
-            "type": "string",
-            "readOnly": true
-          },
-          "url": {
-            "type": "string",
-            "readOnly": true
-          },
-          "extension": {
-            "type": "string",
-            "nullable": true,
-            "readOnly": true
-          },
-          "width": {
-            "type": "integer",
-            "format": "int32",
-            "nullable": true,
-            "readOnly": true
-          },
-          "height": {
-            "type": "integer",
-            "format": "int32",
-            "nullable": true,
-            "readOnly": true
-          },
-          "bytes": {
-            "type": "integer",
-            "format": "int32",
-            "nullable": true,
-            "readOnly": true
-          },
-          "properties": {
-            "type": "object",
-            "additionalProperties": { },
-            "readOnly": true
-          },
-          "focalPoint": {
-            "$ref": "#/components/schemas/ImageFocalPointModel"
-          },
-          "crops": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/ImageCropModel"
-            },
-            "nullable": true
-          }
-        },
-        "additionalProperties": false
-      },
-      "ApiMediaWithCropsResponseModel": {
-        "allOf": [
-          {
-            "$ref": "#/components/schemas/ApiMediaWithCropsModel"
-          },
-          {
-            "type": "object",
-            "properties": {
-              "path": {
-                "type": "string"
-              },
-              "createDate": {
-                "type": "string",
-                "format": "date-time"
-              },
-              "updateDate": {
-                "type": "string",
-                "format": "date-time"
-              }
-            },
-            "additionalProperties": false
-          }
-        ]
       },
       "BlockSettingsElementModel": {
         "type": "object",
@@ -3419,13 +3259,6 @@
               "type": "string"
             },
             "nullable": true
-          },
-          "uploadFile": {
-            "type": "string",
-            "nullable": true
-          },
-          "imageCropper": {
-            "$ref": "#/components/schemas/ApiImageCropperValueModel"
           },
           "mediaPicker": {
             "type": "array",

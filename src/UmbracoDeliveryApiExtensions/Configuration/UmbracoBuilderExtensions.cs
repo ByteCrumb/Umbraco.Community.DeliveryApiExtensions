@@ -2,6 +2,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using Umbraco.Cms.Core.DependencyInjection;
+using Umbraco.Cms.Core.Models.DeliveryApi;
 using Umbraco.Community.DeliveryApiExtensions.Configuration.Options;
 using Umbraco.Community.DeliveryApiExtensions.Services;
 using Umbraco.Community.DeliveryApiExtensions.Swagger;
@@ -82,11 +83,24 @@ public static class UmbracoBuilderExtensions
             Func<Type, IEnumerable<Type>> currentSubTypesSelector = options.SchemaGeneratorOptions.SubTypesSelector;
             options.SelectSubTypesUsing(baseType =>
             {
+                List<Type> handledTypes = [
+                    typeof(IApiElement),
+                    typeof(IApiContent),
+                    typeof(IApiMediaWithCrops),
+                    typeof(IApiContentResponse),
+                    typeof(IApiMediaWithCropsResponse)
+                ];
+
+                if (handledTypes.Contains(baseType))
+                {
+                    return Enumerable.Empty<Type>();
+                }
+
                 List<Type> result = currentSubTypesSelector(baseType).ToList();
 
-                if (result.Count == 1 && result[0] == baseType && baseType.Assembly.GetTypes().Where(type => type.IsSubclassOf(baseType)).ToList() is { Count: > 0 } subTypes)
+                if (result.Count == 1 && result[0] == baseType)
                 {
-                    return subTypes;
+                    return baseType.Assembly.GetTypes().Where(type => type.IsSubclassOf(baseType));
                 }
 
                 return result;

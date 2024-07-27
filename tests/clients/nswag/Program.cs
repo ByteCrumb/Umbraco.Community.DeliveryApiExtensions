@@ -58,8 +58,8 @@ void RenderTestPage(TestPageContentResponseModel content)
     Print("repeatableTextstrings", properties?.RepeatableTextstrings);
 
     Console.WriteLine("\n  **Media**");
-    Print("uploadFile", properties?.UploadFile);
-    Print("imageCropper", properties?.ImageCropper);
+    //Print("uploadFile", properties?.UploadFile);
+    //Print("imageCropper", properties?.ImageCropper);
     Print("mediaPicker", properties?.MediaPicker);
 
     Console.WriteLine("\n  **Content Picker**");

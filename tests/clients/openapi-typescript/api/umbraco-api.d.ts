@@ -4,6 +4,9 @@
  */
 
 
+/** WithRequired type helpers */
+type WithRequired<T, K extends keyof T> = T & { [P in K]-?: T[P] };
+
 export interface paths {
   "/umbraco/delivery/api/v1/content": {
     /** @deprecated */
@@ -68,14 +71,14 @@ export type webhooks = Record<string, never>;
 export interface components {
   schemas: {
     ApiBlockGridAreaModel: {
-      alias?: string;
+      alias: string;
       /** Format: int32 */
-      rowSpan?: number;
+      rowSpan: number;
       /** Format: int32 */
-      columnSpan?: number;
-      items?: components["schemas"]["ApiBlockGridItemModel"][];
+      columnSpan: number;
+      items: components["schemas"]["ApiBlockGridItemModel"][];
     };
-    ApiBlockGridItemModel: {
+    ApiBlockGridItemModel: components["schemas"]["ApiBlockItemModel"] & {
       /** Format: int32 */
       rowSpan?: number;
       /** Format: int32 */
@@ -83,21 +86,30 @@ export interface components {
       /** Format: int32 */
       areaGridColumns?: number;
       areas?: components["schemas"]["ApiBlockGridAreaModel"][];
-    } & components["schemas"]["ApiBlockItemModel"];
+    };
     ApiBlockGridModel: {
       /** Format: int32 */
-      gridColumns?: number;
-      items?: components["schemas"]["ApiBlockGridItemModel"][];
+      gridColumns: number;
+      items: components["schemas"]["ApiBlockGridItemModel"][];
     };
     ApiBlockItemModel: {
-      content?: components["schemas"]["IApiElementModel"];
+      content: components["schemas"]["IApiElementModel"];
       settings?: components["schemas"]["IApiElementModel"];
     };
     ApiBlockListModel: {
-      items?: (components["schemas"]["ApiBlockItemModel"] | components["schemas"]["ApiBlockGridItemModel"])[];
+      items: (components["schemas"]["ApiBlockItemModel"] | components["schemas"]["ApiBlockGridItemModel"])[];
+    };
+    ApiContentRouteModel: {
+      path: string;
+      startItem: components["schemas"]["ApiContentStartItemModel"];
+    };
+    ApiContentStartItemModel: {
+      /** Format: uuid */
+      id: string;
+      path: string;
     };
     ApiImageCropperValueModel: {
-      url?: string;
+      url: string;
       focalPoint?: components["schemas"]["ImageFocalPointModel"];
       crops?: components["schemas"]["ImageCropModel"][] | null;
     };
@@ -109,8 +121,8 @@ export interface components {
       /** Format: uuid */
       destinationId?: string | null;
       destinationType?: string | null;
-      route?: components["schemas"]["IApiContentRouteModel"];
-      linkType?: components["schemas"]["LinkTypeModel"];
+      route?: components["schemas"]["ApiContentRouteModel"] | null;
+      linkType: components["schemas"]["LinkTypeModel"];
     };
     BlockSettingsElementModel: {
       contentType: "blockSettings";
@@ -119,73 +131,62 @@ export interface components {
     BlockSettingsPropertiesModel: {
       anchorId?: string | null;
     };
-    HttpValidationProblemDetails: {
+    HttpValidationProblemDetails: components["schemas"]["ProblemDetails"] & {
       errors?: {
         [key: string]: string[];
       };
       [key: string]: unknown;
-    } & components["schemas"]["ProblemDetails"];
+    };
     IApiContentModel: components["schemas"]["TestPageContentModel"] | components["schemas"]["TestPageInvariantContentModel"];
-    IApiContentModelBase: ({
+    IApiContentModelBase: WithRequired<({
       contentType: "IApiContentModelBase";
-      name?: string | null;
-      /** Format: date-time */
-      createDate?: string;
-      /** Format: date-time */
-      updateDate?: string;
-      route?: components["schemas"]["IApiContentRouteModel"];
       /** Format: uuid */
-      id?: string;
-      contentType?: string;
-      properties?: {
+      id: string;
+      contentType: string;
+      properties: {
         [key: string]: unknown;
       };
-    }) & Omit<components["schemas"]["IApiElementModelBase"], "contentType">;
+      name?: string | null;
+      /** Format: date-time */
+      createDate: string;
+      /** Format: date-time */
+      updateDate: string;
+      route: components["schemas"]["ApiContentRouteModel"];
+    }) & Omit<components["schemas"]["IApiElementModelBase"], "contentType">, "contentType" | "createDate" | "id" | "properties" | "route" | "updateDate">;
     IApiContentResponseModel: components["schemas"]["TestPageContentResponseModel"] | components["schemas"]["TestPageInvariantContentResponseModel"];
-    IApiContentResponseModelBase: ({
+    IApiContentResponseModelBase: WithRequired<({
       contentType: "IApiContentResponseModelBase";
-      cultures?: {
-        [key: string]: components["schemas"]["IApiContentRouteModel"];
+      /** Format: uuid */
+      id: string;
+      contentType: string;
+      properties: {
+        [key: string]: unknown;
       };
       name?: string | null;
       /** Format: date-time */
-      createDate?: string;
+      createDate: string;
       /** Format: date-time */
-      updateDate?: string;
-      route?: components["schemas"]["IApiContentRouteModel"];
-      /** Format: uuid */
-      id?: string;
-      contentType?: string;
-      properties?: {
-        [key: string]: unknown;
+      updateDate: string;
+      route: components["schemas"]["ApiContentRouteModel"];
+      cultures: {
+        [key: string]: components["schemas"]["ApiContentRouteModel"];
       };
-    }) & Omit<components["schemas"]["IApiContentModelBase"], "contentType">;
-    IApiContentRouteModel: {
-      path?: string;
-      startItem?: components["schemas"]["IApiContentStartItemModel"];
-    };
-    IApiContentStartItemModel: {
-      /** Format: uuid */
-      id?: string;
-      path?: string;
-    };
+    }) & Omit<components["schemas"]["IApiContentModelBase"], "contentType">, "contentType" | "createDate" | "cultures" | "id" | "properties" | "route" | "updateDate">;
     IApiElementModel: components["schemas"]["BlockSettingsElementModel"] | components["schemas"]["TestCompositionElementModel"] | components["schemas"]["TestComposition2ElementModel"] | components["schemas"]["TestBlockElementModel"] | components["schemas"]["TestBlock2ElementModel"];
     IApiElementModelBase: {
       /** Format: uuid */
-      id?: string;
-      contentType?: string;
-      properties?: {
+      id: string;
+      contentType: string;
+      properties: {
         [key: string]: unknown;
       };
     };
     IApiMediaWithCropsModel: {
-      focalPoint?: components["schemas"]["ImageFocalPointModel"];
-      crops?: (readonly components["schemas"]["ImageCropModel"][]) | null;
       /** Format: uuid */
-      id?: string;
-      name?: string;
-      mediaType?: string;
-      url?: string;
+      id: string;
+      name: string;
+      mediaType: string;
+      url: string;
       extension?: string | null;
       /** Format: int32 */
       width?: number | null;
@@ -193,23 +194,18 @@ export interface components {
       height?: number | null;
       /** Format: int32 */
       bytes?: number | null;
-      properties?: {
+      properties: {
         [key: string]: unknown;
       };
+      focalPoint?: components["schemas"]["ImageFocalPointModel"];
+      crops?: (readonly components["schemas"]["ImageCropModel"][]) | null;
     };
     IApiMediaWithCropsResponseModel: {
-      path?: string;
-      /** Format: date-time */
-      createDate?: string;
-      /** Format: date-time */
-      updateDate?: string;
-      focalPoint?: components["schemas"]["ImageFocalPointModel"];
-      crops?: (readonly components["schemas"]["ImageCropModel"][]) | null;
       /** Format: uuid */
-      id?: string;
-      name?: string;
-      mediaType?: string;
-      url?: string;
+      id: string;
+      name: string;
+      mediaType: string;
+      url: string;
       extension?: string | null;
       /** Format: int32 */
       width?: number | null;
@@ -217,33 +213,40 @@ export interface components {
       height?: number | null;
       /** Format: int32 */
       bytes?: number | null;
-      properties?: {
+      properties: {
         [key: string]: unknown;
       };
+      focalPoint: components["schemas"]["ImageFocalPointModel"];
+      crops?: (readonly components["schemas"]["ImageCropModel"][]) | null;
+      path: string;
+      /** Format: date-time */
+      createDate: string;
+      /** Format: date-time */
+      updateDate: string;
     };
     ImageCropCoordinatesModel: {
       /** Format: double */
-      x1?: number;
+      x1: number;
       /** Format: double */
-      y1?: number;
+      y1: number;
       /** Format: double */
-      x2?: number;
+      x2: number;
       /** Format: double */
-      y2?: number;
+      y2: number;
     };
     ImageCropModel: {
       alias?: string | null;
       /** Format: int32 */
-      width?: number;
+      width: number;
       /** Format: int32 */
-      height?: number;
+      height: number;
       coordinates?: components["schemas"]["ImageCropCoordinatesModel"];
     };
     ImageFocalPointModel: {
       /** Format: double */
-      left?: number;
+      left: number;
       /** Format: double */
-      top?: number;
+      top: number;
     };
     /** @enum {string} */
     LinkTypeModel: "Content" | "Media" | "External";
@@ -258,8 +261,8 @@ export interface components {
       items: components["schemas"]["IApiMediaWithCropsResponseModel"][];
     };
     PickedColorModel: {
-      color?: string;
-      label?: string;
+      value: string;
+      label: string;
     };
     ProblemDetails: {
       type?: string | null;
@@ -271,8 +274,8 @@ export interface components {
       [key: string]: unknown;
     };
     RichTextModel: {
-      markup?: string;
-      blocks?: (components["schemas"]["ApiBlockItemModel"] | components["schemas"]["ApiBlockGridItemModel"])[];
+      markup: string;
+      blocks: (components["schemas"]["ApiBlockItemModel"] | components["schemas"]["ApiBlockGridItemModel"])[];
     };
     TestBlock2ElementModel: {
       contentType: "testBlock2";
@@ -390,8 +393,6 @@ export interface components {
       dropdown?: string | null;
       radiobox?: string | null;
       repeatableTextstrings?: string[] | null;
-      uploadFile?: string | null;
-      imageCropper?: components["schemas"]["ApiImageCropperValueModel"];
       mediaPicker?: components["schemas"]["IApiMediaWithCropsModel"][] | null;
     }) & components["schemas"]["TestCompositionPropertiesModel"] & components["schemas"]["TestComposition2PropertiesModel"];
   };
@@ -437,7 +438,7 @@ export interface operations {
       };
     };
     responses: {
-      /** @description Success */
+      /** @description OK */
       200: {
         content: {
           "application/json": components["schemas"]["PagedIApiContentResponseModel"];
@@ -451,9 +452,7 @@ export interface operations {
       };
       /** @description Not Found */
       404: {
-        content: {
-          "application/json": components["schemas"]["ProblemDetails"] | components["schemas"]["HttpValidationProblemDetails"];
-        };
+        content: never;
       };
     };
   };
@@ -487,7 +486,7 @@ export interface operations {
       };
     };
     responses: {
-      /** @description Success */
+      /** @description OK */
       200: {
         content: {
           "application/json": components["schemas"]["PagedIApiContentResponseModel"];
@@ -501,9 +500,7 @@ export interface operations {
       };
       /** @description Not Found */
       404: {
-        content: {
-          "application/json": components["schemas"]["ProblemDetails"] | components["schemas"]["HttpValidationProblemDetails"];
-        };
+        content: never;
       };
     };
   };
@@ -527,7 +524,7 @@ export interface operations {
       };
     };
     responses: {
-      /** @description Success */
+      /** @description OK */
       200: {
         content: {
           "application/json": components["schemas"]["IApiContentResponseModel"][];
@@ -535,15 +532,11 @@ export interface operations {
       };
       /** @description Unauthorized */
       401: {
-        content: {
-          "application/json": components["schemas"]["ProblemDetails"] | components["schemas"]["HttpValidationProblemDetails"];
-        };
+        content: never;
       };
       /** @description Forbidden */
       403: {
-        content: {
-          "application/json": components["schemas"]["ProblemDetails"] | components["schemas"]["HttpValidationProblemDetails"];
-        };
+        content: never;
       };
     };
   };
@@ -569,7 +562,7 @@ export interface operations {
       };
     };
     responses: {
-      /** @description Success */
+      /** @description OK */
       200: {
         content: {
           "application/json": components["schemas"]["IApiContentResponseModel"];
@@ -577,21 +570,15 @@ export interface operations {
       };
       /** @description Unauthorized */
       401: {
-        content: {
-          "application/json": components["schemas"]["ProblemDetails"] | components["schemas"]["HttpValidationProblemDetails"];
-        };
+        content: never;
       };
       /** @description Forbidden */
       403: {
-        content: {
-          "application/json": components["schemas"]["ProblemDetails"] | components["schemas"]["HttpValidationProblemDetails"];
-        };
+        content: never;
       };
       /** @description Not Found */
       404: {
-        content: {
-          "application/json": components["schemas"]["ProblemDetails"] | components["schemas"]["HttpValidationProblemDetails"];
-        };
+        content: never;
       };
     };
   };
@@ -618,7 +605,7 @@ export interface operations {
       };
     };
     responses: {
-      /** @description Success */
+      /** @description OK */
       200: {
         content: {
           "application/json": components["schemas"]["IApiContentResponseModel"];
@@ -626,21 +613,15 @@ export interface operations {
       };
       /** @description Unauthorized */
       401: {
-        content: {
-          "application/json": components["schemas"]["ProblemDetails"] | components["schemas"]["HttpValidationProblemDetails"];
-        };
+        content: never;
       };
       /** @description Forbidden */
       403: {
-        content: {
-          "application/json": components["schemas"]["ProblemDetails"] | components["schemas"]["HttpValidationProblemDetails"];
-        };
+        content: never;
       };
       /** @description Not Found */
       404: {
-        content: {
-          "application/json": components["schemas"]["ProblemDetails"] | components["schemas"]["HttpValidationProblemDetails"];
-        };
+        content: never;
       };
     };
   };
@@ -666,7 +647,7 @@ export interface operations {
       };
     };
     responses: {
-      /** @description Success */
+      /** @description OK */
       200: {
         content: {
           "application/json": components["schemas"]["IApiContentResponseModel"];
@@ -674,21 +655,15 @@ export interface operations {
       };
       /** @description Unauthorized */
       401: {
-        content: {
-          "application/json": components["schemas"]["ProblemDetails"] | components["schemas"]["HttpValidationProblemDetails"];
-        };
+        content: never;
       };
       /** @description Forbidden */
       403: {
-        content: {
-          "application/json": components["schemas"]["ProblemDetails"] | components["schemas"]["HttpValidationProblemDetails"];
-        };
+        content: never;
       };
       /** @description Not Found */
       404: {
-        content: {
-          "application/json": components["schemas"]["ProblemDetails"] | components["schemas"]["HttpValidationProblemDetails"];
-        };
+        content: never;
       };
     };
   };
@@ -715,7 +690,7 @@ export interface operations {
       };
     };
     responses: {
-      /** @description Success */
+      /** @description OK */
       200: {
         content: {
           "application/json": components["schemas"]["IApiContentResponseModel"];
@@ -723,21 +698,15 @@ export interface operations {
       };
       /** @description Unauthorized */
       401: {
-        content: {
-          "application/json": components["schemas"]["ProblemDetails"] | components["schemas"]["HttpValidationProblemDetails"];
-        };
+        content: never;
       };
       /** @description Forbidden */
       403: {
-        content: {
-          "application/json": components["schemas"]["ProblemDetails"] | components["schemas"]["HttpValidationProblemDetails"];
-        };
+        content: never;
       };
       /** @description Not Found */
       404: {
-        content: {
-          "application/json": components["schemas"]["ProblemDetails"] | components["schemas"]["HttpValidationProblemDetails"];
-        };
+        content: never;
       };
     };
   };
@@ -762,7 +731,7 @@ export interface operations {
       };
     };
     responses: {
-      /** @description Success */
+      /** @description OK */
       200: {
         content: {
           "application/json": components["schemas"]["IApiContentResponseModel"][];
@@ -770,15 +739,11 @@ export interface operations {
       };
       /** @description Unauthorized */
       401: {
-        content: {
-          "application/json": components["schemas"]["ProblemDetails"] | components["schemas"]["HttpValidationProblemDetails"];
-        };
+        content: never;
       };
       /** @description Forbidden */
       403: {
-        content: {
-          "application/json": components["schemas"]["ProblemDetails"] | components["schemas"]["HttpValidationProblemDetails"];
-        };
+        content: never;
       };
     };
   };
@@ -786,17 +751,17 @@ export interface operations {
   GetMedia: {
     parameters: {
       query?: {
-        /** @description Specifies the media items to fetch. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api#query-parameters) for more details on this. */
+        /** @description Specifies the media items to fetch. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api/media-delivery-api#query-parameters) for more details on this. */
         fetch?: string;
-        /** @description Defines how to filter the fetched media items. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api#query-parameters) for more details on this. */
+        /** @description Defines how to filter the fetched media items. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api/media-delivery-api#query-parameters) for more details on this. */
         filter?: string[];
-        /** @description Defines how to sort the found media items. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api#query-parameters) for more details on this. */
+        /** @description Defines how to sort the found media items. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api/media-delivery-api#query-parameters) for more details on this. */
         sort?: string[];
         /** @description Specifies the number of found media items to skip. Use this to control pagination of the response. */
         skip?: number;
         /** @description Specifies the number of found media items to take. Use this to control pagination of the response. */
         take?: number;
-        /** @description Defines the properties that should be expanded in the response. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api#query-parameters) for more details on this. */
+        /** @description Defines the properties that should be expanded in the response. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api/media-delivery-api#query-parameters) for more details on this. */
         expand?: string;
       };
       header?: {
@@ -805,7 +770,7 @@ export interface operations {
       };
     };
     responses: {
-      /** @description Success */
+      /** @description OK */
       200: {
         content: {
           "application/json": components["schemas"]["PagedIApiMediaWithCropsResponseModel"];
@@ -822,19 +787,19 @@ export interface operations {
   "GetMedia2.0": {
     parameters: {
       query?: {
-        /** @description Specifies the media items to fetch. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api#query-parameters) for more details on this. */
+        /** @description Specifies the media items to fetch. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api/media-delivery-api#query-parameters) for more details on this. */
         fetch?: string;
-        /** @description Defines how to filter the fetched media items. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api#query-parameters) for more details on this. */
+        /** @description Defines how to filter the fetched media items. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api/media-delivery-api#query-parameters) for more details on this. */
         filter?: string[];
-        /** @description Defines how to sort the found media items. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api#query-parameters) for more details on this. */
+        /** @description Defines how to sort the found media items. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api/media-delivery-api#query-parameters) for more details on this. */
         sort?: string[];
         /** @description Specifies the number of found media items to skip. Use this to control pagination of the response. */
         skip?: number;
         /** @description Specifies the number of found media items to take. Use this to control pagination of the response. */
         take?: number;
-        /** @description Defines the properties that should be expanded in the response. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api#query-parameters) for more details on this. */
+        /** @description Defines the properties that should be expanded in the response. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api/media-delivery-api#query-parameters) for more details on this. */
         expand?: string;
-        /** @description Explicitly defines which properties should be included in the response (by default all properties are included). Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api#query-parameters) for more details on this. */
+        /** @description Explicitly defines which properties should be included in the response (by default all properties are included). Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api/media-delivery-api#query-parameters) for more details on this. */
         fields?: string;
       };
       header?: {
@@ -843,7 +808,7 @@ export interface operations {
       };
     };
     responses: {
-      /** @description Success */
+      /** @description OK */
       200: {
         content: {
           "application/json": components["schemas"]["PagedIApiMediaWithCropsResponseModel"];
@@ -862,7 +827,7 @@ export interface operations {
     parameters: {
       query?: {
         id?: string[];
-        /** @description Defines the properties that should be expanded in the response. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api#query-parameters) for more details on this. */
+        /** @description Defines the properties that should be expanded in the response. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api/media-delivery-api#query-parameters) for more details on this. */
         expand?: string;
       };
       header?: {
@@ -871,7 +836,7 @@ export interface operations {
       };
     };
     responses: {
-      /** @description Success */
+      /** @description OK */
       200: {
         content: {
           "application/json": components["schemas"]["IApiMediaWithCropsResponseModel"][];
@@ -883,7 +848,7 @@ export interface operations {
   GetMediaItemByPath: {
     parameters: {
       query?: {
-        /** @description Defines the properties that should be expanded in the response. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api#query-parameters) for more details on this. */
+        /** @description Defines the properties that should be expanded in the response. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api/media-delivery-api#query-parameters) for more details on this. */
         expand?: string;
       };
       header?: {
@@ -895,7 +860,7 @@ export interface operations {
       };
     };
     responses: {
-      /** @description Success */
+      /** @description OK */
       200: {
         content: {
           "application/json": components["schemas"]["IApiMediaWithCropsResponseModel"];
@@ -903,18 +868,16 @@ export interface operations {
       };
       /** @description Not Found */
       404: {
-        content: {
-          "application/json": components["schemas"]["ProblemDetails"] | components["schemas"]["HttpValidationProblemDetails"];
-        };
+        content: never;
       };
     };
   };
   "GetMediaItemByPath2.0": {
     parameters: {
       query?: {
-        /** @description Defines the properties that should be expanded in the response. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api#query-parameters) for more details on this. */
+        /** @description Defines the properties that should be expanded in the response. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api/media-delivery-api#query-parameters) for more details on this. */
         expand?: string;
-        /** @description Explicitly defines which properties should be included in the response (by default all properties are included). Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api#query-parameters) for more details on this. */
+        /** @description Explicitly defines which properties should be included in the response (by default all properties are included). Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api/media-delivery-api#query-parameters) for more details on this. */
         fields?: string;
       };
       header?: {
@@ -926,7 +889,7 @@ export interface operations {
       };
     };
     responses: {
-      /** @description Success */
+      /** @description OK */
       200: {
         content: {
           "application/json": components["schemas"]["IApiMediaWithCropsResponseModel"];
@@ -934,9 +897,7 @@ export interface operations {
       };
       /** @description Not Found */
       404: {
-        content: {
-          "application/json": components["schemas"]["ProblemDetails"] | components["schemas"]["HttpValidationProblemDetails"];
-        };
+        content: never;
       };
     };
   };
@@ -944,7 +905,7 @@ export interface operations {
   GetMediaItemById: {
     parameters: {
       query?: {
-        /** @description Defines the properties that should be expanded in the response. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api#query-parameters) for more details on this. */
+        /** @description Defines the properties that should be expanded in the response. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api/media-delivery-api#query-parameters) for more details on this. */
         expand?: string;
       };
       header?: {
@@ -956,7 +917,7 @@ export interface operations {
       };
     };
     responses: {
-      /** @description Success */
+      /** @description OK */
       200: {
         content: {
           "application/json": components["schemas"]["IApiMediaWithCropsResponseModel"];
@@ -964,18 +925,16 @@ export interface operations {
       };
       /** @description Not Found */
       404: {
-        content: {
-          "application/json": components["schemas"]["ProblemDetails"] | components["schemas"]["HttpValidationProblemDetails"];
-        };
+        content: never;
       };
     };
   };
   "GetMediaItemById2.0": {
     parameters: {
       query?: {
-        /** @description Defines the properties that should be expanded in the response. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api#query-parameters) for more details on this. */
+        /** @description Defines the properties that should be expanded in the response. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api/media-delivery-api#query-parameters) for more details on this. */
         expand?: string;
-        /** @description Explicitly defines which properties should be included in the response (by default all properties are included). Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api#query-parameters) for more details on this. */
+        /** @description Explicitly defines which properties should be included in the response (by default all properties are included). Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api/media-delivery-api#query-parameters) for more details on this. */
         fields?: string;
       };
       header?: {
@@ -987,7 +946,7 @@ export interface operations {
       };
     };
     responses: {
-      /** @description Success */
+      /** @description OK */
       200: {
         content: {
           "application/json": components["schemas"]["IApiMediaWithCropsResponseModel"];
@@ -995,9 +954,7 @@ export interface operations {
       };
       /** @description Not Found */
       404: {
-        content: {
-          "application/json": components["schemas"]["ProblemDetails"] | components["schemas"]["HttpValidationProblemDetails"];
-        };
+        content: never;
       };
     };
   };
@@ -1005,9 +962,9 @@ export interface operations {
     parameters: {
       query?: {
         id?: string[];
-        /** @description Defines the properties that should be expanded in the response. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api#query-parameters) for more details on this. */
+        /** @description Defines the properties that should be expanded in the response. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api/media-delivery-api#query-parameters) for more details on this. */
         expand?: string;
-        /** @description Explicitly defines which properties should be included in the response (by default all properties are included). Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api#query-parameters) for more details on this. */
+        /** @description Explicitly defines which properties should be included in the response (by default all properties are included). Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api/media-delivery-api#query-parameters) for more details on this. */
         fields?: string;
       };
       header?: {
@@ -1016,7 +973,7 @@ export interface operations {
       };
     };
     responses: {
-      /** @description Success */
+      /** @description OK */
       200: {
         content: {
           "application/json": components["schemas"]["IApiMediaWithCropsResponseModel"][];
