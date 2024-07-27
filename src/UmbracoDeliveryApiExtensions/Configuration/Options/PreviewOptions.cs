@@ -20,11 +20,4 @@ public class PreviewOptions
     /// Defaults to empty, which allows all user groups.
     /// </summary>
     public List<string> AllowedUserGroupAliases { get; set; } = [];
-
-    /// <summary>
-    /// The weight of the preview content app.
-    /// Controls the position between the existing Content (-100) and Info (100) apps.
-    /// Defaults to -50.
-    /// </summary>
-    public int ContentAppWeight { get; set; } = -50;
 }

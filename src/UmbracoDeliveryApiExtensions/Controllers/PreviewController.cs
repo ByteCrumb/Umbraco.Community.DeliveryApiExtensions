@@ -88,7 +88,6 @@ public sealed class PreviewController : BaseController
 
         response.Enabled = options.Enabled;
         response.Media = new PreviewMediaConfig { Enabled = options.Media.Enabled, };
-        response.ContentAppWeight = options.ContentAppWeight;
 
         return response;
     }

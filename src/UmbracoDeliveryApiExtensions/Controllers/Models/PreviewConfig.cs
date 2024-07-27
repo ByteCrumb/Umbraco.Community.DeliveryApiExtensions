@@ -14,11 +14,6 @@ public class PreviewConfig
     /// Preview options for media.
     /// </summary>
     public PreviewMediaConfig? Media { get; set; }
-
-    /// <summary>
-    /// The weight of the preview content app.
-    /// </summary>
-    public int? ContentAppWeight { get; set; }
 }
 
 /// <summary>

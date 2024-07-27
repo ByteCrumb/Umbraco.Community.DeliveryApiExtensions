@@ -3,5 +3,4 @@ export type ApiPreviewConfig = {
   media: {
     enabled: boolean,
   }
-  contentAppWeight: number,
 };

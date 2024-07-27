@@ -59,7 +59,6 @@ dotnet add package Umbraco.Community.DeliveryApiExtensions
         "Enabled": true
       },
       "AllowedUserGroupAliases": [], // All allowed by default
-      "ContentAppWeight": -50
     },
     "TypedSwagger": {
       "Enabled": true,

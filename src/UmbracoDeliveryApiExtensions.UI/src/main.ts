@@ -28,7 +28,7 @@ export const onInit: UmbEntryPointOnInit = (_host, extensionRegistry) => {
           pathname: 'preview',
         },
         element: async () => (import('./workspace-views/api-preview')),
-        weight: config?.contentAppWeight,
+        weight: -50,
         conditions: [
           {
             alias: 'Umb.Condition.WorkspaceAlias',
