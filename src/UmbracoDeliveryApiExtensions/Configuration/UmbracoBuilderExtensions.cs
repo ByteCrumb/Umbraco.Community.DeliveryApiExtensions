@@ -88,12 +88,12 @@ public static class UmbracoBuilderExtensions
                     typeof(IApiContent),
                     typeof(IApiMediaWithCrops),
                     typeof(IApiContentResponse),
-                    typeof(IApiMediaWithCropsResponse)
+                    typeof(IApiMediaWithCropsResponse),
                 ];
 
                 if (handledTypes.Contains(baseType))
                 {
-                    return Enumerable.Empty<Type>();
+                    return [];
                 }
 
                 List<Type> result = currentSubTypesSelector(baseType).ToList();

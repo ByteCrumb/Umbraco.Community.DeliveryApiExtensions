@@ -173,6 +173,8 @@ dotnet_diagnostic.IDE0063.severity = suggestion
 csharp_using_directive_placement = outside_namespace:warning
 # Modifier preferences
 csharp_prefer_static_local_function = true:warning
+# Use primary constructor
+csharp_style_prefer_primary_constructors = false
 
 ##########################################
 # Unnecessary Code Rules
