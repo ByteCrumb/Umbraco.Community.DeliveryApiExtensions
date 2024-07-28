@@ -50,6 +50,8 @@ dotnet add package Umbraco.Community.DeliveryApiExtensions
 ```
 
 ### Configuration (appsettings.json)
+
+The following represents the default configuration, which can optionally be overriden by defining it in your own app settings.
 ```jsonc
 {
   "DeliveryApiExtensions": {
