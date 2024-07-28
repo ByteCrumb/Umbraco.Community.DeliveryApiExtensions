@@ -41,7 +41,7 @@ public class DeliveryApiContentTypesSchemaFilter : ISchemaFilter, IDocumentFilte
             return;
         }
 
-        ApplyPolymorphicContentType<IApiContentResponse, IApiContent>(context, _contentTypeInfoService.GetContentTypes().Where(c => !c.IsElement).DistinctBy(c => c.Alias), settings, contentType => (
+        ApplyPolymorphicContentType<IApiContent>(context, _contentTypeInfoService.GetContentTypes().Where(c => !c.IsElement).DistinctBy(c => c.Alias), contentType => (
             $"{contentType.SchemaId}ContentResponseModel",
             new OpenApiSchema
             {
@@ -55,7 +55,7 @@ public class DeliveryApiContentTypesSchemaFilter : ISchemaFilter, IDocumentFilte
             }
         ));
 
-        ApplyPolymorphicContentType<IApiContent, IApiElement>(context, _contentTypeInfoService.GetContentTypes().Where(c => !c.IsElement).DistinctBy(c => c.Alias), settings, contentType => (
+        ApplyPolymorphicContentType<IApiElement>(context, _contentTypeInfoService.GetContentTypes().Where(c => !c.IsElement).DistinctBy(c => c.Alias), contentType => (
             $"{contentType.SchemaId}ContentModel",
             new OpenApiSchema
             {
@@ -69,7 +69,7 @@ public class DeliveryApiContentTypesSchemaFilter : ISchemaFilter, IDocumentFilte
             }
         ));
 
-        ApplyPolymorphicContentType<IApiElement>(context, _contentTypeInfoService.GetContentTypes().Where(c => c.IsElement).DistinctBy(c => c.Alias), settings, contentType => (
+        ApplyPolymorphicContentType(context, _contentTypeInfoService.GetContentTypes().Where(c => c.IsElement).DistinctBy(c => c.Alias), contentType => (
             $"{contentType.SchemaId}ElementModel",
             new OpenApiSchema
             {
@@ -131,12 +131,12 @@ public class DeliveryApiContentTypesSchemaFilter : ISchemaFilter, IDocumentFilte
         }
     }
 
-    private void ApplyPolymorphicContentType<T, TAncestor>(DocumentFilterContext context, IEnumerable<ContentTypeInfo> contentTypes, SwaggerGenerationSettings settings, Func<ContentTypeInfo, (string SchemaId, OpenApiSchema Schema)> contentTypeSchemaMapper)
+    private static void ApplyPolymorphicContentType<TAncestor>(DocumentFilterContext context, IEnumerable<ContentTypeInfo> contentTypes, Func<ContentTypeInfo, (string SchemaId, OpenApiSchema Schema)> contentTypeSchemaMapper)
     {
         // Ensure ancestor is generated if not already
         _ = context.SchemaGenerator.GenerateSchema(typeof(TAncestor), context.SchemaRepository);
 
-        ApplyPolymorphicContentType<T>(context, contentTypes, settings, contentTypeSchemaMapper);
+        ApplyPolymorphicContentType(context, contentTypes, contentTypeSchemaMapper);
     }
 
     private void ApplyPolymorphicContentTypeSchema<T, TAncestor>(OpenApiSchema schema, SchemaFilterContext context, IEnumerable<ContentTypeInfo> contentTypes, SwaggerGenerationSettings settings, Func<ContentTypeInfo, string> contentTypeSchemaIdMapper)
@@ -150,7 +150,7 @@ public class DeliveryApiContentTypesSchemaFilter : ISchemaFilter, IDocumentFilte
         ApplyPolymorphicContentTypeSchema<T>(schema, context, contentTypes, settings, contentTypeSchemaIdMapper);
     }
 
-    private void ApplyPolymorphicContentType<T>(DocumentFilterContext context, IEnumerable<ContentTypeInfo> contentTypes, SwaggerGenerationSettings settings, Func<ContentTypeInfo, (string SchemaId, OpenApiSchema Schema)> contentTypeSchemaMapper)
+    private static void ApplyPolymorphicContentType(DocumentFilterContext context, IEnumerable<ContentTypeInfo> contentTypes, Func<ContentTypeInfo, (string SchemaId, OpenApiSchema Schema)> contentTypeSchemaMapper)
     {
         foreach (ContentTypeInfo contentType in contentTypes)
         {
