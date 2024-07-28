@@ -1,7 +1,8 @@
 import {type UmbEntryPointOnInit} from '@umbraco-cms/backoffice/extension-api';
 import {type ManifestWorkspaceView} from '@umbraco-cms/backoffice/extension-registry';
-import { ApiPreviewRepository } from './contexts/api-preview.repository';
-import { manifest as apiPreviewViewCondition } from './conditions/api-preview.view.condition';
+
+import {manifest as apiPreviewViewCondition} from './conditions/api-preview.view.condition';
+import {ApiPreviewRepository} from './contexts/api-preview.repository';
 
 export const onInit: UmbEntryPointOnInit = (_host, extensionRegistry) => {
   const workspaceAlias = 'deliveryApiPreview';
@@ -9,12 +10,14 @@ export const onInit: UmbEntryPointOnInit = (_host, extensionRegistry) => {
 
   apiPreviewRepository
     .fetchConfig()
-    .then((config) => {
-      if(config?.enabled !== true) return;
+    .then(config => {
+      if (config?.enabled !== true) {
+        return;
+      }
 
       extensionRegistry.register(apiPreviewViewCondition);
       const enabledWorkspaces = ['Umb.Workspace.Document'];
-      if(config.media.enabled){
+      if (config.media.enabled) {
         enabledWorkspaces.push('Umb.Workspace.Media');
       }
 
@@ -28,7 +31,7 @@ export const onInit: UmbEntryPointOnInit = (_host, extensionRegistry) => {
           pathname: 'preview',
         },
         element: async () => (import('./workspace-views/api-preview')),
-        weight: -50,
+        weight: 110,
         conditions: [
           {
             alias: 'Umb.Condition.WorkspaceAlias',
@@ -36,7 +39,7 @@ export const onInit: UmbEntryPointOnInit = (_host, extensionRegistry) => {
           },
           {
             alias: 'DeliveryApiExtensions.ApiPreview.View',
-          }
+          },
         ],
       };
 
