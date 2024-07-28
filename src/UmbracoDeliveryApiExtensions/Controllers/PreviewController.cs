@@ -1,3 +1,4 @@
+using Asp.Versioning;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -21,6 +22,7 @@ namespace Umbraco.Community.DeliveryApiExtensions.Controllers;
 /// <summary>
 ///     <see cref="Controller"/> for previewing delivery api content and media.
 /// </summary>
+[ApiVersion("2.0")]
 public sealed class PreviewController : BaseController
 {
     private readonly ILogger<PreviewController> _logger;
