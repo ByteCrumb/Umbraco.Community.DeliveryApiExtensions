@@ -36,12 +36,14 @@ public class DeliveryApiContentTypesSchemaFilter : ISchemaFilter, IDocumentFilte
     {
         SwaggerGenerationSettings settings = _typedSwaggerOptions.CurrentValue.SettingsFactory();
 
-        if (settings is { UseOneOf: false, UseAllOf: false })
+        if (settings is { UseOneOf: false, UseAllOf: false } || !HasMarker(context))
         {
             return;
         }
 
-        ApplyPolymorphicContentType<IApiContent>(context, _contentTypeInfoService.GetContentTypes().Where(c => !c.IsElement).DistinctBy(c => c.Alias), contentType => (
+        ApplyPolymorphicContentType<IApiContent>(context,
+        _contentTypeInfoService.GetContentTypes().Where(c => !c.IsElement).DistinctBy(c => c.Alias),
+        contentType => (
             $"{contentType.SchemaId}ContentResponseModel",
             new OpenApiSchema
             {
@@ -49,39 +51,73 @@ public class DeliveryApiContentTypesSchemaFilter : ISchemaFilter, IDocumentFilte
                 AdditionalPropertiesAllowed = false,
                 AllOf =
                 {
-                    new OpenApiSchema { Reference = new OpenApiReference { Type = ReferenceType.Schema, Id = GetTypeSchemaId<IApiContentResponse>(settings.UseOneOf) } },
-                    new OpenApiSchema { Reference = new OpenApiReference { Type = ReferenceType.Schema, Id = $"{contentType.SchemaId}ContentModel" } },
+                        new OpenApiSchema
+                        {
+                            Reference = new OpenApiReference
+                            {
+                                Type = ReferenceType.Schema,
+                                Id = GetTypeSchemaId<IApiContentResponse>(settings.UseOneOf),
+                            },
+                        },
+                        new OpenApiSchema
+                        {
+                            Reference = new OpenApiReference
+                            {
+                                Type = ReferenceType.Schema,
+                                Id = $"{contentType.SchemaId}ContentModel",
+                            },
+                        },
                 },
             }
         ));
 
-        ApplyPolymorphicContentType<IApiElement>(context, _contentTypeInfoService.GetContentTypes().Where(c => !c.IsElement).DistinctBy(c => c.Alias), contentType => (
-            $"{contentType.SchemaId}ContentModel",
-            new OpenApiSchema
-            {
-                Type = "object",
-                AdditionalPropertiesAllowed = false,
-                AllOf = { new OpenApiSchema { Reference = new OpenApiReference { Type = ReferenceType.Schema, Id = GetTypeSchemaId<IApiContent>(settings.UseOneOf) } } },
-                Properties =
+        ApplyPolymorphicContentType<IApiElement>(context,
+            _contentTypeInfoService.GetContentTypes().Where(c => !c.IsElement).DistinctBy(c => c.Alias),
+            contentType => (
+                $"{contentType.SchemaId}ContentModel",
+                new OpenApiSchema
                 {
-                    ["properties"] = ContentTypePropertiesMapper(contentType, context),
-                },
-            }
-        ));
+                    Type = "object",
+                    AdditionalPropertiesAllowed = false,
+                    AllOf =
+                    {
+                        new OpenApiSchema
+                        {
+                            Reference = new OpenApiReference
+                            {
+                                Type = ReferenceType.Schema,
+                                Id = GetTypeSchemaId<IApiContent>(settings.UseOneOf),
+                            },
+                        },
+                    },
+                    Properties = { ["properties"] = ContentTypePropertiesMapper(contentType, context) },
+                }
+            ));
 
-        ApplyPolymorphicContentType(context, _contentTypeInfoService.GetContentTypes().Where(c => c.IsElement).DistinctBy(c => c.Alias), contentType => (
-            $"{contentType.SchemaId}ElementModel",
-            new OpenApiSchema
-            {
-                Type = "object",
-                AdditionalPropertiesAllowed = false,
-                AllOf = { new OpenApiSchema { Reference = new OpenApiReference { Type = ReferenceType.Schema, Id = GetTypeSchemaId<IApiElement>(settings.UseOneOf) } } },
-                Properties =
+        ApplyPolymorphicContentType(context,
+            _contentTypeInfoService.GetContentTypes().Where(c => c.IsElement).DistinctBy(c => c.Alias),
+            contentType => (
+                $"{contentType.SchemaId}ElementModel",
+                new OpenApiSchema
                 {
-                    ["properties"] = ContentTypePropertiesMapper(contentType, context),
-                },
-            }
-        ));
+                    Type = "object",
+                    AdditionalPropertiesAllowed = false,
+                    AllOf =
+                    {
+                        new OpenApiSchema
+                        {
+                            Reference = new OpenApiReference
+                            {
+                                Type = ReferenceType.Schema,
+                                Id = GetTypeSchemaId<IApiElement>(settings.UseOneOf),
+                            },
+                        },
+                    },
+                    Properties = { ["properties"] = ContentTypePropertiesMapper(contentType, context) },
+                }
+            ));
+
+        RemoveMarker(swaggerDoc);
     }
 
     /// <inheritdoc/>
@@ -103,6 +139,8 @@ public class DeliveryApiContentTypesSchemaFilter : ISchemaFilter, IDocumentFilte
                 settings,
                 contentType => $"{contentType.SchemaId}ContentResponseModel"
             );
+
+            AddMarker(context);
             return;
         }
 
@@ -115,6 +153,8 @@ public class DeliveryApiContentTypesSchemaFilter : ISchemaFilter, IDocumentFilte
                 settings,
                 contentType => $"{contentType.SchemaId}ContentModel"
             );
+
+            AddMarker(context);
             return;
         }
 
@@ -127,6 +167,8 @@ public class DeliveryApiContentTypesSchemaFilter : ISchemaFilter, IDocumentFilte
                 settings,
                 contentType => $"{contentType.SchemaId}ElementModel"
             );
+
+            AddMarker(context);
             return;
         }
     }
@@ -240,5 +282,21 @@ public class DeliveryApiContentTypesSchemaFilter : ISchemaFilter, IDocumentFilte
         schema.Properties.Clear();
         schema.AdditionalProperties = null;
         schema.Discriminator = null;
+    }
+
+    private const string MarkerId = "__marker__";
+    private static bool HasMarker(DocumentFilterContext context)
+    {
+        return context.SchemaRepository.Schemas.ContainsKey(MarkerId);
+    }
+
+    private static void AddMarker(SchemaFilterContext context)
+    {
+        context.SchemaRepository.Schemas.TryAdd(MarkerId, new OpenApiSchema());
+    }
+
+    private static void RemoveMarker(OpenApiDocument swaggerDoc)
+    {
+        swaggerDoc.Components.Schemas.Remove(MarkerId);
     }
 }
