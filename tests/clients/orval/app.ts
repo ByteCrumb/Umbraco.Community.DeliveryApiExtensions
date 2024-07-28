@@ -55,8 +55,8 @@ function renderTestPage(content: TestPageContentResponseModel) {
   print('repeatableTextstrings', properties?.repeatableTextstrings);
 
   console.log('\n  **Media**');
-  print('uploadFile', properties?.uploadFile);
-  print('imageCropper', properties?.imageCropper);
+  // TODO: print('uploadFile', properties?.uploadFile);
+  // TODO: print('imageCropper', properties?.imageCropper);
   print('mediaPicker', properties?.mediaPicker);
 
   console.log('\n  **Content Picker**');

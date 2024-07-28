@@ -108,11 +108,6 @@ export interface components {
       id: string;
       path: string;
     };
-    ApiImageCropperValueModel: {
-      url: string;
-      focalPoint?: components["schemas"]["ImageFocalPointModel"];
-      crops?: components["schemas"]["ImageCropModel"][] | null;
-    };
     ApiLinkModel: {
       url?: string | null;
       queryString?: string | null;
@@ -143,9 +138,6 @@ export interface components {
       /** Format: uuid */
       id: string;
       contentType: string;
-      properties: {
-        [key: string]: unknown;
-      };
       name?: string | null;
       /** Format: date-time */
       createDate: string;
@@ -159,9 +151,6 @@ export interface components {
       /** Format: uuid */
       id: string;
       contentType: string;
-      properties: {
-        [key: string]: unknown;
-      };
       name?: string | null;
       /** Format: date-time */
       createDate: string;
@@ -172,14 +161,11 @@ export interface components {
         [key: string]: components["schemas"]["ApiContentRouteModel"];
       };
     }) & Omit<components["schemas"]["IApiContentModelBase"], "contentType">, "contentType" | "createDate" | "cultures" | "id" | "properties" | "route" | "updateDate">;
-    IApiElementModel: components["schemas"]["BlockSettingsElementModel"] | components["schemas"]["TestCompositionElementModel"] | components["schemas"]["TestComposition2ElementModel"] | components["schemas"]["TestBlockElementModel"] | components["schemas"]["TestBlock2ElementModel"];
+    IApiElementModel: components["schemas"]["BlockSettingsElementModel"] | components["schemas"]["TestBlockElementModel"] | components["schemas"]["TestBlock2ElementModel"] | components["schemas"]["TestCompositionElementModel"] | components["schemas"]["TestComposition2ElementModel"];
     IApiElementModelBase: {
       /** Format: uuid */
       id: string;
       contentType: string;
-      properties: {
-        [key: string]: unknown;
-      };
     };
     IApiMediaWithCropsModel: {
       /** Format: uuid */
@@ -356,8 +342,6 @@ export interface components {
       dropdown?: string | null;
       radiobox?: string | null;
       repeatableTextstrings?: string[] | null;
-      uploadFile?: string | null;
-      imageCropper?: components["schemas"]["ApiImageCropperValueModel"];
       mediaPicker?: components["schemas"]["IApiMediaWithCropsModel"][] | null;
     }) & components["schemas"]["TestCompositionPropertiesModel"] & components["schemas"]["TestComposition2PropertiesModel"];
     TestPagePropertiesModel: ({

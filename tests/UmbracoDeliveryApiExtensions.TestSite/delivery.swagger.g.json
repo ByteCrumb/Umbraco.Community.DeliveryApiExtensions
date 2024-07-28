@@ -2199,28 +2199,6 @@
         },
         "additionalProperties": false
       },
-      "ApiImageCropperValueModel": {
-        "required": [
-          "url"
-        ],
-        "type": "object",
-        "properties": {
-          "url": {
-            "type": "string"
-          },
-          "focalPoint": {
-            "$ref": "#/components/schemas/ImageFocalPointModel"
-          },
-          "crops": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/ImageCropModel"
-            },
-            "nullable": true
-          }
-        },
-        "additionalProperties": false
-      },
       "ApiLinkModel": {
         "required": [
           "linkType"
@@ -2294,7 +2272,8 @@
             "type": "string",
             "nullable": true
           }
-        }
+        },
+        "additionalProperties": false
       },
       "HttpValidationProblemDetails": {
         "allOf": [
@@ -2353,11 +2332,6 @@
           },
           "contentType": {
             "type": "string",
-            "readOnly": true
-          },
-          "properties": {
-            "type": "object",
-            "additionalProperties": { },
             "readOnly": true
           },
           "name": {
@@ -2431,11 +2405,6 @@
             "type": "string",
             "readOnly": true
           },
-          "properties": {
-            "type": "object",
-            "additionalProperties": { },
-            "readOnly": true
-          },
           "name": {
             "type": "string",
             "nullable": true,
@@ -2487,16 +2456,16 @@
             "$ref": "#/components/schemas/BlockSettingsElementModel"
           },
           {
-            "$ref": "#/components/schemas/TestCompositionElementModel"
-          },
-          {
-            "$ref": "#/components/schemas/TestComposition2ElementModel"
-          },
-          {
             "$ref": "#/components/schemas/TestBlockElementModel"
           },
           {
             "$ref": "#/components/schemas/TestBlock2ElementModel"
+          },
+          {
+            "$ref": "#/components/schemas/TestCompositionElementModel"
+          },
+          {
+            "$ref": "#/components/schemas/TestComposition2ElementModel"
           }
         ],
         "additionalProperties": false
@@ -2517,11 +2486,6 @@
           "contentType": {
             "type": "string",
             "readOnly": true
-          },
-          "properties": {
-            "type": "object",
-            "additionalProperties": { },
-            "readOnly": true
           }
         },
         "additionalProperties": false,
@@ -2529,10 +2493,10 @@
           "propertyName": "contentType",
           "mapping": {
             "blockSettings": "#/components/schemas/BlockSettingsElementModel",
-            "testComposition": "#/components/schemas/TestCompositionElementModel",
-            "testComposition2": "#/components/schemas/TestComposition2ElementModel",
             "testBlock": "#/components/schemas/TestBlockElementModel",
-            "testBlock2": "#/components/schemas/TestBlock2ElementModel"
+            "testBlock2": "#/components/schemas/TestBlock2ElementModel",
+            "testComposition": "#/components/schemas/TestCompositionElementModel",
+            "testComposition2": "#/components/schemas/TestComposition2ElementModel"
           }
         }
       },
@@ -2906,7 +2870,8 @@
             "type": "string",
             "nullable": true
           }
-        }
+        },
+        "additionalProperties": false
       },
       "TestBlockElementModel": {
         "type": "object",
@@ -2944,7 +2909,8 @@
           "blocks": {
             "$ref": "#/components/schemas/ApiBlockListModel"
           }
-        }
+        },
+        "additionalProperties": false
       },
       "TestComposition2ElementModel": {
         "type": "object",
@@ -2970,7 +2936,8 @@
           "sharedRichText": {
             "$ref": "#/components/schemas/RichTextModel"
           }
-        }
+        },
+        "additionalProperties": false
       },
       "TestCompositionElementModel": {
         "type": "object",
@@ -2997,7 +2964,8 @@
             "type": "string",
             "nullable": true
           }
-        }
+        },
+        "additionalProperties": false
       },
       "TestPageContentModel": {
         "type": "object",
@@ -3185,13 +3153,6 @@
             },
             "nullable": true
           },
-          "uploadFile": {
-            "type": "string",
-            "nullable": true
-          },
-          "imageCropper": {
-            "$ref": "#/components/schemas/ApiImageCropperValueModel"
-          },
           "mediaPicker": {
             "type": "array",
             "items": {
@@ -3199,7 +3160,8 @@
             },
             "nullable": true
           }
-        }
+        },
+        "additionalProperties": false
       },
       "TestPagePropertiesModel": {
         "type": "object",
@@ -3342,7 +3304,8 @@
             },
             "nullable": true
           }
-        }
+        },
+        "additionalProperties": false
       }
     },
     "securitySchemes": {

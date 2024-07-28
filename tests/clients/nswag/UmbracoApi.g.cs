@@ -2239,22 +2239,6 @@ namespace nswag
     }
 
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.1.0.0 (NJsonSchema v11.0.2.0 (Newtonsoft.Json v13.0.0.0))")]
-    public partial class ApiImageCropperValueModel
-    {
-
-        [System.Text.Json.Serialization.JsonPropertyName("url")]
-        [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
-        public string Url { get; set; } = default!;
-
-        [System.Text.Json.Serialization.JsonPropertyName("focalPoint")]
-        public ImageFocalPointModel? FocalPoint { get; set; } = default!;
-
-        [System.Text.Json.Serialization.JsonPropertyName("crops")]
-        public System.Collections.Generic.ICollection<ImageCropModel>? Crops { get; set; } = default!;
-
-    }
-
-    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.1.0.0 (NJsonSchema v11.0.2.0 (Newtonsoft.Json v13.0.0.0))")]
     public partial class ApiLinkModel
     {
 
@@ -2301,15 +2285,6 @@ namespace nswag
 
         [System.Text.Json.Serialization.JsonPropertyName("anchorId")]
         public string? AnchorId { get; set; } = default!;
-
-        private System.Collections.Generic.IDictionary<string, object>? _additionalProperties;
-
-        [System.Text.Json.Serialization.JsonExtensionData]
-        public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
-        {
-            get { return _additionalProperties ?? (_additionalProperties = new System.Collections.Generic.Dictionary<string, object>()); }
-            set { _additionalProperties = value; }
-        }
 
     }
 
@@ -2425,10 +2400,10 @@ namespace nswag
     [JsonInheritanceAttribute("IApiContentResponseModel", typeof(IApiContentResponseModel))]
     [JsonInheritanceAttribute("IApiContentModel", typeof(IApiContentModel))]
     [JsonInheritanceAttribute("blockSettings", typeof(BlockSettingsElementModel))]
-    [JsonInheritanceAttribute("testComposition", typeof(TestCompositionElementModel))]
-    [JsonInheritanceAttribute("testComposition2", typeof(TestComposition2ElementModel))]
     [JsonInheritanceAttribute("testBlock", typeof(TestBlockElementModel))]
     [JsonInheritanceAttribute("testBlock2", typeof(TestBlock2ElementModel))]
+    [JsonInheritanceAttribute("testComposition", typeof(TestCompositionElementModel))]
+    [JsonInheritanceAttribute("testComposition2", typeof(TestComposition2ElementModel))]
     [JsonInheritanceAttribute("TestPageContentModel", typeof(TestPageContentModel))]
     [JsonInheritanceAttribute("TestPageInvariantContentModel", typeof(TestPageInvariantContentModel))]
     [JsonInheritanceAttribute("TestPageContentResponseModel", typeof(TestPageContentResponseModel))]
@@ -2756,15 +2731,6 @@ namespace nswag
         [System.Text.Json.Serialization.JsonPropertyName("sharedRichText")]
         public RichTextModel? SharedRichText { get; set; } = default!;
 
-        private System.Collections.Generic.IDictionary<string, object>? _additionalProperties;
-
-        [System.Text.Json.Serialization.JsonExtensionData]
-        public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
-        {
-            get { return _additionalProperties ?? (_additionalProperties = new System.Collections.Generic.Dictionary<string, object>()); }
-            set { _additionalProperties = value; }
-        }
-
     }
 
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.1.0.0 (NJsonSchema v11.0.2.0 (Newtonsoft.Json v13.0.0.0))")]
@@ -2785,15 +2751,6 @@ namespace nswag
 
         [System.Text.Json.Serialization.JsonPropertyName("sharedString")]
         public string? SharedString { get; set; } = default!;
-
-        private System.Collections.Generic.IDictionary<string, object>? _additionalProperties;
-
-        [System.Text.Json.Serialization.JsonExtensionData]
-        public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
-        {
-            get { return _additionalProperties ?? (_additionalProperties = new System.Collections.Generic.Dictionary<string, object>()); }
-            set { _additionalProperties = value; }
-        }
 
     }
 
@@ -2914,12 +2871,6 @@ namespace nswag
 
         [System.Text.Json.Serialization.JsonPropertyName("repeatableTextstrings")]
         public System.Collections.Generic.ICollection<string>? RepeatableTextstrings { get; set; } = default!;
-
-        [System.Text.Json.Serialization.JsonPropertyName("uploadFile")]
-        public string? UploadFile { get; set; } = default!;
-
-        [System.Text.Json.Serialization.JsonPropertyName("imageCropper")]
-        public ApiImageCropperValueModel? ImageCropper { get; set; } = default!;
 
         [System.Text.Json.Serialization.JsonPropertyName("mediaPicker")]
         public System.Collections.Generic.ICollection<IApiMediaWithCropsModel>? MediaPicker { get; set; } = default!;

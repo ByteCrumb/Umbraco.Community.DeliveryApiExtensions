@@ -246,58 +246,6 @@ take?: number;
 expand?: string;
 };
 
-export type TestPagePropertiesModel = TestCompositionPropertiesModel & TestComposition2PropertiesModel & {
-  blockGrid?: ApiBlockGridModel;
-  blockList?: ApiBlockListModel;
-  /** @nullable */
-  checkboxList?: string[] | null;
-  colorPicker?: PickedColorModel;
-  contentPicker?: IApiContentModel;
-  /** @nullable */
-  datePicker?: string | null;
-  /** @nullable */
-  datePickerWithTime?: string | null;
-  /** @nullable */
-  decimal?: number | null;
-  /** @nullable */
-  dropdown?: string | null;
-  /** @nullable */
-  email?: string | null;
-  /** @nullable */
-  eyeDropperColorPicker?: string | null;
-  /** @nullable */
-  markdown?: string | null;
-  /** @nullable */
-  mediaPicker?: IApiMediaWithCropsModel[] | null;
-  /** @nullable */
-  memberGroupPicker?: string[] | null;
-  /** @nullable */
-  memberPicker?: string | null;
-  /** @nullable */
-  multinodeTreepicker?: IApiContentModel[] | null;
-  /** @nullable */
-  numeric?: number | null;
-  /** @nullable */
-  radiobox?: string | null;
-  /** @nullable */
-  repeatableTextstrings?: string[] | null;
-  richText?: RichTextModel;
-  /** @nullable */
-  slider?: number | null;
-  /** @nullable */
-  tags?: string[] | null;
-  /** @nullable */
-  textArea?: string | null;
-  /** @nullable */
-  textString?: string | null;
-  /** @nullable */
-  toggle?: boolean | null;
-  /** @nullable */
-  urlPicker?: ApiLinkModel[] | null;
-  /** @nullable */
-  userPicker?: number | null;
-};
-
 export type TestPageInvariantPropertiesModel = TestCompositionPropertiesModel & TestComposition2PropertiesModel & {
   blockGrid?: ApiBlockGridModel;
   blockList?: ApiBlockListModel;
@@ -317,7 +265,6 @@ export type TestPageInvariantPropertiesModel = TestCompositionPropertiesModel & 
   email?: string | null;
   /** @nullable */
   eyeDropperColorPicker?: string | null;
-  imageCropper?: ApiImageCropperValueModel;
   /** @nullable */
   markdown?: string | null;
   /** @nullable */
@@ -345,8 +292,6 @@ export type TestPageInvariantPropertiesModel = TestCompositionPropertiesModel & 
   textString?: string | null;
   /** @nullable */
   toggle?: boolean | null;
-  /** @nullable */
-  uploadFile?: string | null;
   /** @nullable */
   urlPicker?: ApiLinkModel[] | null;
   /** @nullable */
@@ -428,6 +373,58 @@ export interface TestComposition2PropertiesModel {
   sharedRadiobox?: string | null;
   sharedRichText?: RichTextModel;
 }
+
+export type TestPagePropertiesModel = TestCompositionPropertiesModel & TestComposition2PropertiesModel & {
+  blockGrid?: ApiBlockGridModel;
+  blockList?: ApiBlockListModel;
+  /** @nullable */
+  checkboxList?: string[] | null;
+  colorPicker?: PickedColorModel;
+  contentPicker?: IApiContentModel;
+  /** @nullable */
+  datePicker?: string | null;
+  /** @nullable */
+  datePickerWithTime?: string | null;
+  /** @nullable */
+  decimal?: number | null;
+  /** @nullable */
+  dropdown?: string | null;
+  /** @nullable */
+  email?: string | null;
+  /** @nullable */
+  eyeDropperColorPicker?: string | null;
+  /** @nullable */
+  markdown?: string | null;
+  /** @nullable */
+  mediaPicker?: IApiMediaWithCropsModel[] | null;
+  /** @nullable */
+  memberGroupPicker?: string[] | null;
+  /** @nullable */
+  memberPicker?: string | null;
+  /** @nullable */
+  multinodeTreepicker?: IApiContentModel[] | null;
+  /** @nullable */
+  numeric?: number | null;
+  /** @nullable */
+  radiobox?: string | null;
+  /** @nullable */
+  repeatableTextstrings?: string[] | null;
+  richText?: RichTextModel;
+  /** @nullable */
+  slider?: number | null;
+  /** @nullable */
+  tags?: string[] | null;
+  /** @nullable */
+  textArea?: string | null;
+  /** @nullable */
+  textString?: string | null;
+  /** @nullable */
+  toggle?: boolean | null;
+  /** @nullable */
+  urlPicker?: ApiLinkModel[] | null;
+  /** @nullable */
+  userPicker?: number | null;
+};
 
 export type TestComposition2ElementModelContentType = typeof TestComposition2ElementModelContentType[keyof typeof TestComposition2ElementModelContentType];
 
@@ -592,33 +589,14 @@ export interface IApiMediaWithCropsModel {
   readonly width?: number | null;
 }
 
-export type IApiElementModelBaseProperties = {[key: string]: unknown};
-
 export interface IApiElementModelBase {
   readonly contentType: string;
   readonly id: string;
-  readonly properties: IApiElementModelBaseProperties;
 }
 
-export type IApiContentResponseModelBaseProperties = {[key: string]: unknown};
-
-export type IApiContentResponseModelBaseCultures = {[key: string]: ApiContentRouteModel};
-
-export type IApiContentResponseModelBase = IApiContentModelBase & {
-  readonly contentType: string;
-  readonly createDate: string;
-  readonly cultures: IApiContentResponseModelBaseCultures;
-  readonly id: string;
-  /** @nullable */
-  readonly name?: string | null;
-  readonly properties: IApiContentResponseModelBaseProperties;
-  readonly route: ApiContentRouteModel;
-  readonly updateDate: string;
-};
+export type IApiElementModel = BlockSettingsElementModel | TestBlockElementModel | TestBlock2ElementModel | TestCompositionElementModel | TestComposition2ElementModel;
 
 export type IApiContentResponseModel = TestPageContentResponseModel | TestPageInvariantContentResponseModel;
-
-export type IApiContentModelBaseProperties = {[key: string]: unknown};
 
 export type IApiContentModelBase = IApiElementModelBase & {
   readonly contentType: string;
@@ -626,7 +604,6 @@ export type IApiContentModelBase = IApiElementModelBase & {
   readonly id: string;
   /** @nullable */
   readonly name?: string | null;
-  readonly properties: IApiContentModelBaseProperties;
   readonly route: ApiContentRouteModel;
   readonly updateDate: string;
 };
@@ -660,7 +637,33 @@ export type BlockSettingsElementModel = IApiElementModelBase & {
   properties?: BlockSettingsPropertiesModel;
 };
 
-export type IApiElementModel = BlockSettingsElementModel | TestCompositionElementModel | TestComposition2ElementModel | TestBlockElementModel | TestBlock2ElementModel;
+export interface ApiContentStartItemModel {
+  id: string;
+  path: string;
+}
+
+export interface ApiContentRouteModel {
+  path: string;
+  startItem: ApiContentStartItemModel;
+}
+
+export type IApiContentResponseModelBaseCultures = {[key: string]: ApiContentRouteModel};
+
+export type IApiContentResponseModelBase = IApiContentModelBase & {
+  readonly contentType: string;
+  readonly createDate: string;
+  readonly cultures: IApiContentResponseModelBaseCultures;
+  readonly id: string;
+  /** @nullable */
+  readonly name?: string | null;
+  readonly route: ApiContentRouteModel;
+  readonly updateDate: string;
+};
+
+/**
+ * @nullable
+ */
+export type ApiLinkModelRoute = ApiContentRouteModel | null;
 
 export interface ApiLinkModel {
   /** @nullable */
@@ -679,28 +682,6 @@ export interface ApiLinkModel {
   /** @nullable */
   readonly url?: string | null;
 }
-
-export interface ApiImageCropperValueModel {
-  /** @nullable */
-  crops?: ImageCropModel[] | null;
-  focalPoint?: ImageFocalPointModel;
-  url: string;
-}
-
-export interface ApiContentStartItemModel {
-  id: string;
-  path: string;
-}
-
-export interface ApiContentRouteModel {
-  path: string;
-  startItem: ApiContentStartItemModel;
-}
-
-/**
- * @nullable
- */
-export type ApiLinkModelRoute = ApiContentRouteModel | null;
 
 export interface ApiBlockItemModel {
   content: IApiElementModel;

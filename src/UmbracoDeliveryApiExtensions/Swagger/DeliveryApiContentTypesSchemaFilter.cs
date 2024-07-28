@@ -171,7 +171,7 @@ public class DeliveryApiContentTypesSchemaFilter : ISchemaFilter, IDocumentFilte
 
             originalSchema = schema;
             schema = new OpenApiSchema(originalSchema);
-            //schema.OneOf.Clear();
+            schema.Properties.Remove("properties");
 
             context.SchemaRepository.Schemas.TryAdd(GetTypeSchemaId<T>(true), schema);
 
@@ -206,7 +206,7 @@ public class DeliveryApiContentTypesSchemaFilter : ISchemaFilter, IDocumentFilte
             new OpenApiSchema
             {
                 Type = "object",
-                AdditionalPropertiesAllowed = true,
+                AdditionalPropertiesAllowed = false,
                 AllOf = contentType.CompositionSchemaIds.Select(c => new OpenApiSchema
                 {
                     Reference = new OpenApiReference { Type = ReferenceType.Schema, Id = $"{c}PropertiesModel" },
