@@ -1,12 +1,10 @@
 import {expect} from '@playwright/test';
-import {type ApiHelpers, test} from '@umbraco/playwright-testhelpers';
+import {type ApiHelpers, ConstantHelper, test} from '@umbraco/playwright-testhelpers';
 
 test.describe('API preview - Media', () => {
   const mediaName = 'PlaywrightTestMedia';
 
   test.beforeEach(async ({umbracoApi}) => {
-    await umbracoApi.login();
-
     await cleanTestMedia(umbracoApi);
     await createTestMedia(umbracoApi);
   });
@@ -16,14 +14,15 @@ test.describe('API preview - Media', () => {
   });
 
   test('Preview content app is visible in saved media', async ({page, umbracoUi}) => {
-    await umbracoUi.navigateToMedia(mediaName);
+    await umbracoUi.goToBackOffice();
+
+    await page.getByRole('tab', {name: ConstantHelper.sections.media}).click();
+    const menuItemTree = page.locator('umb-menu-item-tree-default');
+    await menuItemTree.getByText(mediaName, {exact: true}).click();
 
     // Check that the content app is visible
-    const contentAppLocator = page.locator('button[data-element="sub-view-deliveryApiPreview"]');
-    await expect(contentAppLocator).toBeVisible();
-
-    // Click on the content app
-    await contentAppLocator.click();
+    const apiTab = page.getByRole('tab', {name: 'API'});
+    await apiTab.click({force: true});
 
     // Verify that the preview component is visible
     const apiPreviewElement = page.locator('bc-api-preview');
@@ -31,7 +30,7 @@ test.describe('API preview - Media', () => {
   });
 
   async function createTestMedia(umbracoApi: ApiHelpers) {
-    await umbracoApi.media.createDefaultFile(mediaName);
+    await umbracoApi.media.createDefaultMedia(mediaName, 'File');
   }
 
   async function cleanTestMedia(umbracoApi: ApiHelpers) {

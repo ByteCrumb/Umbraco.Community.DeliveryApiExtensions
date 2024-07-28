@@ -15,24 +15,23 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@playwright/test": "^1.39.0",
-    "@types/node": "^20.9.0",
-    "eslint": "^8.53.0",
-    "eslint-config-xo-space": "^0.34.0",
+    "@playwright/test": "^1.45.3",
+    "@types/node": "^20.14.13",
+    "eslint": "^8.57.0",
+    "eslint-config-xo-space": "^0.35.0",
     "eslint-config-xo-typescript": "^1.0.1",
-    "eslint-plugin-n": "^16.3.0",
-    "eslint-plugin-promise": "^6.1.1",
+    "eslint-plugin-n": "^16.6.2",
+    "eslint-plugin-promise": "^6.6.0",
     "eslint-plugin-simple-import-sort": "^10.0.0",
-    "tslib": "^2.6.2",
-    "typescript": "^5.2.2"
+    "tslib": "^2.6.3",
+    "typescript": "^5.5.4"
   },
   "volta": {
     "node": "20.9.0"
   },
   "dependencies": {
-    "@umbraco/json-models-builders": "^1.0.6",
-    "@umbraco/playwright-models": "^5.0.0",
-    "@umbraco/playwright-testhelpers": "^1.0.26",
-    "dotenv": "^16.3.1"
+    "@umbraco/json-models-builders": "^2.0.13",
+    "@umbraco/playwright-testhelpers": "^2.0.0-beta.70",
+    "dotenv": "^16.4.5"
   }
 }

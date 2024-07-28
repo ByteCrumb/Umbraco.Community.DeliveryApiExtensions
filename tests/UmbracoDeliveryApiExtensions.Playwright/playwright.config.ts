@@ -5,6 +5,7 @@ dotenv.config();
 
 export default defineConfig({
   testDir: './tests/',
+  timeout: 60000,
   fullyParallel: true,
   forbidOnly: Boolean(process.env.CI),
   retries: process.env.CI ? 2 : 0,
@@ -18,9 +19,14 @@ export default defineConfig({
 
   /* Configure projects for major browsers */
   projects: [
+    {name: 'setup', testMatch: /.*\.setup\.ts/},
     {
       name: 'chromium',
-      use: {...devices['Desktop Chrome']},
+      dependencies: ['setup'],
+      use: {
+        ...devices['Desktop Chrome'],
+        storageState: 'playwright/.auth/user.json',
+      },
     },
   ],
 

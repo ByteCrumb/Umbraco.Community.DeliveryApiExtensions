@@ -1,14 +1,12 @@
 ﻿import {expect} from '@playwright/test';
-import {ContentBuilder, DocumentTypeBuilder} from '@umbraco/playwright-models';
-import {type ApiHelpers, test} from '@umbraco/playwright-testhelpers';
+import {DocumentBuilder, DocumentTypeBuilder} from '@umbraco/json-models-builders';
+import {type ApiHelpers, ConstantHelper, test} from '@umbraco/playwright-testhelpers';
 
 test.describe('API preview - Content', () => {
   const docTypeName = 'PlaywrightTestDocType';
   const nodeName = 'PlaywrightTestNode';
 
   test.beforeEach(async ({umbracoApi}) => {
-    await umbracoApi.login();
-
     await cleanTestContent(umbracoApi);
     await createTestContent(umbracoApi);
   });
@@ -18,34 +16,42 @@ test.describe('API preview - Content', () => {
   });
 
   test('Preview content app is visible in saved document', async ({page, umbracoUi}) => {
+    await umbracoUi.goToBackOffice();
+
     // Go to test node
-    await umbracoUi.navigateToContent(nodeName);
+    await page.getByRole('tab', {name: ConstantHelper.sections.content}).click();
+    await umbracoUi.content.openContent(nodeName);
 
     // Check that the content app is visible
-    const contentAppLocator = page.locator('button[data-element="sub-view-deliveryApiPreview"]');
-    await expect(contentAppLocator).toBeVisible();
-
-    // Click on the content app
-    await contentAppLocator.click();
+    const apiTab = page.getByRole('tab', {name: 'API'});
+    await apiTab.click({force: true});
 
     // Verify that the preview component is visible
     const apiPreviewElement = page.locator('bc-api-preview');
     await expect(apiPreviewElement).toBeVisible();
   });
 
-  test('Preview content app is not visible in new document', async ({page}) => {
+  test('Preview content app is not visible in new document', async ({page, umbracoUi}) => {
+    await umbracoUi.goToBackOffice();
+
     // Create new document
-    await page.locator('button[data-element="tree-item-options"]').first().click();
-    await page.locator(`li[data-element*="${docTypeName}"]`).click();
+    await page.getByRole('tab', {name: ConstantHelper.sections.content}).click();
+    await umbracoUi.content.clickActionsMenuAtRoot();
+    await umbracoUi.content.clickCreateButton();
+    await umbracoUi.content.chooseDocumentType(docTypeName);
 
     // Verify that the content app is not visible
     await expect(page.locator('button[data-element="sub-view-deliveryApiPreview"]')).toBeHidden();
   });
 
   test('Preview content app shows only Preview section in saved document', async ({page, umbracoUi}) => {
+    await umbracoUi.goToBackOffice();
+
     // Navigate to content app
-    await umbracoUi.navigateToContent(nodeName);
-    await page.locator('button[data-element="sub-view-deliveryApiPreview"]').click();
+    await page.getByRole('tab', {name: ConstantHelper.sections.content}).click();
+    await umbracoUi.content.openContent(nodeName);
+    const apiTab = page.getByRole('tab', {name: 'API'});
+    await apiTab.click({force: true});
 
     // Check that only the preview section is being displayed
     const sectionsLocator = page.locator('bc-api-preview-section');
@@ -58,41 +64,43 @@ test.describe('API preview - Content', () => {
   });
 
   async function createTestContent(umbracoApi: ApiHelpers) {
-    const saveNode = 'saveNew';
+    const groupId = crypto.randomUUID();
+
+    const dataTypeData = await umbracoApi.dataType.getByName('Textstring');
+    expect(dataTypeData).toBeDefined();
+
     const docType = new DocumentTypeBuilder()
       .withName(docTypeName)
       .withAlias(docTypeName)
-      .withAllowAsRoot(true)
-      .addGroup()
+      .withAllowedAsRoot(true)
+      .addContainer()
       .withName('Content')
-      .withAlias('content')
-      .addTextBoxProperty()
-      .withLabel('Title')
-      .withAlias('title')
+      .withId(groupId)
+      .withType('Group')
       .done()
+      .addProperty()
+      .withContainerId(groupId)
+      .withName('Title')
+      .withAlias('title')
+      .withDataTypeId(dataTypeData.id as string)
       .done()
       .build();
 
-    const createdDocType = await umbracoApi.documentTypes.save(docType);
+    const createdDocType = await umbracoApi.documentType.create(docType);
+    expect(createdDocType).toBeDefined();
 
-    const rootContentNode = new ContentBuilder()
-      .withContentTypeAlias(createdDocType.alias)
-      .withAction(saveNode)
+    const rootContentNode = new DocumentBuilder()
+      .withDocumentTypeId(createdDocType!)
       .addVariant()
       .withName(nodeName)
-      .withSave(true)
       .done()
       .build();
 
-    await umbracoApi.content.save(rootContentNode);
+    await umbracoApi.document.create(rootContentNode);
   }
 
   async function cleanTestContent(umbracoApi: ApiHelpers) {
-    const contentId = await umbracoApi.content.getContentId(nodeName);
-    if (contentId) {
-      await umbracoApi.content.deleteById(contentId);
-    }
-
-    await umbracoApi.documentTypes.ensureNameNotExists(docTypeName);
+    await umbracoApi.document.ensureNameNotExists(nodeName);
+    await umbracoApi.documentType.ensureNameNotExists(docTypeName);
   }
 });
