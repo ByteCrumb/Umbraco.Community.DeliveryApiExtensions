@@ -75,7 +75,7 @@ export interface components {
       columnSpan?: number;
       items?: components["schemas"]["ApiBlockGridItemModel"][];
     };
-    ApiBlockGridItemModel: {
+    ApiBlockGridItemModel: components["schemas"]["ApiBlockItemModel"] & {
       /** Format: int32 */
       rowSpan?: number;
       /** Format: int32 */
@@ -83,7 +83,7 @@ export interface components {
       /** Format: int32 */
       areaGridColumns?: number;
       areas?: components["schemas"]["ApiBlockGridAreaModel"][];
-    } & components["schemas"]["ApiBlockItemModel"];
+    };
     ApiBlockGridModel: {
       /** Format: int32 */
       gridColumns?: number;
@@ -119,33 +119,36 @@ export interface components {
     BlockSettingsPropertiesModel: {
       anchorId?: string | null;
     };
-    HttpValidationProblemDetails: {
+    HttpValidationProblemDetails: components["schemas"]["ProblemDetails"] & {
       errors?: {
         [key: string]: string[];
       };
       [key: string]: unknown;
-    } & components["schemas"]["ProblemDetails"];
+    };
     IApiContentModel: components["schemas"]["TestPageContentModel"] | components["schemas"]["TestPageInvariantContentModel"];
     IApiContentModelBase: ({
       contentType: "IApiContentModelBase";
+      /** Format: uuid */
+      id?: string;
+      contentType?: string;
+      properties?: {
+        [key: string]: Record<string, unknown> | null;
+      };
       name?: string | null;
       /** Format: date-time */
       createDate?: string;
       /** Format: date-time */
       updateDate?: string;
       route?: components["schemas"]["IApiContentRouteModel"];
-      /** Format: uuid */
-      id?: string;
-      contentType?: string;
-      properties?: {
-        [key: string]: unknown;
-      };
     }) & Omit<components["schemas"]["IApiElementModelBase"], "contentType">;
     IApiContentResponseModel: components["schemas"]["TestPageContentResponseModel"] | components["schemas"]["TestPageInvariantContentResponseModel"];
     IApiContentResponseModelBase: ({
       contentType: "IApiContentResponseModelBase";
-      cultures?: {
-        [key: string]: components["schemas"]["IApiContentRouteModel"];
+      /** Format: uuid */
+      id?: string;
+      contentType?: string;
+      properties?: {
+        [key: string]: Record<string, unknown> | null;
       };
       name?: string | null;
       /** Format: date-time */
@@ -153,11 +156,8 @@ export interface components {
       /** Format: date-time */
       updateDate?: string;
       route?: components["schemas"]["IApiContentRouteModel"];
-      /** Format: uuid */
-      id?: string;
-      contentType?: string;
-      properties?: {
-        [key: string]: unknown;
+      cultures?: {
+        [key: string]: components["schemas"]["IApiContentRouteModel"];
       };
     }) & Omit<components["schemas"]["IApiContentModelBase"], "contentType">;
     IApiContentRouteModel: {
@@ -175,12 +175,10 @@ export interface components {
       id?: string;
       contentType?: string;
       properties?: {
-        [key: string]: unknown;
+        [key: string]: Record<string, unknown> | null;
       };
     };
     IApiMediaWithCropsModel: {
-      focalPoint?: components["schemas"]["ImageFocalPointModel"];
-      crops?: (readonly components["schemas"]["ImageCropModel"][]) | null;
       /** Format: uuid */
       id?: string;
       name?: string;
@@ -194,32 +192,34 @@ export interface components {
       /** Format: int32 */
       bytes?: number | null;
       properties?: {
-        [key: string]: unknown;
+        [key: string]: Record<string, unknown> | null;
       };
+      focalPoint?: components["schemas"]["ImageFocalPointModel"];
+      crops?: (readonly components["schemas"]["ImageCropModel"][]) | null;
     };
     IApiMediaWithCropsResponseModel: {
+      /** Format: uuid */
+      id?: string;
+      name?: string;
+      mediaType?: string;
+      url?: string;
+      extension?: string | null;
+      /** Format: int32 */
+      width?: number | null;
+      /** Format: int32 */
+      height?: number | null;
+      /** Format: int32 */
+      bytes?: number | null;
+      properties?: {
+        [key: string]: Record<string, unknown> | null;
+      };
+      focalPoint?: components["schemas"]["ImageFocalPointModel"];
+      crops?: (readonly components["schemas"]["ImageCropModel"][]) | null;
       path?: string;
       /** Format: date-time */
       createDate?: string;
       /** Format: date-time */
       updateDate?: string;
-      focalPoint?: components["schemas"]["ImageFocalPointModel"];
-      crops?: (readonly components["schemas"]["ImageCropModel"][]) | null;
-      /** Format: uuid */
-      id?: string;
-      name?: string;
-      mediaType?: string;
-      url?: string;
-      extension?: string | null;
-      /** Format: int32 */
-      width?: number | null;
-      /** Format: int32 */
-      height?: number | null;
-      /** Format: int32 */
-      bytes?: number | null;
-      properties?: {
-        [key: string]: unknown;
-      };
     };
     ImageCropCoordinatesModel: {
       /** Format: double */
@@ -271,8 +271,8 @@ export interface components {
       [key: string]: unknown;
     };
     RichTextModel: {
-      markup?: string;
-      blocks?: (components["schemas"]["ApiBlockItemModel"] | components["schemas"]["ApiBlockGridItemModel"])[];
+      markup: string;
+      blocks: (components["schemas"]["ApiBlockItemModel"] | components["schemas"]["ApiBlockGridItemModel"])[];
     };
     TestBlock2ElementModel: {
       contentType: "testBlock2";
@@ -437,7 +437,7 @@ export interface operations {
       };
     };
     responses: {
-      /** @description Success */
+      /** @description OK */
       200: {
         content: {
           "application/json": components["schemas"]["PagedIApiContentResponseModel"];
@@ -487,7 +487,7 @@ export interface operations {
       };
     };
     responses: {
-      /** @description Success */
+      /** @description OK */
       200: {
         content: {
           "application/json": components["schemas"]["PagedIApiContentResponseModel"];
@@ -527,7 +527,7 @@ export interface operations {
       };
     };
     responses: {
-      /** @description Success */
+      /** @description OK */
       200: {
         content: {
           "application/json": components["schemas"]["IApiContentResponseModel"][];
@@ -569,7 +569,7 @@ export interface operations {
       };
     };
     responses: {
-      /** @description Success */
+      /** @description OK */
       200: {
         content: {
           "application/json": components["schemas"]["IApiContentResponseModel"];
@@ -618,7 +618,7 @@ export interface operations {
       };
     };
     responses: {
-      /** @description Success */
+      /** @description OK */
       200: {
         content: {
           "application/json": components["schemas"]["IApiContentResponseModel"];
@@ -666,7 +666,7 @@ export interface operations {
       };
     };
     responses: {
-      /** @description Success */
+      /** @description OK */
       200: {
         content: {
           "application/json": components["schemas"]["IApiContentResponseModel"];
@@ -715,7 +715,7 @@ export interface operations {
       };
     };
     responses: {
-      /** @description Success */
+      /** @description OK */
       200: {
         content: {
           "application/json": components["schemas"]["IApiContentResponseModel"];
@@ -762,7 +762,7 @@ export interface operations {
       };
     };
     responses: {
-      /** @description Success */
+      /** @description OK */
       200: {
         content: {
           "application/json": components["schemas"]["IApiContentResponseModel"][];
@@ -805,7 +805,7 @@ export interface operations {
       };
     };
     responses: {
-      /** @description Success */
+      /** @description OK */
       200: {
         content: {
           "application/json": components["schemas"]["PagedIApiMediaWithCropsResponseModel"];
@@ -843,7 +843,7 @@ export interface operations {
       };
     };
     responses: {
-      /** @description Success */
+      /** @description OK */
       200: {
         content: {
           "application/json": components["schemas"]["PagedIApiMediaWithCropsResponseModel"];
@@ -871,7 +871,7 @@ export interface operations {
       };
     };
     responses: {
-      /** @description Success */
+      /** @description OK */
       200: {
         content: {
           "application/json": components["schemas"]["IApiMediaWithCropsResponseModel"][];
@@ -895,7 +895,7 @@ export interface operations {
       };
     };
     responses: {
-      /** @description Success */
+      /** @description OK */
       200: {
         content: {
           "application/json": components["schemas"]["IApiMediaWithCropsResponseModel"];
@@ -926,7 +926,7 @@ export interface operations {
       };
     };
     responses: {
-      /** @description Success */
+      /** @description OK */
       200: {
         content: {
           "application/json": components["schemas"]["IApiMediaWithCropsResponseModel"];
@@ -956,7 +956,7 @@ export interface operations {
       };
     };
     responses: {
-      /** @description Success */
+      /** @description OK */
       200: {
         content: {
           "application/json": components["schemas"]["IApiMediaWithCropsResponseModel"];
@@ -987,7 +987,7 @@ export interface operations {
       };
     };
     responses: {
-      /** @description Success */
+      /** @description OK */
       200: {
         content: {
           "application/json": components["schemas"]["IApiMediaWithCropsResponseModel"];
@@ -1016,7 +1016,7 @@ export interface operations {
       };
     };
     responses: {
-      /** @description Success */
+      /** @description OK */
       200: {
         content: {
           "application/json": components["schemas"]["IApiMediaWithCropsResponseModel"][];

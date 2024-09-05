@@ -387,11 +387,6 @@ export const TestPageContentResponseModelContentType = {
   testPage: 'testPage',
 } as const;
 
-export type TestPageContentModel = IApiContentModelBase & {
-  contentType: TestPageContentModelContentType;
-  properties?: TestPagePropertiesModel;
-};
-
 export type TestPageContentResponseModel = IApiContentResponseModelBase & TestPageContentModel & {
   contentType: TestPageContentResponseModelContentType;
 };
@@ -403,6 +398,11 @@ export type TestPageContentModelContentType = typeof TestPageContentModelContent
 export const TestPageContentModelContentType = {
   testPage: 'testPage',
 } as const;
+
+export type TestPageContentModel = IApiContentModelBase & {
+  contentType: TestPageContentModelContentType;
+  properties?: TestPagePropertiesModel;
+};
 
 export interface TestCompositionPropertiesModel {
   sharedString?: string | null;
@@ -416,11 +416,6 @@ export type TestCompositionElementModelContentType = typeof TestCompositionEleme
 export const TestCompositionElementModelContentType = {
   testComposition: 'testComposition',
 } as const;
-
-export type TestCompositionElementModel = IApiElementModelBase & {
-  contentType: TestCompositionElementModelContentType;
-  properties?: TestCompositionPropertiesModel;
-};
 
 export interface TestComposition2PropertiesModel {
   sharedRadiobox?: string | null;
@@ -479,8 +474,8 @@ export type TestBlock2ElementModel = IApiElementModelBase & {
 export type RichTextModelBlocksItem = ApiBlockItemModel | ApiBlockGridItemModel;
 
 export interface RichTextModel {
-  blocks?: RichTextModelBlocksItem[];
-  markup?: string;
+  blocks: RichTextModelBlocksItem[];
+  markup: string;
 }
 
 export interface ProblemDetails {
@@ -536,7 +531,7 @@ export interface ImageCropModel {
   width?: number;
 }
 
-export type IApiMediaWithCropsResponseModelProperties = {[key: string]: unknown};
+export type IApiMediaWithCropsResponseModelProperties = {[key: string]: unknown | null};
 
 export interface IApiMediaWithCropsResponseModel {
   readonly bytes?: number | null;
@@ -555,7 +550,7 @@ export interface IApiMediaWithCropsResponseModel {
   readonly width?: number | null;
 }
 
-export type IApiMediaWithCropsModelProperties = {[key: string]: unknown};
+export type IApiMediaWithCropsModelProperties = {[key: string]: unknown | null};
 
 export interface IApiMediaWithCropsModel {
   readonly bytes?: number | null;
@@ -571,13 +566,18 @@ export interface IApiMediaWithCropsModel {
   readonly width?: number | null;
 }
 
-export type IApiElementModelBaseProperties = {[key: string]: unknown};
+export type IApiElementModelBaseProperties = {[key: string]: unknown | null};
 
 export interface IApiElementModelBase {
   readonly contentType?: string;
   readonly id?: string;
   readonly properties?: IApiElementModelBaseProperties;
 }
+
+export type TestCompositionElementModel = IApiElementModelBase & {
+  contentType: TestCompositionElementModelContentType;
+  properties?: TestCompositionPropertiesModel;
+};
 
 export type IApiElementModel = BlockSettingsElementModel | TestCompositionElementModel | TestComposition2ElementModel | TestBlockElementModel | TestBlock2ElementModel;
 
@@ -591,23 +591,9 @@ export interface IApiContentRouteModel {
   startItem?: IApiContentStartItemModel;
 }
 
-export type IApiContentResponseModelBaseProperties = {[key: string]: unknown};
+export type IApiContentResponseModelBaseProperties = {[key: string]: unknown | null};
 
 export type IApiContentResponseModelBaseCultures = {[key: string]: IApiContentRouteModel};
-
-export type IApiContentResponseModel = TestPageContentResponseModel | TestPageInvariantContentResponseModel;
-
-export type IApiContentModelBaseProperties = {[key: string]: unknown};
-
-export type IApiContentModelBase = IApiElementModelBase & {
-  readonly contentType?: string;
-  readonly createDate?: string;
-  readonly id?: string;
-  readonly name?: string | null;
-  readonly properties?: IApiContentModelBaseProperties;
-  route?: IApiContentRouteModel;
-  readonly updateDate?: string;
-};
 
 export type IApiContentResponseModelBase = IApiContentModelBase & {
   readonly contentType?: string;
@@ -620,14 +606,30 @@ export type IApiContentResponseModelBase = IApiContentModelBase & {
   readonly updateDate?: string;
 };
 
+export type IApiContentResponseModel = TestPageContentResponseModel | TestPageInvariantContentResponseModel;
+
+export type IApiContentModelBaseProperties = {[key: string]: unknown | null};
+
+export type IApiContentModelBase = IApiElementModelBase & {
+  readonly contentType?: string;
+  readonly createDate?: string;
+  readonly id?: string;
+  readonly name?: string | null;
+  readonly properties?: IApiContentModelBaseProperties;
+  route?: IApiContentRouteModel;
+  readonly updateDate?: string;
+};
+
 export type IApiContentModel = TestPageContentModel | TestPageInvariantContentModel;
 
-export type HttpValidationProblemDetailsErrors = {[key: string]: string[]};
+export type HttpValidationProblemDetailsAllOfErrors = {[key: string]: string[]};
 
-export type HttpValidationProblemDetails = ProblemDetails & {
-  errors?: HttpValidationProblemDetailsErrors;
+export type HttpValidationProblemDetailsAllOf = {
+  errors?: HttpValidationProblemDetailsAllOfErrors;
   [key: string]: unknown;
 };
+
+export type HttpValidationProblemDetails = ProblemDetails & HttpValidationProblemDetailsAllOf;
 
 export interface BlockSettingsPropertiesModel {
   anchorId?: string | null;
@@ -663,13 +665,15 @@ export interface ApiImageCropperValueModel {
   url?: string;
 }
 
-export interface ApiBlockListModel {
-  items?: ApiBlockListModelItemsItem[];
-}
-
 export interface ApiBlockItemModel {
   content?: IApiElementModel;
   settings?: IApiElementModel;
+}
+
+export type ApiBlockListModelItemsItem = ApiBlockItemModel | ApiBlockGridItemModel;
+
+export interface ApiBlockListModel {
+  items?: ApiBlockListModelItemsItem[];
 }
 
 export interface ApiBlockGridAreaModel {
@@ -679,14 +683,14 @@ export interface ApiBlockGridAreaModel {
   rowSpan?: number;
 }
 
-export type ApiBlockGridItemModel = ApiBlockItemModel & {
+export type ApiBlockGridItemModelAllOf = {
   areaGridColumns?: number;
   areas?: ApiBlockGridAreaModel[];
   columnSpan?: number;
   rowSpan?: number;
 };
 
-export type ApiBlockListModelItemsItem = ApiBlockItemModel | ApiBlockGridItemModel;
+export type ApiBlockGridItemModel = ApiBlockItemModel & ApiBlockGridItemModelAllOf;
 
 export interface ApiBlockGridModel {
   gridColumns?: number;
