@@ -129,6 +129,8 @@ public class DeliveryApiContentTypesSchemaFilter : ISchemaFilter
             PropertyName = "contentType",
         };
 
+        schema.Required.Add("contentType");
+
         foreach (ContentTypeInfo contentType in contentTypes)
         {
             (string? schemaId, OpenApiSchema? openApiSchema) = contentTypeSchemaMapper(contentType);

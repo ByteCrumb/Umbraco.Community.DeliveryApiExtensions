@@ -2373,6 +2373,9 @@
         ]
       },
       "IApiContentModel": {
+        "required": [
+          "contentType"
+        ],
         "type": "object",
         "allOf": [
           {
@@ -2425,6 +2428,9 @@
         }
       },
       "IApiContentResponseModel": {
+        "required": [
+          "contentType"
+        ],
         "type": "object",
         "allOf": [
           {
@@ -2512,6 +2518,9 @@
         "additionalProperties": false
       },
       "IApiElementModel": {
+        "required": [
+          "contentType"
+        ],
         "type": "object",
         "properties": {
           "id": {
