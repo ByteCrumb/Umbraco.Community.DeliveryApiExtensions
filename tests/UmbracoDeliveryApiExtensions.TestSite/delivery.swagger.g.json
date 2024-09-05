@@ -211,7 +211,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Success",
+            "description": "OK",
             "content": {
               "application/json": {
                 "schema": {
@@ -488,7 +488,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Success",
+            "description": "OK",
             "content": {
               "application/json": {
                 "schema": {
@@ -618,7 +618,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Success",
+            "description": "OK",
             "content": {
               "application/json": {
                 "schema": {
@@ -749,7 +749,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Success",
+            "description": "OK",
             "content": {
               "application/json": {
                 "schema": {
@@ -919,7 +919,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Success",
+            "description": "OK",
             "content": {
               "application/json": {
                 "schema": {
@@ -1063,7 +1063,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Success",
+            "description": "OK",
             "content": {
               "application/json": {
                 "schema": {
@@ -1233,7 +1233,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Success",
+            "description": "OK",
             "content": {
               "application/json": {
                 "schema": {
@@ -1405,7 +1405,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Success",
+            "description": "OK",
             "content": {
               "application/json": {
                 "schema": {
@@ -1599,7 +1599,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Success",
+            "description": "OK",
             "content": {
               "application/json": {
                 "schema": {
@@ -1799,7 +1799,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Success",
+            "description": "OK",
             "content": {
               "application/json": {
                 "schema": {
@@ -1880,7 +1880,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Success",
+            "description": "OK",
             "content": {
               "application/json": {
                 "schema": {
@@ -1944,7 +1944,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Success",
+            "description": "OK",
             "content": {
               "application/json": {
                 "schema": {
@@ -2047,7 +2047,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Success",
+            "description": "OK",
             "content": {
               "application/json": {
                 "schema": {
@@ -2125,7 +2125,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Success",
+            "description": "OK",
             "content": {
               "application/json": {
                 "schema": {
@@ -2229,7 +2229,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Success",
+            "description": "OK",
             "content": {
               "application/json": {
                 "schema": {
@@ -2335,7 +2335,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Success",
+            "description": "OK",
             "content": {
               "application/json": {
                 "schema": {
@@ -2377,33 +2377,35 @@
         "additionalProperties": false
       },
       "ApiBlockGridItemModel": {
-        "type": "object",
         "allOf": [
           {
             "$ref": "#/components/schemas/ApiBlockItemModel"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "rowSpan": {
+                "type": "integer",
+                "format": "int32"
+              },
+              "columnSpan": {
+                "type": "integer",
+                "format": "int32"
+              },
+              "areaGridColumns": {
+                "type": "integer",
+                "format": "int32"
+              },
+              "areas": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/ApiBlockGridAreaModel"
+                }
+              }
+            },
+            "additionalProperties": false
           }
-        ],
-        "properties": {
-          "rowSpan": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "columnSpan": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "areaGridColumns": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "areas": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/ApiBlockGridAreaModel"
-            }
-          }
-        },
-        "additionalProperties": false
+        ]
       },
       "ApiBlockGridModel": {
         "type": "object",
@@ -2538,24 +2540,26 @@
         }
       },
       "HttpValidationProblemDetails": {
-        "type": "object",
         "allOf": [
           {
             "$ref": "#/components/schemas/ProblemDetails"
-          }
-        ],
-        "properties": {
-          "errors": {
+          },
+          {
             "type": "object",
-            "additionalProperties": {
-              "type": "array",
-              "items": {
-                "type": "string"
+            "properties": {
+              "errors": {
+                "type": "object",
+                "additionalProperties": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
               }
-            }
+            },
+            "additionalProperties": { }
           }
-        },
-        "additionalProperties": { }
+        ]
       },
       "IApiContentModel": {
         "type": "object",
@@ -2577,6 +2581,22 @@
           }
         ],
         "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "readOnly": true
+          },
+          "contentType": {
+            "type": "string",
+            "readOnly": true
+          },
+          "properties": {
+            "type": "object",
+            "additionalProperties": {
+              "nullable": true
+            },
+            "readOnly": true
+          },
           "name": {
             "type": "string",
             "nullable": true,
@@ -2594,20 +2614,6 @@
           },
           "route": {
             "$ref": "#/components/schemas/IApiContentRouteModel"
-          },
-          "id": {
-            "type": "string",
-            "format": "uuid",
-            "readOnly": true
-          },
-          "contentType": {
-            "type": "string",
-            "readOnly": true
-          },
-          "properties": {
-            "type": "object",
-            "additionalProperties": { },
-            "readOnly": true
           }
         },
         "additionalProperties": false,
@@ -2639,10 +2645,19 @@
           }
         ],
         "properties": {
-          "cultures": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "readOnly": true
+          },
+          "contentType": {
+            "type": "string",
+            "readOnly": true
+          },
+          "properties": {
             "type": "object",
             "additionalProperties": {
-              "$ref": "#/components/schemas/IApiContentRouteModel"
+              "nullable": true
             },
             "readOnly": true
           },
@@ -2664,18 +2679,11 @@
           "route": {
             "$ref": "#/components/schemas/IApiContentRouteModel"
           },
-          "id": {
-            "type": "string",
-            "format": "uuid",
-            "readOnly": true
-          },
-          "contentType": {
-            "type": "string",
-            "readOnly": true
-          },
-          "properties": {
+          "cultures": {
             "type": "object",
-            "additionalProperties": { },
+            "additionalProperties": {
+              "$ref": "#/components/schemas/IApiContentRouteModel"
+            },
             "readOnly": true
           }
         },
@@ -2751,7 +2759,9 @@
           },
           "properties": {
             "type": "object",
-            "additionalProperties": { },
+            "additionalProperties": {
+              "nullable": true
+            },
             "readOnly": true
           }
         },
@@ -2770,17 +2780,6 @@
       "IApiMediaWithCropsModel": {
         "type": "object",
         "properties": {
-          "focalPoint": {
-            "$ref": "#/components/schemas/ImageFocalPointModel"
-          },
-          "crops": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/ImageCropModel"
-            },
-            "nullable": true,
-            "readOnly": true
-          },
           "id": {
             "type": "string",
             "format": "uuid",
@@ -2823,7 +2822,20 @@
           },
           "properties": {
             "type": "object",
-            "additionalProperties": { },
+            "additionalProperties": {
+              "nullable": true
+            },
+            "readOnly": true
+          },
+          "focalPoint": {
+            "$ref": "#/components/schemas/ImageFocalPointModel"
+          },
+          "crops": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ImageCropModel"
+            },
+            "nullable": true,
             "readOnly": true
           }
         },
@@ -2832,6 +2844,64 @@
       "IApiMediaWithCropsResponseModel": {
         "type": "object",
         "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "readOnly": true
+          },
+          "name": {
+            "type": "string",
+            "readOnly": true
+          },
+          "mediaType": {
+            "type": "string",
+            "readOnly": true
+          },
+          "url": {
+            "type": "string",
+            "readOnly": true
+          },
+          "extension": {
+            "type": "string",
+            "nullable": true,
+            "readOnly": true
+          },
+          "width": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true,
+            "readOnly": true
+          },
+          "height": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true,
+            "readOnly": true
+          },
+          "bytes": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true,
+            "readOnly": true
+          },
+          "properties": {
+            "type": "object",
+            "additionalProperties": {
+              "nullable": true
+            },
+            "readOnly": true
+          },
+          "focalPoint": {
+            "$ref": "#/components/schemas/ImageFocalPointModel"
+          },
+          "crops": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ImageCropModel"
+            },
+            "nullable": true,
+            "readOnly": true
+          },
           "path": {
             "type": "string",
             "readOnly": true
@@ -2844,62 +2914,6 @@
           "updateDate": {
             "type": "string",
             "format": "date-time",
-            "readOnly": true
-          },
-          "focalPoint": {
-            "$ref": "#/components/schemas/ImageFocalPointModel"
-          },
-          "crops": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/ImageCropModel"
-            },
-            "nullable": true,
-            "readOnly": true
-          },
-          "id": {
-            "type": "string",
-            "format": "uuid",
-            "readOnly": true
-          },
-          "name": {
-            "type": "string",
-            "readOnly": true
-          },
-          "mediaType": {
-            "type": "string",
-            "readOnly": true
-          },
-          "url": {
-            "type": "string",
-            "readOnly": true
-          },
-          "extension": {
-            "type": "string",
-            "nullable": true,
-            "readOnly": true
-          },
-          "width": {
-            "type": "integer",
-            "format": "int32",
-            "nullable": true,
-            "readOnly": true
-          },
-          "height": {
-            "type": "integer",
-            "format": "int32",
-            "nullable": true,
-            "readOnly": true
-          },
-          "bytes": {
-            "type": "integer",
-            "format": "int32",
-            "nullable": true,
-            "readOnly": true
-          },
-          "properties": {
-            "type": "object",
-            "additionalProperties": { },
             "readOnly": true
           }
         },
@@ -3050,6 +3064,10 @@
         "additionalProperties": { }
       },
       "RichTextModel": {
+        "required": [
+          "blocks",
+          "markup"
+        ],
         "type": "object",
         "properties": {
           "markup": {
