@@ -20,7 +20,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
 
     - name: Set version
       if: ${{ !env.PKG_VERSION }}
@@ -29,14 +29,14 @@ jobs:
         echo "PKG_VERSION=0.0.0-preview.${{github.run_number}}.$calculatedSha" >> $GITHUB_ENV
 
     - name: Setup npm
-      uses: actions/setup-node@v3
+      uses: actions/setup-node@v4
       with:
         node-version: ${{env.NODE_VERSION}}
         cache: 'npm'
         cache-dependency-path: '**/package-lock.json'
 
     - name: Setup .NET
-      uses: actions/setup-dotnet@v3
+      uses: actions/setup-dotnet@v4
       with:
         dotnet-version: ${{env.DOTNET_VERSION}}
 
@@ -47,7 +47,7 @@ jobs:
            /p:Version=${PKG_VERSION#v}
 
     - name: Upload package as artifact
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: artifact
         if-no-files-found: error
@@ -61,17 +61,17 @@ jobs:
     needs: build
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
 
     - name: Setup npm
-      uses: actions/setup-node@v3
+      uses: actions/setup-node@v4
       with:
         node-version: ${{env.NODE_VERSION}}
         cache: 'npm'
         cache-dependency-path: '**/package-lock.json'
 
     - name: Setup .NET
-      uses: actions/setup-dotnet@v3
+      uses: actions/setup-dotnet@v4
       with:
         dotnet-version: ${{env.DOTNET_VERSION}}
 
@@ -113,7 +113,7 @@ jobs:
     steps:
 
     - name: Download artifact from build
-      uses: actions/download-artifact@v3
+      uses: actions/download-artifact@v4
       with:
         name: artifact
 
