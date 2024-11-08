@@ -4,6 +4,9 @@
  */
 
 
+/** WithRequired type helpers */
+type WithRequired<T, K extends keyof T> = T & { [P in K]-?: T[P] };
+
 export interface paths {
   "/umbraco/delivery/api/v1/content": {
     /** @deprecated */
@@ -126,30 +129,24 @@ export interface components {
       [key: string]: unknown;
     };
     IApiContentModel: components["schemas"]["TestPageContentModel"] | components["schemas"]["TestPageInvariantContentModel"];
-    IApiContentModelBase: ({
+    IApiContentModelBase: WithRequired<({
       contentType: "IApiContentModelBase";
       /** Format: uuid */
       id?: string;
-      contentType?: string;
-      properties?: {
-        [key: string]: Record<string, unknown> | null;
-      };
+      contentType: string;
       name?: string | null;
       /** Format: date-time */
       createDate?: string;
       /** Format: date-time */
       updateDate?: string;
       route?: components["schemas"]["IApiContentRouteModel"];
-    }) & Omit<components["schemas"]["IApiElementModelBase"], "contentType">;
+    }) & Omit<components["schemas"]["IApiElementModelBase"], "contentType">, "contentType">;
     IApiContentResponseModel: components["schemas"]["TestPageContentResponseModel"] | components["schemas"]["TestPageInvariantContentResponseModel"];
-    IApiContentResponseModelBase: ({
+    IApiContentResponseModelBase: WithRequired<({
       contentType: "IApiContentResponseModelBase";
       /** Format: uuid */
       id?: string;
-      contentType?: string;
-      properties?: {
-        [key: string]: Record<string, unknown> | null;
-      };
+      contentType: string;
       name?: string | null;
       /** Format: date-time */
       createDate?: string;
@@ -159,7 +156,7 @@ export interface components {
       cultures?: {
         [key: string]: components["schemas"]["IApiContentRouteModel"];
       };
-    }) & Omit<components["schemas"]["IApiContentModelBase"], "contentType">;
+    }) & Omit<components["schemas"]["IApiContentModelBase"], "contentType">, "contentType">;
     IApiContentRouteModel: {
       path?: string;
       startItem?: components["schemas"]["IApiContentStartItemModel"];
@@ -173,10 +170,7 @@ export interface components {
     IApiElementModelBase: {
       /** Format: uuid */
       id?: string;
-      contentType?: string;
-      properties?: {
-        [key: string]: Record<string, unknown> | null;
-      };
+      contentType: string;
     };
     IApiMediaWithCropsModel: {
       /** Format: uuid */
@@ -192,7 +186,7 @@ export interface components {
       /** Format: int32 */
       bytes?: number | null;
       properties?: {
-        [key: string]: Record<string, unknown> | null;
+        [key: string]: unknown;
       };
       focalPoint?: components["schemas"]["ImageFocalPointModel"];
       crops?: (readonly components["schemas"]["ImageCropModel"][]) | null;
@@ -211,7 +205,7 @@ export interface components {
       /** Format: int32 */
       bytes?: number | null;
       properties?: {
-        [key: string]: Record<string, unknown> | null;
+        [key: string]: unknown;
       };
       focalPoint?: components["schemas"]["ImageFocalPointModel"];
       crops?: (readonly components["schemas"]["ImageCropModel"][]) | null;
