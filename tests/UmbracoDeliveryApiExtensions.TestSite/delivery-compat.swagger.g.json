@@ -2348,7 +2348,8 @@
             "type": "string",
             "nullable": true
           }
-        }
+        },
+        "additionalProperties": false
       },
       "HttpValidationProblemDetails": {
         "allOf": [
@@ -2883,7 +2884,8 @@
             "type": "string",
             "nullable": true
           }
-        }
+        },
+        "additionalProperties": false
       },
       "TestBlockElementModel": {
         "type": "object",
@@ -2921,7 +2923,8 @@
           "blocks": {
             "$ref": "#/components/schemas/ApiBlockListModel"
           }
-        }
+        },
+        "additionalProperties": false
       },
       "TestComposition2ElementModel": {
         "type": "object",
@@ -2947,7 +2950,8 @@
           "sharedRichText": {
             "$ref": "#/components/schemas/RichTextModel"
           }
-        }
+        },
+        "additionalProperties": false
       },
       "TestCompositionElementModel": {
         "type": "object",
@@ -2974,7 +2978,8 @@
             "type": "string",
             "nullable": true
           }
-        }
+        },
+        "additionalProperties": false
       },
       "TestPageContentModel": {
         "type": "object",
@@ -3176,7 +3181,8 @@
             },
             "nullable": true
           }
-        }
+        },
+        "additionalProperties": false
       },
       "TestPagePropertiesModel": {
         "type": "object",
@@ -3326,7 +3332,8 @@
             },
             "nullable": true
           }
-        }
+        },
+        "additionalProperties": false
       }
     }
   }
