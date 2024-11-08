@@ -11,7 +11,7 @@
     "generate-api-client": "orval  --config orval.config.ts"
   },
   "devDependencies": {
-    "@types/node": "^20.9.0",
+    "@types/node": "^22.9.0",
     "@typescript-eslint/eslint-plugin": "^6.10.0",
     "@typescript-eslint/parser": "^6.10.0",
     "eslint": "^8.53.0",
@@ -20,11 +20,11 @@
     "eslint-plugin-n": "^16.3.0",
     "eslint-plugin-promise": "^6.1.1",
     "eslint-plugin-simple-import-sort": "^10.0.0",
-    "orval": "^6.19.1",
-    "typescript": "^5.2.2"
+    "orval": "^7.2.0",
+    "typescript": "^5.6.3"
   },
   "dependencies": {
-    "axios": "^1.6.1"
+    "axios": "^1.7.7"
   },
   "volta": {
     "node": "20.9.0"
