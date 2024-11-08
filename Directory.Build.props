@@ -5,5 +5,6 @@
       <Nullable>enable</Nullable>
       <WarningsAsErrors>Nullable</WarningsAsErrors>
       <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
+      <GenerateDocumentationFile>true</GenerateDocumentationFile>
     </PropertyGroup>
 </Project>
