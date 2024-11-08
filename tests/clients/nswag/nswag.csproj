@@ -2,6 +2,7 @@
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
@@ -22,7 +23,7 @@
 
   <Target Name="GenerateApiClient" BeforeTargets="CoreCompile">
     <PropertyGroup>
-      <SourceUri>http://localhost:34962/umbraco/swagger/delivery/swagger.json?mode=compatibility</SourceUri>
+      <SourceUri>..\..\UmbracoDeliveryApiExtensions.TestSite\delivery-compat.swagger.g.json</SourceUri>
       <ClassName>UmbracoApi</ClassName>
       <Namespace>nswag</Namespace>
       <Options>/GenerateClientInterfaces:true /GenerateNullableReferenceTypes:true /GenerateOptionalPropertiesAsNullable:true /GenerateOptionalParameters:true /TemplateDirectory:ClientTemplateOverrides</Options>

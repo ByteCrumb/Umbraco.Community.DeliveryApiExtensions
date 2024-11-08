@@ -74,14 +74,14 @@ void RenderTestPage(TestPageContentResponseModel content)
 
     Console.WriteLine("\n  **Block List**");
 
-    foreach ((ApiBlockItemModel block, int i) in content.Properties?.BlockList?.Items?.Select((b, i) => (b, i)) ?? Enumerable.Empty<(ApiBlockItemModel, int)>())
+    foreach ((ApiBlockItemModel block, int i) in content.Properties?.BlockList?.Items?.Select((b, i) => (b, i)) ?? [])
     {
         Console.WriteLine($"    Block[{i}]:");
         RenderBlock(block);
     }
 
     Console.WriteLine("\n  **Block Grid**");
-    foreach ((ApiBlockGridItemModel block, int i) in content.Properties?.BlockGrid?.Items?.Select((b, i) => (b, i)) ?? Enumerable.Empty<(ApiBlockGridItemModel, int)>())
+    foreach ((ApiBlockGridItemModel block, int i) in content.Properties?.BlockGrid?.Items?.Select((b, i) => (b, i)) ?? [])
     {
         Console.WriteLine($"    Block[{i}]:");
         RenderBlock(block);
