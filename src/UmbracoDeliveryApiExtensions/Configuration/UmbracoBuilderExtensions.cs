@@ -2,6 +2,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using Umbraco.Cms.Core.DependencyInjection;
+using Umbraco.Cms.Core.Models.DeliveryApi;
 using Umbraco.Community.DeliveryApiExtensions.Configuration.Options;
 using Umbraco.Community.DeliveryApiExtensions.ContentApps;
 using Umbraco.Community.DeliveryApiExtensions.Services;
@@ -53,7 +54,7 @@ public static class UmbracoBuilderExtensions
         _ = builder.Services.AddSingleton<IContentTypeInfoService, ContentTypeInfoService>();
         _ = builder.Services.AddOptions<TypedSwaggerOptions>(typedSwaggerConfigSection);
 
-        _ = builder.Services.Configure<SwaggerGenOptions>(options =>
+        _ = builder.Services.PostConfigure<SwaggerGenOptions>(options =>
         {
             switch (typedSwaggerOptions?.Mode ?? SwaggerGenerationMode.Auto)
             {
@@ -63,6 +64,7 @@ public static class UmbracoBuilderExtensions
                     break;
 
                 case SwaggerGenerationMode.Compatibility:
+                    options.SchemaGeneratorOptions.UseOneOfForPolymorphism = false;
                     options.UseAllOfForInheritance();
                     break;
                 case SwaggerGenerationMode.Manual:
@@ -71,7 +73,43 @@ public static class UmbracoBuilderExtensions
             }
 
             options.SchemaFilter<EnumSchemaFilter>();
+
+            options.SupportNonNullableReferenceTypes();
+
+            options.SchemaFilterDescriptors.Insert(0, new FilterDescriptor
+            {
+                Type = typeof(FixPropertyNullabilityFilter),
+                Arguments = [],
+            });
+
             options.SchemaFilter<DeliveryApiContentTypesSchemaFilter>();
+            options.DocumentFilter<DeliveryApiContentTypesSchemaFilter>();
+
+            Func<Type, IEnumerable<Type>> currentSubTypesSelector = options.SchemaGeneratorOptions.SubTypesSelector;
+            options.SelectSubTypesUsing(baseType =>
+            {
+                List<Type> handledTypes = [
+                    typeof(IApiElement),
+                    typeof(IApiContent),
+                    typeof(IApiMediaWithCrops),
+                    typeof(IApiContentResponse),
+                    typeof(IApiMediaWithCropsResponse),
+                ];
+
+                if (handledTypes.Contains(baseType))
+                {
+                    return [];
+                }
+
+                List<Type> result = currentSubTypesSelector(baseType).ToList();
+
+                if (result.Count == 1 && result[0] == baseType)
+                {
+                    return baseType.Assembly.GetTypes().Where(type => type.IsSubclassOf(baseType));
+                }
+
+                return result;
+            });
         });
     }
 }
