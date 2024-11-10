@@ -4,7 +4,7 @@
   "version": "0.1.0",
   "extensions": [
     {
-      "type": "entryPoint",
+      "type": "backofficeEntryPoint",
       "alias": "DeliveryApiExtensions.EntryPoint",
       "name": "Delivery Api Extensions",
       "js": "/App_Plugins/DeliveryApiExtensions/delivery-api-extensions.js"

@@ -2279,7 +2279,9 @@
           },
           "properties": {
             "type": "object",
-            "additionalProperties": { },
+            "additionalProperties": {
+              "nullable": true
+            },
             "readOnly": true
           },
           "name": {
@@ -2338,7 +2340,9 @@
           },
           "properties": {
             "type": "object",
-            "additionalProperties": { },
+            "additionalProperties": {
+              "nullable": true
+            },
             "readOnly": true
           },
           "name": {
@@ -2431,7 +2435,9 @@
           },
           "properties": {
             "type": "object",
-            "additionalProperties": { },
+            "additionalProperties": {
+              "nullable": true
+            },
             "readOnly": true
           }
         },
@@ -2499,7 +2505,9 @@
           },
           "properties": {
             "type": "object",
-            "additionalProperties": { },
+            "additionalProperties": {
+              "nullable": true
+            },
             "readOnly": true
           },
           "focalPoint": {
@@ -2572,7 +2580,9 @@
           },
           "properties": {
             "type": "object",
-            "additionalProperties": { },
+            "additionalProperties": {
+              "nullable": true
+            },
             "readOnly": true
           },
           "focalPoint": {
@@ -3246,19 +3256,6 @@
           }
         },
         "additionalProperties": false
-      }
-    },
-    "securitySchemes": {
-      "Backoffice User": {
-        "type": "oauth2",
-        "description": "Umbraco Authentication",
-        "flows": {
-          "authorizationCode": {
-            "authorizationUrl": "/umbraco/management/api/v1/security/back-office/authorize",
-            "tokenUrl": "/umbraco/management/api/v1/security/back-office/token",
-            "scopes": { }
-          }
-        }
       }
     }
   }

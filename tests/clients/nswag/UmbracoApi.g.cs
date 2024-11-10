@@ -2313,7 +2313,7 @@ namespace nswag
 
         [System.Text.Json.Serialization.JsonPropertyName("properties")]
         [System.ComponentModel.DataAnnotations.Required]
-        public System.Collections.Generic.IDictionary<string, object> Properties { get; set; } = new System.Collections.Generic.Dictionary<string, object>();
+        public System.Collections.Generic.IDictionary<string, object?> Properties { get; set; } = new System.Collections.Generic.Dictionary<string, object?>();
 
         [System.Text.Json.Serialization.JsonPropertyName("name")]
         public string? Name { get; set; } = default!;
@@ -2345,7 +2345,7 @@ namespace nswag
 
         [System.Text.Json.Serialization.JsonPropertyName("properties")]
         [System.ComponentModel.DataAnnotations.Required]
-        public System.Collections.Generic.IDictionary<string, object> Properties { get; set; } = new System.Collections.Generic.Dictionary<string, object>();
+        public System.Collections.Generic.IDictionary<string, object?> Properties { get; set; } = new System.Collections.Generic.Dictionary<string, object?>();
 
         [System.Text.Json.Serialization.JsonPropertyName("name")]
         public string? Name { get; set; } = default!;
@@ -2418,7 +2418,7 @@ namespace nswag
 
         [System.Text.Json.Serialization.JsonPropertyName("properties")]
         [System.ComponentModel.DataAnnotations.Required]
-        public System.Collections.Generic.IDictionary<string, object> Properties { get; set; } = new System.Collections.Generic.Dictionary<string, object>();
+        public System.Collections.Generic.IDictionary<string, object?> Properties { get; set; } = new System.Collections.Generic.Dictionary<string, object?>();
 
     }
 
@@ -2456,7 +2456,7 @@ namespace nswag
 
         [System.Text.Json.Serialization.JsonPropertyName("properties")]
         [System.ComponentModel.DataAnnotations.Required]
-        public System.Collections.Generic.IDictionary<string, object> Properties { get; set; } = new System.Collections.Generic.Dictionary<string, object>();
+        public System.Collections.Generic.IDictionary<string, object?> Properties { get; set; } = new System.Collections.Generic.Dictionary<string, object?>();
 
         [System.Text.Json.Serialization.JsonPropertyName("focalPoint")]
         public ImageFocalPointModel? FocalPoint { get; set; } = default!;
@@ -2500,7 +2500,7 @@ namespace nswag
 
         [System.Text.Json.Serialization.JsonPropertyName("properties")]
         [System.ComponentModel.DataAnnotations.Required]
-        public System.Collections.Generic.IDictionary<string, object> Properties { get; set; } = new System.Collections.Generic.Dictionary<string, object>();
+        public System.Collections.Generic.IDictionary<string, object?> Properties { get; set; } = new System.Collections.Generic.Dictionary<string, object?>();
 
         [System.Text.Json.Serialization.JsonPropertyName("focalPoint")]
         [System.ComponentModel.DataAnnotations.Required]

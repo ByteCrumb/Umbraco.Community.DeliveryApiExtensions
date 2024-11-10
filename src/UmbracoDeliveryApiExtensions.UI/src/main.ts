@@ -1,5 +1,4 @@
 import {type UmbEntryPointOnInit} from '@umbraco-cms/backoffice/extension-api';
-import {type ManifestWorkspaceView} from '@umbraco-cms/backoffice/extension-registry';
 
 import {manifest as apiPreviewViewCondition} from './conditions/api-preview.view.condition';
 import {ApiPreviewRepository} from './contexts/api-preview.repository';
@@ -21,7 +20,7 @@ export const onInit: UmbEntryPointOnInit = (_host, extensionRegistry) => {
         enabledWorkspaces.push('Umb.Workspace.Media');
       }
 
-      const apiPreviewManifest: ManifestWorkspaceView = {
+      const apiPreviewManifest: UmbExtensionManifest = {
         type: 'workspaceView',
         alias: workspaceAlias,
         name: 'Delivery API Preview',

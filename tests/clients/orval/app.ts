@@ -1,4 +1,8 @@
+import axios from 'axios';
 import {type ApiBlockListModelItemsItem, getContentItemByPath20, type IApiContentResponseModel, type TestPageContentResponseModel} from './api/umbraco-api';
+
+// Workaround for Umbraco Delivery API bug: https://github.com/umbraco/Umbraco-CMS/issues/17476
+axios.defaults.headers.common['Accept-Language'] = 'en-US';
 
 (async () => {
   console.log('** Page - Default **');
