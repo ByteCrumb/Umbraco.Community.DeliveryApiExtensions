@@ -544,7 +544,7 @@ export interface ImageCropModel {
   width: number;
 }
 
-export type IApiMediaWithCropsResponseModelProperties = {[key: string]: unknown | null};
+export type IApiMediaWithCropsResponseModelProperties = {[key: string]: unknown};
 
 export interface IApiMediaWithCropsResponseModel {
   /** @nullable */
@@ -568,7 +568,7 @@ export interface IApiMediaWithCropsResponseModel {
   readonly width?: number | null;
 }
 
-export type IApiMediaWithCropsModelProperties = {[key: string]: unknown | null};
+export type IApiMediaWithCropsModelProperties = {[key: string]: unknown};
 
 export interface IApiMediaWithCropsModel {
   /** @nullable */

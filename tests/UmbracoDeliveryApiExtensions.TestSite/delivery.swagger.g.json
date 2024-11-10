@@ -2552,9 +2552,7 @@
           },
           "properties": {
             "type": "object",
-            "additionalProperties": {
-              "nullable": true
-            },
+            "additionalProperties": { },
             "readOnly": true
           },
           "focalPoint": {
@@ -2627,9 +2625,7 @@
           },
           "properties": {
             "type": "object",
-            "additionalProperties": {
-              "nullable": true
-            },
+            "additionalProperties": { },
             "readOnly": true
           },
           "focalPoint": {

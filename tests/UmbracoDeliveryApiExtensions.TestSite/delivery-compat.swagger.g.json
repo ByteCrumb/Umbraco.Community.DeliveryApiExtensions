@@ -2279,9 +2279,7 @@
           },
           "properties": {
             "type": "object",
-            "additionalProperties": {
-              "nullable": true
-            },
+            "additionalProperties": { },
             "readOnly": true
           },
           "name": {
@@ -2340,9 +2338,7 @@
           },
           "properties": {
             "type": "object",
-            "additionalProperties": {
-              "nullable": true
-            },
+            "additionalProperties": { },
             "readOnly": true
           },
           "name": {
@@ -2435,9 +2431,7 @@
           },
           "properties": {
             "type": "object",
-            "additionalProperties": {
-              "nullable": true
-            },
+            "additionalProperties": { },
             "readOnly": true
           }
         },
@@ -2505,9 +2499,7 @@
           },
           "properties": {
             "type": "object",
-            "additionalProperties": {
-              "nullable": true
-            },
+            "additionalProperties": { },
             "readOnly": true
           },
           "focalPoint": {
@@ -2580,9 +2572,7 @@
           },
           "properties": {
             "type": "object",
-            "additionalProperties": {
-              "nullable": true
-            },
+            "additionalProperties": { },
             "readOnly": true
           },
           "focalPoint": {
