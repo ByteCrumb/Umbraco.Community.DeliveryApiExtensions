@@ -20,7 +20,7 @@ test.describe('API preview - Content', () => {
 
     // Go to test node
     await page.getByRole('tab', {name: ConstantHelper.sections.content}).click();
-    await umbracoUi.content.openContent(nodeName);
+    await umbracoUi.content.goToContentWithName(nodeName);
 
     // Check that the content app is visible
     const apiTab = page.getByRole('tab', {name: 'API'});
@@ -49,7 +49,7 @@ test.describe('API preview - Content', () => {
 
     // Navigate to content app
     await page.getByRole('tab', {name: ConstantHelper.sections.content}).click();
-    await umbracoUi.content.openContent(nodeName);
+    await umbracoUi.content.goToContentWithName(nodeName);
     const apiTab = page.getByRole('tab', {name: 'API'});
     await apiTab.click({force: true});
 

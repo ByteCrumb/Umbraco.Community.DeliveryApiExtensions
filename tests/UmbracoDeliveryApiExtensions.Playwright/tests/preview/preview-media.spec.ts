@@ -30,7 +30,7 @@ test.describe('API preview - Media', () => {
   });
 
   async function createTestMedia(umbracoApi: ApiHelpers) {
-    await umbracoApi.media.createDefaultMedia(mediaName, 'File');
+    await umbracoApi.media.createDefaultMediaFile(mediaName);
   }
 
   async function cleanTestMedia(umbracoApi: ApiHelpers) {
