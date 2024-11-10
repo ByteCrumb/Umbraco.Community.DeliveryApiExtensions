@@ -3,7 +3,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Umbraco.Cms" Version="14.0.0" />
+    <PackageReference Include="Umbraco.Cms" Version="14.3.0" />
     <PackageReference Include="uSync" Version="14.2.3" />
   </ItemGroup>
 
