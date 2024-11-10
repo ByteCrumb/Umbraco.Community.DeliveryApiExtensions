@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Umbraco.Cms.Core.Actions;
-using Umbraco.Cms.Core.Cache;
 using Umbraco.Cms.Core.DeliveryApi;
 using Umbraco.Cms.Core.Models.DeliveryApi;
 using Umbraco.Cms.Core.Models.Membership;
@@ -28,11 +27,9 @@ public sealed class PreviewController : BaseController
 {
     private readonly ILogger<PreviewController> _logger;
     private readonly IBackOfficeSecurityAccessor _backOfficeSecurityAccessor;
-    private readonly IEntityService _entityService;
     private readonly IRequestCultureService _requestCultureService;
     private readonly IContentPermissionService _contentPermissionService;
     private readonly IMediaPermissionService _mediaPermissionService;
-    private readonly AppCaches _appCaches;
     private readonly JsonOptions _deliveryApiJsonOptions;
 
     /// <summary>
@@ -41,20 +38,16 @@ public sealed class PreviewController : BaseController
     public PreviewController(
         ILogger<PreviewController> logger,
         IBackOfficeSecurityAccessor backOfficeSecurityAccessor,
-        IEntityService entityService,
         IRequestCultureService requestCultureService,
         IContentPermissionService contentPermissionService,
         IMediaPermissionService mediaPermissionService,
-        AppCaches appCaches,
         IOptionsSnapshot<JsonOptions> jsonOptions)
     {
         _logger = logger;
         _backOfficeSecurityAccessor = backOfficeSecurityAccessor;
-        _entityService = entityService;
         _requestCultureService = requestCultureService;
         _contentPermissionService = contentPermissionService;
         _mediaPermissionService = mediaPermissionService;
-        _appCaches = appCaches;
 
         _deliveryApiJsonOptions = jsonOptions.Get(Cms.Core.Constants.JsonOptionsNames.DeliveryApi);
     }
