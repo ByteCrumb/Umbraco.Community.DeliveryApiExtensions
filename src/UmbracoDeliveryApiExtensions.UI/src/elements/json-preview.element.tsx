@@ -2,10 +2,17 @@ import JsonView from '@uiw/react-json-view';
 import {type JsonViewProps} from '@uiw/react-json-view';
 import {type UUIIconElement} from '@umbraco-ui/uui';
 
+import { lightTheme } from '@uiw/react-json-view/light';
+import { vscodeTheme } from '@uiw/react-json-view/vscode';
+
 import defineReactElement from '../helpers/define-react-element';
 
-const WebReactJsonComponent = (props: Pick<JsonViewProps<Record<string, unknown>>, 'value'>) =>
-  <JsonView displayDataTypes={false} shortenTextAfterLength={50} collapsed={2} value={props.value}>
+export interface JsonPreviewProps<T extends object> extends JsonViewProps<T> {
+  theme?: 'dark' | 'light';
+}
+
+const WebReactJsonComponent = (props: JsonPreviewProps<Record<string, unknown>>) =>
+  <JsonView displayDataTypes={false} shortenTextAfterLength={50} collapsed={2} value={props.value} style={ {...(props.theme == 'dark' ? vscodeTheme : lightTheme), backgroundColor: 'transparent'} }>
     <JsonView.Null render={(props, {type}) => type === 'value' ? <span {...props}>null</span> : <span/>}/>
     <JsonView.CountInfo render={(_props, {value}) => Array.isArray(value) ? undefined : <span/> }/>
     <JsonView.Ellipsis render={(_props, {value}) => Object.keys(value ?? {}).length === 0 ? <span>&nbsp;</span> : undefined }/>
@@ -15,4 +22,4 @@ const WebReactJsonComponent = (props: Pick<JsonViewProps<Record<string, unknown>
     }}/>
   </JsonView>;
 
-defineReactElement('bc-json-preview', WebReactJsonComponent, {props: {value: undefined}});
+defineReactElement('bc-json-preview', WebReactJsonComponent, {props: {value: undefined, theme: 'string' }});
