@@ -21,6 +21,6 @@ internal static class OptionsExtensions
     /// </summary>
     public static IConfigurationSection GetSection<TOptions>(this IConfiguration configuration)
     {
-        return configuration.GetSection(typeof(TOptions).Name.TrimEndExact("Options"));
+        return configuration.GetSection(typeof(TOptions).Name.TrimEnd("Options"));
     }
 }
