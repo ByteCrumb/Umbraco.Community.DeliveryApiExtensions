@@ -17,8 +17,7 @@ test.describe('API preview - Media', () => {
     await umbracoUi.goToBackOffice();
 
     await page.getByRole('tab', {name: ConstantHelper.sections.media}).click();
-    const menuItemTree = page.locator('umb-menu-item-tree-default');
-    await menuItemTree.getByText(mediaName, {exact: true}).click();
+    await umbracoUi.media.mediaCardItems.filter({hasText: mediaName}).locator('button').click();
 
     // Check that the content app is visible
     const apiTab = page.getByRole('tab', {name: 'API'});
