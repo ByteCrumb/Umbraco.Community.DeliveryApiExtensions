@@ -1,6 +1,7 @@
 <Project Sdk="Microsoft.VisualStudio.JavaScript.Sdk/0.5.126-alpha">
   <PropertyGroup>
     <StartupCommand>npm run dev</StartupCommand>
+    <CleanCommand>npm run clean</CleanCommand>
     <ShouldRunNpmBuildScript>false</ShouldRunNpmBuildScript>
     <StaticWebAssetSourceId>Umbraco.Community.DeliveryApiExtensions</StaticWebAssetSourceId>
     <DebugAssetsDirectory>$(MSBuildProjectDirectory)\dist</DebugAssetsDirectory>
