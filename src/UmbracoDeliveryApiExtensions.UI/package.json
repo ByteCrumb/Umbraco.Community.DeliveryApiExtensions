@@ -8,6 +8,7 @@
     "dev:clean": "vite --force --base /",
     "build": "tsc && vite build",
     "watch": "chokidar src public -c \"tsc && vite build\" --initial",
+    "clean": "node -e \"['dist', 'obj', 'node_modules'].forEach(f => require('node:fs').rmSync(f, { recursive: true, force: true }))\"",
     "postinstall": "patch-package"
   },
   "dependencies": {
