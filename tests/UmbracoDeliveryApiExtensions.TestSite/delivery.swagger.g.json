@@ -1464,7 +1464,7 @@
           {
             "name": "fetch",
             "in": "query",
-            "description": "Specifies the media items to fetch. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api#query-parameters) for more details on this.",
+            "description": "Specifies the media items to fetch. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api/media-delivery-api#query-parameters) for more details on this.",
             "schema": {
               "type": "string"
             },
@@ -1483,7 +1483,7 @@
           {
             "name": "filter",
             "in": "query",
-            "description": "Defines how to filter the fetched media items. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api#query-parameters) for more details on this.",
+            "description": "Defines how to filter the fetched media items. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api/media-delivery-api#query-parameters) for more details on this.",
             "schema": {
               "type": "array",
               "items": {
@@ -1509,7 +1509,7 @@
           {
             "name": "sort",
             "in": "query",
-            "description": "Defines how to sort the found media items. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api#query-parameters) for more details on this.",
+            "description": "Defines how to sort the found media items. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api/media-delivery-api#query-parameters) for more details on this.",
             "schema": {
               "type": "array",
               "items": {
@@ -1569,7 +1569,7 @@
           {
             "name": "expand",
             "in": "query",
-            "description": "Defines the properties that should be expanded in the response. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api#query-parameters) for more details on this.",
+            "description": "Defines the properties that should be expanded in the response. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api/media-delivery-api#query-parameters) for more details on this.",
             "schema": {
               "type": "string"
             },
@@ -1639,7 +1639,7 @@
           {
             "name": "fetch",
             "in": "query",
-            "description": "Specifies the media items to fetch. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api#query-parameters) for more details on this.",
+            "description": "Specifies the media items to fetch. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api/media-delivery-api#query-parameters) for more details on this.",
             "schema": {
               "type": "string"
             },
@@ -1658,7 +1658,7 @@
           {
             "name": "filter",
             "in": "query",
-            "description": "Defines how to filter the fetched media items. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api#query-parameters) for more details on this.",
+            "description": "Defines how to filter the fetched media items. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api/media-delivery-api#query-parameters) for more details on this.",
             "schema": {
               "type": "array",
               "items": {
@@ -1684,7 +1684,7 @@
           {
             "name": "sort",
             "in": "query",
-            "description": "Defines how to sort the found media items. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api#query-parameters) for more details on this.",
+            "description": "Defines how to sort the found media items. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api/media-delivery-api#query-parameters) for more details on this.",
             "schema": {
               "type": "array",
               "items": {
@@ -1744,7 +1744,7 @@
           {
             "name": "expand",
             "in": "query",
-            "description": "Defines the properties that should be expanded in the response. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api#query-parameters) for more details on this.",
+            "description": "Defines the properties that should be expanded in the response. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api/media-delivery-api#query-parameters) for more details on this.",
             "schema": {
               "type": "string"
             },
@@ -1769,7 +1769,7 @@
           {
             "name": "fields",
             "in": "query",
-            "description": "Explicitly defines which properties should be included in the response (by default all properties are included). Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api#query-parameters) for more details on this.",
+            "description": "Explicitly defines which properties should be included in the response (by default all properties are included). Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api/media-delivery-api#query-parameters) for more details on this.",
             "schema": {
               "type": "string"
             },
@@ -1850,7 +1850,7 @@
           {
             "name": "expand",
             "in": "query",
-            "description": "Defines the properties that should be expanded in the response. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api#query-parameters) for more details on this.",
+            "description": "Defines the properties that should be expanded in the response. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api/media-delivery-api#query-parameters) for more details on this.",
             "schema": {
               "type": "string"
             },
@@ -1914,7 +1914,7 @@
           {
             "name": "expand",
             "in": "query",
-            "description": "Defines the properties that should be expanded in the response. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api#query-parameters) for more details on this.",
+            "description": "Defines the properties that should be expanded in the response. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api/media-delivery-api#query-parameters) for more details on this.",
             "schema": {
               "type": "string"
             },
@@ -1992,7 +1992,7 @@
           {
             "name": "expand",
             "in": "query",
-            "description": "Defines the properties that should be expanded in the response. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api#query-parameters) for more details on this.",
+            "description": "Defines the properties that should be expanded in the response. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api/media-delivery-api#query-parameters) for more details on this.",
             "schema": {
               "type": "string"
             },
@@ -2017,7 +2017,7 @@
           {
             "name": "fields",
             "in": "query",
-            "description": "Explicitly defines which properties should be included in the response (by default all properties are included). Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api#query-parameters) for more details on this.",
+            "description": "Explicitly defines which properties should be included in the response (by default all properties are included). Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api/media-delivery-api#query-parameters) for more details on this.",
             "schema": {
               "type": "string"
             },
@@ -2095,7 +2095,7 @@
           {
             "name": "expand",
             "in": "query",
-            "description": "Defines the properties that should be expanded in the response. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api#query-parameters) for more details on this.",
+            "description": "Defines the properties that should be expanded in the response. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api/media-delivery-api#query-parameters) for more details on this.",
             "schema": {
               "type": "string"
             },
@@ -2174,7 +2174,7 @@
           {
             "name": "expand",
             "in": "query",
-            "description": "Defines the properties that should be expanded in the response. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api#query-parameters) for more details on this.",
+            "description": "Defines the properties that should be expanded in the response. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api/media-delivery-api#query-parameters) for more details on this.",
             "schema": {
               "type": "string"
             },
@@ -2199,7 +2199,7 @@
           {
             "name": "fields",
             "in": "query",
-            "description": "Explicitly defines which properties should be included in the response (by default all properties are included). Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api#query-parameters) for more details on this.",
+            "description": "Explicitly defines which properties should be included in the response (by default all properties are included). Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api/media-delivery-api#query-parameters) for more details on this.",
             "schema": {
               "type": "string"
             },
@@ -2280,7 +2280,7 @@
           {
             "name": "expand",
             "in": "query",
-            "description": "Defines the properties that should be expanded in the response. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api#query-parameters) for more details on this.",
+            "description": "Defines the properties that should be expanded in the response. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api/media-delivery-api#query-parameters) for more details on this.",
             "schema": {
               "type": "string"
             },
@@ -2305,7 +2305,7 @@
           {
             "name": "fields",
             "in": "query",
-            "description": "Explicitly defines which properties should be included in the response (by default all properties are included). Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api#query-parameters) for more details on this.",
+            "description": "Explicitly defines which properties should be included in the response (by default all properties are included). Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api/media-delivery-api#query-parameters) for more details on this.",
             "schema": {
               "type": "string"
             },
@@ -2724,16 +2724,16 @@
             "$ref": "#/components/schemas/BlockSettingsElementModel"
           },
           {
-            "$ref": "#/components/schemas/TestCompositionElementModel"
-          },
-          {
-            "$ref": "#/components/schemas/TestComposition2ElementModel"
-          },
-          {
             "$ref": "#/components/schemas/TestBlockElementModel"
           },
           {
             "$ref": "#/components/schemas/TestBlock2ElementModel"
+          },
+          {
+            "$ref": "#/components/schemas/TestCompositionElementModel"
+          },
+          {
+            "$ref": "#/components/schemas/TestComposition2ElementModel"
           }
         ],
         "additionalProperties": false
@@ -2759,10 +2759,10 @@
           "propertyName": "contentType",
           "mapping": {
             "blockSettings": "#/components/schemas/BlockSettingsElementModel",
-            "testComposition": "#/components/schemas/TestCompositionElementModel",
-            "testComposition2": "#/components/schemas/TestComposition2ElementModel",
             "testBlock": "#/components/schemas/TestBlockElementModel",
-            "testBlock2": "#/components/schemas/TestBlock2ElementModel"
+            "testBlock2": "#/components/schemas/TestBlock2ElementModel",
+            "testComposition": "#/components/schemas/TestCompositionElementModel",
+            "testComposition2": "#/components/schemas/TestComposition2ElementModel"
           }
         }
       },
