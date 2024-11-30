@@ -1,3 +1,4 @@
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerGen;
@@ -17,6 +18,7 @@ public class DeliveryApiContentTypesSchemaFilter : ISchemaFilter, IDocumentFilte
     private readonly IOptionsMonitor<TypedSwaggerOptions> _typedSwaggerOptions;
     private readonly IContentTypeInfoService _contentTypeInfoService;
     private readonly ISchemaIdSelector _schemaIdSelector;
+    private readonly ILogger<DeliveryApiContentTypesSchemaFilter> _logger;
 
     /// <summary>
     ///     Initializes a new instance of the <see cref="DeliveryApiContentTypesSchemaFilter" /> class.
@@ -24,11 +26,13 @@ public class DeliveryApiContentTypesSchemaFilter : ISchemaFilter, IDocumentFilte
     public DeliveryApiContentTypesSchemaFilter(
         IOptionsMonitor<TypedSwaggerOptions> typedSwaggerOptions,
         IContentTypeInfoService contentTypeInfoService,
-        ISchemaIdSelector schemaIdSelector)
+        ISchemaIdSelector schemaIdSelector,
+        ILogger<DeliveryApiContentTypesSchemaFilter> logger)
     {
         _typedSwaggerOptions = typedSwaggerOptions;
         _contentTypeInfoService = contentTypeInfoService;
         _schemaIdSelector = schemaIdSelector;
+        _logger = logger;
     }
 
     /// <inheritdoc/>
@@ -242,7 +246,7 @@ public class DeliveryApiContentTypesSchemaFilter : ISchemaFilter, IDocumentFilte
         }
     }
 
-    private static OpenApiSchema ContentTypePropertiesMapper(ContentTypeInfo contentType, DocumentFilterContext context)
+    private OpenApiSchema ContentTypePropertiesMapper(ContentTypeInfo contentType, DocumentFilterContext context)
     {
         return context.SchemaRepository.AddDefinition(
             $"{contentType.SchemaId}PropertiesModel",
@@ -260,8 +264,20 @@ public class DeliveryApiContentTypesSchemaFilter : ISchemaFilter, IDocumentFilte
                         p => p.Alias,
                         p =>
                         {
-                            OpenApiSchema propertySchema = context.SchemaGenerator.GenerateSchema(p.Type, context.SchemaRepository);
-                            propertySchema.Nullable = true;
+                            OpenApiSchema propertySchema;
+                            try
+                            {
+                                propertySchema = context.SchemaGenerator.GenerateSchema(p.Type, context.SchemaRepository);
+                                propertySchema.Nullable = true;
+                            }
+                            catch (Exception ex)
+                            {
+                                // Just default to any type in case of error
+                                propertySchema = new OpenApiSchema();
+
+                                _logger.LogWarning(ex, "Failed to generate {PropertyType} schema of {PropertyEditorAlias} for property {PropertyAlias} of content type {ContentTypeAlias}", p.Type, p.EditorAlias, p.Alias, contentType.Alias);
+                            }
+
                             return propertySchema;
                         }
                     ),

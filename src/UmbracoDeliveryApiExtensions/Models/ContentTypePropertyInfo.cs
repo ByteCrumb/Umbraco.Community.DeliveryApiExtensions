@@ -11,6 +11,11 @@ public class ContentTypePropertyInfo
     public required string Alias { get; set; }
 
     /// <summary>
+    /// Property Editor alias.
+    /// </summary>
+    public required string EditorAlias { get; set; }
+
+    /// <summary>
     /// Property delivery api type.
     /// </summary>
     public required Type Type { get; set; }
