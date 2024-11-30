@@ -49,7 +49,7 @@ internal sealed class ContentTypeInfoService : IContentTypeInfoService
                 Alias = contentType.Alias,
                 SchemaId = GetContentTypeSchemaId(contentType),
                 CompositionSchemaIds = contentType.ContentTypeComposition.Select(GetContentTypeSchemaId).ToList(),
-                Properties = publishedContentType.PropertyTypes.Select(p => new ContentTypePropertyInfo { Alias = p.Alias, Type = p.DeliveryApiModelClrType, Inherited = !ownPropertyAliases.Contains(p.Alias) }).ToList(),
+                Properties = publishedContentType.PropertyTypes.Select(p => new ContentTypePropertyInfo { Alias = p.Alias, EditorAlias = p.EditorAlias, Type = p.DeliveryApiModelClrType, Inherited = !ownPropertyAliases.Contains(p.Alias) }).ToList(),
                 IsElement = contentType.IsElement,
                 IsComposition = false,
             });
