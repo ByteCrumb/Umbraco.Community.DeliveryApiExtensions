@@ -245,7 +245,7 @@ public class DeliveryApiContentTypesSchemaFilter : ISchemaFilter, IDocumentFilte
         }
     }
 
-    private OpenApiSchema ContentTypePropertiesMapper(ContentTypeInfo contentType, DocumentFilterContext context)
+    public OpenApiSchema ContentTypePropertiesMapper(ContentTypeInfo contentType, DocumentFilterContext context)
     {
         return context.SchemaRepository.AddDefinition(
             $"{contentType.SchemaId}PropertiesModel",
