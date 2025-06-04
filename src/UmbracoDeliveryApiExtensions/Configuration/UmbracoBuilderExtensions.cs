@@ -96,7 +96,7 @@ public static class UmbracoBuilderExtensions
                     return [];
                 }
 
-                List<Type> result = currentSubTypesSelector(baseType).ToList();
+                List<Type> result = [.. currentSubTypesSelector(baseType)];
 
                 if (result.Count == 1 && result[0] == baseType)
                 {

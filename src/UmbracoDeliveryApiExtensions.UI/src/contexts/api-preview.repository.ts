@@ -29,6 +29,7 @@ export class ApiPreviewRepository extends UmbControllerBase {
     type: ApiPreviewContentType,
     uniqueId: string,
     culture: string | undefined,
+    segment: string | undefined,
     preview: boolean,
     expand: boolean,
     signal: AbortSignal)
@@ -48,6 +49,10 @@ export class ApiPreviewRepository extends UmbControllerBase {
 
     if (culture) {
       params.headers['Accept-Language'] = culture;
+    }
+
+    if (segment) {
+      params.headers['Accept-Segment'] = segment;
     }
 
     if (preview) {

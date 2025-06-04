@@ -50,8 +50,9 @@ export default class ApiPreviewElement extends UmbElementMixin(KebabCaseAttribut
     this.provideContext(API_PREVIEW_CONTEXT, this.#apiPreviewContext);
 
     this.consumeContext(UMB_PROPERTY_DATASET_CONTEXT, (instance) => {
-      const currentCulture = instance?.getVariantId().culture ?? undefined;
-      this.#apiPreviewContext?.setCulture(currentCulture);
+      const currentVariant = instance?.getVariantId();
+      this.#apiPreviewContext?.setCulture(currentVariant?.culture ?? undefined);
+      this.#apiPreviewContext?.setSegment(currentVariant?.segment ?? undefined);
     });
 
     this.consumeContext(UMB_DOCUMENT_WORKSPACE_CONTEXT, (context) => {
@@ -67,10 +68,10 @@ export default class ApiPreviewElement extends UmbElementMixin(KebabCaseAttribut
       );
 
       this.observe(context.variants, (options) => {
-        const currentVariant = options.find((option) => option.culture === (this.#apiPreviewContext.getCulture() ?? null));
+        const currentVariant = options.find((option) => option.culture === (this.#apiPreviewContext.getCulture() ?? null) && option.segment === (this.#apiPreviewContext.getSegment() ?? null));
         const state = currentVariant?.state;
 
-        this._hasPreview = state && state !== DocumentVariantStateModel.NOT_CREATED ? true : false;
+        this._hasPreview = !!(state && state !== DocumentVariantStateModel.NOT_CREATED);
         this._isPublished = state === DocumentVariantStateModel.PUBLISHED || state === DocumentVariantStateModel.PUBLISHED_PENDING_CHANGES;
 			});
     });

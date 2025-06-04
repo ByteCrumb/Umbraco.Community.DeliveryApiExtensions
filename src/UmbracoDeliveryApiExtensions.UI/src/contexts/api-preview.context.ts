@@ -8,6 +8,7 @@ export class ApiPreviewContext extends UmbControllerBase {
 
   #type: ApiPreviewContentType = ApiPreviewContentType.Document;
   #culture? : string | undefined;
+  #segment? : string | undefined;
   #uniqueId? : string | undefined;
 
   constructor(
@@ -32,9 +33,17 @@ export class ApiPreviewContext extends UmbControllerBase {
     this.#culture = culture;
   }
 
+  getSegment() {
+    return this.#segment;
+  }
+
+  setSegment(segment: string | undefined) {
+    this.#segment = segment;
+  }
+
   async fetchData(preview: boolean, expand: boolean, signal: AbortSignal): Promise<unknown> {
     if(!this.#uniqueId) return null;
-    return this.#repo.fetchData(this.#type, this.#uniqueId, this.#culture, preview, expand, signal);
+    return this.#repo.fetchData(this.#type, this.#uniqueId, this.#culture, this.#segment, preview, expand, signal);
   }
 }
 

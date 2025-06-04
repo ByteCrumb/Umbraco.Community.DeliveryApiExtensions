@@ -28,6 +28,8 @@ public sealed class PreviewController : BaseController
     private readonly ILogger<PreviewController> _logger;
     private readonly IBackOfficeSecurityAccessor _backOfficeSecurityAccessor;
     private readonly IRequestCultureService _requestCultureService;
+    private readonly IRequestSegmmentService _requestSegmentService;
+    private readonly IVariationContextAccessor _variationContextAccessor;
     private readonly IContentPermissionService _contentPermissionService;
     private readonly IMediaPermissionService _mediaPermissionService;
     private readonly JsonOptions _deliveryApiJsonOptions;
@@ -39,6 +41,8 @@ public sealed class PreviewController : BaseController
         ILogger<PreviewController> logger,
         IBackOfficeSecurityAccessor backOfficeSecurityAccessor,
         IRequestCultureService requestCultureService,
+        IRequestSegmmentService requestSegmentService,
+        IVariationContextAccessor variationContextAccessor,
         IContentPermissionService contentPermissionService,
         IMediaPermissionService mediaPermissionService,
         IOptionsSnapshot<JsonOptions> jsonOptions)
@@ -46,6 +50,8 @@ public sealed class PreviewController : BaseController
         _logger = logger;
         _backOfficeSecurityAccessor = backOfficeSecurityAccessor;
         _requestCultureService = requestCultureService;
+        _requestSegmentService = requestSegmentService;
+        _variationContextAccessor = variationContextAccessor;
         _contentPermissionService = contentPermissionService;
         _mediaPermissionService = mediaPermissionService;
 
@@ -100,13 +106,12 @@ public sealed class PreviewController : BaseController
     [HttpGet("content/{id}")]
     public async Task<IActionResult> GetContent(
         [FromRoute] Guid id,
-        [FromHeader(Name = "Accept-Language")] string? language,
         [FromServices] IApiPublishedContentCache contentCache,
         [FromServices] IApiContentResponseBuilder responseBuilder)
     {
         try
         {
-            SetCulture(language);
+            SetCultureAndSegment();
 
             IPublishedContent? content = await contentCache.GetByIdAsync(id);
             if (content is null || !await UserHasAccessToContentNode(id))
@@ -135,13 +140,12 @@ public sealed class PreviewController : BaseController
     [HttpGet("media/{id}")]
     public async Task<IActionResult> GetMedia(
         [FromRoute] Guid id,
-        [FromHeader(Name = "Accept-Language")] string? language,
         [FromServices] IPublishedMediaCache publishedMediaCache,
         [FromServices] IApiMediaWithCropsResponseBuilder responseBuilder)
     {
         try
         {
-            SetCulture(language);
+            SetCultureAndSegment();
 
             IPublishedContent? media = publishedMediaCache.GetById(id);
             if (media is null || !await UserHasAccessToMediaNode(id))
@@ -182,13 +186,17 @@ public sealed class PreviewController : BaseController
         return status == MediaAuthorizationStatus.Success;
     }
 
-    private void SetCulture(string? culture)
+    private void SetCultureAndSegment()
     {
-        if (culture.IsNullOrWhiteSpace())
+        string? requestedCulture = _requestCultureService.GetRequestedCulture().NullOrWhiteSpaceAsNull();
+        string? requestedSegment = _requestSegmentService.GetRequestedSegment().NullOrWhiteSpaceAsNull();
+        if (requestedCulture.IsNullOrWhiteSpace() && requestedSegment.IsNullOrWhiteSpace())
         {
             return;
         }
 
-        _requestCultureService.SetRequestCulture(culture);
+        _variationContextAccessor.VariationContext = new VariationContext(
+            requestedCulture ?? _variationContextAccessor.VariationContext?.Culture,
+            requestedSegment ?? _variationContextAccessor.VariationContext?.Segment);
     }
 }

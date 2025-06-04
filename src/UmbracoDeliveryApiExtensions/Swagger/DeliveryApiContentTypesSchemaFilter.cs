@@ -253,10 +253,10 @@ public class DeliveryApiContentTypesSchemaFilter : ISchemaFilter, IDocumentFilte
             {
                 Type = "object",
                 AdditionalPropertiesAllowed = false,
-                AllOf = contentType.CompositionSchemaIds.Select(c => new OpenApiSchema
+                AllOf = [.. contentType.CompositionSchemaIds.Select(c => new OpenApiSchema
                 {
                     Reference = new OpenApiReference { Type = ReferenceType.Schema, Id = $"{c}PropertiesModel" },
-                }).ToList(),
+                })],
                 Properties = contentType.Properties
                     .Where(p => !p.Inherited) // Filter out composition properties, as they are handled by AllOf
                     .ToDictionary(

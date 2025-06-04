@@ -18,7 +18,7 @@ public interface IContentTypeInfoService
     /// <summary>
     /// Gets all the available content types.
     /// </summary>
-    ICollection<ContentTypeInfo> GetContentTypes();
+    public ICollection<ContentTypeInfo> GetContentTypes();
 }
 
 internal sealed class ContentTypeInfoService : IContentTypeInfoService
@@ -41,15 +41,15 @@ internal sealed class ContentTypeInfoService : IContentTypeInfoService
 
         foreach (IContentType contentType in _contentTypeService.GetAll())
         {
-            HashSet<string> ownPropertyAliases = contentType.PropertyTypes.Select(p => p.Alias).ToHashSet();
+            HashSet<string> ownPropertyAliases = [.. contentType.PropertyTypes.Select(p => p.Alias)];
             IPublishedContentType publishedContentType = _publishedContentTypeFactory.CreateContentType(contentType);
 
             result.Add(new ContentTypeInfo
             {
                 Alias = contentType.Alias,
                 SchemaId = GetContentTypeSchemaId(contentType),
-                CompositionSchemaIds = contentType.ContentTypeComposition.Select(GetContentTypeSchemaId).ToList(),
-                Properties = publishedContentType.PropertyTypes.Select(p => new ContentTypePropertyInfo { Alias = p.Alias, EditorAlias = p.EditorAlias, Type = p.DeliveryApiModelClrType, Inherited = !ownPropertyAliases.Contains(p.Alias) }).ToList(),
+                CompositionSchemaIds = [.. contentType.ContentTypeComposition.Select(GetContentTypeSchemaId)],
+                Properties = [.. publishedContentType.PropertyTypes.Select(p => new ContentTypePropertyInfo { Alias = p.Alias, EditorAlias = p.EditorAlias, Type = p.DeliveryApiModelClrType, Inherited = !ownPropertyAliases.Contains(p.Alias) })],
                 IsElement = contentType.IsElement,
                 IsComposition = false,
             });
