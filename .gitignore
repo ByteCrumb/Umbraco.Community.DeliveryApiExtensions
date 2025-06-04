@@ -353,4 +353,4 @@ MigrationBackup/
 .ionide/
 
 # Rider
-src/.idea
+.idea/

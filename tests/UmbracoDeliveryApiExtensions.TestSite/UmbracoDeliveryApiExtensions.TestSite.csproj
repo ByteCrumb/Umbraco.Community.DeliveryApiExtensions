@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
   <ItemGroup>
-    <PackageReference Include="Umbraco.Cms" Version="15.0.0" />
-    <PackageReference Include="uSync" Version="15.0.0" />
+    <PackageReference Include="Umbraco.Cms" Version="16.0.0-rc4" />
+    <PackageReference Include="uSync" Version="16.0.0-rc3" />
   </ItemGroup>
 
   <ItemGroup>
@@ -35,8 +35,8 @@
 
   <Target Name="SwaggerGeneration" AfterTargets="AfterBuild">
     <Exec Command="dotnet tool restore" />
-    <Exec Command="dotnet swagger tofile --output $(ProjectDir)delivery.swagger.g.json $([System.IO.Path]::Combine('$(OutDir)','UmbracoDeliveryApiExtensions.TestSite.dll')) delivery" EnvironmentVariables="DOTNET_ROLL_FORWARD=Major;ASPNETCORE_ENVIRONMENT=Development;" IgnoreStandardErrorWarningFormat="true" />
-    <Exec Command="dotnet swagger tofile --output $(ProjectDir)delivery-compat.swagger.g.json $([System.IO.Path]::Combine('$(OutDir)','UmbracoDeliveryApiExtensions.TestSite.dll')) delivery" EnvironmentVariables="DOTNET_ROLL_FORWARD=Major;ASPNETCORE_ENVIRONMENT=Development;DeliveryApiExtensions__TypedSwagger__Mode=Compatibility;" IgnoreStandardErrorWarningFormat="true" />
+    <Exec Command="dotnet swagger tofile --output '$(ProjectDir)delivery.swagger.g.json' $([System.IO.Path]::Combine('$(OutDir)','UmbracoDeliveryApiExtensions.TestSite.dll')) delivery" EnvironmentVariables="DOTNET_ROLL_FORWARD=Major;ASPNETCORE_ENVIRONMENT=Development;" IgnoreStandardErrorWarningFormat="true" />
+    <Exec Command="dotnet swagger tofile --output '$(ProjectDir)delivery-compat.swagger.g.json' $([System.IO.Path]::Combine('$(OutDir)','UmbracoDeliveryApiExtensions.TestSite.dll')) delivery" EnvironmentVariables="DOTNET_ROLL_FORWARD=Major;ASPNETCORE_ENVIRONMENT=Development;DeliveryApiExtensions__TypedSwagger__Mode=Compatibility;" IgnoreStandardErrorWarningFormat="true" />
   </Target>
 
 </Project>

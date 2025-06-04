@@ -28,7 +28,7 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0" PrivateAssets="All" />
-    <PackageReference Include="Umbraco.Cms.Api.Delivery" Version="15.0.0" />
+    <PackageReference Include="Umbraco.Cms.Api.Delivery" Version="16.0.0-rc4" />
   </ItemGroup>
 
   <ItemGroup>

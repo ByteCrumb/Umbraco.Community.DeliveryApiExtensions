@@ -7,7 +7,7 @@ import { UmbContextConsumerController } from "@umbraco-cms/backoffice/context-ap
 
 export class ApiPreviewRepository extends UmbControllerBase {
   #apiPath: string = '';
-  #getToken: () => Promise<string> = async () => '';
+  #getToken: () => Promise<string | undefined> = async () => '';
   #init: Promise<unknown>;
   #contextConsumer;
 
@@ -15,9 +15,12 @@ export class ApiPreviewRepository extends UmbControllerBase {
     super(host);
 
     this.#contextConsumer = new UmbContextConsumerController(this, UMB_AUTH_CONTEXT, (_auth) => {
-			const umbOpenApi = _auth.getOpenApiConfiguration();
+      if(!_auth){
+        return;
+      }
+      const umbOpenApi = _auth.getOpenApiConfiguration();
       this.#getToken = umbOpenApi.token;
-      this.#apiPath = `${umbOpenApi.base}/umbraco/delivery-api-extensions/preview`;
+      this.#apiPath = `${umbOpenApi?.base}/umbraco/delivery-api-extensions/preview`;
 		});
     this.#init = this.#contextConsumer.asPromise();
   }

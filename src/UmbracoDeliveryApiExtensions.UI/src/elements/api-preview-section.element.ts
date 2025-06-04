@@ -81,7 +81,7 @@ export class ApiPreviewElementSection extends UmbElementMixin(
 
     this.consumeContext(UMB_THEME_CONTEXT, (instance) => {
       this.observe(
-        instance.theme,
+        instance?.theme,
         (themeAlias) => {
           this._theme = this.#translateTheme(themeAlias);
         },
@@ -94,7 +94,7 @@ export class ApiPreviewElementSection extends UmbElementMixin(
     this._dataTask.run();
   };
 
-  #translateTheme(theme: string) {
+  #translateTheme(theme: string | undefined) {
     switch (theme) {
       case "umb-dark-theme":
         return "dark";

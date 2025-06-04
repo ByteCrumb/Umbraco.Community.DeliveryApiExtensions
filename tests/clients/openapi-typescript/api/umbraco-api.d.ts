@@ -8,27 +8,11 @@
 type WithRequired<T, K extends keyof T> = T & { [P in K]-?: T[P] };
 
 export interface paths {
-  "/umbraco/delivery/api/v1/content": {
-    /** @deprecated */
-    get: operations["GetContent"];
-  };
   "/umbraco/delivery/api/v2/content": {
     get: operations["GetContent2.0"];
   };
-  "/umbraco/delivery/api/v1/content/item": {
-    /** @deprecated */
-    get: operations["GetContentItem"];
-  };
-  "/umbraco/delivery/api/v1/content/item/{path}": {
-    /** @deprecated */
-    get: operations["GetContentItemByPath"];
-  };
   "/umbraco/delivery/api/v2/content/item/{path}": {
     get: operations["GetContentItemByPath2.0"];
-  };
-  "/umbraco/delivery/api/v1/content/item/{id}": {
-    /** @deprecated */
-    get: operations["GetContentItemById"];
   };
   "/umbraco/delivery/api/v2/content/item/{id}": {
     get: operations["GetContentItemById2.0"];
@@ -36,27 +20,11 @@ export interface paths {
   "/umbraco/delivery/api/v2/content/items": {
     get: operations["GetContentItems2.0"];
   };
-  "/umbraco/delivery/api/v1/media": {
-    /** @deprecated */
-    get: operations["GetMedia"];
-  };
   "/umbraco/delivery/api/v2/media": {
     get: operations["GetMedia2.0"];
   };
-  "/umbraco/delivery/api/v1/media/item": {
-    /** @deprecated */
-    get: operations["GetMediaItem"];
-  };
-  "/umbraco/delivery/api/v1/media/item/{path}": {
-    /** @deprecated */
-    get: operations["GetMediaItemByPath"];
-  };
   "/umbraco/delivery/api/v2/media/item/{path}": {
     get: operations["GetMediaItemByPath2.0"];
-  };
-  "/umbraco/delivery/api/v1/media/item/{id}": {
-    /** @deprecated */
-    get: operations["GetMediaItemById"];
   };
   "/umbraco/delivery/api/v2/media/item/{id}": {
     get: operations["GetMediaItemById2.0"];
@@ -161,7 +129,7 @@ export interface components {
         [key: string]: components["schemas"]["ApiContentRouteModel"];
       };
     }) & Omit<components["schemas"]["IApiContentModelBase"], "contentType">, "contentType" | "createDate" | "cultures" | "id" | "properties" | "route" | "updateDate">;
-    IApiElementModel: components["schemas"]["BlockSettingsElementModel"] | components["schemas"]["TestBlockElementModel"] | components["schemas"]["TestBlock2ElementModel"] | components["schemas"]["TestCompositionElementModel"] | components["schemas"]["TestComposition2ElementModel"];
+    IApiElementModel: components["schemas"]["BlockSettingsElementModel"] | components["schemas"]["TestComposition2ElementModel"] | components["schemas"]["TestBlockElementModel"] | components["schemas"]["TestBlock2ElementModel"] | components["schemas"]["TestCompositionElementModel"];
     IApiElementModelBase: {
       /** Format: uuid */
       id: string;
@@ -393,53 +361,6 @@ export type external = Record<string, never>;
 
 export interface operations {
 
-  /** @deprecated */
-  GetContent: {
-    parameters: {
-      query?: {
-        /** @description Specifies the content items to fetch. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api#query-parameters) for more details on this. */
-        fetch?: string;
-        /** @description Defines how to filter the fetched content items. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api#query-parameters) for more details on this. */
-        filter?: string[];
-        /** @description Defines how to sort the found content items. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api#query-parameters) for more details on this. */
-        sort?: string[];
-        /** @description Specifies the number of found content items to skip. Use this to control pagination of the response. */
-        skip?: number;
-        /** @description Specifies the number of found content items to take. Use this to control pagination of the response. */
-        take?: number;
-        /** @description Defines the properties that should be expanded in the response. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api#query-parameters) for more details on this. */
-        expand?: string;
-      };
-      header?: {
-        /** @description Defines the language to return. Use this when querying language variant content items. */
-        "Accept-Language"?: string;
-        /** @description API key specified through configuration to authorize access to the API. */
-        "Api-Key"?: string;
-        /** @description Whether to request draft content. */
-        Preview?: boolean;
-        /** @description URL segment or GUID of a root content item. */
-        "Start-Item"?: string;
-      };
-    };
-    responses: {
-      /** @description OK */
-      200: {
-        content: {
-          "application/json": components["schemas"]["PagedIApiContentResponseModel"];
-        };
-      };
-      /** @description Bad Request */
-      400: {
-        content: {
-          "application/json": components["schemas"]["ProblemDetails"] | components["schemas"]["HttpValidationProblemDetails"];
-        };
-      };
-      /** @description Not Found */
-      404: {
-        content: never;
-      };
-    };
-  };
   "GetContent2.0": {
     parameters: {
       query?: {
@@ -461,6 +382,8 @@ export interface operations {
       header?: {
         /** @description Defines the language to return. Use this when querying language variant content items. */
         "Accept-Language"?: string;
+        /** @description Defines the segment to return. Use this when querying segment variant content items. */
+        "Accept-Segment"?: string;
         /** @description API key specified through configuration to authorize access to the API. */
         "Api-Key"?: string;
         /** @description Whether to request draft content. */
@@ -488,84 +411,6 @@ export interface operations {
       };
     };
   };
-  /** @deprecated */
-  GetContentItem: {
-    parameters: {
-      query?: {
-        id?: string[];
-        /** @description Defines the properties that should be expanded in the response. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api#query-parameters) for more details on this. */
-        expand?: string;
-      };
-      header?: {
-        /** @description Defines the language to return. Use this when querying language variant content items. */
-        "Accept-Language"?: string;
-        /** @description API key specified through configuration to authorize access to the API. */
-        "Api-Key"?: string;
-        /** @description Whether to request draft content. */
-        Preview?: boolean;
-        /** @description URL segment or GUID of a root content item. */
-        "Start-Item"?: string;
-      };
-    };
-    responses: {
-      /** @description OK */
-      200: {
-        content: {
-          "application/json": components["schemas"]["IApiContentResponseModel"][];
-        };
-      };
-      /** @description Unauthorized */
-      401: {
-        content: never;
-      };
-      /** @description Forbidden */
-      403: {
-        content: never;
-      };
-    };
-  };
-  /** @deprecated */
-  GetContentItemByPath: {
-    parameters: {
-      query?: {
-        /** @description Defines the properties that should be expanded in the response. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api#query-parameters) for more details on this. */
-        expand?: string;
-      };
-      header?: {
-        /** @description Defines the language to return. Use this when querying language variant content items. */
-        "Accept-Language"?: string;
-        /** @description API key specified through configuration to authorize access to the API. */
-        "Api-Key"?: string;
-        /** @description Whether to request draft content. */
-        Preview?: boolean;
-        /** @description URL segment or GUID of a root content item. */
-        "Start-Item"?: string;
-      };
-      path: {
-        path: string;
-      };
-    };
-    responses: {
-      /** @description OK */
-      200: {
-        content: {
-          "application/json": components["schemas"]["IApiContentResponseModel"];
-        };
-      };
-      /** @description Unauthorized */
-      401: {
-        content: never;
-      };
-      /** @description Forbidden */
-      403: {
-        content: never;
-      };
-      /** @description Not Found */
-      404: {
-        content: never;
-      };
-    };
-  };
   "GetContentItemByPath2.0": {
     parameters: {
       query?: {
@@ -577,6 +422,8 @@ export interface operations {
       header?: {
         /** @description Defines the language to return. Use this when querying language variant content items. */
         "Accept-Language"?: string;
+        /** @description Defines the segment to return. Use this when querying segment variant content items. */
+        "Accept-Segment"?: string;
         /** @description API key specified through configuration to authorize access to the API. */
         "Api-Key"?: string;
         /** @description Whether to request draft content. */
@@ -586,48 +433,6 @@ export interface operations {
       };
       path: {
         path: string;
-      };
-    };
-    responses: {
-      /** @description OK */
-      200: {
-        content: {
-          "application/json": components["schemas"]["IApiContentResponseModel"];
-        };
-      };
-      /** @description Unauthorized */
-      401: {
-        content: never;
-      };
-      /** @description Forbidden */
-      403: {
-        content: never;
-      };
-      /** @description Not Found */
-      404: {
-        content: never;
-      };
-    };
-  };
-  /** @deprecated */
-  GetContentItemById: {
-    parameters: {
-      query?: {
-        /** @description Defines the properties that should be expanded in the response. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api#query-parameters) for more details on this. */
-        expand?: string;
-      };
-      header?: {
-        /** @description Defines the language to return. Use this when querying language variant content items. */
-        "Accept-Language"?: string;
-        /** @description API key specified through configuration to authorize access to the API. */
-        "Api-Key"?: string;
-        /** @description Whether to request draft content. */
-        Preview?: boolean;
-        /** @description URL segment or GUID of a root content item. */
-        "Start-Item"?: string;
-      };
-      path: {
-        id: string;
       };
     };
     responses: {
@@ -662,6 +467,8 @@ export interface operations {
       header?: {
         /** @description Defines the language to return. Use this when querying language variant content items. */
         "Accept-Language"?: string;
+        /** @description Defines the segment to return. Use this when querying segment variant content items. */
+        "Accept-Segment"?: string;
         /** @description API key specified through configuration to authorize access to the API. */
         "Api-Key"?: string;
         /** @description Whether to request draft content. */
@@ -706,6 +513,8 @@ export interface operations {
       header?: {
         /** @description Defines the language to return. Use this when querying language variant content items. */
         "Accept-Language"?: string;
+        /** @description Defines the segment to return. Use this when querying segment variant content items. */
+        "Accept-Segment"?: string;
         /** @description API key specified through configuration to authorize access to the API. */
         "Api-Key"?: string;
         /** @description Whether to request draft content. */
@@ -728,43 +537,6 @@ export interface operations {
       /** @description Forbidden */
       403: {
         content: never;
-      };
-    };
-  };
-  /** @deprecated */
-  GetMedia: {
-    parameters: {
-      query?: {
-        /** @description Specifies the media items to fetch. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api/media-delivery-api#query-parameters) for more details on this. */
-        fetch?: string;
-        /** @description Defines how to filter the fetched media items. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api/media-delivery-api#query-parameters) for more details on this. */
-        filter?: string[];
-        /** @description Defines how to sort the found media items. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api/media-delivery-api#query-parameters) for more details on this. */
-        sort?: string[];
-        /** @description Specifies the number of found media items to skip. Use this to control pagination of the response. */
-        skip?: number;
-        /** @description Specifies the number of found media items to take. Use this to control pagination of the response. */
-        take?: number;
-        /** @description Defines the properties that should be expanded in the response. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api/media-delivery-api#query-parameters) for more details on this. */
-        expand?: string;
-      };
-      header?: {
-        /** @description API key specified through configuration to authorize access to the API. */
-        "Api-Key"?: string;
-      };
-    };
-    responses: {
-      /** @description OK */
-      200: {
-        content: {
-          "application/json": components["schemas"]["PagedIApiMediaWithCropsResponseModel"];
-        };
-      };
-      /** @description Bad Request */
-      400: {
-        content: {
-          "application/json": components["schemas"]["ProblemDetails"] | components["schemas"]["HttpValidationProblemDetails"];
-        };
       };
     };
   };
@@ -806,56 +578,6 @@ export interface operations {
       };
     };
   };
-  /** @deprecated */
-  GetMediaItem: {
-    parameters: {
-      query?: {
-        id?: string[];
-        /** @description Defines the properties that should be expanded in the response. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api/media-delivery-api#query-parameters) for more details on this. */
-        expand?: string;
-      };
-      header?: {
-        /** @description API key specified through configuration to authorize access to the API. */
-        "Api-Key"?: string;
-      };
-    };
-    responses: {
-      /** @description OK */
-      200: {
-        content: {
-          "application/json": components["schemas"]["IApiMediaWithCropsResponseModel"][];
-        };
-      };
-    };
-  };
-  /** @deprecated */
-  GetMediaItemByPath: {
-    parameters: {
-      query?: {
-        /** @description Defines the properties that should be expanded in the response. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api/media-delivery-api#query-parameters) for more details on this. */
-        expand?: string;
-      };
-      header?: {
-        /** @description API key specified through configuration to authorize access to the API. */
-        "Api-Key"?: string;
-      };
-      path: {
-        path: string;
-      };
-    };
-    responses: {
-      /** @description OK */
-      200: {
-        content: {
-          "application/json": components["schemas"]["IApiMediaWithCropsResponseModel"];
-        };
-      };
-      /** @description Not Found */
-      404: {
-        content: never;
-      };
-    };
-  };
   "GetMediaItemByPath2.0": {
     parameters: {
       query?: {
@@ -870,34 +592,6 @@ export interface operations {
       };
       path: {
         path: string;
-      };
-    };
-    responses: {
-      /** @description OK */
-      200: {
-        content: {
-          "application/json": components["schemas"]["IApiMediaWithCropsResponseModel"];
-        };
-      };
-      /** @description Not Found */
-      404: {
-        content: never;
-      };
-    };
-  };
-  /** @deprecated */
-  GetMediaItemById: {
-    parameters: {
-      query?: {
-        /** @description Defines the properties that should be expanded in the response. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api/media-delivery-api#query-parameters) for more details on this. */
-        expand?: string;
-      };
-      header?: {
-        /** @description API key specified through configuration to authorize access to the API. */
-        "Api-Key"?: string;
-      };
-      path: {
-        id: string;
       };
     };
     responses: {

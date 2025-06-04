@@ -50,7 +50,7 @@ export default class ApiPreviewElement extends UmbElementMixin(KebabCaseAttribut
     this.provideContext(API_PREVIEW_CONTEXT, this.#apiPreviewContext);
 
     this.consumeContext(UMB_PROPERTY_DATASET_CONTEXT, (instance) => {
-      const currentCulture = instance.getVariantId().culture ?? undefined;
+      const currentCulture = instance?.getVariantId().culture ?? undefined;
       this.#apiPreviewContext?.setCulture(currentCulture);
     });
 
@@ -106,12 +106,12 @@ export default class ApiPreviewElement extends UmbElementMixin(KebabCaseAttribut
 				this.#onContentChanged as EventListener,
 			);
 
-			instance.addEventListener(
+			instance?.addEventListener(
 				UmbRequestReloadChildrenOfEntityEvent.TYPE,
 				this.#onContentChanged as EventListener,
 			);
 
-			instance.addEventListener(
+			instance?.addEventListener(
 				UmbRequestReloadStructureForEntityEvent.TYPE,
 				this.#onContentChanged as EventListener,
 			);

@@ -18,6 +18,7 @@ const WebReactJsonComponent = (props: JsonPreviewProps<Record<string, unknown>>)
     <JsonView.Ellipsis render={(_props, {value}) => Object.keys(value ?? {}).length === 0 ? <span>&nbsp;</span> : undefined }/>
     <JsonView.Copied render={(props, _result) => {
       const copied = 'data-copied' in props && Boolean(props['data-copied']);
+      // @ts-ignore
       return <uui-icon name='copy' style={{...props.style, color: copied ? 'var(--uui-color-positive)' : 'var(--uui-color-disabled-contrast)'}} onClick={copied ? undefined : props.onClick as unknown as React.MouseEventHandler<UUIIconElement>}></uui-icon>;
     }}/>
   </JsonView>;

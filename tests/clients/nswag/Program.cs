@@ -1,15 +1,7 @@
-using System.Net.Http.Headers;
 using System.Text.Json;
 using nswag;
 
-UmbracoApi umbracoApi = new("http://localhost:34962", new HttpClient
-{
-    // Workaround for Umbraco Delivery API bug: https://github.com/umbraco/Umbraco-CMS/issues/17476
-    DefaultRequestHeaders =
-    {
-        AcceptLanguage = { new StringWithQualityHeaderValue("en-US") },
-    },
-});
+UmbracoApi umbracoApi = new("http://localhost:34962", new HttpClient());
 
 IApiContentResponseModel page = await umbracoApi.GetContentItemByPath2_0Async("/", expand: "properties[$all]");
 RenderPage(page);
