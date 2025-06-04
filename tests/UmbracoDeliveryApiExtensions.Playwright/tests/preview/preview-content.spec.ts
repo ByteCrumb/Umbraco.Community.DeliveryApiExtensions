@@ -35,9 +35,10 @@ test.describe('API preview - Content', () => {
     await umbracoUi.goToBackOffice();
 
     // Create new document
-    await page.getByRole('tab', {name: ConstantHelper.sections.content}).click();
+    await umbracoUi.content.goToSection(ConstantHelper.sections.content);
     await umbracoUi.content.clickActionsMenuAtRoot();
-    await umbracoUi.content.clickCreateButton();
+    // TODO: Check why `umbracoUi.content.clickCreateActionMenuOption()` didn't work and replace the line below
+    await page.locator('uui-menu-item[data-mark="entity-action:Umb.EntityAction.Document.Create"]').click();
     await umbracoUi.content.chooseDocumentType(docTypeName);
 
     // Verify that the content app is not visible

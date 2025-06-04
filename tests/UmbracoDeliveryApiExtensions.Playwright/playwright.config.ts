@@ -32,11 +32,11 @@ export default defineConfig({
 
   /* Run your local dev server before starting the tests */
   webServer: {
-    command: 'dotnet run --project ..\\UmbracoDeliveryApiExtensions.TestSite',
+    command: 'dotnet run --project ../UmbracoDeliveryApiExtensions.TestSite',
     url: process.env.URL + '/umbraco',
     reuseExistingServer: true,
     ignoreHTTPSErrors: true,
     stdout: process.env.CI ? 'ignore' : 'pipe',
-    cwd: '..\\UmbracoDeliveryApiExtensions.TestSite',
+    cwd: '../UmbracoDeliveryApiExtensions.TestSite',
   },
 });
