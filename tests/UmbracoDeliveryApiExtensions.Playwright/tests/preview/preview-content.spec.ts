@@ -1,5 +1,4 @@
 ﻿import {expect} from '@playwright/test';
-import {DocumentBuilder, DocumentTypeBuilder} from '@umbraco/json-models-builders';
 import {type ApiHelpers, ConstantHelper, test} from '@umbraco/playwright-testhelpers';
 
 test.describe('API preview - Content', () => {
@@ -36,13 +35,13 @@ test.describe('API preview - Content', () => {
 
     // Create new document
     await umbracoUi.content.goToSection(ConstantHelper.sections.content);
-    await umbracoUi.content.clickActionsMenuAtRoot();
-    // TODO: Check why `umbracoUi.content.clickCreateActionMenuOption()` didn't work and replace the line below
-    await page.locator('uui-menu-item[data-mark="entity-action:Umb.EntityAction.Document.Create"]').click();
+    await page.waitForSelector('umb-section-sidebar-menu-with-entity-actions #header');
+    await page.locator('uui-action-bar uui-button[label="Create"]').first().click();
     await umbracoUi.content.chooseDocumentType(docTypeName);
+    await page.waitForSelector('uui-input[data-mark="input:entity-name"]');
 
     // Verify that the content app is not visible
-    await expect(page.locator('button[data-element="sub-view-deliveryApiPreview"]')).toBeHidden();
+    await expect(page.locator('uui-tab[data-mark="workspace:view-link:deliveryApiPreview"]')).toBeHidden();
   });
 
   test('Preview content app shows only Preview section in saved document', async ({page, umbracoUi}) => {
@@ -65,39 +64,12 @@ test.describe('API preview - Content', () => {
   });
 
   async function createTestContent(umbracoApi: ApiHelpers) {
-    const groupId = crypto.randomUUID();
+    const documentTypeId = await umbracoApi.documentType.createDefaultDocumentTypeWithAllowAsRoot(docTypeName);
+    if(!documentTypeId) {
+      throw new Error(`Failed to create document type with name: ${docTypeName}`);
+    }
 
-    const dataTypeData = await umbracoApi.dataType.getByName('Textstring');
-    expect(dataTypeData).toBeDefined();
-
-    const docType = new DocumentTypeBuilder()
-      .withName(docTypeName)
-      .withAlias(docTypeName)
-      .withAllowedAsRoot(true)
-      .addContainer()
-      .withName('Content')
-      .withId(groupId)
-      .withType('Group')
-      .done()
-      .addProperty()
-      .withContainerId(groupId)
-      .withName('Title')
-      .withAlias('title')
-      .withDataTypeId(dataTypeData.id as string)
-      .done()
-      .build();
-
-    const createdDocType = await umbracoApi.documentType.create(docType);
-    expect(createdDocType).toBeDefined();
-
-    const rootContentNode = new DocumentBuilder()
-      .withDocumentTypeId(createdDocType!)
-      .addVariant()
-      .withName(nodeName)
-      .done()
-      .build();
-
-    await umbracoApi.document.create(rootContentNode);
+    await umbracoApi.document.createDefaultDocument(nodeName, documentTypeId);
   }
 
   async function cleanTestContent(umbracoApi: ApiHelpers) {
