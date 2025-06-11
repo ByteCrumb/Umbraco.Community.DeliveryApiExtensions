@@ -8,8 +8,6 @@ import {KebabCaseAttributesMixin} from '../mixins/kebab-case-attributes.mixin';
  */
 @customElement('bc-api-preview-workspace-view')
 export default class ApiPreviewWorkspaceView extends UmbElementMixin(KebabCaseAttributesMixin(LitElement)) {
-
-
   render() {
     return html`
       <umb-body-layout header-fit-height>

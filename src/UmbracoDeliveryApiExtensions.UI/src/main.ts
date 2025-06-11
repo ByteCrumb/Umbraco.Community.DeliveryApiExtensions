@@ -1,5 +1,6 @@
 import {type UmbEntryPointOnInit} from '@umbraco-cms/backoffice/extension-api';
 
+import {manifest as apiPreviewViewCondition} from './conditions/api-preview.view.condition';
 import {ApiPreviewRepository} from './contexts/api-preview.repository';
 
 export const onInit: UmbEntryPointOnInit = (_host, extensionRegistry) => {
@@ -13,6 +14,7 @@ export const onInit: UmbEntryPointOnInit = (_host, extensionRegistry) => {
         return;
       }
 
+      extensionRegistry.register(apiPreviewViewCondition);
       const enabledWorkspaces = ['Umb.Workspace.Document'];
       if (config.media.enabled) {
         enabledWorkspaces.push('Umb.Workspace.Media');
@@ -33,7 +35,10 @@ export const onInit: UmbEntryPointOnInit = (_host, extensionRegistry) => {
           {
             alias: 'Umb.Condition.WorkspaceAlias',
             oneOf: enabledWorkspaces,
-          }
+          },
+          {
+            alias: 'DeliveryApiExtensions.ApiPreview.View',
+          },
         ],
       };
 
