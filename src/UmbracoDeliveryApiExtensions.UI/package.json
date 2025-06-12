@@ -23,7 +23,7 @@
     "@types/react": "^18.3.12",
     "@typescript-eslint/eslint-plugin": "^8.33.1",
     "@typescript-eslint/parser": "^8.33.1",
-    "@umbraco-cms/backoffice": "^16.0.0-rc6",
+    "@umbraco-cms/backoffice": "^16.0.0",
     "chokidar-cli": "^3.0.0",
     "eslint": "^9.28.0",
     "eslint-config-xo-space": "^0.35.0",
