@@ -2314,7 +2314,6 @@
           "contentType",
           "createDate",
           "id",
-          "properties",
           "route",
           "updateDate"
         ],
@@ -2385,7 +2384,6 @@
           "createDate",
           "cultures",
           "id",
-          "properties",
           "route",
           "updateDate"
         ],
@@ -2473,8 +2471,7 @@
       "IApiElementModelBase": {
         "required": [
           "contentType",
-          "id",
-          "properties"
+          "id"
         ],
         "type": "object",
         "properties": {

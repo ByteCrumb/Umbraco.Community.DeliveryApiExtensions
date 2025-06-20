@@ -217,6 +217,7 @@ public class DeliveryApiContentTypesSchemaFilter : ISchemaFilter, IDocumentFilte
 
             originalSchema = schema;
             schema = new OpenApiSchema(originalSchema);
+            schema.Required.Remove("properties");
             schema.Properties.Remove("properties");
 
             context.SchemaRepository.Schemas.TryAdd(GetTypeSchemaId<T>(true), schema);
