@@ -12,19 +12,19 @@
   },
   "devDependencies": {
     "@types/node": "^22.15.29",
-    "@typescript-eslint/eslint-plugin": "^8.33.1",
-    "@typescript-eslint/parser": "^8.33.1",
-    "eslint": "^9.28.0",
+    "@typescript-eslint/eslint-plugin": "^8.34.1",
+    "@typescript-eslint/parser": "^8.34.1",
+    "eslint": "^9.29.0",
     "eslint-config-xo-space": "^0.35.0",
     "eslint-config-xo-typescript": "^8.0.1",
-    "eslint-plugin-n": "^17.19.0",
+    "eslint-plugin-n": "^17.20.0",
     "eslint-plugin-promise": "^7.2.1",
     "eslint-plugin-simple-import-sort": "^12.1.1",
-    "orval": "7.2.0",
+    "orval": "7.10.0",
     "typescript": "^5.8.3"
   },
   "dependencies": {
-    "axios": "^1.9.0"
+    "axios": "^1.10.0"
   },
   "volta": {
     "node": "22.11.0"
