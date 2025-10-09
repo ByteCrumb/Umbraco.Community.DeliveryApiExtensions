@@ -1314,6 +1314,10 @@
           "path": {
             "type": "string"
           },
+          "queryString": {
+            "type": "string",
+            "nullable": true
+          },
           "startItem": {
             "oneOf": [
               {
@@ -2221,6 +2225,26 @@
             "type": "string",
             "nullable": true
           },
+          "dateOnly": {
+            "type": "string",
+            "format": "date",
+            "nullable": true
+          },
+          "timeOnly": {
+            "type": "string",
+            "format": "time",
+            "nullable": true
+          },
+          "dateTimeUnspecified": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "dateTimeWithTimeZone": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
           "colorPicker": {
             "$ref": "#/components/schemas/PickedColorModel"
           },
@@ -2363,6 +2387,26 @@
           },
           "email": {
             "type": "string",
+            "nullable": true
+          },
+          "dateOnly": {
+            "type": "string",
+            "format": "date",
+            "nullable": true
+          },
+          "timeOnly": {
+            "type": "string",
+            "format": "time",
+            "nullable": true
+          },
+          "dateTimeUnspecified": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "dateTimeWithTimeZone": {
+            "type": "string",
+            "format": "date-time",
             "nullable": true
           },
           "colorPicker": {

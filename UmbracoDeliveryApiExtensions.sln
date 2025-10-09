@@ -9,9 +9,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		.gitignore = .gitignore
 		Directory.Build.props = Directory.Build.props
 		LICENSE = LICENSE
-		.github\README.md = .github\README.md
+		docs\README.md = docs\README.md
 		umbraco-marketplace.json = umbraco-marketplace.json
 		global.json = global.json
+		nuget.config = nuget.config
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{64029CDB-B81B-4ABF-A96C-778BA28B6952}"

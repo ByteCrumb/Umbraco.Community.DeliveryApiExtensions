@@ -1293,6 +1293,10 @@
           "path": {
             "type": "string"
           },
+          "queryString": {
+            "type": "string",
+            "nullable": true
+          },
           "startItem": {
             "$ref": "#/components/schemas/IApiContentStartItemModel"
           }
@@ -1546,6 +1550,10 @@
           "path": {
             "type": "string",
             "readOnly": true
+          },
+          "queryString": {
+            "type": "string",
+            "nullable": true
           },
           "startItem": {
             "$ref": "#/components/schemas/IApiContentStartItemModel"
@@ -2184,6 +2192,26 @@
             "type": "string",
             "nullable": true
           },
+          "dateOnly": {
+            "type": "string",
+            "format": "date",
+            "nullable": true
+          },
+          "timeOnly": {
+            "type": "string",
+            "format": "time",
+            "nullable": true
+          },
+          "dateTimeUnspecified": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "dateTimeWithTimeZone": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
           "colorPicker": {
             "$ref": "#/components/schemas/PickedColorModel"
           },
@@ -2326,6 +2354,26 @@
           },
           "email": {
             "type": "string",
+            "nullable": true
+          },
+          "dateOnly": {
+            "type": "string",
+            "format": "date",
+            "nullable": true
+          },
+          "timeOnly": {
+            "type": "string",
+            "format": "time",
+            "nullable": true
+          },
+          "dateTimeUnspecified": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "dateTimeWithTimeZone": {
+            "type": "string",
+            "format": "date-time",
             "nullable": true
           },
           "colorPicker": {

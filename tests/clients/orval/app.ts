@@ -33,6 +33,10 @@ function renderTestPage(content: TestPageContentResponseModel) {
   print('slider', properties?.slider);
   print('tags', properties?.tags);
   print('email', properties?.email);
+  print("dateOnly", properties?.dateOnly);
+  print("timeOnly", properties?.timeOnly);
+  print("dateTimeUnspecified", properties?.dateTimeUnspecified);
+  print("dateTimeWithTimeZone", properties?.dateTimeWithTimeZone);
 
   console.log('\n  **Pickers**');
   print('colorPicker', properties?.colorPicker);

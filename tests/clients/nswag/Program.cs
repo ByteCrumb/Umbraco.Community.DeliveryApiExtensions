@@ -32,6 +32,10 @@ void RenderTestPage(TestPageContentResponseModel content)
     Print("slider", properties?.Slider);
     Print("tags", properties?.Tags);
     Print("email", properties?.Email);
+    Print("dateOnly", properties?.DateOnly);
+    Print("timeOnly", properties?.TimeOnly);
+    Print("dateTimeUnspecified", properties?.DateTimeUnspecified);
+    Print("dateTimeWithTimeZone", properties?.DateTimeWithTimeZone);
 
     Console.WriteLine("\n  **Pickers**");
     Print("colorPicker", properties?.ColorPicker);

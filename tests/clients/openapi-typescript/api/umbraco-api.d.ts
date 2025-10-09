@@ -69,6 +69,7 @@ export interface components {
     };
     ApiContentRouteModel: {
       path: string;
+      queryString?: string | null;
       startItem: components["schemas"]["ApiContentStartItemModel"];
     };
     ApiContentStartItemModel: {
@@ -112,7 +113,7 @@ export interface components {
       /** Format: date-time */
       updateDate: string;
       route: components["schemas"]["ApiContentRouteModel"];
-    }) & Omit<components["schemas"]["IApiElementModelBase"], "contentType">, "contentType" | "createDate" | "id" | "properties" | "route" | "updateDate">;
+    }) & Omit<components["schemas"]["IApiElementModelBase"], "contentType">, "contentType" | "createDate" | "id" | "route" | "updateDate">;
     IApiContentResponseModel: components["schemas"]["TestPageContentResponseModel"] | components["schemas"]["TestPageInvariantContentResponseModel"];
     IApiContentResponseModelBase: WithRequired<({
       contentType: "IApiContentResponseModelBase";
@@ -128,7 +129,7 @@ export interface components {
       cultures: {
         [key: string]: components["schemas"]["ApiContentRouteModel"];
       };
-    }) & Omit<components["schemas"]["IApiContentModelBase"], "contentType">, "contentType" | "createDate" | "cultures" | "id" | "properties" | "route" | "updateDate">;
+    }) & Omit<components["schemas"]["IApiContentModelBase"], "contentType">, "contentType" | "createDate" | "cultures" | "id" | "route" | "updateDate">;
     IApiElementModel: components["schemas"]["BlockSettingsElementModel"] | components["schemas"]["TestComposition2ElementModel"] | components["schemas"]["TestBlockElementModel"] | components["schemas"]["TestBlock2ElementModel"] | components["schemas"]["TestCompositionElementModel"];
     IApiElementModelBase: {
       /** Format: uuid */
@@ -293,6 +294,14 @@ export interface components {
       slider?: number | null;
       tags?: string[] | null;
       email?: string | null;
+      /** Format: date */
+      dateOnly?: string | null;
+      /** Format: time */
+      timeOnly?: string | null;
+      /** Format: date-time */
+      dateTimeUnspecified?: string | null;
+      /** Format: date-time */
+      dateTimeWithTimeZone?: string | null;
       colorPicker?: components["schemas"]["PickedColorModel"];
       contentPicker?: components["schemas"]["IApiContentModel"];
       eyeDropperColorPicker?: string | null;
@@ -328,6 +337,14 @@ export interface components {
       slider?: number | null;
       tags?: string[] | null;
       email?: string | null;
+      /** Format: date */
+      dateOnly?: string | null;
+      /** Format: time */
+      timeOnly?: string | null;
+      /** Format: date-time */
+      dateTimeUnspecified?: string | null;
+      /** Format: date-time */
+      dateTimeWithTimeZone?: string | null;
       colorPicker?: components["schemas"]["PickedColorModel"];
       contentPicker?: components["schemas"]["IApiContentModel"];
       eyeDropperColorPicker?: string | null;
