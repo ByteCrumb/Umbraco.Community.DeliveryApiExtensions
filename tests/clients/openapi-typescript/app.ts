@@ -62,8 +62,8 @@ function renderTestPage(content: components['schemas']['TestPageContentResponseM
   print('markdown', properties?.markdown);
 
   console.log('\n  **People**');
-  print('memberGroupPicker', properties?.memberGroupPicker);
-  print('memberPicker', properties?.memberPicker);
+  //print('memberGroupPicker', properties?.memberGroupPicker);
+  //print('memberPicker', properties?.memberPicker);
   print('userPicker', properties?.userPicker);
 
   console.log('\n  **Lists**');
@@ -74,8 +74,8 @@ function renderTestPage(content: components['schemas']['TestPageContentResponseM
   print('repeatableTextstrings', properties?.repeatableTextstrings);
 
   console.log('\n  **Media**');
-  // TODO: print('uploadFile', properties?.uploadFile);
-  // TODO: print('imageCropper', properties?.imageCropper);
+  print('uploadFile', properties?.uploadFile);
+  print('imageCropper', properties?.imageCropper);
   print('mediaPicker', properties?.mediaPicker);
 
   console.log('\n  **Content Picker**');

@@ -1345,6 +1345,28 @@
         },
         "additionalProperties": false
       },
+      "ApiImageCropperValueModel": {
+        "required": [
+          "url"
+        ],
+        "type": "object",
+        "properties": {
+          "url": {
+            "type": "string"
+          },
+          "focalPoint": {
+            "$ref": "#/components/schemas/ImageFocalPointModel"
+          },
+          "crops": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ImageCropModel"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
       "ApiLinkModel": {
         "required": [
           "linkType"
@@ -2279,17 +2301,6 @@
             "type": "string",
             "nullable": true
           },
-          "memberGroupPicker": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            },
-            "nullable": true
-          },
-          "memberPicker": {
-            "type": "string",
-            "nullable": true
-          },
           "userPicker": {
             "type": "integer",
             "format": "int32",
@@ -2326,6 +2337,13 @@
               "$ref": "#/components/schemas/IApiMediaWithCropsModel"
             },
             "nullable": true
+          },
+          "uploadFile": {
+            "type": "string",
+            "nullable": true
+          },
+          "imageCropper": {
+            "$ref": "#/components/schemas/ApiImageCropperValueModel"
           }
         },
         "additionalProperties": false
@@ -2443,17 +2461,6 @@
             "type": "string",
             "nullable": true
           },
-          "memberGroupPicker": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            },
-            "nullable": true
-          },
-          "memberPicker": {
-            "type": "string",
-            "nullable": true
-          },
           "userPicker": {
             "type": "integer",
             "format": "int32",
@@ -2490,6 +2497,13 @@
               "$ref": "#/components/schemas/IApiMediaWithCropsModel"
             },
             "nullable": true
+          },
+          "uploadFile": {
+            "type": "string",
+            "nullable": true
+          },
+          "imageCropper": {
+            "$ref": "#/components/schemas/ApiImageCropperValueModel"
           }
         },
         "additionalProperties": false

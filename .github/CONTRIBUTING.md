@@ -20,7 +20,7 @@ There are also other helpful npm scripts to just run the UI, watch for file chan
 
 **Backoffice credentials**  
 Username: `admin@umbraco`  
-Password: `#Umbraco123!`
+Password: `admin@umbraco`
 
 ## Project structure
 
