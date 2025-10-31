@@ -21,11 +21,11 @@
   "devDependencies": {
     "@types/js-cookie": "^3.0.6",
     "@types/react": "^18.3.26",
-    "@typescript-eslint/eslint-plugin": "^8.46.0",
-    "@typescript-eslint/parser": "^8.46.0",
-    "@umbraco-cms/backoffice": "^17.0.0-beta",
+    "@typescript-eslint/eslint-plugin": "^8.46.2",
+    "@typescript-eslint/parser": "^8.46.2",
+    "@umbraco-cms/backoffice": "^17.0.0-rc1",
     "chokidar-cli": "^3.0.0",
-    "eslint": "^9.37.0",
+    "eslint": "^9.38.0",
     "eslint-config-xo-space": "^0.35.0",
     "eslint-config-xo-typescript": "^9.0.0",
     "eslint-plugin-lit": "^2.1.1",
@@ -35,10 +35,10 @@
     "eslint-plugin-simple-import-sort": "^12.1.1",
     "eslint-plugin-wc": "^3.0.2",
     "typescript": "^5.9.3",
-    "vite": "^7.1.9"
+    "vite": "^7.1.12"
   },
   "volta": {
-    "node": "22.20.0",
+    "node": "22.21.1",
     "npm": "11.6.2"
   }
 }
