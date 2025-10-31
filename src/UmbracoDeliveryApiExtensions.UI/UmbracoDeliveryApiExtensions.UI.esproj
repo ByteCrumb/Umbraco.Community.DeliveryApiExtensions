@@ -1,5 +1,6 @@
 <Project Sdk="Microsoft.VisualStudio.JavaScript.Sdk/1.0.4110890">
   <PropertyGroup>
+    <BuildCommand Condition="'$(Version)' != ''">npm version $(Version) --allow-same-version --no-git-tag-version &amp;&amp; npm run build</BuildCommand>
     <StartupCommand>npm run dev</StartupCommand>
     <CleanCommand>npm run clean</CleanCommand>
     <ShouldRunNpmBuildScript>false</ShouldRunNpmBuildScript>

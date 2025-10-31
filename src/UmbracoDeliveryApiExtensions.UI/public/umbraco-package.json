@@ -1,7 +1,7 @@
 {
   "$schema": "../node_modules/@umbraco-cms/backoffice/dist-cms/umbraco-package-schema.json",
   "name": "DeliveryApiExtensions",
-  "version": "0.1.0",
+  "version": "0.0.0",
   "extensions": [
     {
       "type": "backofficeEntryPoint",
