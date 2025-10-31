@@ -28,7 +28,7 @@ public sealed class PreviewController : BaseController
     private readonly ILogger<PreviewController> _logger;
     private readonly IBackOfficeSecurityAccessor _backOfficeSecurityAccessor;
     private readonly IRequestCultureService _requestCultureService;
-    private readonly IRequestSegmmentService _requestSegmentService;
+    private readonly IRequestSegmentService _requestSegmentService;
     private readonly IVariationContextAccessor _variationContextAccessor;
     private readonly IContentPermissionService _contentPermissionService;
     private readonly IMediaPermissionService _mediaPermissionService;
@@ -41,7 +41,7 @@ public sealed class PreviewController : BaseController
         ILogger<PreviewController> logger,
         IBackOfficeSecurityAccessor backOfficeSecurityAccessor,
         IRequestCultureService requestCultureService,
-        IRequestSegmmentService requestSegmentService,
+        IRequestSegmentService requestSegmentService,
         IVariationContextAccessor variationContextAccessor,
         IContentPermissionService contentPermissionService,
         IMediaPermissionService mediaPermissionService,

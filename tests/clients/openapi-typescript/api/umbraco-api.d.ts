@@ -77,6 +77,11 @@ export interface components {
       id: string;
       path: string;
     };
+    ApiImageCropperValueModel: {
+      url: string;
+      focalPoint?: components["schemas"]["ImageFocalPointModel"];
+      crops?: components["schemas"]["ImageCropModel"][] | null;
+    };
     ApiLinkModel: {
       url?: string | null;
       queryString?: string | null;
@@ -310,8 +315,6 @@ export interface components {
       richText?: components["schemas"]["RichTextModel"];
       blockGrid?: components["schemas"]["ApiBlockGridModel"];
       markdown?: string | null;
-      memberGroupPicker?: string[] | null;
-      memberPicker?: string | null;
       /** Format: int32 */
       userPicker?: number | null;
       blockList?: components["schemas"]["ApiBlockListModel"];
@@ -320,6 +323,8 @@ export interface components {
       radiobox?: string | null;
       repeatableTextstrings?: string[] | null;
       mediaPicker?: components["schemas"]["IApiMediaWithCropsModel"][] | null;
+      uploadFile?: string | null;
+      imageCropper?: components["schemas"]["ApiImageCropperValueModel"];
     }) & components["schemas"]["TestCompositionPropertiesModel"] & components["schemas"]["TestComposition2PropertiesModel"];
     TestPagePropertiesModel: ({
       textString?: string | null;
@@ -353,8 +358,6 @@ export interface components {
       richText?: components["schemas"]["RichTextModel"];
       blockGrid?: components["schemas"]["ApiBlockGridModel"];
       markdown?: string | null;
-      memberGroupPicker?: string[] | null;
-      memberPicker?: string | null;
       /** Format: int32 */
       userPicker?: number | null;
       blockList?: components["schemas"]["ApiBlockListModel"];
@@ -363,6 +366,8 @@ export interface components {
       radiobox?: string | null;
       repeatableTextstrings?: string[] | null;
       mediaPicker?: components["schemas"]["IApiMediaWithCropsModel"][] | null;
+      uploadFile?: string | null;
+      imageCropper?: components["schemas"]["ApiImageCropperValueModel"];
     }) & components["schemas"]["TestCompositionPropertiesModel"] & components["schemas"]["TestComposition2PropertiesModel"];
   };
   responses: never;

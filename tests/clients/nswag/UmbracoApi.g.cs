@@ -20,6 +20,7 @@
 #pragma warning disable 8618 // Disable "CS8618	Non-nullable variable must contain a non-null value when exiting constructor. Consider declaring it as nullable."
 #pragma warning disable 8600 // Disable "CS8600 Converting null literal or possible null value to non-nullable type."
 #pragma warning disable 8602 // Disable "CS8602 Dereference of a possibly null reference."
+#pragma warning disable 0649 // Disable "CS0649 '...' is never assigned to, and will always have its default value null."
 
 namespace nswag
 {
@@ -1324,6 +1325,22 @@ namespace nswag
     }
 
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.6.1.0 (NJsonSchema v11.5.1.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial class ApiImageCropperValueModel
+    {
+
+        [System.Text.Json.Serialization.JsonPropertyName("url")]
+        [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
+        public string Url { get; set; } = default!;
+
+        [System.Text.Json.Serialization.JsonPropertyName("focalPoint")]
+        public ImageFocalPointModel? FocalPoint { get; set; } = default!;
+
+        [System.Text.Json.Serialization.JsonPropertyName("crops")]
+        public System.Collections.Generic.ICollection<ImageCropModel>? Crops { get; set; } = default!;
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.6.1.0 (NJsonSchema v11.5.1.0 (Newtonsoft.Json v13.0.0.0))")]
     public partial class ApiLinkModel
     {
 
@@ -1949,12 +1966,6 @@ namespace nswag
         [System.Text.Json.Serialization.JsonPropertyName("markdown")]
         public string? Markdown { get; set; } = default!;
 
-        [System.Text.Json.Serialization.JsonPropertyName("memberGroupPicker")]
-        public System.Collections.Generic.ICollection<string>? MemberGroupPicker { get; set; } = default!;
-
-        [System.Text.Json.Serialization.JsonPropertyName("memberPicker")]
-        public string? MemberPicker { get; set; } = default!;
-
         [System.Text.Json.Serialization.JsonPropertyName("userPicker")]
         public int? UserPicker { get; set; } = default!;
 
@@ -1975,6 +1986,12 @@ namespace nswag
 
         [System.Text.Json.Serialization.JsonPropertyName("mediaPicker")]
         public System.Collections.Generic.ICollection<IApiMediaWithCropsModel>? MediaPicker { get; set; } = default!;
+
+        [System.Text.Json.Serialization.JsonPropertyName("uploadFile")]
+        public string? UploadFile { get; set; } = default!;
+
+        [System.Text.Json.Serialization.JsonPropertyName("imageCropper")]
+        public ApiImageCropperValueModel? ImageCropper { get; set; } = default!;
 
         [System.Text.Json.Serialization.JsonPropertyName("sharedRadiobox")]
         public string? SharedRadiobox { get; set; } = default!;
@@ -2055,12 +2072,6 @@ namespace nswag
         [System.Text.Json.Serialization.JsonPropertyName("markdown")]
         public string? Markdown { get; set; } = default!;
 
-        [System.Text.Json.Serialization.JsonPropertyName("memberGroupPicker")]
-        public System.Collections.Generic.ICollection<string>? MemberGroupPicker { get; set; } = default!;
-
-        [System.Text.Json.Serialization.JsonPropertyName("memberPicker")]
-        public string? MemberPicker { get; set; } = default!;
-
         [System.Text.Json.Serialization.JsonPropertyName("userPicker")]
         public int? UserPicker { get; set; } = default!;
 
@@ -2081,6 +2092,12 @@ namespace nswag
 
         [System.Text.Json.Serialization.JsonPropertyName("mediaPicker")]
         public System.Collections.Generic.ICollection<IApiMediaWithCropsModel>? MediaPicker { get; set; } = default!;
+
+        [System.Text.Json.Serialization.JsonPropertyName("uploadFile")]
+        public string? UploadFile { get; set; } = default!;
+
+        [System.Text.Json.Serialization.JsonPropertyName("imageCropper")]
+        public ApiImageCropperValueModel? ImageCropper { get; set; } = default!;
 
         [System.Text.Json.Serialization.JsonPropertyName("sharedRadiobox")]
         public string? SharedRadiobox { get; set; } = default!;
