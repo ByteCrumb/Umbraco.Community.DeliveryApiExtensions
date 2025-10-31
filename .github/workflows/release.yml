@@ -26,7 +26,7 @@ jobs:
       if: ${{ !env.PKG_VERSION }}
       run: |
         calculatedSha=$(git rev-parse --short ${{ github.sha }})
-        echo "PKG_VERSION=0.0.0-preview.${{github.run_number}}.$calculatedSha" >> $GITHUB_ENV
+        echo "PKG_VERSION=0.0.0-preview.${{github.run_number}}-$calculatedSha" >> $GITHUB_ENV
 
     - name: Setup npm
       uses: actions/setup-node@v4
