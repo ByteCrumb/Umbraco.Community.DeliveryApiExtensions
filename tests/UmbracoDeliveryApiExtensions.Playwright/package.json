@@ -13,7 +13,11 @@
   },
   "keywords": [],
   "author": "",
-  "license": "ISC",
+  "dependencies": {
+    "@umbraco/json-models-builders": "^2.0.41",
+    "@umbraco/playwright-testhelpers": "^16.0.57",
+    "dotenv": "^16.6.1"
+  },
   "devDependencies": {
     "@playwright/test": "^1.56.1",
     "@types/node": "^22.18.13",
@@ -26,12 +30,10 @@
     "tslib": "^2.8.1",
     "typescript": "^5.9.3"
   },
+  "engines": {
+    "node": ">=22"
+  },
   "volta": {
     "node": "22.21.1"
-  },
-  "dependencies": {
-    "@umbraco/json-models-builders": "^2.0.41",
-    "@umbraco/playwright-testhelpers": "^16.0.57",
-    "dotenv": "^16.6.1"
   }
 }
