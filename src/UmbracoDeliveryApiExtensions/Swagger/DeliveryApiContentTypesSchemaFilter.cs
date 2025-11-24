@@ -1,6 +1,6 @@
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using Microsoft.OpenApi.Models;
+using Microsoft.OpenApi;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using Umbraco.Cms.Api.Common.OpenApi;
 using Umbraco.Cms.Core.Models.DeliveryApi;
@@ -51,27 +51,13 @@ public class DeliveryApiContentTypesSchemaFilter : ISchemaFilter, IDocumentFilte
             $"{contentType.SchemaId}ContentResponseModel",
             new OpenApiSchema
             {
-                Type = "object",
+                Type = JsonSchemaType.Object,
                 AdditionalPropertiesAllowed = false,
                 AllOf =
-                {
-                        new OpenApiSchema
-                        {
-                            Reference = new OpenApiReference
-                            {
-                                Type = ReferenceType.Schema,
-                                Id = GetTypeSchemaId<IApiContentResponse>(settings.UseOneOf),
-                            },
-                        },
-                        new OpenApiSchema
-                        {
-                            Reference = new OpenApiReference
-                            {
-                                Type = ReferenceType.Schema,
-                                Id = $"{contentType.SchemaId}ContentModel",
-                            },
-                        },
-                },
+                [
+                    new OpenApiSchemaReference(GetTypeSchemaId<IApiContentResponse>(settings.UseOneOf)),
+                    new OpenApiSchemaReference($"{contentType.SchemaId}ContentModel")
+                ],
             }
         ));
 
@@ -81,20 +67,16 @@ public class DeliveryApiContentTypesSchemaFilter : ISchemaFilter, IDocumentFilte
                 $"{contentType.SchemaId}ContentModel",
                 new OpenApiSchema
                 {
-                    Type = "object",
+                    Type = JsonSchemaType.Object,
                     AdditionalPropertiesAllowed = false,
                     AllOf =
+                    [
+                        new OpenApiSchemaReference(GetTypeSchemaId<IApiContent>(settings.UseOneOf)),
+                    ],
+                    Properties = new Dictionary<string, IOpenApiSchema>
                     {
-                        new OpenApiSchema
-                        {
-                            Reference = new OpenApiReference
-                            {
-                                Type = ReferenceType.Schema,
-                                Id = GetTypeSchemaId<IApiContent>(settings.UseOneOf),
-                            },
-                        },
+                        ["properties"] = ContentTypePropertiesMapper(contentType, context)
                     },
-                    Properties = { ["properties"] = ContentTypePropertiesMapper(contentType, context) },
                 }
             ));
 
@@ -104,20 +86,15 @@ public class DeliveryApiContentTypesSchemaFilter : ISchemaFilter, IDocumentFilte
                 $"{contentType.SchemaId}ElementModel",
                 new OpenApiSchema
                 {
-                    Type = "object",
+                    Type = JsonSchemaType.Object,
                     AdditionalPropertiesAllowed = false,
-                    AllOf =
+                    AllOf = [
+                        new OpenApiSchemaReference(GetTypeSchemaId<IApiElement>(settings.UseOneOf))
+                    ],
+                    Properties = new Dictionary<string, IOpenApiSchema>
                     {
-                        new OpenApiSchema
-                        {
-                            Reference = new OpenApiReference
-                            {
-                                Type = ReferenceType.Schema,
-                                Id = GetTypeSchemaId<IApiElement>(settings.UseOneOf),
-                            },
-                        },
+                        ["properties"] = ContentTypePropertiesMapper(contentType, context)
                     },
-                    Properties = { ["properties"] = ContentTypePropertiesMapper(contentType, context) },
                 }
             ));
 
@@ -125,8 +102,13 @@ public class DeliveryApiContentTypesSchemaFilter : ISchemaFilter, IDocumentFilte
     }
 
     /// <inheritdoc/>
-    public virtual void Apply(OpenApiSchema schema, SchemaFilterContext context)
+    public virtual void Apply(IOpenApiSchema schema, SchemaFilterContext context)
     {
+        if (schema is not OpenApiSchema openApiSchema)
+        {
+            return;
+        }
+
         SwaggerGenerationSettings settings = _typedSwaggerOptions.CurrentValue.SettingsFactory();
 
         if (settings is { UseOneOf: false, UseAllOf: false })
@@ -137,9 +119,11 @@ public class DeliveryApiContentTypesSchemaFilter : ISchemaFilter, IDocumentFilte
         if (typeof(IApiContentResponse) == context.Type)
         {
             ApplyPolymorphicContentTypeSchema<IApiContentResponse, IApiContent>(
-                schema,
+                openApiSchema,
                 context,
-                _contentTypeInfoService.GetContentTypes().Where(c => !c.IsElement).DistinctBy(c => c.Alias),
+                _contentTypeInfoService.GetContentTypes()
+                    .Where(c => !c.IsElement)
+                    .DistinctBy(c => c.Alias),
                 settings,
                 contentType => $"{contentType.SchemaId}ContentResponseModel"
             );
@@ -151,7 +135,7 @@ public class DeliveryApiContentTypesSchemaFilter : ISchemaFilter, IDocumentFilte
         if (typeof(IApiContent) == context.Type)
         {
             ApplyPolymorphicContentTypeSchema<IApiContent, IApiElement>(
-                schema,
+                openApiSchema,
                 context,
                 _contentTypeInfoService.GetContentTypes().Where(c => !c.IsElement).DistinctBy(c => c.Alias),
                 settings,
@@ -165,7 +149,7 @@ public class DeliveryApiContentTypesSchemaFilter : ISchemaFilter, IDocumentFilte
         if (typeof(IApiElement) == context.Type)
         {
             ApplyPolymorphicContentTypeSchema<IApiElement>(
-                schema,
+                openApiSchema,
                 context,
                 _contentTypeInfoService.GetContentTypes().Where(c => c.IsElement).DistinctBy(c => c.Alias),
                 settings,
@@ -177,7 +161,9 @@ public class DeliveryApiContentTypesSchemaFilter : ISchemaFilter, IDocumentFilte
         }
     }
 
-    private static void ApplyPolymorphicContentType<TAncestor>(DocumentFilterContext context, IEnumerable<ContentTypeInfo> contentTypes, Func<ContentTypeInfo, (string SchemaId, OpenApiSchema Schema)> contentTypeSchemaMapper)
+    private static void ApplyPolymorphicContentType<TAncestor>(DocumentFilterContext context,
+        IEnumerable<ContentTypeInfo> contentTypes,
+        Func<ContentTypeInfo, (string SchemaId, OpenApiSchema Schema)> contentTypeSchemaMapper)
     {
         // Ensure ancestor is generated if not already
         _ = context.SchemaGenerator.GenerateSchema(typeof(TAncestor), context.SchemaRepository);
@@ -185,13 +171,16 @@ public class DeliveryApiContentTypesSchemaFilter : ISchemaFilter, IDocumentFilte
         ApplyPolymorphicContentType(context, contentTypes, contentTypeSchemaMapper);
     }
 
-    private void ApplyPolymorphicContentTypeSchema<T, TAncestor>(OpenApiSchema schema, SchemaFilterContext context, IEnumerable<ContentTypeInfo> contentTypes, SwaggerGenerationSettings settings, Func<ContentTypeInfo, string> contentTypeSchemaIdMapper)
+    private void ApplyPolymorphicContentTypeSchema<T, TAncestor>(
+        OpenApiSchema schema,
+        SchemaFilterContext context,
+        IEnumerable<ContentTypeInfo> contentTypes,
+        SwaggerGenerationSettings settings,
+        Func<ContentTypeInfo, string> contentTypeSchemaIdMapper)
     {
         // Add ancestor to AllOf, so all properties are inherited
-        schema.AllOf.Add(new OpenApiSchema
-        {
-            Reference = new OpenApiReference { Type = ReferenceType.Schema, Id = GetTypeSchemaId<TAncestor>(settings.UseOneOf) },
-        });
+        schema.AllOf ??= [];
+        schema.AllOf.Add(new OpenApiSchemaReference(GetTypeSchemaId<TAncestor>(settings.UseOneOf)));
 
         ApplyPolymorphicContentTypeSchema<T>(schema, context, contentTypes, settings, contentTypeSchemaIdMapper);
     }
@@ -216,9 +205,9 @@ public class DeliveryApiContentTypesSchemaFilter : ISchemaFilter, IDocumentFilte
             // This allows us to clear the original inline schema, and modify it to add any applicable OneOf entries.
 
             originalSchema = schema;
-            schema = new OpenApiSchema(originalSchema);
-            schema.Required.Remove("properties");
-            schema.Properties.Remove("properties");
+            schema = (OpenApiSchema) originalSchema.CreateShallowCopy();
+            schema.Required?.Remove("properties");
+            schema.Properties?.Remove("properties");
 
             context.SchemaRepository.Schemas.TryAdd(GetTypeSchemaId<T>(true), schema);
 
@@ -228,47 +217,46 @@ public class DeliveryApiContentTypesSchemaFilter : ISchemaFilter, IDocumentFilte
         schema.Discriminator = new OpenApiDiscriminator
         {
             PropertyName = "contentType",
+            Mapping = new Dictionary<string, OpenApiSchemaReference>(),
         };
 
         foreach (ContentTypeInfo contentType in contentTypes)
         {
-            OpenApiSchema contentTypeSchema = new()
-            {
-                Reference = new OpenApiReference
-                {
-                    Type = ReferenceType.Schema,
-                    Id = contentTypeSchemaIdMapper(contentType),
-                },
-            };
+            OpenApiSchemaReference contentTypeSchema = new(contentTypeSchemaIdMapper(contentType));
 
-            schema.Discriminator.Mapping[contentType.Alias] = contentTypeSchema.Reference.ReferenceV3;
-            originalSchema?.OneOf.Add(contentTypeSchema);
+            schema.Discriminator.Mapping[contentType.Alias] = contentTypeSchema;
+            if (originalSchema is null)
+            {
+                continue;
+            }
+
+            originalSchema.OneOf ??= [];
+            originalSchema.OneOf.Add(contentTypeSchema);
         }
     }
 
-    private OpenApiSchema ContentTypePropertiesMapper(ContentTypeInfo contentType, DocumentFilterContext context)
+    private OpenApiSchemaReference ContentTypePropertiesMapper(ContentTypeInfo contentType, DocumentFilterContext context)
     {
         return context.SchemaRepository.AddDefinition(
             $"{contentType.SchemaId}PropertiesModel",
             new OpenApiSchema
             {
-                Type = "object",
+                Type = JsonSchemaType.Object,
                 AdditionalPropertiesAllowed = false,
-                AllOf = [.. contentType.CompositionSchemaIds.Select(c => new OpenApiSchema
-                {
-                    Reference = new OpenApiReference { Type = ReferenceType.Schema, Id = $"{c}PropertiesModel" },
-                })],
+                AllOf = [.. contentType.CompositionSchemaIds.Select(c => new OpenApiSchemaReference($"{c}PropertiesModel"))],
                 Properties = contentType.Properties
                     .Where(p => !p.Inherited) // Filter out composition properties, as they are handled by AllOf
                     .ToDictionary(
-                        p => p.Alias,
-                        p =>
+                        p => p.Alias, IOpenApiSchema (p) =>
                         {
-                            OpenApiSchema propertySchema;
+                            IOpenApiSchema propertySchema;
                             try
                             {
                                 propertySchema = context.SchemaGenerator.GenerateSchema(p.Type, context.SchemaRepository);
-                                propertySchema.Nullable = true;
+                                if (propertySchema is OpenApiSchema schema)
+                                {
+                                    schema.Type |= JsonSchemaType.Null;
+                                }
                             }
                             catch (Exception ex)
                             {
@@ -292,11 +280,11 @@ public class DeliveryApiContentTypesSchemaFilter : ISchemaFilter, IDocumentFilte
 
     private static void ClearSchema(OpenApiSchema schema)
     {
-        schema.AllOf.Clear();
-        schema.OneOf.Clear();
-        schema.AnyOf.Clear();
-        schema.Required.Clear();
-        schema.Properties.Clear();
+        schema.AllOf?.Clear();
+        schema.OneOf?.Clear();
+        schema.AnyOf?.Clear();
+        schema.Required?.Clear();
+        schema.Properties?.Clear();
         schema.AdditionalProperties = null;
         schema.Discriminator = null;
     }
@@ -314,6 +302,6 @@ public class DeliveryApiContentTypesSchemaFilter : ISchemaFilter, IDocumentFilte
 
     private static void RemoveMarker(OpenApiDocument swaggerDoc)
     {
-        swaggerDoc.Components.Schemas.Remove(MarkerId);
+        swaggerDoc.Components?.Schemas?.Remove(MarkerId);
     }
 }

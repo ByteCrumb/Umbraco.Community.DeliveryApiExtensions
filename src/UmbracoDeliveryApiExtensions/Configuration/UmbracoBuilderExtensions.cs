@@ -71,14 +71,10 @@ public static class UmbracoBuilderExtensions
 
             options.SupportNonNullableReferenceTypes();
 
-            options.SchemaFilterDescriptors.Insert(0, new FilterDescriptor
-            {
-                Type = typeof(FixPropertyNullabilityFilter),
-                Arguments = [],
-            });
-
             options.SchemaFilter<DeliveryApiContentTypesSchemaFilter>();
             options.DocumentFilter<DeliveryApiContentTypesSchemaFilter>();
+
+            options.SchemaFilter<FixPropertyNullabilityFilter>();
 
             Func<Type, IEnumerable<Type>> currentSubTypesSelector = options.SchemaGeneratorOptions.SubTypesSelector;
             options.SelectSubTypesUsing(baseType =>

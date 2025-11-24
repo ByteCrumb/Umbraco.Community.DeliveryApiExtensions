@@ -2476,5 +2476,13 @@
         "additionalProperties": false
       }
     }
-  }
+  },
+  "tags": [
+    {
+      "name": "Content"
+    },
+    {
+      "name": "Media"
+    }
+  ]
 }
