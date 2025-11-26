@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
   <ItemGroup>
     <PackageReference Include="Umbraco.Cms" Version="17.0.0-rc4" />
-    <PackageReference Include="uSync" Version="17.0.0-rc3" />
+    <PackageReference Include="uSync" Version="17.0.0-rc4" />
   </ItemGroup>
 
   <ItemGroup>
