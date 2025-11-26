@@ -14,14 +14,14 @@
   "keywords": [],
   "author": "",
   "dependencies": {
-    "@umbraco/json-models-builders": "^2.0.41",
-    "@umbraco/playwright-testhelpers": "^16.0.57",
-    "dotenv": "^16.6.1"
+    "@umbraco/json-models-builders": "^2.0.42",
+    "@umbraco/playwright-testhelpers": "^17.0.13",
+    "dotenv": "^17.2.3"
   },
   "devDependencies": {
-    "@playwright/test": "^1.56.1",
-    "@types/node": "^22.18.13",
-    "eslint": "^9.39.0",
+    "@playwright/test": "^1.57.0",
+    "@types/node": "^22.19.1",
+    "eslint": "^9.39.1",
     "eslint-config-xo-space": "^0.35.0",
     "eslint-config-xo-typescript": "^9.0.0",
     "eslint-plugin-n": "^17.23.1",

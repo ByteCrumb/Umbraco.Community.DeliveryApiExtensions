@@ -1,13 +1,13 @@
 using System.Reflection;
 using System.Text.Json.Serialization;
-using Microsoft.OpenApi.Models;
+using Microsoft.OpenApi;
 using Swashbuckle.AspNetCore.SwaggerGen;
 
 namespace Umbraco.Community.DeliveryApiExtensions.Swagger;
 
 internal sealed class FixPropertyNullabilityFilter : ISchemaFilter
 {
-    public void Apply(OpenApiSchema schema, SchemaFilterContext context)
+    public void Apply(IOpenApiSchema schema, SchemaFilterContext context)
     {
         if (schema.Properties is not { Count: > 0 })
         {
@@ -19,9 +19,10 @@ internal sealed class FixPropertyNullabilityFilter : ISchemaFilter
             .Where(t => t is FieldInfo or PropertyInfo)
             .ToDictionary(GetPropertyName, t => t, StringComparer.OrdinalIgnoreCase);
 
-        foreach (KeyValuePair<string, OpenApiSchema> property in schema.Properties)
+        foreach (KeyValuePair<string, IOpenApiSchema> property in schema.Properties)
         {
-            if (property.Value.Reference == null || property.Value.Nullable || typeMembers.GetValueOrDefault(property.Key) is not { } memberInfo)
+            if (property.Value is not OpenApiSchemaReference openApiSchemaReference
+                || typeMembers.GetValueOrDefault(property.Key) is not { } memberInfo)
             {
                 continue;
             }
@@ -33,7 +34,11 @@ internal sealed class FixPropertyNullabilityFilter : ISchemaFilter
                 _ => throw new NotSupportedException(),
             };
 
-            property.Value.Nullable = fieldType.IsValueType ? Nullable.GetUnderlyingType(fieldType) != null : !memberInfo.IsNonNullableReferenceType();
+            bool nullable = fieldType.IsValueType ? Nullable.GetUnderlyingType(fieldType) != null : !memberInfo.IsNonNullableReferenceType();
+            if (nullable)
+            {
+                schema.Required?.Remove(property.Key);
+            }
         }
     }
 
