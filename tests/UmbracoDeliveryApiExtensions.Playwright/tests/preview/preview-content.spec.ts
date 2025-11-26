@@ -34,7 +34,7 @@ test.describe('API preview - Content', () => {
     await umbracoUi.goToBackOffice();
 
     // Create new document
-    await umbracoUi.content.goToSection(ConstantHelper.sections.content);
+    await page.getByRole('tab', {name: ConstantHelper.sections.content}).click();
     await page.waitForSelector('umb-section-sidebar-menu-with-entity-actions #header');
     await page.locator('uui-action-bar uui-button[label="Create"]').first().click();
     await umbracoUi.content.chooseDocumentType(docTypeName);
