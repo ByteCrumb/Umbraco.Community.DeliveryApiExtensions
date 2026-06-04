@@ -92,6 +92,7 @@ export interface components {
       destinationType?: string | null;
       route?: components["schemas"]["ApiContentRouteModel"] | null;
       linkType: components["schemas"]["LinkTypeModel"];
+      culture?: string | null;
     };
     BlockSettingsElementModel: {
       contentType: "blockSettings";
@@ -135,7 +136,7 @@ export interface components {
         [key: string]: components["schemas"]["ApiContentRouteModel"];
       };
     }) & Omit<components["schemas"]["IApiContentModelBase"], "contentType">, "contentType" | "createDate" | "cultures" | "id" | "route" | "updateDate">;
-    IApiElementModel: components["schemas"]["BlockSettingsElementModel"] | components["schemas"]["TestComposition2ElementModel"] | components["schemas"]["TestBlockElementModel"] | components["schemas"]["TestBlock2ElementModel"] | components["schemas"]["TestCompositionElementModel"];
+    IApiElementModel: components["schemas"]["TestCompositionElementModel"] | components["schemas"]["TestComposition2ElementModel"] | components["schemas"]["BlockSettingsElementModel"] | components["schemas"]["TestBlock2ElementModel"] | components["schemas"]["TestBlockElementModel"];
     IApiElementModelBase: {
       /** Format: uuid */
       id: string;
