@@ -16,21 +16,23 @@ export interface IApiElementModelBase {
   readonly contentType: string;
 }
 
-export interface BlockSettingsPropertiesModel {
+export interface TestCompositionPropertiesModel {
   /** @nullable */
-  anchorId?: string | null;
+  sharedToggle?: boolean | null;
+  /** @nullable */
+  sharedString?: string | null;
 }
 
-export type BlockSettingsElementModelContentType = typeof BlockSettingsElementModelContentType[keyof typeof BlockSettingsElementModelContentType];
+export type TestCompositionElementModelContentType = typeof TestCompositionElementModelContentType[keyof typeof TestCompositionElementModelContentType];
 
 
-export const BlockSettingsElementModelContentType = {
-  blockSettings: 'blockSettings',
+export const TestCompositionElementModelContentType = {
+  testComposition: 'testComposition',
 } as const;
 
-export type BlockSettingsElementModel = Omit<IApiElementModelBase, 'contentType'> & {
-  properties?: BlockSettingsPropertiesModel;
-  contentType: BlockSettingsElementModelContentType;
+export type TestCompositionElementModel = Omit<IApiElementModelBase, 'contentType'> & {
+  properties?: TestCompositionPropertiesModel;
+  contentType: TestCompositionElementModelContentType;
 };
 
 export interface RichTextModel {
@@ -56,12 +58,39 @@ export type TestComposition2ElementModel = Omit<IApiElementModelBase, 'contentTy
   contentType: TestComposition2ElementModelContentType;
 };
 
-export interface TestCompositionPropertiesModel {
+export interface BlockSettingsPropertiesModel {
   /** @nullable */
-  sharedToggle?: boolean | null;
-  /** @nullable */
-  sharedString?: string | null;
+  anchorId?: string | null;
 }
+
+export type BlockSettingsElementModelContentType = typeof BlockSettingsElementModelContentType[keyof typeof BlockSettingsElementModelContentType];
+
+
+export const BlockSettingsElementModelContentType = {
+  blockSettings: 'blockSettings',
+} as const;
+
+export type BlockSettingsElementModel = Omit<IApiElementModelBase, 'contentType'> & {
+  properties?: BlockSettingsPropertiesModel;
+  contentType: BlockSettingsElementModelContentType;
+};
+
+export type TestBlock2PropertiesModel = TestCompositionPropertiesModel & ({
+  /** @nullable */
+  thisIsTestBlock2?: string | null;
+});
+
+export type TestBlock2ElementModelContentType = typeof TestBlock2ElementModelContentType[keyof typeof TestBlock2ElementModelContentType];
+
+
+export const TestBlock2ElementModelContentType = {
+  testBlock2: 'testBlock2',
+} as const;
+
+export type TestBlock2ElementModel = Omit<IApiElementModelBase, 'contentType'> & {
+  properties?: TestBlock2PropertiesModel;
+  contentType: TestBlock2ElementModelContentType;
+};
 
 export interface ApiContentStartItemModel {
   id: string;
@@ -114,6 +143,8 @@ export interface ApiLinkModel {
   readonly destinationType?: string | null;
   readonly route?: ApiContentRouteModel | null;
   linkType: LinkTypeModel;
+  /** @nullable */
+  readonly culture?: string | null;
 }
 
 export interface ApiBlockGridModel {
@@ -337,36 +368,7 @@ export type TestBlockElementModel = Omit<IApiElementModelBase, 'contentType'> & 
   contentType: TestBlockElementModelContentType;
 };
 
-export type TestBlock2PropertiesModel = TestCompositionPropertiesModel & ({
-  /** @nullable */
-  thisIsTestBlock2?: string | null;
-});
-
-export type TestBlock2ElementModelContentType = typeof TestBlock2ElementModelContentType[keyof typeof TestBlock2ElementModelContentType];
-
-
-export const TestBlock2ElementModelContentType = {
-  testBlock2: 'testBlock2',
-} as const;
-
-export type TestBlock2ElementModel = Omit<IApiElementModelBase, 'contentType'> & {
-  properties?: TestBlock2PropertiesModel;
-  contentType: TestBlock2ElementModelContentType;
-};
-
-export type TestCompositionElementModelContentType = typeof TestCompositionElementModelContentType[keyof typeof TestCompositionElementModelContentType];
-
-
-export const TestCompositionElementModelContentType = {
-  testComposition: 'testComposition',
-} as const;
-
-export type TestCompositionElementModel = Omit<IApiElementModelBase, 'contentType'> & {
-  properties?: TestCompositionPropertiesModel;
-  contentType: TestCompositionElementModelContentType;
-};
-
-export type IApiElementModel = BlockSettingsElementModel | TestComposition2ElementModel | TestBlockElementModel | TestBlock2ElementModel | TestCompositionElementModel;
+export type IApiElementModel = TestCompositionElementModel | TestComposition2ElementModel | BlockSettingsElementModel | TestBlock2ElementModel | TestBlockElementModel;
 
 export interface ApiBlockItemModel {
   content: IApiElementModel;
