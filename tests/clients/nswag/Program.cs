@@ -76,6 +76,9 @@ void RenderTestPage(TestPageContentResponseModel content)
     Print("route>path", properties?.MultinodeTreepicker?.FirstOrDefault()?.Route?.Path);
     Print("properties>textString", (properties?.MultinodeTreepicker?.FirstOrDefault() as TestPageContentModel)?.Properties?.TextString);
 
+    Console.WriteLine("\n  **Custom**");
+    Print("name", properties?.PlainJson);
+
     Console.WriteLine("\n  **Block List**");
 
     foreach ((ApiBlockItemModel block, int i) in content.Properties?.BlockList?.Items?.Select((b, i) => (b, i)) ?? [])

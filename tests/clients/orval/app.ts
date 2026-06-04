@@ -77,6 +77,9 @@ function renderTestPage(content: TestPageContentResponseModel) {
   print('route>path', properties?.multinodeTreepicker?.[0]?.route?.path);
   print('properties>textString', properties?.multinodeTreepicker?.[0]?.properties?.textString);
 
+  console.log('\n  **Custom**');
+  print('plainJson', properties?.plainJson);
+
   console.log('\n  **Block List**');
   content.properties?.blockList?.items?.forEach((block, i) => {
     console.log(`    Block[${i}]:`);

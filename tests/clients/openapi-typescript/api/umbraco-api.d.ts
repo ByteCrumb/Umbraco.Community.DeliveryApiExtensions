@@ -326,6 +326,7 @@ export interface components {
       mediaPicker?: components["schemas"]["IApiMediaWithCropsModel"][] | null;
       uploadFile?: string | null;
       imageCropper?: components["schemas"]["ApiImageCropperValueModel"];
+      plainJson?: unknown;
     }) & components["schemas"]["TestCompositionPropertiesModel"] & components["schemas"]["TestComposition2PropertiesModel"];
     TestPagePropertiesModel: ({
       textString?: string | null;
@@ -369,6 +370,7 @@ export interface components {
       mediaPicker?: components["schemas"]["IApiMediaWithCropsModel"][] | null;
       uploadFile?: string | null;
       imageCropper?: components["schemas"]["ApiImageCropperValueModel"];
+      plainJson?: unknown;
     }) & components["schemas"]["TestCompositionPropertiesModel"] & components["schemas"]["TestComposition2PropertiesModel"];
   };
   responses: never;

@@ -2349,7 +2349,8 @@
           },
           "imageCropper": {
             "$ref": "#/components/schemas/ApiImageCropperValueModel"
-          }
+          },
+          "plainJson": { }
         },
         "additionalProperties": false
       },
@@ -2509,7 +2510,8 @@
           },
           "imageCropper": {
             "$ref": "#/components/schemas/ApiImageCropperValueModel"
-          }
+          },
+          "plainJson": { }
         },
         "additionalProperties": false
       }
