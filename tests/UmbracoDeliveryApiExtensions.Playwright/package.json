@@ -14,8 +14,7 @@
   "keywords": [],
   "author": "",
   "dependencies": {
-    "@umbraco/json-models-builders": "^18.0.2",
-    "@umbraco/playwright-testhelpers": "^18.0.5",
+    "@umbraco-cms/acceptance-test-helpers": "^17.4.2",
     "dotenv": "^17.4.2"
   },
   "devDependencies": {

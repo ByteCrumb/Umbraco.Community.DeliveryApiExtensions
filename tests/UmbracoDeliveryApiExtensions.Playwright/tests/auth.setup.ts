@@ -1,5 +1,5 @@
 import {expect, test as setup} from '@playwright/test';
-import {ConstantHelper, UiHelpers} from '@umbraco/playwright-testhelpers';
+import {ConstantHelper, UiHelpers} from '@umbraco-cms/acceptance-test-helpers';
 
 const authFile = 'playwright/.auth/user.json';
 
