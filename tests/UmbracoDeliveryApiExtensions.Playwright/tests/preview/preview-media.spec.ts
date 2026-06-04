@@ -1,5 +1,5 @@
 import {expect} from '@playwright/test';
-import {type ApiHelpers, ConstantHelper, test} from '@umbraco/playwright-testhelpers';
+import {type ApiHelpers, ConstantHelper, test} from '@umbraco-cms/acceptance-test-helpers';
 
 test.describe('API preview - Media', () => {
   const mediaName = 'PlaywrightTestMedia';

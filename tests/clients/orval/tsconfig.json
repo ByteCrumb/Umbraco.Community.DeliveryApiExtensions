@@ -5,6 +5,7 @@
     "useDefineForClassFields": false,
     "module": "NodeNext",
     "lib": [ "ES2022" ],
+    "types": [ "node" ],
     "skipLibCheck": true,
 
     "moduleResolution": "NodeNext",

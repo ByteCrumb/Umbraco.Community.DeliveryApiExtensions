@@ -1,5 +1,5 @@
 ﻿import {expect} from '@playwright/test';
-import {type ApiHelpers, ConstantHelper, test} from '@umbraco/playwright-testhelpers';
+import {type ApiHelpers, ConstantHelper, test} from '@umbraco-cms/acceptance-test-helpers';
 
 test.describe('API preview - Content', () => {
   const docTypeName = 'PlaywrightTestDocType';
@@ -36,7 +36,7 @@ test.describe('API preview - Content', () => {
     // Create new document
     await page.getByRole('tab', {name: ConstantHelper.sections.content}).click();
     await page.waitForSelector('umb-section-sidebar-menu-with-entity-actions #header');
-    await page.locator('uui-action-bar uui-button[label="Create"]').first().click();
+    await page.locator('uui-action-bar uui-button[data-mark="entity-action:Umb.EntityAction.Document.Create"]').first().click();
     await umbracoUi.content.chooseDocumentType(docTypeName);
     await page.waitForSelector('uui-input[data-mark="input:entity-name"]');
 
