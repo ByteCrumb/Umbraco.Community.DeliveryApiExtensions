@@ -1415,6 +1415,11 @@
           },
           "linkType": {
             "$ref": "#/components/schemas/LinkTypeModel"
+          },
+          "culture": {
+            "type": "string",
+            "nullable": true,
+            "readOnly": true
           }
         },
         "additionalProperties": false
@@ -1619,19 +1624,19 @@
         "type": "object",
         "oneOf": [
           {
-            "$ref": "#/components/schemas/BlockSettingsElementModel"
+            "$ref": "#/components/schemas/TestCompositionElementModel"
           },
           {
             "$ref": "#/components/schemas/TestComposition2ElementModel"
           },
           {
-            "$ref": "#/components/schemas/TestBlockElementModel"
+            "$ref": "#/components/schemas/BlockSettingsElementModel"
           },
           {
             "$ref": "#/components/schemas/TestBlock2ElementModel"
           },
           {
-            "$ref": "#/components/schemas/TestCompositionElementModel"
+            "$ref": "#/components/schemas/TestBlockElementModel"
           }
         ],
         "additionalProperties": false
@@ -1657,11 +1662,11 @@
         "discriminator": {
           "propertyName": "contentType",
           "mapping": {
-            "blockSettings": "#/components/schemas/BlockSettingsElementModel",
+            "testComposition": "#/components/schemas/TestCompositionElementModel",
             "testComposition2": "#/components/schemas/TestComposition2ElementModel",
-            "testBlock": "#/components/schemas/TestBlockElementModel",
+            "blockSettings": "#/components/schemas/BlockSettingsElementModel",
             "testBlock2": "#/components/schemas/TestBlock2ElementModel",
-            "testComposition": "#/components/schemas/TestCompositionElementModel"
+            "testBlock": "#/components/schemas/TestBlockElementModel"
           }
         }
       },

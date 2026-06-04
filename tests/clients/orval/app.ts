@@ -1,5 +1,5 @@
 import axios from 'axios';
-import {type ApiBlockListModelItemsItem, getContentItemByPath20, type IApiContentResponseModel, type TestPageContentResponseModel} from './api/umbraco-api';
+import {type ApiBlockItemModel, getContentItemByPath20, type IApiContentResponseModel, type TestPageContentResponseModel} from './api/umbraco-api';
 
 // Workaround for Umbraco Delivery API bug: https://github.com/umbraco/Umbraco-CMS/issues/17476
 axios.defaults.headers.common['Accept-Language'] = 'en-US';
@@ -96,7 +96,7 @@ function renderTestPage(content: TestPageContentResponseModel) {
   print('  sharedRichText', properties?.sharedRichText);
 }
 
-function renderBlock(block: ApiBlockListModelItemsItem) {
+function renderBlock(block: ApiBlockItemModel) {
   console.log('      Type: ', block.content?.contentType);
   switch (block.content?.contentType) {
     case 'testBlock': {
