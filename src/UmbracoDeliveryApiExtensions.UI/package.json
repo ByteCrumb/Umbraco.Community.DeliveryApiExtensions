@@ -16,7 +16,7 @@
     "@r2wc/react-to-web-component": "^2.1.0",
     "@uiw/react-json-view": "2.0.0-alpha.32",
     "lit": "^3.3.1",
-    "preact": "^10.27.2"
+    "preact": "^10.27.3"
   },
   "devDependencies": {
     "@types/js-cookie": "^3.0.6",
