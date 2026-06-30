@@ -45,8 +45,7 @@ public class DeliveryApiContentTypesSchemaFilter : ISchemaFilter, IDocumentFilte
 
         _serializerOptions = jsonOptionsMonitor
             .Get(Umbraco.Cms.Core.Constants.JsonOptionsNames.DeliveryApi).JsonSerializerOptions;
-        _jsonTypeInfoResolver = _serializerOptions.TypeInfoResolver
-                                ?? throw new InvalidOperationException("The JSON serializer options must have a TypeInfoResolver configured.");
+        _jsonTypeInfoResolver = _serializerOptions.TypeInfoResolver ?? new DefaultJsonTypeInfoResolver();
     }
 
     /// <summary>
