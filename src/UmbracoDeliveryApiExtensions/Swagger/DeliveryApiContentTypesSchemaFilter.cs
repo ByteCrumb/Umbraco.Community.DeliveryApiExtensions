@@ -1,8 +1,14 @@
+using System.Text.Json;
+using System.Text.Json.Schema;
+using System.Text.Json.Serialization.Metadata;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.OpenApi;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using Umbraco.Cms.Api.Common.OpenApi;
+using Umbraco.Cms.Core.DependencyInjection;
 using Umbraco.Cms.Core.Models.DeliveryApi;
 using Umbraco.Community.DeliveryApiExtensions.Configuration.Options;
 using Umbraco.Community.DeliveryApiExtensions.Models;
@@ -19,6 +25,8 @@ public class DeliveryApiContentTypesSchemaFilter : ISchemaFilter, IDocumentFilte
     private readonly IContentTypeInfoService _contentTypeInfoService;
     private readonly ISchemaIdSelector _schemaIdSelector;
     private readonly ILogger<DeliveryApiContentTypesSchemaFilter> _logger;
+    private readonly JsonSerializerOptions _serializerOptions;
+    private readonly IJsonTypeInfoResolver _jsonTypeInfoResolver;
 
     /// <summary>
     ///     Initializes a new instance of the <see cref="DeliveryApiContentTypesSchemaFilter" /> class.
@@ -27,13 +35,30 @@ public class DeliveryApiContentTypesSchemaFilter : ISchemaFilter, IDocumentFilte
         IOptionsMonitor<TypedSwaggerOptions> typedSwaggerOptions,
         IContentTypeInfoService contentTypeInfoService,
         ISchemaIdSelector schemaIdSelector,
-        ILogger<DeliveryApiContentTypesSchemaFilter> logger)
+        ILogger<DeliveryApiContentTypesSchemaFilter> logger,
+        IOptionsMonitor<JsonOptions> jsonOptionsMonitor)
     {
         _typedSwaggerOptions = typedSwaggerOptions;
         _contentTypeInfoService = contentTypeInfoService;
         _schemaIdSelector = schemaIdSelector;
         _logger = logger;
+
+        _serializerOptions = jsonOptionsMonitor
+            .Get(Umbraco.Cms.Core.Constants.JsonOptionsNames.DeliveryApi).JsonSerializerOptions;
+        _jsonTypeInfoResolver = _serializerOptions.TypeInfoResolver ?? new DefaultJsonTypeInfoResolver();
     }
+
+    /// <summary>
+    ///     Initializes a new instance of the <see cref="DeliveryApiContentTypesSchemaFilter" /> class.
+    /// </summary>
+    [Obsolete("This constructor is obsolete and will be removed in a future version. Use the non-obsolete constructor instead.")]
+    public DeliveryApiContentTypesSchemaFilter(
+        IOptionsMonitor<TypedSwaggerOptions> typedSwaggerOptions,
+        IContentTypeInfoService contentTypeInfoService,
+        ISchemaIdSelector schemaIdSelector,
+        ILogger<DeliveryApiContentTypesSchemaFilter> logger)
+        : this(typedSwaggerOptions, contentTypeInfoService, schemaIdSelector, logger, StaticServiceProvider.Instance.GetRequiredService<IOptionsMonitor<JsonOptions>>())
+    { }
 
     /// <inheritdoc/>
     public virtual void Apply(OpenApiDocument swaggerDoc, DocumentFilterContext context)
@@ -252,6 +277,12 @@ public class DeliveryApiContentTypesSchemaFilter : ISchemaFilter, IDocumentFilte
                             IOpenApiSchema propertySchema;
                             try
                             {
+                                JsonTypeInfo jsonTypeInfo = GetJsonTypeInfo(p.Type);
+                                if (jsonTypeInfo.Kind == JsonTypeInfoKind.None && jsonTypeInfo.GetJsonSchemaAsNode().GetValueKind() == JsonValueKind.True)
+                                {
+                                    return new OpenApiSchema();
+                                }
+
                                 propertySchema = context.SchemaGenerator.GenerateSchema(p.Type, context.SchemaRepository);
                                 if (propertySchema is OpenApiSchema schema)
                                 {
@@ -303,5 +334,11 @@ public class DeliveryApiContentTypesSchemaFilter : ISchemaFilter, IDocumentFilte
     private static void RemoveMarker(OpenApiDocument swaggerDoc)
     {
         swaggerDoc.Components?.Schemas?.Remove(MarkerId);
+    }
+
+    private JsonTypeInfo GetJsonTypeInfo(Type type)
+    {
+        JsonTypeInfo? jsonTypeInfo = _jsonTypeInfoResolver.GetTypeInfo(type, _serializerOptions);
+        return jsonTypeInfo ?? throw new InvalidOperationException("Could not get JsonTypeInfo for type " + type.FullName);
     }
 }

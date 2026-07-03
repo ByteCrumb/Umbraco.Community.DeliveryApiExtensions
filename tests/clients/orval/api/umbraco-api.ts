@@ -261,6 +261,7 @@ export type TestPagePropertiesModel = TestCompositionPropertiesModel & TestCompo
   /** @nullable */
   uploadFile?: string | null;
   imageCropper?: ApiImageCropperValueModel;
+  plainJson?: unknown;
 });
 
 export type TestPageContentModelContentType = typeof TestPageContentModelContentType[keyof typeof TestPageContentModelContentType];
@@ -332,6 +333,7 @@ export type TestPageInvariantPropertiesModel = TestCompositionPropertiesModel & 
   /** @nullable */
   uploadFile?: string | null;
   imageCropper?: ApiImageCropperValueModel;
+  plainJson?: unknown;
 });
 
 export type TestPageInvariantContentModelContentType = typeof TestPageInvariantContentModelContentType[keyof typeof TestPageInvariantContentModelContentType];
