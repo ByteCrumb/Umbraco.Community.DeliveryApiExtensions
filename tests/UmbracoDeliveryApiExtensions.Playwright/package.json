@@ -14,16 +14,16 @@
   "keywords": [],
   "author": "",
   "dependencies": {
-    "@umbraco-cms/acceptance-test-helpers": "^17.4.2",
+    "@umbraco-cms/acceptance-test-helpers": "^17.5.2",
     "dotenv": "^17.4.2"
   },
   "devDependencies": {
-    "@playwright/test": "^1.60.0",
-    "@types/node": "^25.9.1",
-    "eslint": "^10.4.1",
+    "@playwright/test": "^1.61.1",
+    "@types/node": "^25.9.4",
+    "eslint": "^10.6.0",
     "eslint-config-xo-space": "^1.0.0",
     "eslint-config-xo-typescript": "^11.0.0",
-    "eslint-plugin-n": "^18.0.1",
+    "eslint-plugin-n": "^18.2.1",
     "eslint-plugin-promise": "^7.3.0",
     "eslint-plugin-simple-import-sort": "^13.0.0",
     "tslib": "^2.8.1",
@@ -33,6 +33,9 @@
     "node": ">=24"
   },
   "volta": {
-    "node": "24.16.0"
+    "node": "24.18.0"
+  },
+  "allowScripts": {
+    "fsevents@2.3.2": true
   }
 }
