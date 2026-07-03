@@ -136,7 +136,7 @@ export interface components {
         [key: string]: components["schemas"]["ApiContentRouteModel"];
       };
     }) & Omit<components["schemas"]["IApiContentModelBase"], "contentType">, "contentType" | "createDate" | "cultures" | "id" | "route" | "updateDate">;
-    IApiElementModel: components["schemas"]["TestCompositionElementModel"] | components["schemas"]["TestComposition2ElementModel"] | components["schemas"]["BlockSettingsElementModel"] | components["schemas"]["TestBlock2ElementModel"] | components["schemas"]["TestBlockElementModel"];
+    IApiElementModel: components["schemas"]["TestCompositionElementModel"] | components["schemas"]["BlockSettingsElementModel"] | components["schemas"]["TestComposition2ElementModel"] | components["schemas"]["TestBlock2ElementModel"] | components["schemas"]["TestBlockElementModel"];
     IApiElementModelBase: {
       /** Format: uuid */
       id: string;

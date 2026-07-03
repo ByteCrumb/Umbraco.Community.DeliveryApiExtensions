@@ -1637,8 +1637,8 @@
           "propertyName": "contentType",
           "mapping": {
             "testComposition": "#/components/schemas/TestCompositionElementModel",
-            "testComposition2": "#/components/schemas/TestComposition2ElementModel",
             "blockSettings": "#/components/schemas/BlockSettingsElementModel",
+            "testComposition2": "#/components/schemas/TestComposition2ElementModel",
             "testBlock2": "#/components/schemas/TestBlock2ElementModel",
             "testBlock": "#/components/schemas/TestBlockElementModel"
           }

@@ -1627,10 +1627,10 @@
             "$ref": "#/components/schemas/TestCompositionElementModel"
           },
           {
-            "$ref": "#/components/schemas/TestComposition2ElementModel"
+            "$ref": "#/components/schemas/BlockSettingsElementModel"
           },
           {
-            "$ref": "#/components/schemas/BlockSettingsElementModel"
+            "$ref": "#/components/schemas/TestComposition2ElementModel"
           },
           {
             "$ref": "#/components/schemas/TestBlock2ElementModel"
@@ -1663,8 +1663,8 @@
           "propertyName": "contentType",
           "mapping": {
             "testComposition": "#/components/schemas/TestCompositionElementModel",
-            "testComposition2": "#/components/schemas/TestComposition2ElementModel",
             "blockSettings": "#/components/schemas/BlockSettingsElementModel",
+            "testComposition2": "#/components/schemas/TestComposition2ElementModel",
             "testBlock2": "#/components/schemas/TestBlock2ElementModel",
             "testBlock": "#/components/schemas/TestBlockElementModel"
           }
