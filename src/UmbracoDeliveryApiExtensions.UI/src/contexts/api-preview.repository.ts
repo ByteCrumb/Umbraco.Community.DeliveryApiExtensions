@@ -59,7 +59,7 @@ export class ApiPreviewRepository extends UmbControllerBase {
       params.headers.preview = 'true';
     }
 
-    const response = await fetch(`${this.#apiPath}/${type}/${uniqueId}${(expand ? '?expand=properties[$all]' : '')}`, params);
+    const response = await fetch(`${this.#apiPath}/${type}/${uniqueId}${(expand ? '?expand=properties[$all[properties[$all[properties[$all]]]]]' : '')}`, params);
     if (!response.ok) {
       throw new Error(response.statusText);
     }
