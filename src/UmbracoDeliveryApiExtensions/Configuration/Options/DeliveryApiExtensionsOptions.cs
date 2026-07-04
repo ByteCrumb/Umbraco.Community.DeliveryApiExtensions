@@ -9,9 +9,4 @@ public class DeliveryApiExtensionsOptions
     /// Preview options.
     /// </summary>
     public PreviewOptions Preview { get; set; } = new();
-
-    /// <summary>
-    /// Typed swagger options.
-    /// </summary>
-    public TypedSwaggerOptions TypedSwagger { get; set; } = new();
 }

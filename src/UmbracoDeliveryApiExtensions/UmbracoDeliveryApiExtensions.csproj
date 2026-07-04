@@ -5,8 +5,8 @@
     <Product>Umbraco.Community.DeliveryApiExtensions</Product>
     <PackageId>Umbraco.Community.DeliveryApiExtensions</PackageId>
     <Title>DeliveryApiExtensions</Title>
-    <Description>Extensions for the Delivery API, including typed swagger and backoffice preview of the API responses.</Description>
-    <PackageTags>umbraco;umbraco-marketplace;Swagger;OpenAPI</PackageTags>
+    <Description>Extensions for the Delivery API, including backoffice preview of the API responses.</Description>
+    <PackageTags>umbraco;umbraco-marketplace</PackageTags>
     <RootNamespace>Umbraco.Community.DeliveryApiExtensions</RootNamespace>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
