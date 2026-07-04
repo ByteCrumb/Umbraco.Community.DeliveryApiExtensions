@@ -14,12 +14,12 @@
   "keywords": [],
   "author": "",
   "dependencies": {
-    "@umbraco-cms/acceptance-test-helpers": "^17.5.2",
+    "@umbraco-cms/acceptance-test-helpers": "^18.0.1",
     "dotenv": "^17.4.2"
   },
   "devDependencies": {
     "@playwright/test": "^1.61.1",
-    "@types/node": "^25.9.4",
+    "@types/node": "^26.1.0",
     "eslint": "^10.6.0",
     "eslint-config-xo-space": "^1.0.0",
     "eslint-config-xo-typescript": "^11.0.0",
