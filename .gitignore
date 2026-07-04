@@ -357,3 +357,6 @@ MigrationBackup/
 
 # OSX
 .DS_Store
+
+# Claude Code
+.claude/
