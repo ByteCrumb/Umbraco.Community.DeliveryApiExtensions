@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
   <ItemGroup>
-    <PackageReference Include="Umbraco.Cms" Version="17.5.2" />
-    <PackageReference Include="uSync" Version="17.3.5" />
+    <PackageReference Include="Umbraco.Cms" Version="18.0.1" />
+    <PackageReference Include="uSync" Version="18.0.1" />
   </ItemGroup>
 
   <ItemGroup>
@@ -26,11 +26,5 @@
 
   <!-- This is needed because unlike PackageReference, ProjectReference does not run the buildTransitive props -->
   <Import Project="..\..\src\UmbracoDeliveryApiExtensions\buildTransitive\DeliveryApiExtensions.AppSettingsSchema.props" />
-
-  <Target Name="SwaggerGeneration" AfterTargets="AfterBuild">
-    <Exec Command="dotnet tool restore" />
-    <Exec Command="dotnet swagger tofile --output '$(ProjectDir)delivery.swagger.g.json' $([System.IO.Path]::Combine('$(OutDir)','UmbracoDeliveryApiExtensions.TestSite.dll')) delivery" EnvironmentVariables="DOTNET_ROLL_FORWARD=Major;ASPNETCORE_ENVIRONMENT=Development;" IgnoreStandardErrorWarningFormat="true" />
-    <Exec Command="dotnet swagger tofile --output '$(ProjectDir)delivery-compat.swagger.g.json' $([System.IO.Path]::Combine('$(OutDir)','UmbracoDeliveryApiExtensions.TestSite.dll')) delivery" EnvironmentVariables="DOTNET_ROLL_FORWARD=Major;ASPNETCORE_ENVIRONMENT=Development;DeliveryApiExtensions__TypedSwagger__Mode=Compatibility;" IgnoreStandardErrorWarningFormat="true" />
-  </Target>
 
 </Project>

@@ -20,11 +20,11 @@ export default defineConfig(({mode}) => ({
   define: {
     'process.env.NODE_ENV': JSON.stringify(mode),
   },
-  esbuild: {
-    jsxFactory: 'h',
-    jsxFragment: 'Fragment',
-    jsxInject: 'import { h, Fragment } from \'preact\'',
-    legalComments: 'none',
+  oxc: {
+    jsx: {
+      runtime: 'automatic',
+      importSource: 'preact',
+    },
   },
   resolve: {
     alias: {

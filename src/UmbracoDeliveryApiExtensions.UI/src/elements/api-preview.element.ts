@@ -7,7 +7,7 @@ import {customElement, state} from 'lit/decorators.js';
 import {KebabCaseAttributesMixin} from '../mixins/kebab-case-attributes.mixin';
 import { UMB_DOCUMENT_WORKSPACE_CONTEXT } from '@umbraco-cms/backoffice/document';
 import { UMB_MEDIA_WORKSPACE_CONTEXT } from '@umbraco-cms/backoffice/media';
-import { DocumentVariantStateModel } from '@umbraco-cms/backoffice/external/backend-api';
+import { PublishableVariantStateModel } from '@umbraco-cms/backoffice/external/backend-api';
 import { API_PREVIEW_CONTEXT, ApiPreviewContentType, ApiPreviewContext } from '../contexts/api-preview.context';
 import { UMB_PROPERTY_DATASET_CONTEXT } from '@umbraco-cms/backoffice/property';
 import { UmbRequestReloadChildrenOfEntityEvent, UmbRequestReloadStructureForEntityEvent } from '@umbraco-cms/backoffice/entity-action';
@@ -71,8 +71,8 @@ export default class ApiPreviewElement extends UmbElementMixin(KebabCaseAttribut
         const currentVariant = options.find((option) => option.culture === (this.#apiPreviewContext.getCulture() ?? null) && option.segment === (this.#apiPreviewContext.getSegment() ?? null));
         const state = currentVariant?.state;
 
-        this._hasPreview = !!(state && state !== DocumentVariantStateModel.NOT_CREATED);
-        this._isPublished = state === DocumentVariantStateModel.PUBLISHED || state === DocumentVariantStateModel.PUBLISHED_PENDING_CHANGES;
+        this._hasPreview = !!(state && state !== PublishableVariantStateModel.NOT_CREATED);
+        this._isPublished = state === PublishableVariantStateModel.PUBLISHED || state === PublishableVariantStateModel.PUBLISHED_PENDING_CHANGES;
 			});
     });
 
