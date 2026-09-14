@@ -6,7 +6,7 @@ axios.defaults.headers.common['Accept-Language'] = 'en-US';
 
 (async () => {
   console.log('** Page - Default **');
-  const content = (await getContentItemByPath20('/', {expand: 'properties[$all]'})).data;
+  const content = (await getContentItemByPath20({expand: 'properties[$all]'}, '/')).data;
   renderPage(content);
 })();
 
