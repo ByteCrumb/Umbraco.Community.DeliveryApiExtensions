@@ -14,26 +14,26 @@
   "keywords": [],
   "author": "",
   "dependencies": {
-    "@umbraco-cms/acceptance-test-helpers": "^18.0.1",
+    "@umbraco-cms/acceptance-test-helpers": "^18.1.1",
     "dotenv": "^17.4.2"
   },
   "devDependencies": {
-    "@playwright/test": "^1.61.1",
-    "@types/node": "^26.1.0",
-    "eslint": "^10.6.0",
+    "@playwright/test": "^1.63.0",
+    "@types/node": "^24.13.4",
+    "eslint": "^10.10.0",
     "eslint-config-xo-space": "^1.0.0",
     "eslint-config-xo-typescript": "^11.0.0",
-    "eslint-plugin-n": "^18.2.1",
+    "eslint-plugin-n": "^18.3.0",
     "eslint-plugin-promise": "^7.3.0",
-    "eslint-plugin-simple-import-sort": "^13.0.0",
+    "eslint-plugin-simple-import-sort": "^14.0.0",
     "tslib": "^2.8.1",
-    "typescript": "^6.0.3"
+    "typescript": "^7.0.2"
   },
   "engines": {
     "node": ">=24"
   },
   "volta": {
-    "node": "24.18.0"
+    "node": "24.21.0"
   },
   "allowScripts": {
     "fsevents@2.3.2": true
