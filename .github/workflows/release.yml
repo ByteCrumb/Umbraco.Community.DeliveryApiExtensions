@@ -86,20 +86,6 @@ jobs:
       run: |
         find . -maxdepth 3 -name package.json -execdir npm ci \;
 
-    - name: Run Orval client
-      working-directory: tests/clients/orval
-      run: |
-        npm run start
-
-    - name: Run openapi-typescript client
-      working-directory: tests/clients/openapi-typescript
-      run: |
-        npm run start
-
-    - name: Run NSwag client
-      working-directory: tests/clients/nswag
-      run: dotnet run -c Release
-
     - name: Run Playwright tests
       working-directory: tests/UmbracoDeliveryApiExtensions.Playwright
       run: |

@@ -18,7 +18,7 @@
     "SyncContributorsFromRepository": false
   },
   "Category": "Developer Tools",
-  "Description": "Extensions for the Delivery API, including typed swagger and backoffice preview of the API responses.",
+  "Description": "Extensions for the Delivery API, including backoffice preview of the API responses.",
   "DocumentationUrl": "https://github.com/ByteCrumb/Umbraco.Community.DeliveryApiExtensions",
   "LicenseTypes": [ "Free" ],
   "IssueTrackerUrl": "https://github.com/ByteCrumb/Umbraco.Community.DeliveryApiExtensions/issues",
@@ -27,12 +27,8 @@
     {
       "ImageUrl": "https://raw.githubusercontent.com/ByteCrumb/Umbraco.Community.DeliveryApiExtensions/v13/main/docs/screenshots/api-preview.png",
       "Caption": "Delivery API preview content app"
-    },
-    {
-      "ImageUrl": "https://raw.githubusercontent.com/ByteCrumb/Umbraco.Community.DeliveryApiExtensions/v13/main/docs/screenshots/typed-swagger-schema.png",
-      "Caption": "Typed swagger schema example"
     }
   ],
-  "Tags": [ "headless", "delivery api", "swagger", "openapi", "backoffice" ],
+  "Tags": [ "headless", "delivery api", "backoffice" ],
   "Title": "Delivery Api Extensions"
 }
