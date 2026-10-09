@@ -94,7 +94,9 @@ public static class UmbracoBuilderExtensions
 
                 List<Type> result = [.. currentSubTypesSelector(baseType)];
 
-                if (result.Count == 1 && result[0] == baseType)
+                // Skip framework types (e.g. JsonNode, whose JsonArray subtype is a collection of JsonNode),
+                // as Swashbuckle inlines array schemas and would recurse infinitely.
+                if (result.Count == 1 && result[0] == baseType && !IsSystemType(baseType))
                 {
                     return baseType.Assembly.GetTypes().Where(type => type.IsSubclassOf(baseType));
                 }
@@ -102,5 +104,11 @@ public static class UmbracoBuilderExtensions
                 return result;
             });
         });
+    }
+
+    private static bool IsSystemType(Type type)
+    {
+        string? assemblyName = type.Assembly.GetName().Name;
+        return assemblyName == "System" || assemblyName?.StartsWith("System.", StringComparison.Ordinal) == true;
     }
 }

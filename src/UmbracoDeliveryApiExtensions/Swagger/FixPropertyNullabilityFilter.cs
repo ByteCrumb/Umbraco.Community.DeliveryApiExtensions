@@ -16,7 +16,7 @@ internal sealed class FixPropertyNullabilityFilter : ISchemaFilter
 
         Dictionary<string, MemberInfo> typeMembers = context.Type
             .GetMembers(BindingFlags.FlattenHierarchy | BindingFlags.Public | BindingFlags.Instance)
-            .Where(t => t is FieldInfo or PropertyInfo)
+            .Where(t => t is FieldInfo || (t is PropertyInfo propertyInfo && propertyInfo.GetIndexParameters().Length == 0))
             .ToDictionary(GetPropertyName, t => t, StringComparer.OrdinalIgnoreCase);
 
         foreach (KeyValuePair<string, IOpenApiSchema> property in schema.Properties)
