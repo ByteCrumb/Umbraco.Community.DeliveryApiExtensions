@@ -1417,28 +1417,6 @@
         },
         "additionalProperties": false
       },
-      "HttpValidationProblemDetails": {
-        "allOf": [
-          {
-            "$ref": "#/components/schemas/ProblemDetails"
-          },
-          {
-            "type": "object",
-            "properties": {
-              "errors": {
-                "type": "object",
-                "additionalProperties": {
-                  "type": "array",
-                  "items": {
-                    "type": "string"
-                  }
-                }
-              }
-            },
-            "additionalProperties": { }
-          }
-        ]
-      },
       "IApiContentModel": {
         "required": [
           "contentType",
@@ -1639,8 +1617,8 @@
             "testComposition": "#/components/schemas/TestCompositionElementModel",
             "testComposition2": "#/components/schemas/TestComposition2ElementModel",
             "blockSettings": "#/components/schemas/BlockSettingsElementModel",
-            "testBlock2": "#/components/schemas/TestBlock2ElementModel",
-            "testBlock": "#/components/schemas/TestBlockElementModel"
+            "testBlock": "#/components/schemas/TestBlockElementModel",
+            "testBlock2": "#/components/schemas/TestBlock2ElementModel"
           }
         }
       },

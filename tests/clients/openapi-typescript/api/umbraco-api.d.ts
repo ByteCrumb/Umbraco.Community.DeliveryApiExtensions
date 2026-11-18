@@ -79,7 +79,7 @@ export interface components {
     };
     ApiImageCropperValueModel: {
       url: string;
-      focalPoint?: components["schemas"]["ImageFocalPointModel"];
+      focalPoint?: components["schemas"]["ImageFocalPointModel"] | null;
       crops?: components["schemas"]["ImageCropModel"][] | null;
     };
     ApiLinkModel: {
@@ -100,12 +100,6 @@ export interface components {
     } & Omit<components["schemas"]["IApiElementModelBase"], "contentType">;
     BlockSettingsPropertiesModel: {
       anchorId?: string | null;
-    };
-    HttpValidationProblemDetails: components["schemas"]["ProblemDetails"] & {
-      errors?: {
-        [key: string]: string[];
-      };
-      [key: string]: unknown;
     };
     IApiContentModel: components["schemas"]["TestPageContentModel"] | components["schemas"]["TestPageInvariantContentModel"];
     IApiContentModelBase: WithRequired<({
@@ -136,7 +130,7 @@ export interface components {
         [key: string]: components["schemas"]["ApiContentRouteModel"];
       };
     }) & Omit<components["schemas"]["IApiContentModelBase"], "contentType">, "contentType" | "createDate" | "cultures" | "id" | "route" | "updateDate">;
-    IApiElementModel: components["schemas"]["TestCompositionElementModel"] | components["schemas"]["TestComposition2ElementModel"] | components["schemas"]["BlockSettingsElementModel"] | components["schemas"]["TestBlock2ElementModel"] | components["schemas"]["TestBlockElementModel"];
+    IApiElementModel: components["schemas"]["TestCompositionElementModel"] | components["schemas"]["TestComposition2ElementModel"] | components["schemas"]["BlockSettingsElementModel"] | components["schemas"]["TestBlockElementModel"] | components["schemas"]["TestBlock2ElementModel"];
     IApiElementModelBase: {
       /** Format: uuid */
       id: string;
@@ -158,7 +152,7 @@ export interface components {
       properties: {
         [key: string]: unknown;
       };
-      focalPoint?: components["schemas"]["ImageFocalPointModel"];
+      focalPoint?: components["schemas"]["ImageFocalPointModel"] | null;
       crops?: (readonly components["schemas"]["ImageCropModel"][]) | null;
     };
     IApiMediaWithCropsResponseModel: {
@@ -177,7 +171,7 @@ export interface components {
       properties: {
         [key: string]: unknown;
       };
-      focalPoint: components["schemas"]["ImageFocalPointModel"];
+      focalPoint?: components["schemas"]["ImageFocalPointModel"] | null;
       crops?: (readonly components["schemas"]["ImageCropModel"][]) | null;
       path: string;
       /** Format: date-time */
@@ -201,7 +195,7 @@ export interface components {
       width: number;
       /** Format: int32 */
       height: number;
-      coordinates?: components["schemas"]["ImageCropCoordinatesModel"];
+      coordinates?: components["schemas"]["ImageCropCoordinatesModel"] | null;
     };
     ImageFocalPointModel: {
       /** Format: double */
@@ -427,7 +421,7 @@ export interface operations {
       /** @description Bad Request */
       400: {
         content: {
-          "application/json": components["schemas"]["ProblemDetails"] | components["schemas"]["HttpValidationProblemDetails"];
+          "application/json": components["schemas"]["ProblemDetails"];
         };
       };
       /** @description Not Found */
@@ -598,7 +592,7 @@ export interface operations {
       /** @description Bad Request */
       400: {
         content: {
-          "application/json": components["schemas"]["ProblemDetails"] | components["schemas"]["HttpValidationProblemDetails"];
+          "application/json": components["schemas"]["ProblemDetails"];
         };
       };
     };
