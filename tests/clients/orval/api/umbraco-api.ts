@@ -35,23 +35,6 @@ export type TestCompositionElementModel = Omit<IApiElementModelBase, 'contentTyp
   contentType: TestCompositionElementModelContentType;
 };
 
-export interface BlockSettingsPropertiesModel {
-  /** @nullable */
-  anchorId?: string | null;
-}
-
-export type BlockSettingsElementModelContentType = typeof BlockSettingsElementModelContentType[keyof typeof BlockSettingsElementModelContentType];
-
-
-export const BlockSettingsElementModelContentType = {
-  blockSettings: 'blockSettings',
-} as const;
-
-export type BlockSettingsElementModel = Omit<IApiElementModelBase, 'contentType'> & {
-  properties?: BlockSettingsPropertiesModel;
-  contentType: BlockSettingsElementModelContentType;
-};
-
 export interface RichTextModel {
   markup: string;
   blocks: (ApiBlockItemModel | ApiBlockGridItemModel)[];
@@ -73,6 +56,23 @@ export const TestComposition2ElementModelContentType = {
 export type TestComposition2ElementModel = Omit<IApiElementModelBase, 'contentType'> & {
   properties?: TestComposition2PropertiesModel;
   contentType: TestComposition2ElementModelContentType;
+};
+
+export interface BlockSettingsPropertiesModel {
+  /** @nullable */
+  anchorId?: string | null;
+}
+
+export type BlockSettingsElementModelContentType = typeof BlockSettingsElementModelContentType[keyof typeof BlockSettingsElementModelContentType];
+
+
+export const BlockSettingsElementModelContentType = {
+  blockSettings: 'blockSettings',
+} as const;
+
+export type BlockSettingsElementModel = Omit<IApiElementModelBase, 'contentType'> & {
+  properties?: BlockSettingsPropertiesModel;
+  contentType: BlockSettingsElementModelContentType;
 };
 
 export type TestBlock2PropertiesModel = TestCompositionPropertiesModel & ({
@@ -176,7 +176,7 @@ export interface ImageCropModel {
   coordinates?: ImageCropCoordinatesModel;
 }
 
-export type IApiMediaWithCropsModelProperties = {[key: string]: unknown | null};
+export type IApiMediaWithCropsModelProperties = {[key: string]: unknown};
 
 export interface IApiMediaWithCropsModel {
   readonly id: string;
@@ -370,7 +370,7 @@ export type TestBlockElementModel = Omit<IApiElementModelBase, 'contentType'> & 
   contentType: TestBlockElementModelContentType;
 };
 
-export type IApiElementModel = TestCompositionElementModel | BlockSettingsElementModel | TestComposition2ElementModel | TestBlock2ElementModel | TestBlockElementModel;
+export type IApiElementModel = TestCompositionElementModel | TestComposition2ElementModel | BlockSettingsElementModel | TestBlock2ElementModel | TestBlockElementModel;
 
 export interface ApiBlockItemModel {
   content: IApiElementModel;
@@ -447,7 +447,7 @@ export type TestPageInvariantContentResponseModel = Omit<IApiContentResponseMode
 
 export type IApiContentResponseModel = TestPageContentResponseModel | TestPageInvariantContentResponseModel;
 
-export type IApiMediaWithCropsResponseModelProperties = {[key: string]: unknown | null};
+export type IApiMediaWithCropsResponseModelProperties = {[key: string]: unknown};
 
 export interface IApiMediaWithCropsResponseModel {
   readonly id: string;
@@ -482,133 +482,81 @@ export interface PagedIApiMediaWithCropsResponseModel {
 }
 
 export type GetContent20Params = {
-/**
- * Specifies the content items to fetch. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api#query-parameters) for more details on this.
- */
-fetch?: string;
-/**
- * Defines how to filter the fetched content items. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api#query-parameters) for more details on this.
- */
-filter?: string[];
-/**
- * Defines how to sort the found content items. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api#query-parameters) for more details on this.
- */
-sort?: string[];
-/**
- * Specifies the number of found content items to skip. Use this to control pagination of the response.
- */
-skip?: number;
-/**
- * Specifies the number of found content items to take. Use this to control pagination of the response.
- */
-take?: number;
-/**
- * Defines the properties that should be expanded in the response. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api#query-parameters) for more details on this.
- */
-expand?: string;
-/**
- * Explicitly defines which properties should be included in the response (by default all properties are included). Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api#query-parameters) for more details on this.
- */
-fields?: string;
+  /** Specifies the content items to fetch. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api#query-parameters) for more details on this. */
+  fetch?: string;
+  /** Defines how to filter the fetched content items. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api#query-parameters) for more details on this. */
+  filter?: string[];
+  /** Defines how to sort the found content items. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api#query-parameters) for more details on this. */
+  sort?: string[];
+  /** Specifies the number of found content items to skip. Use this to control pagination of the response. */
+  skip?: number;
+  /** Specifies the number of found content items to take. Use this to control pagination of the response. */
+  take?: number;
+  /** Defines the properties that should be expanded in the response. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api#query-parameters) for more details on this. */
+  expand?: string;
+  /** Explicitly defines which properties should be included in the response (by default all properties are included). Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api#query-parameters) for more details on this. */
+  fields?: string;
 };
 
 export type GetContentItemByPath20Params = {
-/**
- * Defines the properties that should be expanded in the response. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api#query-parameters) for more details on this.
- */
-expand?: string;
-/**
- * Explicitly defines which properties should be included in the response (by default all properties are included). Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api#query-parameters) for more details on this.
- */
-fields?: string;
+  /** Defines the properties that should be expanded in the response. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api#query-parameters) for more details on this. */
+  expand?: string;
+  /** Explicitly defines which properties should be included in the response (by default all properties are included). Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api#query-parameters) for more details on this. */
+  fields?: string;
 };
 
 export type GetContentItemById20Params = {
-/**
- * Defines the properties that should be expanded in the response. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api#query-parameters) for more details on this.
- */
-expand?: string;
-/**
- * Explicitly defines which properties should be included in the response (by default all properties are included). Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api#query-parameters) for more details on this.
- */
-fields?: string;
+  /** Defines the properties that should be expanded in the response. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api#query-parameters) for more details on this. */
+  expand?: string;
+  /** Explicitly defines which properties should be included in the response (by default all properties are included). Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api#query-parameters) for more details on this. */
+  fields?: string;
 };
 
 export type GetContentItems20Params = {
-id?: string[];
-/**
- * Defines the properties that should be expanded in the response. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api#query-parameters) for more details on this.
- */
-expand?: string;
-/**
- * Explicitly defines which properties should be included in the response (by default all properties are included). Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api#query-parameters) for more details on this.
- */
-fields?: string;
+  id?: string[];
+  /** Defines the properties that should be expanded in the response. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api#query-parameters) for more details on this. */
+  expand?: string;
+  /** Explicitly defines which properties should be included in the response (by default all properties are included). Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api#query-parameters) for more details on this. */
+  fields?: string;
 };
 
 export type GetMedia20Params = {
-/**
- * Specifies the media items to fetch. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api/media-delivery-api#query-parameters) for more details on this.
- */
-fetch?: string;
-/**
- * Defines how to filter the fetched media items. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api/media-delivery-api#query-parameters) for more details on this.
- */
-filter?: string[];
-/**
- * Defines how to sort the found media items. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api/media-delivery-api#query-parameters) for more details on this.
- */
-sort?: string[];
-/**
- * Specifies the number of found media items to skip. Use this to control pagination of the response.
- */
-skip?: number;
-/**
- * Specifies the number of found media items to take. Use this to control pagination of the response.
- */
-take?: number;
-/**
- * Defines the properties that should be expanded in the response. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api/media-delivery-api#query-parameters) for more details on this.
- */
-expand?: string;
-/**
- * Explicitly defines which properties should be included in the response (by default all properties are included). Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api/media-delivery-api#query-parameters) for more details on this.
- */
-fields?: string;
+  /** Specifies the media items to fetch. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api/media-delivery-api#query-parameters) for more details on this. */
+  fetch?: string;
+  /** Defines how to filter the fetched media items. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api/media-delivery-api#query-parameters) for more details on this. */
+  filter?: string[];
+  /** Defines how to sort the found media items. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api/media-delivery-api#query-parameters) for more details on this. */
+  sort?: string[];
+  /** Specifies the number of found media items to skip. Use this to control pagination of the response. */
+  skip?: number;
+  /** Specifies the number of found media items to take. Use this to control pagination of the response. */
+  take?: number;
+  /** Defines the properties that should be expanded in the response. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api/media-delivery-api#query-parameters) for more details on this. */
+  expand?: string;
+  /** Explicitly defines which properties should be included in the response (by default all properties are included). Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api/media-delivery-api#query-parameters) for more details on this. */
+  fields?: string;
 };
 
 export type GetMediaItemByPath20Params = {
-/**
- * Defines the properties that should be expanded in the response. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api/media-delivery-api#query-parameters) for more details on this.
- */
-expand?: string;
-/**
- * Explicitly defines which properties should be included in the response (by default all properties are included). Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api/media-delivery-api#query-parameters) for more details on this.
- */
-fields?: string;
+  /** Defines the properties that should be expanded in the response. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api/media-delivery-api#query-parameters) for more details on this. */
+  expand?: string;
+  /** Explicitly defines which properties should be included in the response (by default all properties are included). Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api/media-delivery-api#query-parameters) for more details on this. */
+  fields?: string;
 };
 
 export type GetMediaItemById20Params = {
-/**
- * Defines the properties that should be expanded in the response. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api/media-delivery-api#query-parameters) for more details on this.
- */
-expand?: string;
-/**
- * Explicitly defines which properties should be included in the response (by default all properties are included). Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api/media-delivery-api#query-parameters) for more details on this.
- */
-fields?: string;
+  /** Defines the properties that should be expanded in the response. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api/media-delivery-api#query-parameters) for more details on this. */
+  expand?: string;
+  /** Explicitly defines which properties should be included in the response (by default all properties are included). Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api/media-delivery-api#query-parameters) for more details on this. */
+  fields?: string;
 };
 
 export type GetMediaItems20Params = {
-id?: string[];
-/**
- * Defines the properties that should be expanded in the response. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api/media-delivery-api#query-parameters) for more details on this.
- */
-expand?: string;
-/**
- * Explicitly defines which properties should be included in the response (by default all properties are included). Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api/media-delivery-api#query-parameters) for more details on this.
- */
-fields?: string;
+  id?: string[];
+  /** Defines the properties that should be expanded in the response. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api/media-delivery-api#query-parameters) for more details on this. */
+  expand?: string;
+  /** Explicitly defines which properties should be included in the response (by default all properties are included). Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api/media-delivery-api#query-parameters) for more details on this. */
+  fields?: string;
 };
 
 export const getContent20 = (
