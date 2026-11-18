@@ -6,7 +6,6 @@ using Umbraco.Cms.Core.Models.DeliveryApi;
 using Umbraco.Community.DeliveryApiExtensions.Configuration.Options;
 using Umbraco.Community.DeliveryApiExtensions.Services;
 using Umbraco.Community.DeliveryApiExtensions.Swagger;
-using Umbraco.Extensions;
 
 namespace Umbraco.Community.DeliveryApiExtensions.Configuration;
 
@@ -92,23 +91,16 @@ public static class UmbracoBuilderExtensions
                     return [];
                 }
 
-                List<Type> result = [.. currentSubTypesSelector(baseType)];
-
-                // Skip framework types (e.g. JsonNode, whose JsonArray subtype is a collection of JsonNode),
-                // as Swashbuckle inlines array schemas and would recurse infinitely.
-                if (result.Count == 1 && result[0] == baseType && !IsSystemType(baseType))
+                // Keep the block grid item inheriting from the block item, so it can be handled as such by clients
+                if (baseType == typeof(ApiBlockItem))
                 {
-                    return baseType.Assembly.GetTypes().Where(type => type.IsSubclassOf(baseType));
+                    return [typeof(ApiBlockGridItem)];
                 }
 
-                return result;
+                // Keep Umbraco's behavior for every other type, as this selector applies to all swagger documents
+                // (e.g. the Management and Umbraco Deploy APIs), not only the Delivery API.
+                return currentSubTypesSelector(baseType);
             });
         });
-    }
-
-    private static bool IsSystemType(Type type)
-    {
-        string? assemblyName = type.Assembly.GetName().Name;
-        return assemblyName == "System" || assemblyName?.StartsWith("System.", StringComparison.Ordinal) == true;
     }
 }

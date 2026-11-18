@@ -75,23 +75,6 @@ export type BlockSettingsElementModel = Omit<IApiElementModelBase, 'contentType'
   contentType: BlockSettingsElementModelContentType;
 };
 
-export type TestBlock2PropertiesModel = TestCompositionPropertiesModel & ({
-  /** @nullable */
-  thisIsTestBlock2?: string | null;
-});
-
-export type TestBlock2ElementModelContentType = typeof TestBlock2ElementModelContentType[keyof typeof TestBlock2ElementModelContentType];
-
-
-export const TestBlock2ElementModelContentType = {
-  testBlock2: 'testBlock2',
-} as const;
-
-export type TestBlock2ElementModel = Omit<IApiElementModelBase, 'contentType'> & {
-  properties?: TestBlock2PropertiesModel;
-  contentType: TestBlock2ElementModelContentType;
-};
-
 export interface ApiContentStartItemModel {
   id: string;
   path: string;
@@ -173,7 +156,7 @@ export interface ImageCropModel {
   alias?: string | null;
   width: number;
   height: number;
-  coordinates?: ImageCropCoordinatesModel;
+  coordinates?: ImageCropCoordinatesModel | null;
 }
 
 export type IApiMediaWithCropsModelProperties = {[key: string]: unknown};
@@ -192,14 +175,14 @@ export interface IApiMediaWithCropsModel {
   /** @nullable */
   readonly bytes?: number | null;
   readonly properties: IApiMediaWithCropsModelProperties;
-  focalPoint?: ImageFocalPointModel;
+  readonly focalPoint?: ImageFocalPointModel | null;
   /** @nullable */
   readonly crops?: readonly ImageCropModel[] | null;
 }
 
 export interface ApiImageCropperValueModel {
   url: string;
-  focalPoint?: ImageFocalPointModel;
+  focalPoint?: ImageFocalPointModel | null;
   /** @nullable */
   crops?: ImageCropModel[] | null;
 }
@@ -370,7 +353,24 @@ export type TestBlockElementModel = Omit<IApiElementModelBase, 'contentType'> & 
   contentType: TestBlockElementModelContentType;
 };
 
-export type IApiElementModel = TestCompositionElementModel | TestComposition2ElementModel | BlockSettingsElementModel | TestBlock2ElementModel | TestBlockElementModel;
+export type TestBlock2PropertiesModel = TestCompositionPropertiesModel & ({
+  /** @nullable */
+  thisIsTestBlock2?: string | null;
+});
+
+export type TestBlock2ElementModelContentType = typeof TestBlock2ElementModelContentType[keyof typeof TestBlock2ElementModelContentType];
+
+
+export const TestBlock2ElementModelContentType = {
+  testBlock2: 'testBlock2',
+} as const;
+
+export type TestBlock2ElementModel = Omit<IApiElementModelBase, 'contentType'> & {
+  properties?: TestBlock2PropertiesModel;
+  contentType: TestBlock2ElementModelContentType;
+};
+
+export type IApiElementModel = TestCompositionElementModel | TestComposition2ElementModel | BlockSettingsElementModel | TestBlockElementModel | TestBlock2ElementModel;
 
 export interface ApiBlockItemModel {
   content: IApiElementModel;
@@ -390,25 +390,6 @@ export interface ApiBlockGridAreaModel {
   columnSpan: number;
   items: ApiBlockGridItemModel[];
 }
-
-export interface ProblemDetails {
-  /** @nullable */
-  type?: string | null;
-  /** @nullable */
-  title?: string | null;
-  /** @nullable */
-  status?: number | null;
-  /** @nullable */
-  detail?: string | null;
-  /** @nullable */
-  instance?: string | null;
-  [key: string]: unknown;
-}
-
-export type HttpValidationProblemDetails = ProblemDetails & {
-  errors?: {[key: string]: string[]};
-  [key: string]: unknown;
-};
 
 export type IApiContentResponseModelBaseCultures = {[key: string]: ApiContentRouteModel};
 
@@ -463,7 +444,7 @@ export interface IApiMediaWithCropsResponseModel {
   /** @nullable */
   readonly bytes?: number | null;
   readonly properties: IApiMediaWithCropsResponseModelProperties;
-  focalPoint: ImageFocalPointModel;
+  readonly focalPoint?: ImageFocalPointModel | null;
   /** @nullable */
   readonly crops?: readonly ImageCropModel[] | null;
   readonly path: string;
@@ -479,6 +460,20 @@ export interface PagedIApiContentResponseModel {
 export interface PagedIApiMediaWithCropsResponseModel {
   total: number;
   items: IApiMediaWithCropsResponseModel[];
+}
+
+export interface ProblemDetails {
+  /** @nullable */
+  type?: string | null;
+  /** @nullable */
+  title?: string | null;
+  /** @nullable */
+  status?: number | null;
+  /** @nullable */
+  detail?: string | null;
+  /** @nullable */
+  instance?: string | null;
+  [key: string]: unknown;
 }
 
 export type GetContent20Params = {

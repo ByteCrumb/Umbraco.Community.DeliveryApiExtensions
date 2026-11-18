@@ -256,7 +256,11 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/PagedIApiContentResponseModel"
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/PagedIApiContentResponseModel"
+                    }
+                  ]
                 }
               }
             }
@@ -269,9 +273,6 @@
                   "oneOf": [
                     {
                       "$ref": "#/components/schemas/ProblemDetails"
-                    },
-                    {
-                      "$ref": "#/components/schemas/HttpValidationProblemDetails"
                     }
                   ]
                 }
@@ -890,7 +891,11 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/PagedIApiMediaWithCropsResponseModel"
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/PagedIApiMediaWithCropsResponseModel"
+                    }
+                  ]
                 }
               }
             }
@@ -903,9 +908,6 @@
                   "oneOf": [
                     {
                       "$ref": "#/components/schemas/ProblemDetails"
-                    },
-                    {
-                      "$ref": "#/components/schemas/HttpValidationProblemDetails"
                     }
                   ]
                 }
@@ -1210,7 +1212,11 @@
           "items": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/ApiBlockGridItemModel"
+              "oneOf": [
+                {
+                  "$ref": "#/components/schemas/ApiBlockGridItemModel"
+                }
+              ]
             }
           }
         },
@@ -1239,7 +1245,11 @@
               "areas": {
                 "type": "array",
                 "items": {
-                  "$ref": "#/components/schemas/ApiBlockGridAreaModel"
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/ApiBlockGridAreaModel"
+                    }
+                  ]
                 }
               }
             },
@@ -1261,7 +1271,11 @@
           "items": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/ApiBlockGridItemModel"
+              "oneOf": [
+                {
+                  "$ref": "#/components/schemas/ApiBlockGridItemModel"
+                }
+              ]
             }
           }
         },
@@ -1355,12 +1369,21 @@
             "type": "string"
           },
           "focalPoint": {
-            "$ref": "#/components/schemas/ImageFocalPointModel"
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/ImageFocalPointModel"
+              }
+            ],
+            "nullable": true
           },
           "crops": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/ImageCropModel"
+              "oneOf": [
+                {
+                  "$ref": "#/components/schemas/ImageCropModel"
+                }
+              ]
             },
             "nullable": true
           }
@@ -1447,28 +1470,6 @@
           }
         },
         "additionalProperties": false
-      },
-      "HttpValidationProblemDetails": {
-        "allOf": [
-          {
-            "$ref": "#/components/schemas/ProblemDetails"
-          },
-          {
-            "type": "object",
-            "properties": {
-              "errors": {
-                "type": "object",
-                "additionalProperties": {
-                  "type": "array",
-                  "items": {
-                    "type": "string"
-                  }
-                }
-              }
-            },
-            "additionalProperties": { }
-          }
-        ]
       },
       "IApiContentModel": {
         "type": "object",
@@ -1633,10 +1634,10 @@
             "$ref": "#/components/schemas/BlockSettingsElementModel"
           },
           {
-            "$ref": "#/components/schemas/TestBlock2ElementModel"
+            "$ref": "#/components/schemas/TestBlockElementModel"
           },
           {
-            "$ref": "#/components/schemas/TestBlockElementModel"
+            "$ref": "#/components/schemas/TestBlock2ElementModel"
           }
         ],
         "additionalProperties": false
@@ -1665,8 +1666,8 @@
             "testComposition": "#/components/schemas/TestCompositionElementModel",
             "testComposition2": "#/components/schemas/TestComposition2ElementModel",
             "blockSettings": "#/components/schemas/BlockSettingsElementModel",
-            "testBlock2": "#/components/schemas/TestBlock2ElementModel",
-            "testBlock": "#/components/schemas/TestBlockElementModel"
+            "testBlock": "#/components/schemas/TestBlockElementModel",
+            "testBlock2": "#/components/schemas/TestBlock2ElementModel"
           }
         }
       },
@@ -1728,12 +1729,22 @@
             "readOnly": true
           },
           "focalPoint": {
-            "$ref": "#/components/schemas/ImageFocalPointModel"
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/ImageFocalPointModel"
+              }
+            ],
+            "nullable": true,
+            "readOnly": true
           },
           "crops": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/ImageCropModel"
+              "oneOf": [
+                {
+                  "$ref": "#/components/schemas/ImageCropModel"
+                }
+              ]
             },
             "nullable": true,
             "readOnly": true
@@ -1744,7 +1755,6 @@
       "IApiMediaWithCropsResponseModel": {
         "required": [
           "createDate",
-          "focalPoint",
           "id",
           "mediaType",
           "name",
@@ -1803,12 +1813,22 @@
             "readOnly": true
           },
           "focalPoint": {
-            "$ref": "#/components/schemas/ImageFocalPointModel"
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/ImageFocalPointModel"
+              }
+            ],
+            "nullable": true,
+            "readOnly": true
           },
           "crops": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/ImageCropModel"
+              "oneOf": [
+                {
+                  "$ref": "#/components/schemas/ImageCropModel"
+                }
+              ]
             },
             "nullable": true,
             "readOnly": true
@@ -1878,7 +1898,12 @@
             "format": "int32"
           },
           "coordinates": {
-            "$ref": "#/components/schemas/ImageCropCoordinatesModel"
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/ImageCropCoordinatesModel"
+              }
+            ],
+            "nullable": true
           }
         },
         "additionalProperties": false
@@ -2081,7 +2106,11 @@
             "nullable": true
           },
           "blocks": {
-            "$ref": "#/components/schemas/ApiBlockListModel"
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/ApiBlockListModel"
+              }
+            ]
           }
         },
         "additionalProperties": false
@@ -2108,7 +2137,11 @@
             "nullable": true
           },
           "sharedRichText": {
-            "$ref": "#/components/schemas/RichTextModel"
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/RichTextModel"
+              }
+            ]
           }
         },
         "additionalProperties": false
@@ -2273,7 +2306,11 @@
             "nullable": true
           },
           "colorPicker": {
-            "$ref": "#/components/schemas/PickedColorModel"
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/PickedColorModel"
+              }
+            ]
           },
           "contentPicker": {
             "$ref": "#/components/schemas/IApiContentModel"
@@ -2285,7 +2322,11 @@
           "urlPicker": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/ApiLinkModel"
+              "oneOf": [
+                {
+                  "$ref": "#/components/schemas/ApiLinkModel"
+                }
+              ]
             },
             "nullable": true
           },
@@ -2297,10 +2338,18 @@
             "nullable": true
           },
           "richText": {
-            "$ref": "#/components/schemas/RichTextModel"
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/RichTextModel"
+              }
+            ]
           },
           "blockGrid": {
-            "$ref": "#/components/schemas/ApiBlockGridModel"
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/ApiBlockGridModel"
+              }
+            ]
           },
           "markdown": {
             "type": "string",
@@ -2312,7 +2361,11 @@
             "nullable": true
           },
           "blockList": {
-            "$ref": "#/components/schemas/ApiBlockListModel"
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/ApiBlockListModel"
+              }
+            ]
           },
           "checkboxList": {
             "type": "array",
@@ -2348,7 +2401,11 @@
             "nullable": true
           },
           "imageCropper": {
-            "$ref": "#/components/schemas/ApiImageCropperValueModel"
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/ApiImageCropperValueModel"
+              }
+            ]
           },
           "plainJson": { }
         },
@@ -2434,7 +2491,11 @@
             "nullable": true
           },
           "colorPicker": {
-            "$ref": "#/components/schemas/PickedColorModel"
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/PickedColorModel"
+              }
+            ]
           },
           "contentPicker": {
             "$ref": "#/components/schemas/IApiContentModel"
@@ -2446,7 +2507,11 @@
           "urlPicker": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/ApiLinkModel"
+              "oneOf": [
+                {
+                  "$ref": "#/components/schemas/ApiLinkModel"
+                }
+              ]
             },
             "nullable": true
           },
@@ -2458,10 +2523,18 @@
             "nullable": true
           },
           "richText": {
-            "$ref": "#/components/schemas/RichTextModel"
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/RichTextModel"
+              }
+            ]
           },
           "blockGrid": {
-            "$ref": "#/components/schemas/ApiBlockGridModel"
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/ApiBlockGridModel"
+              }
+            ]
           },
           "markdown": {
             "type": "string",
@@ -2473,7 +2546,11 @@
             "nullable": true
           },
           "blockList": {
-            "$ref": "#/components/schemas/ApiBlockListModel"
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/ApiBlockListModel"
+              }
+            ]
           },
           "checkboxList": {
             "type": "array",
@@ -2509,7 +2586,11 @@
             "nullable": true
           },
           "imageCropper": {
-            "$ref": "#/components/schemas/ApiImageCropperValueModel"
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/ApiImageCropperValueModel"
+              }
+            ]
           },
           "plainJson": { }
         },

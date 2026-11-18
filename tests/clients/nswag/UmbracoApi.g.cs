@@ -1393,15 +1393,6 @@ namespace nswag
 
     }
 
-    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.7.1.0 (NJsonSchema v11.6.1.0 (Newtonsoft.Json v13.0.0.0))")]
-    public partial class HttpValidationProblemDetails : ProblemDetails
-    {
-
-        [System.Text.Json.Serialization.JsonPropertyName("errors")]
-        public System.Collections.Generic.IDictionary<string, System.Collections.Generic.ICollection<string>>? Errors { get; set; } = default!;
-
-    }
-
     [JsonInheritanceConverter(typeof(IApiContentModel), "contentType")]
     [JsonInheritanceAttribute("IApiContentResponseModel", typeof(IApiContentResponseModel))]
     [JsonInheritanceAttribute("testPage", typeof(TestPageContentModel))]
@@ -1510,8 +1501,8 @@ namespace nswag
     [JsonInheritanceAttribute("testComposition", typeof(TestCompositionElementModel))]
     [JsonInheritanceAttribute("testComposition2", typeof(TestComposition2ElementModel))]
     [JsonInheritanceAttribute("blockSettings", typeof(BlockSettingsElementModel))]
-    [JsonInheritanceAttribute("testBlock2", typeof(TestBlock2ElementModel))]
     [JsonInheritanceAttribute("testBlock", typeof(TestBlockElementModel))]
+    [JsonInheritanceAttribute("testBlock2", typeof(TestBlock2ElementModel))]
     [JsonInheritanceAttribute("TestPageContentModel", typeof(TestPageContentModel))]
     [JsonInheritanceAttribute("TestPageInvariantContentModel", typeof(TestPageInvariantContentModel))]
     [JsonInheritanceAttribute("TestPageContentResponseModel", typeof(TestPageContentResponseModel))]
