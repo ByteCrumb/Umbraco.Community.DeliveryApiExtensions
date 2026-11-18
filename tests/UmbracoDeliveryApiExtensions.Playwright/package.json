@@ -14,19 +14,19 @@
   "keywords": [],
   "author": "",
   "dependencies": {
-    "@umbraco-cms/acceptance-test-helpers": "^17.6.2",
+    "@umbraco-cms/acceptance-test-helpers": "^17.8.2",
     "dotenv": "^17.4.2"
   },
   "devDependencies": {
-    "@playwright/test": "^1.63.0",
-    "@types/node": "^24.13.4",
-    "eslint": "^10.10.0",
+    "@playwright/test": "^1.65.1",
+    "@types/node": "^24.19.2",
+    "eslint": "^10.15.0",
     "eslint-config-xo-space": "^1.0.0",
     "eslint-config-xo-typescript": "^11.0.0",
-    "eslint-plugin-n": "^18.3.0",
+    "eslint-plugin-n": "^18.5.0",
     "eslint-plugin-promise": "^7.3.0",
     "eslint-plugin-simple-import-sort": "^14.0.0",
-    "tslib": "^2.8.1",
+    "tslib": "^2.9.1",
     "typescript": "^7.0.2"
   },
   "engines": {
